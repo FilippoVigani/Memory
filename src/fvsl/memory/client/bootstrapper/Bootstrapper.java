@@ -14,13 +14,5 @@ public class Bootstrapper {
 		System.out.println("Hello world!");
 		WindowShell mainWindow = new WindowShell();
 		mainWindow.setVisible(true);
-		
-		Connection connection = DBHelper.getLocalConnection();
-		try {
-			DBHelper.viewTable(connection, "MemoryDB");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
