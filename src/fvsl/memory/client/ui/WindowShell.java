@@ -12,7 +12,7 @@ import javax.swing.JFrame;
  */
 public class WindowShell extends JFrame {
 	
-	Page currentPage;
+	PageManager pageManager;
 	
 	public WindowShell() {
 		setTitle("Simple example");
@@ -20,10 +20,7 @@ public class WindowShell extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		currentPage = new MainPage(this);
-		add(currentPage);
-		
-		currentPage.loadNewPage(new CreateLobbyPage(this));
+		pageManager = new PageManager(this, new MainPage()); 
 	}
 
 }

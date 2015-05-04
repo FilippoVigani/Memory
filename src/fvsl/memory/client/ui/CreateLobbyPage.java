@@ -5,14 +5,14 @@ import javax.swing.JLabel;
 
 public class CreateLobbyPage extends Page {
 
-	public CreateLobbyPage(JFrame container){
-		super(container);
+	public CreateLobbyPage(){
+		super();
 	}
 	
 	@Override
 	protected void loadComponents() {
 		add(new JLabel("createLobbyPage"));
-
+		
 	}
 
 }
