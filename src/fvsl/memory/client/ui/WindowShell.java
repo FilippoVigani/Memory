@@ -1,5 +1,8 @@
 package fvsl.memory.client.ui;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,11 +19,15 @@ public class WindowShell extends JFrame {
 	
 	public WindowShell() {
 		setTitle("Simple example");
-		setSize(1200, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		pageManager = new PageManager(this, new MainPage()); 
+		setLayout(new FlowLayout());
+		Dimension dimSchermo = Toolkit.getDefaultToolkit().getScreenSize();
+		 int x = dimSchermo.width; 
+	     int y = dimSchermo.height;
+	     
+		pageManager = new PageManager(this, new MainPage());
+		setBounds(0,0,x,y);
 	}
 
 }

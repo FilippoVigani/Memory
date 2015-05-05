@@ -16,15 +16,16 @@ public class MainPage extends Page {
 
 	public MainPage(){
 		super();
-		setLayout(new GridLayout(1, 0, 0, 0));
+		setLayout(new FlowLayout()); //GridLayout(1, 0, 0, 0));
 		
 		JPanel panel = new JPanel();
 		add(panel);
 		panel.setLayout(new GridLayout(1, 0, 0, 0));
-		
 		JPanel createLobbyPanel = new JPanel();
 		panel.add(createLobbyPanel);
 		createLobbyPanel.setLayout(new BoxLayout(createLobbyPanel, BoxLayout.Y_AXIS));
+		
+	  
 		
 		txtUsername = new JTextField();
 		createLobbyPanel.add(txtUsername);
