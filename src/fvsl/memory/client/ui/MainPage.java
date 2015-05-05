@@ -1,14 +1,6 @@
 package fvsl.memory.client.ui;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.BoxLayout;
-
-import java.awt.BorderLayout;
-
 import javax.swing.JPanel;
-
-import java.awt.FlowLayout;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -16,11 +8,6 @@ import javax.swing.JList;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.sql.Types;
-
-import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
