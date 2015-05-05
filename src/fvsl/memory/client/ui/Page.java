@@ -29,11 +29,17 @@ public abstract class Page extends JPanel {
 	public Page(){
 		level = 0;
 		loadComponents();
+		setUpListeners();
+		loadData();
+		populateViews();
 	}
 	
 	///Methods
 	
 	protected abstract void loadComponents();
+	protected abstract void setUpListeners();
+	protected abstract void loadData();
+	protected abstract void populateViews();
 	
 	///Getters and Setters
 	

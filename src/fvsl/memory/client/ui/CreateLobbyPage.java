@@ -15,4 +15,22 @@ public class CreateLobbyPage extends Page {
 		
 	}
 
+	@Override
+	protected void setUpListeners() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void loadData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void populateViews() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
