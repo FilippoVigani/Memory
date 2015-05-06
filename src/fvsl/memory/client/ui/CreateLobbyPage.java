@@ -1,5 +1,4 @@
 package fvsl.memory.client.ui;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 

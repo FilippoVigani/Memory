@@ -8,20 +8,30 @@ import javax.swing.JList;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class MainPage extends Page {
+import fvsl.memory.client.ui.MainPageController.LobbyJoiningResult;
+
+public class MainPageView extends Page {
+	
+	private static final Logger log = Logger.getLogger( MainPageView.class.getName() );
+	
+	private MainPageModel model;
+	private MainPageController controller;
+	
 	private JTextField txtUsername;
-	private MainPageViewModel viewModel;
 	private JTextField txtPassword;
 	private JButton btnCreateLobby;
 	private JButton btnJoinLobby;
 	private JList<Lobby> listLobbies;
 	
-	public MainPage(){
+	public MainPageView(){
 		super();
 	}
 	
@@ -62,16 +72,17 @@ public class MainPage extends Page {
 	@Override
 	protected void loadData(){
 		//Spostare su controller (parzialmente) + richiesta al server
-		viewModel = new MainPageViewModel();
-		viewModel.setLobbies(MockFactory.getMockLobbiesList());
-		viewModel.setPlayerName("Anonymous Player"); //Default user name
+		model = new MainPageModel();
+		controller = new MainPageController();
+		model.setLobbies(MockFactory.getMockLobbiesList());
+		model.setPlayerName("Anonymous Player"); //Default user name
 	}
 	
 	@Override
 	protected void populateViews(){
-		listLobbies.setListData(viewModel.getLobbies().toArray(new Lobby[MockFactory.getMockLobbiesList().size()]));
+		listLobbies.setListData(model.getLobbies().toArray(new Lobby[MockFactory.getMockLobbiesList().size()]));
 		listLobbies.setSelectedIndex(0);
-		txtUsername.setText(viewModel.getPlayerName());
+		txtUsername.setText(model.getPlayerName());
 		txtUsername.selectAll();
 	}
 	
@@ -89,7 +100,7 @@ public class MainPage extends Page {
 				  } 
 				 
 				  public void notifyProperty() { 
-				     viewModel.setPlayerName(txtUsername.getText());
+				     model.setPlayerName(txtUsername.getText());
 				  } 
 		});
 		
@@ -105,7 +116,7 @@ public class MainPage extends Page {
 				  } 
 				 
 				  public void notifyProperty() { 
-				     viewModel.setPassword(txtPassword.getText());
+				     model.setPassword(txtPassword.getText());
 				  } 
 		});
 		
@@ -113,8 +124,8 @@ public class MainPage extends Page {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (listLobbies.getValueIsAdjusting()==false){
-					System.out.println("Selezione lista cambiata " + listLobbies.getSelectedValue());
-					viewModel.setSelectedLobby(listLobbies.getSelectedValue());
+					log.log(Level.FINE, "Lobby selection changed " + listLobbies.getSelectedValue());
+					model.setSelectedLobby(listLobbies.getSelectedValue());
 				}
 			}
 		});
@@ -122,14 +133,18 @@ public class MainPage extends Page {
 		btnJoinLobby.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e)
             {
-                joinLobby(viewModel.getPlayerName(), viewModel.getSelectedLobby(), viewModel.getPassword());
+                attemptToJoinLobby();
             }
         });
 	}
-
-	protected void joinLobby(String playerName, Lobby selectedLobby, String password) {
-		//Richiesta a server + spostare in un controller
-		System.out.println(playerName + " accede alla lobby " + selectedLobby.getName());
+	
+	protected void attemptToJoinLobby(){
+		LobbyJoiningResult result = controller.requestLobbyJoining(model.getPlayerName(), model.getSelectedLobby(), model.getPassword());
+		if (result == LobbyJoiningResult.Accepted){
+			log.log(Level.INFO, model.getPlayerName() + " successfully joined the lobby " + model.getSelectedLobby(), model.getSelectedLobby());
+		} else {
+			log.log(Level.WARNING, model.getPlayerName() + " was unable to join the lobby " + model.getSelectedLobby() + ": " + result.toString(), result);
+		}
 	}
 
 	/**
@@ -140,10 +155,10 @@ public class MainPage extends Page {
 	}
 
 	/**
-	 * @return the viewModel
+	 * @return the model
 	 */
-	public MainPageViewModel getViewModel() {
-		return viewModel;
+	public MainPageModel getModel() {
+		return model;
 	}
 
 }

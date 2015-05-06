@@ -1,9 +1,4 @@
 package fvsl.memory.client.ui;
-import java.awt.HeadlessException;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 
 /**
@@ -20,7 +15,7 @@ public class WindowShell extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		pageManager = new PageManager(this, new MainPage()); 
+		pageManager = new PageManager(this, new MainPageView()); 
 	}
 
 }

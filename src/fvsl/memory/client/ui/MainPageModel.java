@@ -1,10 +1,9 @@
 package fvsl.memory.client.ui;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 //In realtà sarebbe MainPageModel, (vedi MVC)
-public class MainPageViewModel {
+public class MainPageModel {
 	private String playerName;
 	private ArrayList<Lobby> lobbies;
 	private Lobby selectedLobby;
