@@ -1,7 +1,14 @@
 package fvsl.memory.client.ui;
 
-public class Lobby {
+import java.io.Serializable;
 
+public class Lobby implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2379632040815885727L;
+	
 	private String name;
 	private int numberOfPlayers;
 	private int numberOfPairs;

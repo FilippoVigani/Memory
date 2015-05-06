@@ -14,7 +14,7 @@ public class MainPageController {
 	private static final Logger log = Logger.getLogger( MainPageController.class.getName() );
 	
 	public static ArrayList<Lobby> getLobbiesFromServer(){
-		return MockFactory.getMockLobbiesList();
+		return Global.getServerManager().requestLobbies();
 	}
 	
 	public LobbyJoiningResult requestLobbyJoining(String playerName, Lobby selectedLobby, String password) {

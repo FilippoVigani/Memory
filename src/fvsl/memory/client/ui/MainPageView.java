@@ -77,7 +77,7 @@ public class MainPageView extends Page {
 		//Spostare su controller (parzialmente) + richiesta al server
 		model = new MainPageModel();
 		controller = new MainPageController();
-		model.setLobbies(MockFactory.getMockLobbiesList());
+		model.setLobbies(controller.getLobbiesFromServer());
 		model.setPlayerName("Anonymous Player"); //Default user name
 	}
 	
