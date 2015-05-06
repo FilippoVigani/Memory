@@ -30,7 +30,7 @@ public class WindowShell extends JFrame {
 		mpw.getController().addEventListener(new GoToCreateLobbyEventListener(){
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				pageManager.loadNewPage(new CreateLobbyPageView());
 			}
 		});
