@@ -53,15 +53,19 @@ public class ClientRunnable implements Runnable{
 				Request request = null;
 				try {
 					//Getting request
-					System.out.println("Waiting for request...");
+					/*
 					boolean check=true;
 					while (check) {
 						try{ 
+							System.out.println("Waiting for request...");
 							request = (Request)streamFromClient.readObject();
 						} catch(EOFException ex){
 							check=false;
 						} 
-					} 
+					} */
+					System.out.println("Waiting for request...");
+					request = (Request)streamFromClient.readObject();
+
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				} 
@@ -79,13 +83,15 @@ public class ClientRunnable implements Runnable{
 				}
 
 				//Returning results
+				streamToClient.reset();
 				streamToClient.writeObject(request);
 				streamToClient.flush();
 
 				System.out.print("Request fulfilled...");
 			} catch (IOException e) {
 				e.printStackTrace();
-			} finally {
+			} 
+			/*finally {
 				try {
 					System.out.println("Closing connection");
 					streamFromClient.close();
@@ -96,7 +102,7 @@ public class ClientRunnable implements Runnable{
 					System.err.println(ioEx);
 					System.exit(1);
 				}
-			}
+			}*/
 			
 		}
 

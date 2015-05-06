@@ -21,7 +21,6 @@ public class ServerManager {
 	
 	
 	public ServerManager(){
-		connect();
 	}
 	
 	public void connect(){
@@ -45,13 +44,6 @@ public class ServerManager {
 			streamFromServer = new ObjectInputStream(socket.getInputStream()); 
 			
 			System.out.println("Created input stream clientside");
-			/*
-			try {
-				input.readObject();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
 			
 			streamToServer = new ObjectOutputStream(socket.getOutputStream()); 
 
@@ -82,8 +74,20 @@ public class ServerManager {
 		}*/
 	}
 	
-	public ArrayList<Lobby> requestLobbies(){
+	public void closeConnection(){
 		try {
+			streamFromServer.close();
+			streamToServer.close();
+			socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Lobby> requestLobbies(){
+		connect();
+		try {
+			streamToServer.reset();
 			streamToServer.writeObject(new Request(RequestAction.Ask, RequestType.GetLobbies, null));
 			streamToServer.flush();
 		} catch (IOException e1) {
@@ -102,6 +106,8 @@ public class ServerManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		closeConnection();
 		return list;
+		
 	}
 }
