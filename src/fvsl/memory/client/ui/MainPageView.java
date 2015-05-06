@@ -5,6 +5,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,6 +51,7 @@ public class MainPageView extends Page {
 		txtUsername = new JTextField();
 		createLobbyPanel.add(txtUsername);
 		txtUsername.setColumns(10);
+		txtUsername.setMaximumSize(new Dimension(Integer.MAX_VALUE, txtUsername.getPreferredSize().height) );
 		
 		btnCreateLobby = new JButton("Create Lobby");
 		createLobbyPanel.add(btnCreateLobby);
@@ -64,6 +66,7 @@ public class MainPageView extends Page {
 		txtPassword = new JTextField();
 		joinLobbyPanel.add(txtPassword);
 		txtPassword.setColumns(10);
+		txtPassword.setMaximumSize(new Dimension(Integer.MAX_VALUE, txtPassword.getPreferredSize().height) );
 		
 		btnJoinLobby = new JButton("Join Lobby");
 		joinLobbyPanel.add(btnJoinLobby);
@@ -136,8 +139,19 @@ public class MainPageView extends Page {
                 attemptToJoinLobby();
             }
         });
+		
+		btnCreateLobby.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e)
+            {
+                loadCreateLobbyPage();
+            }
+        });
 	}
 	
+	protected void loadCreateLobbyPage() {
+		controller.loadCreateLobbyPage();
+	}
+
 	protected void attemptToJoinLobby(){
 		LobbyJoiningResult result = controller.requestLobbyJoining(model.getPlayerName(), model.getSelectedLobby(), model.getPassword());
 		if (result == LobbyJoiningResult.Accepted){
@@ -159,6 +173,13 @@ public class MainPageView extends Page {
 	 */
 	public MainPageModel getModel() {
 		return model;
+	}
+
+	/**
+	 * @return the controller
+	 */
+	public MainPageController getController() {
+		return controller;
 	}
 
 }

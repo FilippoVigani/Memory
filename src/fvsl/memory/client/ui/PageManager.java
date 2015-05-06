@@ -26,6 +26,7 @@ public class PageManager implements ActionListener{
 		currentPage = page;
 		container.setContentPane(page);
 		container.pack();
+		container.setSize(Global.WINDOW_WIDTH, Global.WINDOW_HEIGHT);
 		return page;
 	}
 
@@ -33,6 +34,7 @@ public class PageManager implements ActionListener{
 		if (!currentPage.isRoot()) {
 			container.setContentPane(currentPage.getSourcePage());
 			container.pack();
+			container.setSize(Global.WINDOW_WIDTH, Global.WINDOW_HEIGHT);
 		}
 	}
 	

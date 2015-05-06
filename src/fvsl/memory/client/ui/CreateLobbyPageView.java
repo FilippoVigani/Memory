@@ -2,9 +2,9 @@ package fvsl.memory.client.ui;
 import javax.swing.JLabel;
 
 
-public class CreateLobbyPage extends Page {
+public class CreateLobbyPageView extends Page {
 
-	public CreateLobbyPage(){
+	public CreateLobbyPageView(){
 		super();
 	}
 	

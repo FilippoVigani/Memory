@@ -1,5 +1,10 @@
 package fvsl.memory.client.ui;
+import java.awt.event.ActionEvent;
+
 import javax.swing.JFrame;
+
+import fvsl.memory.client.ui.MainPageController.GoToCreateLobbyEvent;
+import fvsl.memory.client.ui.MainPageController.GoToCreateLobbyEventListener;
 
 /**
  * @author Filippo Vigani
@@ -11,11 +16,24 @@ public class WindowShell extends JFrame {
 	
 	public WindowShell() {
 		setTitle("Simple example");
-		setSize(1200, 600);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		pageManager = new PageManager(this, new MainPageView()); 
+		init();
 	}
 
+	private void init(){
+		MainPageView mpw = new MainPageView();
+		
+		pageManager = new PageManager(this, mpw); 
+		
+		mpw.getController().addEventListener(new GoToCreateLobbyEventListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				pageManager.loadNewPage(new CreateLobbyPageView());
+			}
+		});
+	}
+	
 }
