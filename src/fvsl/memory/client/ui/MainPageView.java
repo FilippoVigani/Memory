@@ -78,8 +78,8 @@ public class MainPageView extends Page {
 		//Spostare su controller (parzialmente) + richiesta al server
 		model = new MainPageModel();
 		controller = new MainPageController();
-		//model.setLobbies(controller.getLobbiesFromServer());
-		model.setLobbies(new ArrayList<Lobby>());
+		model.setLobbies(controller.getLobbiesFromServer());
+		//model.setLobbies(new ArrayList<Lobby>());
 		model.setPlayerName("Anonymous Player"); //Default user name
 	}
 	

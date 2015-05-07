@@ -6,18 +6,18 @@ import fvsl.memory.client.ui.Request.RequestAction;
 
 public class Request implements Serializable {
 	
-	private int requestType;
-	private int requestAction;
+	private RequestType requestType;
+	private RequestAction requestAction;
 	private Object content;
 	
-	public Request(int requestAction, int requestType, Object content) {
+	public Request(RequestAction requestAction, RequestType requestType, Object content) {
 		super();
 		this.requestAction = requestAction;
 		this.requestType = requestType;
 		this.content = content;
 	}
 	
-	public Request(int requestAction) {
+	public Request(RequestAction requestAction) {
 		this.requestAction = requestAction;
 	}
 	
@@ -25,37 +25,37 @@ public class Request implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public abstract class RequestType{
-		public final static int GetLobbies = 0;
-		public final static int JoinLobby = 1;
-		public final static int CreateLobby = 2;
-		public final static int Handshake = 3;
-		public final static int FuckAllTheBitches = 4;
+	public enum RequestType{
+		GetLobbies,
+		JoinLobby,
+		CreateLobby,
+		Handshake,
+		FuckAllTheBitches
 	}
 	
-	public abstract class RequestAction{
-		public final static int Ask = 0;
-		public final static int Reply = 1;
+	public enum RequestAction{
+		Ask,
+		Reply
 	}
 
 	/**
 	 * @return the requestType
 	 */
-	public int getRequestType() {
+	public RequestType getRequestType() {
 		return requestType;
 	}
 
 	/**
 	 * @return the requestAction
 	 */
-	public int getRequestAction() {
+	public RequestAction getRequestAction() {
 		return requestAction;
 	}
 
 	/**
 	 * @param requestAction the requestAction to set
 	 */
-	public void setRequestAction(int requestAction) {
+	public void setRequestAction(RequestAction requestAction) {
 		this.requestAction = requestAction;
 	}
 
@@ -73,7 +73,7 @@ public class Request implements Serializable {
 		this.content = content;
 	}
 
-	public void setRequestType(int type) {
+	public void setRequestType(RequestType type) {
 		requestType = type;
 	}
 }

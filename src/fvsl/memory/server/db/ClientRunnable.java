@@ -52,17 +52,6 @@ public class ClientRunnable implements Runnable{
 
 				Request request = null;
 				try {
-					//Getting request
-					/*
-					boolean check=true;
-					while (check) {
-						try{ 
-							System.out.println("Waiting for request...");
-							request = (Request)streamFromClient.readObject();
-						} catch(EOFException ex){
-							check=false;
-						} 
-					} */
 					System.out.println("Waiting for request...");
 					request = (Request)streamFromClient.readObject();
 
@@ -79,7 +68,7 @@ public class ClientRunnable implements Runnable{
 						System.out.print("Request ask ");
 						if (request.getRequestType() == RequestType.GetLobbies){
 							System.out.println("lobbies");
-							reply.setContent(MockFactory.getMockLobbiesList());
+							reply.setContent(serverData.getLobbies());
 							reply.setRequestType(RequestType.GetLobbies);
 						}
 					}
@@ -91,7 +80,6 @@ public class ClientRunnable implements Runnable{
 				streamToClient.flush();
 
 				System.out.print("Request fulfilled...");
-				return;
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 
