@@ -23,9 +23,6 @@ public class WindowShell extends JFrame {
 
 	PageManager pageManager;
 
-	private static InetAddress host;
-	private static final int PORT = 17829;
-
 	public WindowShell() {
 		setTitle("Simple example");
 		setLocationRelativeTo(null);
@@ -43,9 +40,7 @@ private void init(){
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//pageManager.loadNewPage(new CreateLobbyPageView());
-			mpw.getModel().setLobbies(mpw.getController().getLobbiesFromServer());
-			mpw.populateViews();
+			pageManager.loadNewPage(new CreateLobbyPageView());
 		}
 	});
 }
