@@ -18,11 +18,11 @@ public class ServerManager {
 	private ObjectInputStream streamFromServer;
 	private ObjectOutputStream streamToServer;
 	Socket socket = null;
-	
-	
+
+
 	public ServerManager(){
 	}
-	
+
 	public void connect(){
 		try
 		{
@@ -34,23 +34,23 @@ public class ServerManager {
 			System.err.println(uhEx);
 			System.exit(1);
 		}
-		
+
 		try 
 		{
 			socket = new Socket(host, PORT);
-			
+
 			System.out.println("Connected to " + host.getHostAddress());
-			
+
 			streamFromServer = new ObjectInputStream(socket.getInputStream()); 
-			
+
 			System.out.println("Created input stream clientside");
-			
+
 			streamToServer = new ObjectOutputStream(socket.getOutputStream()); 
 
 			streamToServer.flush();
-			
+
 			System.out.println("Created output stream clientside");
-	
+
 		}
 		catch(IOException ioEx)
 		{
@@ -73,7 +73,7 @@ public class ServerManager {
 			}
 		}*/
 	}
-	
+
 	public void closeConnection(){
 		try {
 			streamFromServer.close();
@@ -83,7 +83,7 @@ public class ServerManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<Lobby> requestLobbies(){
 		connect();
 		try {
@@ -96,10 +96,15 @@ public class ServerManager {
 		System.out.println("Request sent");
 		ArrayList<Lobby> list = null;
 		try {
-			list = (ArrayList<Lobby>)((Request)streamFromServer.readObject()).getContent();
-			System.out.println("Something has been received");
-			for (Lobby lobby : list){
-				System.out.println(lobby);
+			Request obj = (Request)streamFromServer.readObject();
+			list = (ArrayList<Lobby>)(obj.getContent());
+			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
+			if (list != null){
+				for (Lobby lobby : list){
+					System.out.println(lobby);
+				}
+			} else {
+				list = new ArrayList<Lobby>();
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -108,6 +113,6 @@ public class ServerManager {
 		}
 		closeConnection();
 		return list;
-		
+
 	}
 }

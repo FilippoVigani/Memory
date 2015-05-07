@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,12 +78,13 @@ public class MainPageView extends Page {
 		//Spostare su controller (parzialmente) + richiesta al server
 		model = new MainPageModel();
 		controller = new MainPageController();
-		model.setLobbies(controller.getLobbiesFromServer());
+		//model.setLobbies(controller.getLobbiesFromServer());
+		model.setLobbies(new ArrayList<Lobby>());
 		model.setPlayerName("Anonymous Player"); //Default user name
 	}
 	
 	@Override
-	protected void populateViews(){
+	public void populateViews(){
 		listLobbies.setListData(model.getLobbies().toArray(new Lobby[MockFactory.getMockLobbiesList().size()]));
 		listLobbies.setSelectedIndex(0);
 		txtUsername.setText(model.getPlayerName());

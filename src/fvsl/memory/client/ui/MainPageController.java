@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class MainPageController {
 	private static final Logger log = Logger.getLogger( MainPageController.class.getName() );
 	
-	public static ArrayList<Lobby> getLobbiesFromServer(){
+	public ArrayList<Lobby> getLobbiesFromServer(){
 		return Global.getServerManager().requestLobbies();
 	}
 	

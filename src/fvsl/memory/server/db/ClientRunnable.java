@@ -39,7 +39,7 @@ public class ClientRunnable implements Runnable{
 
 			streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
 
-			streamToClient.writeObject(new Request(RequestAction.Ask, RequestType.Handshake, null));
+			//streamToClient.writeObject(new Request(RequestAction.Ask, RequestType.Handshake, null));
 			streamToClient.flush();
 			
 			System.out.println("Created input stream serverside");
@@ -73,21 +73,25 @@ public class ClientRunnable implements Runnable{
 				System.out.println("Request received...");
 
 				//Processing request - DA MIGLIORARE
+				Request reply = new Request(RequestAction.Reply);
 				if (request != null){
 					if (request.getRequestAction() == RequestAction.Ask){
+						System.out.print("Request ask ");
 						if (request.getRequestType() == RequestType.GetLobbies){
-							request.setContent(MockFactory.getMockLobbiesList());
-							request.setRequestAction(RequestAction.Reply);
+							System.out.println("lobbies");
+							reply.setContent(MockFactory.getMockLobbiesList());
+							reply.setRequestType(RequestType.GetLobbies);
 						}
 					}
 				}
 
 				//Returning results
 				streamToClient.reset();
-				streamToClient.writeObject(request);
+				streamToClient.writeObject(reply);
 				streamToClient.flush();
 
 				System.out.print("Request fulfilled...");
+				return;
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 

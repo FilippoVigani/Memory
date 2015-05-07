@@ -35,7 +35,7 @@ public class WindowShell extends JFrame {
 	}
 
 private void init(){
-	MainPageView mpw = new MainPageView();
+	final MainPageView mpw = new MainPageView();
 
 	pageManager = new PageManager(this, mpw); 
 
@@ -43,7 +43,9 @@ private void init(){
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			pageManager.loadNewPage(new CreateLobbyPageView());
+			//pageManager.loadNewPage(new CreateLobbyPageView());
+			mpw.getModel().setLobbies(mpw.getController().getLobbiesFromServer());
+			mpw.populateViews();
 		}
 	});
 }
