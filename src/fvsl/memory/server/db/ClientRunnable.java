@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import fvsl.memory.client.ui.Lobby;
 import fvsl.memory.client.ui.MockFactory;
+import fvsl.memory.client.ui.Player;
 import fvsl.memory.client.ui.Request;
 import fvsl.memory.client.ui.Request.LobbyJoiningResult;
 import fvsl.memory.client.ui.Request.RequestAction;
@@ -76,7 +77,7 @@ public class ClientRunnable implements Runnable{
 						}
 						else if (request.getRequestType() == RequestType.JoinLobby){
 							ArrayList<Object> contents = (ArrayList<Object>)request.getContent();
-							String player = request.getPlayerName();
+							String player = request.getPlayerName(); //Player dovrebbe essere un oggetto! da modificare
 							int lobbyID = ((Lobby)contents.get(0)).getId();
 							Lobby lobby = null;
 							boolean found = false;
@@ -98,6 +99,9 @@ public class ClientRunnable implements Runnable{
 								reply.setContent(LobbyJoiningResult.FullLobby);
 							} else {
 								reply.setContent(LobbyJoiningResult.Accepted);
+								synchronized (lobby) {
+									lobby.getConnectedPlayers().add(new Player(player));
+								}
 							}
 							
 						}
