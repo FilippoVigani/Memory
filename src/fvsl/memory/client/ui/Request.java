@@ -29,8 +29,9 @@ public class Request implements Serializable {
 		GetLobbies,
 		JoinLobby,
 		CreateLobby,
-		Handshake,
-		FuckAllTheBitches
+		GetPossiblePlayersNumbers,
+		GetPossiblePairsNumbers,
+		GetPossibleTimerNumbers
 	}
 	
 	public enum RequestAction{

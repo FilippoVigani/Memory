@@ -16,16 +16,25 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 
 public class CreateLobbyPageView extends Page {
 
+	private CreateLobbyPageModel model;
+	
 	public CreateLobbyPageView(){
 		super();
 	}
 
 	private JButton creaButton;
 	private	JButton backButton;
+	private JTextField lobbyNameField;
+	private JTextField passwordField;
+	private JComboBox nGCombo;
+	private JComboBox nCoppieCombo;
+	private JComboBox timerCombo;
 	
 	@Override
 	protected void loadComponents() {
@@ -33,7 +42,7 @@ public class CreateLobbyPageView extends Page {
 		add(pannello);
 		pannello.setLayout(new GridLayout(6,2,55,55));
 		
-		JTextField lobbyNameField=new JTextField("nome stanza");
+		lobbyNameField=new JTextField();
 		lobbyNameField.setColumns(10);
 		
 		
@@ -46,15 +55,16 @@ public class CreateLobbyPageView extends Page {
 		JLabel passwordLabel= new JLabel("inserire Password");
 		
 		
-		JTextField passwordField=new JTextField("passwords");
+		passwordField=new JTextField();
 		passwordField.setColumns(10);
 		
+		//I valori di default dovrebbe prenderli da server
 		String[] giocatoriPossibili={"2","3","4"};
-		JComboBox nGCombo= new JComboBox(giocatoriPossibili);
+		nGCombo= new JComboBox(giocatoriPossibili);
 		String[] coppiePossibili={"10","18","20"};
-		JComboBox nCoppieCombo= new JComboBox(coppiePossibili);
+		nCoppieCombo= new JComboBox(coppiePossibili);
 		String[] timerPossibili={"5","10","15"};
-		JComboBox timerCombo= new JComboBox(timerPossibili);
+		timerCombo= new JComboBox(timerPossibili);
 		
 		creaButton= new JButton("Crea Stanza");
 		backButton=new JButton("torna indietro");
@@ -79,25 +89,67 @@ public class CreateLobbyPageView extends Page {
 	
 	@Override
 	protected void setUpListeners() {
-		// TODO Auto-generated method stub
-		/*backButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                PageManager ciao=new PageManager();
-                ciao.loadPreviousPage();
-            }
-        });*/
+		
+		lobbyNameField.getDocument().addDocumentListener(new DocumentListener() { 
+			  public void changedUpdate(DocumentEvent e) {
+				  	  notifyProperty(); 
+				  } 
+				  public void removeUpdate(DocumentEvent e) {
+					  notifyProperty(); 
+				  } 
+				  public void insertUpdate(DocumentEvent e) {
+					  notifyProperty(); 
+				  } 
+				 
+				  public void notifyProperty() { 
+				     model.getLobby().setName(lobbyNameField.getText());
+				  } 
+		});
+		
+		passwordField.getDocument().addDocumentListener(new DocumentListener() { 
+			  public void changedUpdate(DocumentEvent e) {
+				  	  notifyProperty(); 
+				  } 
+				  public void removeUpdate(DocumentEvent e) {
+					  notifyProperty(); 
+				  } 
+				  public void insertUpdate(DocumentEvent e) {
+					  notifyProperty(); 
+				  } 
+				 
+				  public void notifyProperty() { 
+				     model.setPassword(passwordField.getText());
+				  } 
+		});
+		
+		nGCombo.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		        model.getLobby().setNumberOfPlayers((Integer)nGCombo.getSelectedItem());
+		    }
+		});
+			
+		nCoppieCombo.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		        model.getLobby().setNumberOfPlayers((Integer)nCoppieCombo.getSelectedItem());
+		    }
+		});
+		
+		timerCombo.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		        model.getLobby().setNumberOfPlayers((Integer)timerCombo.getSelectedItem());
+		    }
+		});
 	}
 
 	@Override
 	protected void loadData() {
-		// TODO Auto-generated method stub
-		
+		model = new CreateLobbyPageModel();
+		//Prendi valori di "default" qui (dal controller) e mettili nel model (vanno creati altri campi)
 	}
 
 	@Override
 	protected void populateViews() {
-		// TODO Auto-generated method stub
+		//Imposta i valori qui (li prendi dal model e li metti nella view)
 		
 	}
 
