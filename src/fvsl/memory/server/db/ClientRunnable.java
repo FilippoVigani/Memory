@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
+import fvsl.memory.client.ui.Lobby;
 import fvsl.memory.client.ui.MockFactory;
 import fvsl.memory.client.ui.Request;
+import fvsl.memory.client.ui.Request.LobbyJoiningResult;
 import fvsl.memory.client.ui.Request.RequestAction;
 import fvsl.memory.client.ui.Request.RequestType;
 
@@ -70,6 +73,33 @@ public class ClientRunnable implements Runnable{
 							System.out.println("lobbies");
 							reply.setContent(serverData.getLobbies());
 							reply.setRequestType(RequestType.GetLobbies);
+						}
+						else if (request.getRequestType() == RequestType.JoinLobby){
+							ArrayList<Object> contents = (ArrayList<Object>)request.getContent();
+							String player = request.getPlayerName();
+							int lobbyID = ((Lobby)contents.get(0)).getId();
+							Lobby lobby = null;
+							boolean found = false;
+							for (int i = 0; !found && i < serverData.getLobbies().size(); i++){
+								lobby = serverData.getLobbies().get(i);
+								found = lobby.getId() == lobbyID;
+							}
+							
+							String password = (String)contents.get(1);
+							
+							//Checks and returns result
+							if (player == null || player.isEmpty()){
+								reply.setContent(LobbyJoiningResult.UnacceptedUsername);
+							} else if (!found || lobby == null){
+								reply.setContent(LobbyJoiningResult.NotFound);
+							} else if (!lobby.checkPassword(password)){
+								reply.setContent(LobbyJoiningResult.WrongPassword);
+							} else if (lobby.getConnectedPlayers().size() >= lobby.getNumberOfPlayers()){
+								reply.setContent(LobbyJoiningResult.FullLobby);
+							} else {
+								reply.setContent(LobbyJoiningResult.Accepted);
+							}
+							
 						}
 					}
 				}

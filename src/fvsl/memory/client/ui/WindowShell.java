@@ -10,8 +10,8 @@ import java.util.*;
 
 import javax.swing.JFrame;
 
-import fvsl.memory.client.ui.MainPageController.GoToCreateLobbyEvent;
-import fvsl.memory.client.ui.MainPageController.GoToCreateLobbyEventListener;
+import fvsl.memory.client.ui.MainPageController.*;
+import fvsl.memory.client.ui.Request.LobbyJoiningResult;
 import fvsl.memory.client.ui.Request.RequestAction;
 import fvsl.memory.client.ui.Request.RequestType;
 
@@ -41,6 +41,14 @@ private void init(){
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			pageManager.loadNewPage(new CreateLobbyPageView());
+		}
+	});
+	
+	mpw.getController().addEventListener(new GoToLobbyEventListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			pageManager.loadNewPage(new LobbyPageView());
 		}
 	});
 }

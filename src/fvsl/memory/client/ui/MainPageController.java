@@ -10,24 +10,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import fvsl.memory.client.ui.Request.LobbyJoiningResult;
+
 public class MainPageController {
 	private static final Logger log = Logger.getLogger( MainPageController.class.getName() );
 	
-	public ArrayList<Lobby> getLobbiesFromServer(){
-		return Global.getServerManager().requestLobbies();
+	public ArrayList<Lobby> getLobbiesFromServer(String playerName){
+		return Global.getServerManager().requestLobbies(playerName);
 	}
 	
 	public LobbyJoiningResult requestLobbyJoining(String playerName, Lobby selectedLobby, String password) {
 		log.log(Level.INFO, playerName + " tries to join lobby " + selectedLobby.getName(), selectedLobby);
 		
-		return LobbyJoiningResult.Accepted;
-	}
-	
-	public enum LobbyJoiningResult{
-		Accepted,
-		WrongPassword,
-		FullLobby,
-		UnacceptedUsername		
+		return Global.getServerManager().requestJoinLobby(playerName, selectedLobby, password);
 	}
 	
 	protected void loadCreateLobbyPage() {

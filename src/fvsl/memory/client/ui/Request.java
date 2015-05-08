@@ -6,17 +6,21 @@ import fvsl.memory.client.ui.Request.RequestAction;
 
 public class Request implements Serializable {
 	
-	private RequestType requestType;
+	private String playerName;
 	private RequestAction requestAction;
+	private RequestType requestType;
 	private Object content;
 	
-	public Request(RequestAction requestAction, RequestType requestType, Object content) {
+	public Request(String playerName, RequestAction requestAction, RequestType requestType, Object content) {
 		super();
-		this.requestAction = requestAction;
+		this.playerName = playerName;
 		this.requestType = requestType;
+		this.requestAction = requestAction;
 		this.content = content;
 	}
-	
+
+
+
 	public Request(RequestAction requestAction) {
 		this.requestAction = requestAction;
 	}
@@ -37,6 +41,15 @@ public class Request implements Serializable {
 	public enum RequestAction{
 		Ask,
 		Reply
+	}
+	
+	public enum LobbyJoiningResult{
+		Failed,
+		Accepted,
+		WrongPassword,
+		FullLobby,
+		UnacceptedUsername,
+		NotFound
 	}
 
 	/**
@@ -76,5 +89,23 @@ public class Request implements Serializable {
 
 	public void setRequestType(RequestType type) {
 		requestType = type;
+	}
+
+
+
+	/**
+	 * @return the playerName
+	 */
+	public String getPlayerName() {
+		return playerName;
+	}
+
+
+
+	/**
+	 * @param playerName the playerName to set
+	 */
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
 	}
 }

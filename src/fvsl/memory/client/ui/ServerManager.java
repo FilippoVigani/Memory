@@ -8,6 +8,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import javax.swing.text.AbstractDocument.Content;
+
+import fvsl.memory.client.ui.Request.LobbyJoiningResult;
 import fvsl.memory.client.ui.Request.RequestAction;
 import fvsl.memory.client.ui.Request.RequestType;
 
@@ -84,11 +87,11 @@ public class ServerManager {
 		}
 	}
 
-	public ArrayList<Lobby> requestLobbies(){
+	public ArrayList<Lobby> requestLobbies(String player){
 		connect();
 		try {
 			streamToServer.reset();
-			streamToServer.writeObject(new Request(RequestAction.Ask, RequestType.GetLobbies, null));
+			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.GetLobbies, null));
 			streamToServer.flush();
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -99,11 +102,7 @@ public class ServerManager {
 			Request obj = (Request)streamFromServer.readObject();
 			list = (ArrayList<Lobby>)(obj.getContent());
 			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
-			if (list != null){
-				for (Lobby lobby : list){
-					System.out.println(lobby);
-				}
-			} else {
+			if (list == null){
 				list = new ArrayList<Lobby>();
 			}
 		} catch (ClassNotFoundException e) {
@@ -113,6 +112,36 @@ public class ServerManager {
 		}
 		closeConnection();
 		return list;
-
+	}
+	
+	public LobbyJoiningResult requestJoinLobby(String player, Lobby lobby, String password){
+		connect();
+		try {
+			streamToServer.reset();
+			ArrayList<Object> content = new ArrayList<Object>();
+			content.add(lobby);
+			content.add(password);
+			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.JoinLobby, content));
+			streamToServer.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		LobbyJoiningResult result = LobbyJoiningResult.Failed;
+		
+		try {
+			Request obj = (Request)streamFromServer.readObject();
+			result = (LobbyJoiningResult)obj.getContent();
+			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction() + " " + result);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		closeConnection();
+		
+		return result;
 	}
 }

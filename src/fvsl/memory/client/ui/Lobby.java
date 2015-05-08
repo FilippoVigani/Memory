@@ -1,6 +1,7 @@
 package fvsl.memory.client.ui;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Lobby implements Serializable {
 
@@ -9,18 +10,35 @@ public class Lobby implements Serializable {
 	 */
 	private static final long serialVersionUID = -2379632040815885727L;
 	
+	private int id;
 	private String name;
 	private int numberOfPlayers;
 	private int numberOfPairs;
 	private double turnTimer;
+	private String password;
+	private ArrayList<Player> connectedPlayers;
 	
-	public Lobby(String name, int numberOfPlayers, int numberOfPairs, double turnTimer) {
+	public Lobby(String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
 		super();
 		this.name = name;
 		this.numberOfPlayers = numberOfPlayers;
 		this.numberOfPairs = numberOfPairs;
 		this.turnTimer = turnTimer;
+		this.password = password;
+		connectedPlayers = new ArrayList<Player>();
 	}
+	
+	public Lobby(int id, String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.numberOfPlayers = numberOfPlayers;
+		this.numberOfPairs = numberOfPairs;
+		this.turnTimer = turnTimer;
+		this.password = password;
+		connectedPlayers = new ArrayList<Player>();
+	}
+	
 	
 	/**
 	 * @return the name
@@ -74,5 +92,36 @@ public class Lobby implements Serializable {
 	public String toString(){
 		return name;
 	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 	
+	public boolean checkPassword(String password){
+		return (this.password == null || this.password.equals("")) ? true : this.password.equals(password);
+	}
+
+	/**
+	 * @return the connectedPlayers
+	 */
+	public ArrayList<Player> getConnectedPlayers() {
+		return connectedPlayers;
+	}
+
+	/**
+	 * @param connectedPlayers the connectedPlayers to set
+	 */
+	public void setConnectedPlayers(ArrayList<Player> connectedPlayers) {
+		this.connectedPlayers = connectedPlayers;
+	}
 }

@@ -1,5 +1,6 @@
 package fvsl.memory.client.ui;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -18,7 +19,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import fvsl.memory.client.ui.MainPageController.LobbyJoiningResult;
+import fvsl.memory.client.ui.Request.LobbyJoiningResult;
 
 public class MainPageView extends Page {
 	
@@ -78,7 +79,7 @@ public class MainPageView extends Page {
 		//Spostare su controller (parzialmente) + richiesta al server
 		model = new MainPageModel();
 		controller = new MainPageController();
-		model.setLobbies(controller.getLobbiesFromServer());
+		model.setLobbies(controller.getLobbiesFromServer(model.getPlayerName()));
 		//model.setLobbies(new ArrayList<Lobby>());
 		model.setPlayerName("Anonymous Player"); //Default user name
 	}
@@ -158,8 +159,10 @@ public class MainPageView extends Page {
 		LobbyJoiningResult result = controller.requestLobbyJoining(model.getPlayerName(), model.getSelectedLobby(), model.getPassword());
 		if (result == LobbyJoiningResult.Accepted){
 			log.log(Level.INFO, model.getPlayerName() + " successfully joined the lobby " + model.getSelectedLobby(), model.getSelectedLobby());
+			controller.loadLobbyPage(model.getSelectedLobby());
 		} else {
 			log.log(Level.WARNING, model.getPlayerName() + " was unable to join the lobby " + model.getSelectedLobby() + ": " + result.toString(), result);
+			JOptionPane.showMessageDialog(container, "Unable to join lobby: " + result.toString());
 		}
 	}
 
