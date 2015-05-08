@@ -40,6 +40,8 @@ public class LobbyPageView extends Page {
 		pannelloSinistra.setLayout(new GridLayout(5,1,25,25));
 		pannelloDestra.setLayout(new GridLayout(8,2,0,0));
 		pannelloDestra.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
+		
+		
 		readyButton= new JButton("PRONTO");
 		backButton= new JButton("torna indietro"); 
 		readyCB= new JCheckBox();
