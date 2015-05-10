@@ -17,23 +17,38 @@ public class ScoreboardPageView extends Page {
 		// TODO Auto-generated method stub
 		JPanel pan=new JPanel();
 		add(pan);
-		JPanel pannello=new JPanel();
-		pannello.setLayout(new GridLayout(0,1,0,50));
-		pan.add(pannello);
-		JLabel classificaLabel= new JLabel("CLASSIFICA");
-		classificaLabel.setSize(100,100);
+		pan.setLayout(new GridLayout (1,1,0,50));
+		JPanel pannelloSinistra=new JPanel();
+		pannelloSinistra.setLayout(new GridLayout(8,1,0,0));
+		pan.add(pannelloSinistra);
+		JLabel giocatoriLabel= new JLabel("GIOCATORI");
 		JLabel primoLabel= new JLabel("primo");
 		JLabel secondoLabel= new JLabel("secondo");
 		JLabel terzoLabel= new JLabel("terzo");
 		JLabel quartoLabel= new JLabel("quarto");
 		backButton= new JButton("Pagina iniziale"); 
 		
-		pannello.add(classificaLabel);
-		pannello.add(primoLabel);
-		pannello.add(secondoLabel);
-		pannello.add(terzoLabel);
-		pannello.add(quartoLabel);
-		pannello.add(backButton);
+		JPanel pannelloDestra=new JPanel();
+		pannelloDestra.setLayout(new GridLayout(8,1,0,0));
+		pan.add(pannelloDestra);
+		JLabel punteggioLabel= new JLabel("PUNTEGGIO");
+		JLabel score1Label= new JLabel("44");
+		JLabel score2Label= new JLabel("33");
+		JLabel score3Label= new JLabel("22");
+		JLabel score4Label= new JLabel("11");
+		
+		pannelloSinistra.add(giocatoriLabel);
+		pannelloSinistra.add(primoLabel);
+		pannelloSinistra.add(secondoLabel);
+		pannelloSinistra.add(terzoLabel);
+		pannelloSinistra.add(quartoLabel);
+		pannelloSinistra.add(backButton);
+		
+		pannelloDestra.add(punteggioLabel);
+		pannelloDestra.add(score1Label);
+		pannelloDestra.add(score2Label);
+		pannelloDestra.add(score3Label);
+		pannelloDestra.add(score4Label);
 		
 
 	}
