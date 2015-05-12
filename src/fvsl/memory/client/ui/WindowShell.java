@@ -1,13 +1,5 @@
 package fvsl.memory.client.ui;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.net.*;
-import java.sql.Connection;
-import java.util.*;
-
 import javax.swing.JFrame;
 
 import fvsl.memory.client.ui.PageListeners.*;
@@ -17,6 +9,10 @@ import fvsl.memory.client.ui.PageListeners.*;
  */
 public class WindowShell extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1980870011702344758L;
 	PageManager pageManager;
 
 	public WindowShell() {

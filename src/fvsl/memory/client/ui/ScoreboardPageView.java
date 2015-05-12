@@ -7,6 +7,11 @@ import java.awt.GridLayout;
 
 
 public class ScoreboardPageView extends Page {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9192421170975614105L;
+
 	public ScoreboardPageView(){
 		super();
 	}

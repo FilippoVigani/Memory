@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 //In realtà sarebbe MainPageModel, (vedi MVC)
 public class MainPageModel {
-	private String playerName;
+	private Player player;
 	private ArrayList<Lobby> lobbies;
 	private Lobby selectedLobby;
 	private String password;
 	
 	/**
-	 * @return the playerName
+	 * @return the player
 	 */
-	public String getPlayerName() {
-		return playerName;
+	public Player getPlayer() {
+		return player;
 	}
 	/**
-	 * @param playerName the playerName to set
+	 * @param player the player to set
 	 */
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	/**
 	 * @return the lobbies

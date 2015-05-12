@@ -2,24 +2,25 @@ package fvsl.memory.client.ui;
 
 import java.io.Serializable;
 
-import fvsl.memory.client.ui.Request.RequestAction;
-
 public class Request implements Serializable {
 	
-	private String playerName;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8527944560427371477L;
+	
+	private Player player;
 	private RequestAction requestAction;
 	private RequestType requestType;
 	private Object content;
 	
-	public Request(String playerName, RequestAction requestAction, RequestType requestType, Object content) {
+	public Request(Player player, RequestAction requestAction, RequestType requestType, Object content) {
 		super();
-		this.playerName = playerName;
+		this.player = player;
 		this.requestType = requestType;
 		this.requestAction = requestAction;
 		this.content = content;
 	}
-
-
 
 	public Request(RequestAction requestAction) {
 		this.requestAction = requestAction;
@@ -33,6 +34,7 @@ public class Request implements Serializable {
 		GetLobbies,
 		JoinLobby,
 		CreateLobby,
+		DeleteLobby,
 		GetPossiblePlayersNumbers,
 		GetPossiblePairsNumbers,
 		GetPossibleTimerNumbers, 
@@ -85,6 +87,14 @@ public class Request implements Serializable {
 	public Object getContent() {
 		return content;
 	}
+	
+	/**
+	 * @return the content casted to the type it is assigned to
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T getCastedContent(){
+		return (T)content;
+	}
 
 	/**
 	 * @param content the content to set
@@ -100,18 +110,16 @@ public class Request implements Serializable {
 
 
 	/**
-	 * @return the playerName
+	 * @return the player
 	 */
-	public String getPlayerName() {
-		return playerName;
+	public Player getPlayer() {
+		return player;
 	}
 
-
-
 	/**
-	 * @param playerName the playerName to set
+	 * @param player the player to set
 	 */
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setPlayerName(Player player) {
+		this.player = player;
 	}
 }

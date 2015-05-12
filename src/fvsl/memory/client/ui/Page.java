@@ -1,6 +1,4 @@
 package fvsl.memory.client.ui;
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -8,6 +6,10 @@ import javax.swing.JPanel;
 public abstract class Page extends JPanel {
 	///Fields
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4119387731560973667L;
 	/**
 	 * Represents the page this page was originated from.
 	 */

@@ -1,22 +1,16 @@
 package fvsl.memory.client.ui;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JButton;
 
-import java.awt.FlowLayout;
 import java.awt.ComponentOrientation;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -26,6 +20,11 @@ import fvsl.memory.client.ui.Request.LobbyCreationResult;
 
 public class CreateLobbyPageView extends Page {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2666672662443557135L;
+	
 	private CreateLobbyPageModel model;
 	private CreateLobbyPageController controller;
 	
@@ -37,9 +36,9 @@ public class CreateLobbyPageView extends Page {
 	private	JButton backButton;
 	private JTextField lobbyNameField;
 	private JTextField passwordField;
-	private JComboBox nGCombo;
-	private JComboBox nCoppieCombo;
-	private JComboBox timerCombo;
+	private JComboBox<Integer> nGCombo;
+	private JComboBox<Integer> nCoppieCombo;
+	private JComboBox<Integer> timerCombo;
 	
 	@Override
 	protected void loadComponents() {
@@ -64,9 +63,9 @@ public class CreateLobbyPageView extends Page {
 		passwordField.setColumns(10);
 		
 		//I valori di default dovrebbe prenderli da server
-		nGCombo= new JComboBox();
-		nCoppieCombo= new JComboBox();
-		timerCombo= new JComboBox();
+		nGCombo= new JComboBox<Integer>();
+		nCoppieCombo= new JComboBox<Integer>();
+		timerCombo= new JComboBox<Integer>();
 		
 		creaButton= new JButton("Crea Stanza");
 		backButton=new JButton("Torna Indietro");

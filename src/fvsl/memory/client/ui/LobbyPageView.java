@@ -1,19 +1,19 @@
 package fvsl.memory.client.ui;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 
 
 public class LobbyPageView extends Page {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8017492250670854298L;
 	private LobbyPageModel model;
 	private LobbyPageController controller;
 	private Lobby lobbyBuffer;
@@ -119,7 +119,7 @@ public class LobbyPageView extends Page {
 		@Override
 		public int getRowCount() {
 			//return list.size();
-			return 4;
+			return model.getLobby().getNumberOfPlayers();
 		}
 
 		@Override

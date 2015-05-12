@@ -8,8 +8,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-import javax.swing.text.AbstractDocument.Content;
-
 import fvsl.memory.client.ui.Request.LobbyCreationResult;
 import fvsl.memory.client.ui.Request.LobbyJoiningResult;
 import fvsl.memory.client.ui.Request.RequestAction;
@@ -60,22 +58,6 @@ public class ServerManager {
 		{
 			System.err.println("IOException:" + ioEx.getMessage());
 		}   
-		/*
-		finally
-		{
-			try
-			{
-				socket.close();
-				System.out.println("Socket closed");
-			}
-			catch(IOException ioEx)
-			{
-				System.err.println("Impossibile chiudere connessione!");
-				System.err.println("Può darsi non sia stata creata!");
-				System.err.println("link è: " + ioEx.getMessage());
-				System.exit(1);
-			}
-		}*/
 	}
 
 	public void closeConnection(){
@@ -88,7 +70,7 @@ public class ServerManager {
 		}
 	}
 
-	public ArrayList<Lobby> requestLobbies(String player){
+	public ArrayList<Lobby> requestLobbies(Player player) throws Exception{
 		connect();
 		try {
 			streamToServer.reset();
@@ -101,7 +83,7 @@ public class ServerManager {
 		ArrayList<Lobby> list = null;
 		try {
 			Request obj = (Request)streamFromServer.readObject();
-			list = (ArrayList<Lobby>)(obj.getContent());
+			list = obj.getCastedContent();
 			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
 			if (list == null){
 				list = new ArrayList<Lobby>();
@@ -115,13 +97,13 @@ public class ServerManager {
 		return list;
 	}
 	
-	public LobbyJoiningResult requestJoinLobby(String player, Lobby lobby, String password){
+	public LobbyJoiningResult requestJoinLobby(Player player, Lobby lobby, String password) throws Exception{
 		connect();
 		try {
-			streamToServer.reset();
 			ArrayList<Object> content = new ArrayList<Object>();
 			content.add(lobby);
 			content.add(password);
+			streamToServer.reset();
 			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.JoinLobby, content));
 			streamToServer.flush();
 		} catch (IOException e1) {
@@ -132,7 +114,7 @@ public class ServerManager {
 		
 		try {
 			Request obj = (Request)streamFromServer.readObject();
-			result = (LobbyJoiningResult)obj.getContent();
+			result = obj.getCastedContent();
 			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction() + " " + result);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -146,7 +128,7 @@ public class ServerManager {
 		return result;
 	}
 	
-	public LobbyCreationResult requestCreateLobby(String player, Lobby lobby, String password){
+	public LobbyCreationResult requestCreateLobby(Player player, Lobby lobby, String password) throws Exception{
 		connect();
 		try {
 			streamToServer.reset();
@@ -163,7 +145,7 @@ public class ServerManager {
 		
 		try {
 			Request obj = (Request)streamFromServer.readObject();
-			String lobbyId = (String)obj.getContent();
+			String lobbyId = obj.getCastedContent();
 			if (!(lobbyId == null || lobbyId.isEmpty())){
 				result = LobbyCreationResult.Accepted;
 				lobby.setId(lobbyId);
@@ -179,7 +161,7 @@ public class ServerManager {
 		return result;
 	}
 
-	public ArrayList<Player> requestConnectedPlayers(String player, Lobby lobby) {
+	public ArrayList<Player> requestConnectedPlayers(Player player, Lobby lobby) throws Exception{
 		
 		connect();
 		try {
@@ -194,7 +176,7 @@ public class ServerManager {
 		
 		try {
 			Request obj = (Request)streamFromServer.readObject();
-			result = (ArrayList<Player>)obj.getContent();
+			result = obj.getCastedContent();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

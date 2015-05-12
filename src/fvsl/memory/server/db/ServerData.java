@@ -2,7 +2,6 @@ package fvsl.memory.server.db;
 
 import java.util.ArrayList;
 
-import fvsl.memory.client.ui.Global;
 import fvsl.memory.client.ui.Lobby;
 import fvsl.memory.client.ui.MockFactory;
 

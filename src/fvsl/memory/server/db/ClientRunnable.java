@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import fvsl.memory.client.ui.Lobby;
-import fvsl.memory.client.ui.MockFactory;
 import fvsl.memory.client.ui.Player;
 import fvsl.memory.client.ui.Request;
 import fvsl.memory.client.ui.Request.LobbyJoiningResult;
@@ -22,7 +21,6 @@ public class ClientRunnable implements Runnable{
 	protected String serverText   = null;
 	protected ObjectOutputStream streamToClient = null;
 	protected ObjectInputStream streamFromClient = null;
-	private boolean connectionOpened;
 	
 	private ServerData serverData;
 
@@ -44,7 +42,6 @@ public class ClientRunnable implements Runnable{
 
 			streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
 
-			//streamToClient.writeObject(new Request(RequestAction.Ask, RequestType.Handshake, null));
 			streamToClient.flush();
 			
 			System.out.println("Created input stream serverside");
@@ -80,8 +77,8 @@ public class ClientRunnable implements Runnable{
 							reply.setRequestType(RequestType.GetLobbies);
 						}
 						else if (request.getRequestType() == RequestType.JoinLobby){
-							ArrayList<Object> contents = (ArrayList<Object>)request.getContent();
-							String player = request.getPlayerName(); //Player dovrebbe essere un oggetto! da modificare
+							ArrayList<Object> contents = request.getCastedContent();
+							Player player = request.getPlayer(); 
 							String lobbyID = ((Lobby)contents.get(0)).getId();
 							Lobby lobby = null;
 							boolean found = false;
@@ -93,7 +90,7 @@ public class ClientRunnable implements Runnable{
 							String password = (String)contents.get(1);
 							
 							//Checks and returns result
-							if (player == null || player.isEmpty()){
+							if (player == null || player.getName() == null || player.getName().isEmpty()){
 								reply.setContent(LobbyJoiningResult.UnacceptedUsername);
 							} else if (!found || lobby == null){
 								reply.setContent(LobbyJoiningResult.NotFound);
@@ -103,20 +100,22 @@ public class ClientRunnable implements Runnable{
 								reply.setContent(LobbyJoiningResult.FullLobby);
 							} else {
 								reply.setContent(LobbyJoiningResult.Accepted);
+								player.setReady(false);
 								synchronized (lobby) {
-									lobby.getConnectedPlayers().add(new Player(player));
+									lobby.getConnectedPlayers().add(player);
 								}
 							}
 							
 						} else if (request.getRequestType() == RequestType.CreateLobby){
-							ArrayList<Object> contents = (ArrayList<Object>)request.getContent();
-							String player = request.getPlayerName();
+							ArrayList<Object> contents = request.getCastedContent();
+							Player player = request.getPlayer();
 							Lobby lobby = (Lobby)contents.get(0);
 							String password = (String)contents.get(1);
 							
 							synchronized (serverData.getLobbies()) {
 								String newId = UUID.randomUUID().toString();
 								lobby.setId(newId);
+								lobby.setOwner(player);
 								serverData.getLobbies().add(lobby);
 								reply.setContent(newId);
 								System.out.println("Lobby creata con id " + newId);
@@ -124,7 +123,8 @@ public class ClientRunnable implements Runnable{
 						} else if (request.getRequestType() == RequestType.GetConnectedPlayers){
 							//Qui dovrebbe cercare se il player che manda la richiesta è
 							//contenuto nella lista di player connessi
-							String lobbyID = ((Lobby)request.getContent()).getId();
+							Lobby l = request.getCastedContent();
+							String lobbyID = l.getId();
 							Lobby lobby = null;
 							boolean found = false;
 							for (int i = 0; !found && i < serverData.getLobbies().size(); i++){
@@ -147,19 +147,6 @@ public class ClientRunnable implements Runnable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 
-			/*finally {
-				try {
-					System.out.println("Closing connection");
-					streamFromClient.close();
-					streamToClient.close();
-					clientSocket.close();
-				} catch (IOException ioEx) {
-					System.err.println("Can't close connection, shutting down.");
-					System.err.println(ioEx);
-					System.exit(1);
-				}
-			}*/
-			
 		}
 
 	}

@@ -17,13 +17,23 @@ public class PageListeners {
 	}
 	
 	public class GoToCreateLobbyEvent extends ActionEvent {
-        public GoToCreateLobbyEvent(Object source) {
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 6545671459425688856L;
+
+		public GoToCreateLobbyEvent(Object source) {
             super(source, 0, null);
         }
 	}
 	
 	public class GoToLobbyEvent extends ActionEvent {
-        public GoToLobbyEvent(Object source) {
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -3856940450599430419L;
+
+		public GoToLobbyEvent(Object source) {
             super(source, 0, null);
         }
 	}

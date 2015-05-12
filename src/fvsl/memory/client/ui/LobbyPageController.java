@@ -5,7 +5,12 @@ import java.util.ArrayList;
 public class LobbyPageController extends PageListeners{
 	
 	public ArrayList<Player> getPlayersOfLobbyFromServer(Lobby lobby){
-		return Global.getServerManager().requestConnectedPlayers(Global.playerName, lobby);
+		try {
+			return Global.getServerManager().requestConnectedPlayers(Global.player, lobby);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }

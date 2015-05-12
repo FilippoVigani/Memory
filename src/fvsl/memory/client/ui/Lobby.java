@@ -17,6 +17,7 @@ public class Lobby implements Serializable {
 	private double turnTimer;
 	private String password;
 	private ArrayList<Player> connectedPlayers;
+	private Player owner;
 	
 	public Lobby(String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
 		super();
@@ -127,5 +128,19 @@ public class Lobby implements Serializable {
 	 */
 	public void setConnectedPlayers(ArrayList<Player> connectedPlayers) {
 		this.connectedPlayers = connectedPlayers;
+	}
+
+	/**
+	 * @return the owner
+	 */
+	public Player getOwner() {
+		return owner;
+	}
+
+	/**
+	 * @param owner the owner to set
+	 */
+	public void setOwner(Player owner) {
+		this.owner = owner;
 	}
 }

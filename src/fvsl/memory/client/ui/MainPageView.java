@@ -10,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +22,11 @@ import fvsl.memory.client.ui.Request.LobbyJoiningResult;
 
 public class MainPageView extends Page {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4161665227369448294L;
+
 	private static final Logger log = Logger.getLogger( MainPageView.class.getName() );
 	
 	private MainPageModel model;
@@ -79,16 +83,16 @@ public class MainPageView extends Page {
 		//Spostare su controller (parzialmente) + richiesta al server
 		model = new MainPageModel();
 		controller = new MainPageController();
-		model.setLobbies(controller.getLobbiesFromServer(model.getPlayerName()));
+		model.setPlayer(new Player("Anonymous player")); //Default user name
+		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
 		//model.setLobbies(new ArrayList<Lobby>());
-		model.setPlayerName("Anonymous Player"); //Default user name
 	}
 	
 	@Override
 	public void populateViews(){
-		listLobbies.setListData(model.getLobbies().toArray(new Lobby[MockFactory.getMockLobbiesList().size()]));
+		listLobbies.setListData(model.getLobbies().toArray(new Lobby[model.getLobbies().size()]));
 		listLobbies.setSelectedIndex(0);
-		txtUsername.setText(model.getPlayerName());
+		txtUsername.setText(model.getPlayer().getName());
 		txtUsername.selectAll();
 	}
 	
@@ -106,8 +110,8 @@ public class MainPageView extends Page {
 				  } 
 				 
 				  public void notifyProperty() { 
-				     model.setPlayerName(txtUsername.getText());
-				     Global.playerName = model.getPlayerName();
+					model.getPlayer().setName(txtUsername.getText());
+				    Global.player = model.getPlayer();
 				  } 
 		});
 		
@@ -157,12 +161,12 @@ public class MainPageView extends Page {
 	}
 
 	protected void attemptToJoinLobby(){
-		LobbyJoiningResult result = controller.requestLobbyJoining(model.getPlayerName(), model.getSelectedLobby(), model.getPassword());
+		LobbyJoiningResult result = controller.requestLobbyJoining(model.getPlayer(), model.getSelectedLobby(), model.getPassword());
 		if (result == LobbyJoiningResult.Accepted){
-			log.log(Level.INFO, model.getPlayerName() + " successfully joined the lobby " + model.getSelectedLobby(), model.getSelectedLobby());
+			log.log(Level.INFO, model.getPlayer().getName() + " successfully joined the lobby " + model.getSelectedLobby(), model.getSelectedLobby());
 			controller.loadLobbyPage(model.getSelectedLobby());
 		} else {
-			log.log(Level.WARNING, model.getPlayerName() + " was unable to join the lobby " + model.getSelectedLobby() + ": " + result.toString(), result);
+			log.log(Level.WARNING, model.getPlayer().getName() + " was unable to join the lobby " + model.getSelectedLobby() + ": " + result.toString(), result);
 			JOptionPane.showMessageDialog(container, "Unable to join lobby: " + result.toString());
 		}
 	}

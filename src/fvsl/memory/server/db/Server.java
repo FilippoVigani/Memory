@@ -3,15 +3,15 @@ package fvsl.memory.server.db;
 import java.awt.TextArea;
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
-
 import javax.swing.JFrame;
-
-import fvsl.memory.client.ui.MockFactory;
 
 public class Server extends JFrame implements Runnable{
 
-    protected int          serverPort   = 17829;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6466080193597906474L;
+	protected int          serverPort   = 17829;
     protected ServerSocket serverSocket = null;
     protected boolean      isStopped    = false;
     protected Thread       runningThread= null;
