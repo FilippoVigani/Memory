@@ -3,7 +3,7 @@ package fvsl.memory.client.ui;
 import fvsl.memory.client.ui.Request.LobbyCreationResult;
 import fvsl.memory.client.ui.Request.LobbyJoiningResult;
 
-public class CreateLobbyPageController {
+public class CreateLobbyPageController extends PageListeners {
 
 	public LobbyCreationResult attemptToCreateLobby(Lobby lobby, String password) {
 		LobbyCreationResult result = Global.getServerManager().requestCreateLobby(Global.playerName, lobby, password);
@@ -16,10 +16,9 @@ public class CreateLobbyPageController {
 				//Delete lobby
 				result = LobbyCreationResult.Failed;
 			} else {
-				//Change view to join lobby
+				fireGoToLobbyEvent(lobby);
 			}
 		}
-		
 		return result;
 	}
 }

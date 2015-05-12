@@ -1,6 +1,9 @@
 package fvsl.memory.client.ui;
 
 public class LobbyPageModel {
+	
+	private Lobby lobby;
+	
 	private boolean ready1;
 	private boolean ready2;
 	private boolean ready3;
@@ -22,6 +25,18 @@ public class LobbyPageModel {
 	}
 	public void setReady3(boolean ready3) {
 		this.ready3 = ready3;
+	}
+	/**
+	 * @return the lobby
+	 */
+	public Lobby getLobby() {
+		return lobby;
+	}
+	/**
+	 * @param lobby the lobby to set
+	 */
+	public void setLobby(Lobby lobby) {
+		this.lobby = lobby;
 	}
 	
 	

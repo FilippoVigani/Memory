@@ -10,11 +10,7 @@ import java.util.*;
 
 import javax.swing.JFrame;
 
-import fvsl.memory.client.ui.MainPageController.*;
-import fvsl.memory.client.ui.Request.LobbyJoiningResult;
-import fvsl.memory.client.ui.Request.RequestAction;
-import fvsl.memory.client.ui.Request.RequestType;
-
+import fvsl.memory.client.ui.PageListeners.*;
 /**
  * @author Filippo Vigani
  *
@@ -33,14 +29,15 @@ public class WindowShell extends JFrame {
 
 private void init(){
 	final MainPageView mpw = new MainPageView();
-
+	final CreateLobbyPageView clw = new CreateLobbyPageView();
+	
 	pageManager = new PageManager(this, mpw); 
 
 	mpw.getController().addEventListener(new GoToCreateLobbyEventListener(){
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			pageManager.loadNewPage(new CreateLobbyPageView());
+			pageManager.loadNewPage(clw);
 		}
 	});
 	
@@ -48,8 +45,17 @@ private void init(){
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			pageManager.loadNewPage(new LobbyPageView());
+			pageManager.loadNewPage(new LobbyPageView((Lobby)e.getSource()));
 		}
+	});
+	
+	clw.getController().addEventListener(new GoToLobbyEventListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			pageManager.loadNewPage(new LobbyPageView((Lobby)e.getSource()));
+		}
+		
 	});
 }
 

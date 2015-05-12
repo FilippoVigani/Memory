@@ -126,19 +126,19 @@ public class CreateLobbyPageView extends Page {
 		
 		nGCombo.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        model.getLobby().setNumberOfPlayers(Integer.parseInt((String)nGCombo.getSelectedItem()));
+		        model.getLobby().setNumberOfPlayers((Integer)nGCombo.getSelectedItem());
 		    }
 		});
 			
 		nCoppieCombo.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        model.getLobby().setNumberOfPlayers(Integer.parseInt((String)nCoppieCombo.getSelectedItem()));
+		        model.getLobby().setNumberOfPlayers((Integer)nCoppieCombo.getSelectedItem());
 		    }
 		});
 		
 		timerCombo.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        model.getLobby().setNumberOfPlayers(Integer.parseInt((String)timerCombo.getSelectedItem()));
+		        model.getLobby().setNumberOfPlayers((Integer)timerCombo.getSelectedItem());
 		    }
 		});
 		
@@ -172,6 +172,26 @@ public class CreateLobbyPageView extends Page {
 		nGCombo.setModel(new DefaultComboBoxModel<Integer>(model.getPossiblePlayers()));
 		nCoppieCombo.setModel(new DefaultComboBoxModel<Integer>(model.getPossiblePairs()));
 		timerCombo.setModel(new DefaultComboBoxModel<Integer>(model.getPossibleTimers()));
+	}
+
+	/**
+	 * @return the controller
+	 */
+	public CreateLobbyPageController getController() {
+		return controller;
+	}
+
+	/**
+	 * @param controller the controller to set
+	 */
+	public void setController(CreateLobbyPageController controller) {
+		this.controller = controller;
+	}
+
+	@Override
+	protected void bufferize(Object o) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

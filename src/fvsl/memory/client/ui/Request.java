@@ -35,7 +35,8 @@ public class Request implements Serializable {
 		CreateLobby,
 		GetPossiblePlayersNumbers,
 		GetPossiblePairsNumbers,
-		GetPossibleTimerNumbers
+		GetPossibleTimerNumbers, 
+		GetConnectedPlayers
 	}
 	
 	public enum RequestAction{

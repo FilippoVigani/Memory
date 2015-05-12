@@ -3,34 +3,41 @@ import java.awt.GridLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 
 
 public class LobbyPageView extends Page {
 
-	public LobbyPageView(){
-		super();
-	}
-	
+	private LobbyPageModel model;
+	private LobbyPageController controller;
+	private Lobby lobbyBuffer;
+
+	public LobbyPageView(Lobby lobby){
+		super(lobby);	
+	} 
+
 	private JButton readyButton;
 	private JButton backButton;
-	private JCheckBox readyCB;
-	private JCheckBox readyCB1;
-	private JCheckBox readyCB2;
+	private JLabel lobbyNameLabel;
+	private JLabel numberOfPairsLabel;
+	private JLabel timerLabel;
+	private JTable playersTable;
 
-	
+
 	@Override
 	protected void loadComponents() {
-		
-		
+
 		setLayout(new GridLayout(1, 0, 0, 0));
-		// TODO Auto-generated method stub
 		JPanel pannello=new JPanel();
 		add(pannello);
 		pannello.setLayout(new GridLayout(1,1,0,50));
-		
+
 		JPanel pannelloSinistra=new JPanel();
 		//pannelloSinistra.setLayout(new BoxLayout(pannelloSinistra, BoxLayout.Y_AXIS));
 		pannello.add(pannelloSinistra);
@@ -40,62 +47,107 @@ public class LobbyPageView extends Page {
 		pannelloSinistra.setLayout(new GridLayout(5,1,25,25));
 		pannelloDestra.setLayout(new GridLayout(8,2,0,0));
 		pannelloDestra.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-		
-		
+
+
 		readyButton= new JButton("PRONTO");
-		backButton= new JButton("torna indietro"); 
-		readyCB= new JCheckBox();
-		readyCB1= new JCheckBox();
-		readyCB2= new JCheckBox();
-		
-		
-		JLabel nomeStanzaLabel= new JLabel("nome stanza");
-		JLabel nCoppieLabel= new JLabel("20 coppie");
-		JLabel timerLabel= new JLabel("10 sec");
-		JLabel giocatoreLabel= new JLabel("giocatore");
-		JLabel g1Label= new JLabel("paolo");
-		JLabel g2Label= new JLabel("francesco");
-		JLabel g3Label= new JLabel("pollo");
-		JLabel statoLabel= new JLabel("stato");
-		
-		g1Label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		g2Label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		g3Label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		statoLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		giocatoreLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
-		pannelloSinistra.add(nomeStanzaLabel);
-		pannelloSinistra.add(nCoppieLabel);
+		backButton= new JButton("torna indietro");
+
+
+		lobbyNameLabel = new JLabel();
+		numberOfPairsLabel = new JLabel();
+		timerLabel = new JLabel();
+
+		pannelloSinistra.add(lobbyNameLabel);
+		pannelloSinistra.add(numberOfPairsLabel);
 		pannelloSinistra.add(timerLabel);
 		pannelloSinistra.add(readyButton);
-		pannelloDestra.add(giocatoreLabel);
-		pannelloDestra.add(statoLabel);
-		pannelloDestra.add(g1Label);
-		pannelloDestra.add(readyCB);
-		pannelloDestra.add(g2Label);
-		pannelloDestra.add(readyCB1);
-		pannelloDestra.add(g3Label);
-		pannelloDestra.add(readyCB2);
+
+		playersTable = new JTable();
+		pannelloDestra.add(playersTable);
 		pannelloDestra.add(backButton);
 	}
 
 	@Override
 	protected void setUpListeners() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void loadData() {
-		
-		// TODO Auto-generated method stub
-		
+		controller = new LobbyPageController();
+		model = new LobbyPageModel();
+		model.setLobby(lobbyBuffer);
+		model.getLobby().setConnectedPlayers(controller.getPlayersOfLobbyFromServer(model.getLobby()));
 	}
 
 	@Override
 	protected void populateViews() {
-		// TODO Auto-generated method stub
-		
+		lobbyNameLabel.setText(model.getLobby().getName());
+		numberOfPairsLabel.setText(model.getLobby().getNumberOfPairs() + " pairs");	
+		timerLabel.setText(model.getLobby().getTurnTimer() + " seconds.");
+		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
+		playersTable.setModel(tableModel);
 	}
-	
+
+	@Override
+	protected void bufferize(Object o) {
+		lobbyBuffer = (Lobby)o;
+	}
+
+	protected class PlayersTableModel extends AbstractTableModel{
+		private static final long serialVersionUID = 1L;
+
+		private ArrayList<Player> list = new ArrayList<Player>();
+
+		private String[] columnNames = { "Player", "Status"}; 
+
+		public PlayersTableModel(ArrayList<Player> list){
+			this.list = list;
+		} 
+
+		@Override 
+		public String getColumnName(int columnIndex){
+			return columnNames[columnIndex];
+		} 
+
+		@Override
+		public int getColumnCount() {
+			return columnNames.length;
+		}
+
+		@Override
+		public int getRowCount() {
+			//return list.size();
+			return 4;
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			Player player = null;
+			if (rowIndex > list.size()-1){
+				player = new Player("~Free slot~");
+			} else {
+				player = list.get(rowIndex);
+			}
+			switch (columnIndex) {
+			case 0:  
+				return player.getName();
+			case 1: 
+				return player.isReady();
+			}
+			return null;
+		}
+
+		@Override 
+		public Class<?> getColumnClass(int columnIndex){
+			switch (columnIndex){
+			case 0: 
+				return String.class;
+			case 1: 
+				return Boolean.class;
+			}
+			return null;
+		}
+	}
 }

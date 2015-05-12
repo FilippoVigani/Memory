@@ -188,4 +188,10 @@ public class MainPageView extends Page {
 		return controller;
 	}
 
+	@Override
+	protected void bufferize(Object o) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

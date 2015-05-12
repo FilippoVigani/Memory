@@ -178,4 +178,31 @@ public class ServerManager {
 		
 		return result;
 	}
+
+	public ArrayList<Player> requestConnectedPlayers(String player, Lobby lobby) {
+		
+		connect();
+		try {
+			streamToServer.reset();
+			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.GetConnectedPlayers, lobby));
+			streamToServer.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		ArrayList<Player> result = null;
+		
+		try {
+			Request obj = (Request)streamFromServer.readObject();
+			result = (ArrayList<Player>)obj.getContent();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		closeConnection();
+		
+		return result;
+	}
 }

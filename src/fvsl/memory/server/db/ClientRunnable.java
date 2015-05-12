@@ -114,13 +114,25 @@ public class ClientRunnable implements Runnable{
 							Lobby lobby = (Lobby)contents.get(0);
 							String password = (String)contents.get(1);
 							
-							
 							synchronized (serverData.getLobbies()) {
 								String newId = UUID.randomUUID().toString();
 								lobby.setId(newId);
 								serverData.getLobbies().add(lobby);
 								reply.setContent(newId);
 								System.out.println("Lobby creata con id " + newId);
+							}
+						} else if (request.getRequestType() == RequestType.GetConnectedPlayers){
+							//Qui dovrebbe cercare se il player che manda la richiesta è
+							//contenuto nella lista di player connessi
+							String lobbyID = ((Lobby)request.getContent()).getId();
+							Lobby lobby = null;
+							boolean found = false;
+							for (int i = 0; !found && i < serverData.getLobbies().size(); i++){
+								lobby = serverData.getLobbies().get(i);
+								found = lobby.getId().equals(lobbyID);
+							}
+							if (found){
+								reply.setContent(lobby.getConnectedPlayers());
 							}
 						}
 					}

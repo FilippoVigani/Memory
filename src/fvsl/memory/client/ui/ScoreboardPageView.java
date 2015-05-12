@@ -2,6 +2,7 @@ package fvsl.memory.client.ui;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
 import java.awt.GridLayout;
 
 
@@ -67,6 +68,12 @@ public class ScoreboardPageView extends Page {
 
 	@Override
 	protected void populateViews() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void bufferize(Object o) {
 		// TODO Auto-generated method stub
 		
 	}

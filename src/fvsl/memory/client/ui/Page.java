@@ -32,8 +32,18 @@ public abstract class Page extends JPanel {
 		populateViews();
 	}
 	
+	public Page(Object o){
+		bufferize(o);
+		level = 0;
+		loadComponents();
+		setUpListeners();
+		loadData();
+		populateViews();
+	}
+	
 	///Methods
 	
+	protected abstract void bufferize(Object o);
 	protected abstract void loadComponents();
 	protected abstract void setUpListeners();
 	protected abstract void loadData();
