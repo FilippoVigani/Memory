@@ -11,7 +11,7 @@ public class ServerData {
 	public ServerData(){
 		lobbies = new ArrayList<Lobby>();
 		lobbies = MockFactory.getMockLobbiesList();
-		lobbies.add(new Lobby(8, "HUH", 1, 1, 1, "huh"));
+		lobbies.add(new Lobby("popopop", "HUH", 1, 1, 1, "huh"));
 	}
 	
 	private ArrayList<Lobby> lobbies;

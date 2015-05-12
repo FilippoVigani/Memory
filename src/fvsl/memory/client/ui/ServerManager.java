@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.swing.text.AbstractDocument.Content;
 
+import fvsl.memory.client.ui.Request.LobbyCreationResult;
 import fvsl.memory.client.ui.Request.LobbyJoiningResult;
 import fvsl.memory.client.ui.Request.RequestAction;
 import fvsl.memory.client.ui.Request.RequestType;
@@ -139,6 +140,39 @@ public class ServerManager {
 			e.printStackTrace();
 		}
 		
+		
+		closeConnection();
+		
+		return result;
+	}
+	
+	public LobbyCreationResult requestCreateLobby(String player, Lobby lobby, String password){
+		connect();
+		try {
+			streamToServer.reset();
+			ArrayList<Object> content = new ArrayList<Object>();
+			content.add(lobby);
+			content.add(password);
+			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.CreateLobby, content));
+			streamToServer.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		LobbyCreationResult result = LobbyCreationResult.Failed;
+		
+		try {
+			Request obj = (Request)streamFromServer.readObject();
+			String lobbyId = (String)obj.getContent();
+			if (!(lobbyId == null || lobbyId.isEmpty())){
+				result = LobbyCreationResult.Accepted;
+				lobby.setId(lobbyId);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		closeConnection();
 		

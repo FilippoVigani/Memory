@@ -5,7 +5,8 @@ public final class Global {
 	static final int WINDOW_HEIGHT = 600;
 	
 	private static ServerManager serverManager;
-
+	public static String playerName;
+	
 	/**
 	 * @return the serverManager
 	 */

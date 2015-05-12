@@ -10,7 +10,7 @@ public class Lobby implements Serializable {
 	 */
 	private static final long serialVersionUID = -2379632040815885727L;
 	
-	private int id;
+	private String id;
 	private String name;
 	private int numberOfPlayers;
 	private int numberOfPairs;
@@ -28,7 +28,7 @@ public class Lobby implements Serializable {
 		connectedPlayers = new ArrayList<Player>();
 	}
 	
-	public Lobby(int id, String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
+	public Lobby(String id, String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -40,6 +40,10 @@ public class Lobby implements Serializable {
 	}
 	
 	
+	public Lobby() {
+		connectedPlayers = new ArrayList<Player>();
+	}
+
 	/**
 	 * @return the name
 	 */
@@ -96,14 +100,14 @@ public class Lobby implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

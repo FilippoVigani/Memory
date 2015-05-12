@@ -107,6 +107,7 @@ public class MainPageView extends Page {
 				 
 				  public void notifyProperty() { 
 				     model.setPlayerName(txtUsername.getText());
+				     Global.playerName = model.getPlayerName();
 				  } 
 		});
 		

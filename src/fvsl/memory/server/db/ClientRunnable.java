@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import fvsl.memory.client.ui.Lobby;
 import fvsl.memory.client.ui.MockFactory;
@@ -56,13 +57,16 @@ public class ClientRunnable implements Runnable{
 
 				Request request = null;
 				try {
-					System.out.println("Waiting for request...");
+					//System.out.println("Waiting for request...");
 					request = (Request)streamFromClient.readObject();
 
 				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
+				} catch (EOFException e) {
+					break;
 				} 
 
+				
 				System.out.println("Request received...");
 
 				//Processing request - DA MIGLIORARE
@@ -78,12 +82,12 @@ public class ClientRunnable implements Runnable{
 						else if (request.getRequestType() == RequestType.JoinLobby){
 							ArrayList<Object> contents = (ArrayList<Object>)request.getContent();
 							String player = request.getPlayerName(); //Player dovrebbe essere un oggetto! da modificare
-							int lobbyID = ((Lobby)contents.get(0)).getId();
+							String lobbyID = ((Lobby)contents.get(0)).getId();
 							Lobby lobby = null;
 							boolean found = false;
 							for (int i = 0; !found && i < serverData.getLobbies().size(); i++){
 								lobby = serverData.getLobbies().get(i);
-								found = lobby.getId() == lobbyID;
+								found = lobby.getId().equals(lobbyID);
 							}
 							
 							String password = (String)contents.get(1);
@@ -104,6 +108,20 @@ public class ClientRunnable implements Runnable{
 								}
 							}
 							
+						} else if (request.getRequestType() == RequestType.CreateLobby){
+							ArrayList<Object> contents = (ArrayList<Object>)request.getContent();
+							String player = request.getPlayerName();
+							Lobby lobby = (Lobby)contents.get(0);
+							String password = (String)contents.get(1);
+							
+							
+							synchronized (serverData.getLobbies()) {
+								String newId = UUID.randomUUID().toString();
+								lobby.setId(newId);
+								serverData.getLobbies().add(lobby);
+								reply.setContent(newId);
+								System.out.println("Lobby creata con id " + newId);
+							}
 						}
 					}
 				}

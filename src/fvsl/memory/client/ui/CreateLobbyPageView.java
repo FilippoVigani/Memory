@@ -1,7 +1,9 @@
 package fvsl.memory.client.ui;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -19,10 +21,13 @@ import javax.swing.JComboBox;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import fvsl.memory.client.ui.Request.LobbyCreationResult;
+
 
 public class CreateLobbyPageView extends Page {
 
 	private CreateLobbyPageModel model;
+	private CreateLobbyPageController controller;
 	
 	public CreateLobbyPageView(){
 		super();
@@ -59,15 +64,12 @@ public class CreateLobbyPageView extends Page {
 		passwordField.setColumns(10);
 		
 		//I valori di default dovrebbe prenderli da server
-		String[] giocatoriPossibili={"2","3","4"};
-		nGCombo= new JComboBox(giocatoriPossibili);
-		String[] coppiePossibili={"10","18","20"};
-		nCoppieCombo= new JComboBox(coppiePossibili);
-		String[] timerPossibili={"5","10","15"};
-		timerCombo= new JComboBox(timerPossibili);
+		nGCombo= new JComboBox();
+		nCoppieCombo= new JComboBox();
+		timerCombo= new JComboBox();
 		
 		creaButton= new JButton("Crea Stanza");
-		backButton=new JButton("torna indietro");
+		backButton=new JButton("Torna Indietro");
 		
 		pannello.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		pannello.add(new JLabel("createLobbyPage"));
@@ -124,33 +126,52 @@ public class CreateLobbyPageView extends Page {
 		
 		nGCombo.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        model.getLobby().setNumberOfPlayers((Integer)nGCombo.getSelectedItem());
+		        model.getLobby().setNumberOfPlayers(Integer.parseInt((String)nGCombo.getSelectedItem()));
 		    }
 		});
 			
 		nCoppieCombo.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        model.getLobby().setNumberOfPlayers((Integer)nCoppieCombo.getSelectedItem());
+		        model.getLobby().setNumberOfPlayers(Integer.parseInt((String)nCoppieCombo.getSelectedItem()));
 		    }
 		});
 		
 		timerCombo.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        model.getLobby().setNumberOfPlayers((Integer)timerCombo.getSelectedItem());
+		        model.getLobby().setNumberOfPlayers(Integer.parseInt((String)timerCombo.getSelectedItem()));
 		    }
+		});
+		
+		creaButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				LobbyCreationResult result = 
+				controller.attemptToCreateLobby(model.getLobby(), model.getPassword());
+				
+				if (!(result == LobbyCreationResult.Accepted)){
+					JOptionPane.showMessageDialog(container, "Unable to join lobby: " + result.toString());
+				}
+			}
 		});
 	}
 
 	@Override
 	protected void loadData() {
 		model = new CreateLobbyPageModel();
+		model.setLobby(new Lobby("New Lobby", model.getPossiblePlayers()[0], model.getPossiblePairs()[0], model.getPossibleTimers()[0], null));
+		controller = new CreateLobbyPageController();
 		//Prendi valori di "default" qui (dal controller) e mettili nel model (vanno creati altri campi)
 	}
 
 	@Override
 	protected void populateViews() {
 		//Imposta i valori qui (li prendi dal model e li metti nella view)
-		
+		lobbyNameField.setText(model.getLobby().getName());
+		passwordField.setText(model.getPassword());
+		nGCombo.setModel(new DefaultComboBoxModel<Integer>(model.getPossiblePlayers()));
+		nCoppieCombo.setModel(new DefaultComboBoxModel<Integer>(model.getPossiblePairs()));
+		timerCombo.setModel(new DefaultComboBoxModel<Integer>(model.getPossibleTimers()));
 	}
 
 }

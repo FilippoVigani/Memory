@@ -51,6 +51,11 @@ public class Request implements Serializable {
 		UnacceptedUsername,
 		NotFound
 	}
+	
+	public enum LobbyCreationResult{
+		Failed,
+		Accepted
+	}
 
 	/**
 	 * @return the requestType
