@@ -116,6 +116,10 @@ public class Lobby implements Serializable {
 		return (this.password == null || this.password.equals("")) ? true : this.password.equals(password);
 	}
 
+	public void setPassword(String password){
+		this.password = password;
+	}
+	
 	/**
 	 * @return the connectedPlayers
 	 */

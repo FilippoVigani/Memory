@@ -115,6 +115,7 @@ public class ClientRunnable implements Runnable{
 							synchronized (serverData.getLobbies()) {
 								String newId = UUID.randomUUID().toString();
 								lobby.setId(newId);
+								lobby.setPassword(password); //Meh...
 								lobby.setOwner(player);
 								serverData.getLobbies().add(lobby);
 								reply.setContent(newId);
