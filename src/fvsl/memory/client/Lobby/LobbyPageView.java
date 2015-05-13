@@ -1,8 +1,13 @@
-package fvsl.memory.client.ui;
+package fvsl.memory.client.Lobby;
 import java.awt.GridLayout;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+
+import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.client.entities.Player;
+import fvsl.memory.client.util.Page;
 
 import java.util.ArrayList;
 

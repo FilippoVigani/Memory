@@ -1,4 +1,6 @@
-package fvsl.memory.client.ui;
+package fvsl.memory.client.CreateLobby;
+
+import fvsl.memory.client.entities.Lobby;
 
 public class CreateLobbyPageModel {
 	private Lobby lobby;

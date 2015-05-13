@@ -1,4 +1,4 @@
-package fvsl.memory.client.ui;
+package fvsl.memory.client.CreateLobby;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,7 +15,9 @@ import javax.swing.JComboBox;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import fvsl.memory.client.ui.Request.LobbyCreationResult;
+import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.client.entities.Request.LobbyCreationResult;
+import fvsl.memory.client.util.Page;
 
 
 public class CreateLobbyPageView extends Page {

@@ -1,10 +1,14 @@
-package fvsl.memory.client.ui;
+package fvsl.memory.client.Main;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import fvsl.memory.client.ui.Request.LobbyJoiningResult;
+import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.client.entities.Player;
+import fvsl.memory.client.entities.Request.LobbyJoiningResult;
+import fvsl.memory.client.shell.Global;
+import fvsl.memory.client.util.PageListeners;
 
 public class MainPageController extends PageListeners {
 	private static final Logger log = Logger.getLogger( MainPageController.class.getName() );

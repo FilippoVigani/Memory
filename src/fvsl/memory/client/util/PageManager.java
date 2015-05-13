@@ -1,9 +1,11 @@
-package fvsl.memory.client.ui;
+package fvsl.memory.client.util;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+
+import fvsl.memory.client.shell.Global;
 
 public class PageManager implements ActionListener{
 

@@ -1,5 +1,4 @@
-package fvsl.memory.client.bootstrapper;
-import fvsl.memory.client.ui.WindowShell;
+package fvsl.memory.client.shell;
 
 /**
  * @author Filippo Vigani

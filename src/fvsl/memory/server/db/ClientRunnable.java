@@ -8,12 +8,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import fvsl.memory.client.ui.Lobby;
-import fvsl.memory.client.ui.Player;
-import fvsl.memory.client.ui.Request;
-import fvsl.memory.client.ui.Request.LobbyJoiningResult;
-import fvsl.memory.client.ui.Request.RequestAction;
-import fvsl.memory.client.ui.Request.RequestType;
+import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.client.entities.Player;
+import fvsl.memory.client.entities.Request;
+import fvsl.memory.client.entities.Request.LobbyJoiningResult;
+import fvsl.memory.client.entities.Request.RequestAction;
+import fvsl.memory.client.entities.Request.RequestType;
 
 public class ClientRunnable implements Runnable{
 

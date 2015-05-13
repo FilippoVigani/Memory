@@ -1,4 +1,4 @@
-package fvsl.memory.client.ui;
+package fvsl.memory.client.sockets;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,10 +8,13 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-import fvsl.memory.client.ui.Request.LobbyCreationResult;
-import fvsl.memory.client.ui.Request.LobbyJoiningResult;
-import fvsl.memory.client.ui.Request.RequestAction;
-import fvsl.memory.client.ui.Request.RequestType;
+import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.client.entities.Player;
+import fvsl.memory.client.entities.Request;
+import fvsl.memory.client.entities.Request.LobbyCreationResult;
+import fvsl.memory.client.entities.Request.LobbyJoiningResult;
+import fvsl.memory.client.entities.Request.RequestAction;
+import fvsl.memory.client.entities.Request.RequestType;
 
 public class ServerManager {
 

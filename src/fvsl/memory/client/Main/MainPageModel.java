@@ -1,6 +1,9 @@
-package fvsl.memory.client.ui;
+package fvsl.memory.client.Main;
 
 import java.util.ArrayList;
+
+import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.client.entities.Player;
 
 //In realtà sarebbe MainPageModel, (vedi MVC)
 public class MainPageModel {

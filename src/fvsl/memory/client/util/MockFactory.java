@@ -1,6 +1,8 @@
-package fvsl.memory.client.ui;
+package fvsl.memory.client.util;
 
 import java.util.ArrayList;
+
+import fvsl.memory.client.entities.Lobby;
 
 public class MockFactory {
 	public static ArrayList<Lobby> getMockLobbiesList(){

@@ -1,4 +1,6 @@
-package fvsl.memory.client.ui;
+package fvsl.memory.client.Lobby;
+
+import fvsl.memory.client.entities.Lobby;
 
 public class LobbyPageModel {
 	

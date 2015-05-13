@@ -2,8 +2,8 @@ package fvsl.memory.server.db;
 
 import java.util.ArrayList;
 
-import fvsl.memory.client.ui.Lobby;
-import fvsl.memory.client.ui.MockFactory;
+import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.client.util.MockFactory;
 
 public class ServerData {
 

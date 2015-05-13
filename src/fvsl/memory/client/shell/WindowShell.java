@@ -1,8 +1,14 @@
-package fvsl.memory.client.ui;
+package fvsl.memory.client.shell;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JFrame;
 
-import fvsl.memory.client.ui.PageListeners.*;
+import fvsl.memory.client.CreateLobby.CreateLobbyPageView;
+import fvsl.memory.client.Lobby.LobbyPageView;
+import fvsl.memory.client.Main.MainPageView;
+import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.client.util.PageManager;
+import fvsl.memory.client.util.PageListeners.*;
 /**
  * @author Filippo Vigani
  *
