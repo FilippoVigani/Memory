@@ -119,12 +119,11 @@ public class ClientRunnable implements Runnable{
 								System.out.println("Lobby creata con id " + newId);
 							}
 						} else if (request.getRequestType() == RequestType.GetConnectedPlayers){
-							//Qui dovrebbe cercare se il player che manda la richiesta è
-							//contenuto nella lista di player connessi
 							Lobby srcLobby = request.getCastedContent();
 							String lobbyID = srcLobby.getId();
 							Lobby lobby = serverData.getLobbyById(lobbyID);
-							if (lobby != null){
+							Player player = lobby.getConnectedPlayerByName(request.getPlayer().getName());
+							if (lobby != null && player != null){ //Restituisce la lista solo se il player che la richiede è connesso
 								reply.setContent(lobby.getConnectedPlayers());
 							}
 						} else if (request.getRequestType() == RequestType.SetPlayerStatusReady){
