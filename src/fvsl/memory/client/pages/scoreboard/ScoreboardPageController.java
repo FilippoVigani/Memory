@@ -1,4 +1,4 @@
-package fvsl.memory.client.Scoreboard;
+package fvsl.memory.client.pages.scoreboard;
 
 public class ScoreboardPageController {
 	

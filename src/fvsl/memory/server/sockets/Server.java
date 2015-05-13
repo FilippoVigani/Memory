@@ -1,9 +1,12 @@
-package fvsl.memory.server.db;
+package fvsl.memory.server.sockets;
 
 import java.awt.TextArea;
 import java.io.*;
 import java.net.*;
+
 import javax.swing.JFrame;
+
+import fvsl.memory.server.db.ServerData;
 
 public class Server extends JFrame implements Runnable{
 

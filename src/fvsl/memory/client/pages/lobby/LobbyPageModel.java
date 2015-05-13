@@ -1,4 +1,4 @@
-package fvsl.memory.client.Lobby;
+package fvsl.memory.client.pages.lobby;
 
 import fvsl.memory.client.entities.Lobby;
 

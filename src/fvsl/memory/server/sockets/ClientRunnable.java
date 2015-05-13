@@ -1,4 +1,4 @@
-package fvsl.memory.server.db;
+package fvsl.memory.server.sockets;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -14,6 +14,7 @@ import fvsl.memory.client.entities.Request;
 import fvsl.memory.client.entities.Request.LobbyJoiningResult;
 import fvsl.memory.client.entities.Request.RequestAction;
 import fvsl.memory.client.entities.Request.RequestType;
+import fvsl.memory.server.db.ServerData;
 
 public class ClientRunnable implements Runnable{
 

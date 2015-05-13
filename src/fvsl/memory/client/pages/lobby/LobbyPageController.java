@@ -1,11 +1,11 @@
-package fvsl.memory.client.Lobby;
+package fvsl.memory.client.pages.lobby;
 
 import java.util.ArrayList;
 
 import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.entities.Player;
+import fvsl.memory.client.pages.PageListeners;
 import fvsl.memory.client.shell.Global;
-import fvsl.memory.client.util.PageListeners;
 
 public class LobbyPageController extends PageListeners{
 	

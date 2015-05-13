@@ -1,4 +1,4 @@
-package fvsl.memory.client.Lobby;
+package fvsl.memory.client.pages.lobby;
 import java.awt.GridLayout;
 
 import javax.swing.*;
@@ -7,7 +7,7 @@ import javax.swing.table.TableModel;
 
 import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.entities.Player;
-import fvsl.memory.client.util.Page;
+import fvsl.memory.client.pages.Page;
 
 import java.util.ArrayList;
 

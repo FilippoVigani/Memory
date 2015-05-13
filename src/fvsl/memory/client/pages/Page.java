@@ -1,4 +1,4 @@
-package fvsl.memory.client.util;
+package fvsl.memory.client.pages;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 

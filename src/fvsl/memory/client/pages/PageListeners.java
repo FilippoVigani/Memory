@@ -1,4 +1,4 @@
-package fvsl.memory.client.util;
+package fvsl.memory.client.pages;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

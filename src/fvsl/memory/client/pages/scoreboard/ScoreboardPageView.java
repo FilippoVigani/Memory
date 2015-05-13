@@ -1,9 +1,9 @@
-package fvsl.memory.client.Scoreboard;
+package fvsl.memory.client.pages.scoreboard;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
-import fvsl.memory.client.util.Page;
+import fvsl.memory.client.pages.Page;
 
 import java.awt.GridLayout;
 

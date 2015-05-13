@@ -1,4 +1,4 @@
-package fvsl.memory.client.Main;
+package fvsl.memory.client.pages.main;
 
 import java.util.ArrayList;
 

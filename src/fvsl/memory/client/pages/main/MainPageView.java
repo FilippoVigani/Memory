@@ -1,4 +1,4 @@
-package fvsl.memory.client.Main;
+package fvsl.memory.client.pages.main;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,8 +21,8 @@ import javax.swing.event.ListSelectionListener;
 import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.entities.Player;
 import fvsl.memory.client.entities.Request.LobbyJoiningResult;
+import fvsl.memory.client.pages.Page;
 import fvsl.memory.client.shell.Global;
-import fvsl.memory.client.util.Page;
 
 public class MainPageView extends Page {
 	

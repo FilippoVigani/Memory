@@ -1,10 +1,10 @@
-package fvsl.memory.client.CreateLobby;
+package fvsl.memory.client.pages.createlobby;
 
 import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.entities.Request.LobbyCreationResult;
 import fvsl.memory.client.entities.Request.LobbyJoiningResult;
+import fvsl.memory.client.pages.PageListeners;
 import fvsl.memory.client.shell.Global;
-import fvsl.memory.client.util.PageListeners;
 
 public class CreateLobbyPageController extends PageListeners {
 

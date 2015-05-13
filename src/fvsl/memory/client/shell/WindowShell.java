@@ -3,12 +3,12 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
-import fvsl.memory.client.CreateLobby.CreateLobbyPageView;
-import fvsl.memory.client.Lobby.LobbyPageView;
-import fvsl.memory.client.Main.MainPageView;
 import fvsl.memory.client.entities.Lobby;
-import fvsl.memory.client.util.PageManager;
-import fvsl.memory.client.util.PageListeners.*;
+import fvsl.memory.client.pages.PageManager;
+import fvsl.memory.client.pages.PageListeners.*;
+import fvsl.memory.client.pages.createlobby.CreateLobbyPageView;
+import fvsl.memory.client.pages.lobby.LobbyPageView;
+import fvsl.memory.client.pages.main.MainPageView;
 /**
  * @author Filippo Vigani
  *
