@@ -14,6 +14,7 @@ import fvsl.memory.client.entities.Request;
 import fvsl.memory.client.entities.Request.LobbyJoiningResult;
 import fvsl.memory.client.entities.Request.RequestAction;
 import fvsl.memory.client.entities.Request.RequestType;
+import fvsl.memory.client.entities.Request.StatusChangeResult;
 import fvsl.memory.server.db.ServerData;
 
 public class ClientRunnable implements Runnable{
@@ -81,19 +82,14 @@ public class ClientRunnable implements Runnable{
 							ArrayList<Object> contents = request.getCastedContent();
 							Player player = request.getPlayer(); 
 							String lobbyID = ((Lobby)contents.get(0)).getId();
-							Lobby lobby = null;
-							boolean found = false;
-							for (int i = 0; !found && i < serverData.getLobbies().size(); i++){
-								lobby = serverData.getLobbies().get(i);
-								found = lobby.getId().equals(lobbyID);
-							}
+							Lobby lobby = serverData.getLobbyById(lobbyID);
 							
 							String password = (String)contents.get(1);
 							
 							//Checks and returns result
 							if (player == null || player.getName() == null || player.getName().isEmpty()){
 								reply.setContent(LobbyJoiningResult.UnacceptedUsername);
-							} else if (!found || lobby == null){
+							} else if (lobby == null){
 								reply.setContent(LobbyJoiningResult.NotFound);
 							} else if (!lobby.checkPassword(password)){
 								reply.setContent(LobbyJoiningResult.WrongPassword);
@@ -125,16 +121,23 @@ public class ClientRunnable implements Runnable{
 						} else if (request.getRequestType() == RequestType.GetConnectedPlayers){
 							//Qui dovrebbe cercare se il player che manda la richiesta è
 							//contenuto nella lista di player connessi
-							Lobby l = request.getCastedContent();
-							String lobbyID = l.getId();
-							Lobby lobby = null;
-							boolean found = false;
-							for (int i = 0; !found && i < serverData.getLobbies().size(); i++){
-								lobby = serverData.getLobbies().get(i);
-								found = lobby.getId().equals(lobbyID);
-							}
-							if (found){
+							Lobby srcLobby = request.getCastedContent();
+							String lobbyID = srcLobby.getId();
+							Lobby lobby = serverData.getLobbyById(lobbyID);
+							if (lobby != null){
 								reply.setContent(lobby.getConnectedPlayers());
+							}
+						} else if (request.getRequestType() == RequestType.SetPlayerStatusReady){
+							reply.setContent(StatusChangeResult.Failed);
+							Player srcPlayer = request.getPlayer();
+							Lobby srcLobby = request.getCastedContent();
+							Lobby lobby = serverData.getLobbyById(srcLobby.getId());
+							if (lobby != null){
+								Player player = lobby.getConnectedPlayerByName(srcPlayer.getName());
+								if (player != null){
+									player.setReady(true);
+									reply.setContent(StatusChangeResult.Accepted);
+								}
 							}
 						}
 					}

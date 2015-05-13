@@ -134,6 +134,17 @@ public class Lobby implements Serializable {
 		this.connectedPlayers = connectedPlayers;
 	}
 
+	public Player getConnectedPlayerByName(String name) {
+		Player player = null;
+		boolean found = false;
+		for (int i = 0; !found && i < getConnectedPlayers().size(); i++){
+			player = getConnectedPlayers().get(i);
+			found = player.getName().equals(name);
+		}
+		
+		return found?player:null;
+	}
+	
 	/**
 	 * @return the owner
 	 */

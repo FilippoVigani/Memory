@@ -38,7 +38,8 @@ public class Request implements Serializable {
 		GetPossiblePlayersNumbers,
 		GetPossiblePairsNumbers,
 		GetPossibleTimerNumbers, 
-		GetConnectedPlayers
+		GetConnectedPlayers, 
+		SetPlayerStatusReady
 	}
 	
 	public enum RequestAction{
@@ -58,6 +59,11 @@ public class Request implements Serializable {
 	public enum LobbyCreationResult{
 		Failed,
 		Accepted
+	}
+	
+	public enum StatusChangeResult{
+		Accepted,
+		Failed
 	}
 
 	/**

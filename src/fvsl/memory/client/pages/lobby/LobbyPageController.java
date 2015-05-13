@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.entities.Player;
+import fvsl.memory.client.entities.Request.StatusChangeResult;
 import fvsl.memory.client.pages.PageListeners;
 import fvsl.memory.client.shell.Global;
 
@@ -16,6 +17,10 @@ public class LobbyPageController extends PageListeners{
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public StatusChangeResult setStatusReady(Lobby lobby) {
+		return Global.getServerManager().requestSetStatusReady(Global.player, lobby);
 	}
 	
 }

@@ -1,5 +1,7 @@
 package fvsl.memory.client.pages.lobby;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -7,6 +9,7 @@ import javax.swing.table.TableModel;
 
 import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.entities.Player;
+import fvsl.memory.client.entities.Request.StatusChangeResult;
 import fvsl.memory.client.pages.Page;
 
 import java.util.ArrayList;
@@ -74,8 +77,13 @@ public class LobbyPageView extends Page {
 
 	@Override
 	protected void setUpListeners() {
-		// TODO Auto-generated method stub
-
+		readyButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.setStatusReady(model.getLobby());
+			}
+		});
 	}
 
 	@Override

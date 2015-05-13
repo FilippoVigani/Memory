@@ -29,4 +29,15 @@ public class ServerData {
 		this.lobbies = lobbies;
 	}
 	
+	public Lobby getLobbyById(String id){
+		Lobby lobby = null;
+		boolean found = false;
+		for (int i = 0; !found && i < getLobbies().size(); i++){
+			lobby = getLobbies().get(i);
+			found = lobby.getId().equals(id);
+		}
+		
+		return found?lobby:null;
+	}
+	
 }

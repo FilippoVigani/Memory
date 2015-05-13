@@ -15,6 +15,7 @@ import fvsl.memory.client.entities.Request.LobbyCreationResult;
 import fvsl.memory.client.entities.Request.LobbyJoiningResult;
 import fvsl.memory.client.entities.Request.RequestAction;
 import fvsl.memory.client.entities.Request.RequestType;
+import fvsl.memory.client.entities.Request.StatusChangeResult;
 
 public class ServerManager {
 
@@ -176,6 +177,32 @@ public class ServerManager {
 		}
 		
 		ArrayList<Player> result = null;
+		
+		try {
+			Request obj = (Request)streamFromServer.readObject();
+			result = obj.getCastedContent();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		closeConnection();
+		
+		return result;
+	}
+
+	public StatusChangeResult requestSetStatusReady(Player player, Lobby lobby) {
+		connect();
+		try {
+			streamToServer.reset();
+			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.SetPlayerStatusReady, lobby));
+			streamToServer.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		StatusChangeResult result = StatusChangeResult.Failed;
 		
 		try {
 			Request obj = (Request)streamFromServer.readObject();
