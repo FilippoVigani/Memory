@@ -28,6 +28,17 @@ public class PageListeners {
             super(source, 0, null);
         }
 	}
+	public class GotoMainPageEvent extends ActionEvent{
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public GotoMainPageEvent(Object source){
+			super(source,0,null);
+		}
+	}
 	
 	public class GoToLobbyEvent extends ActionEvent {
         /**
@@ -65,4 +76,17 @@ public class PageListeners {
 	    	}
 		}
 	}
+	
+	//back to mainpage
+	public interface GoToMainPageListener extends ActionListener{
+	}
+	protected synchronized void fireGoToMainPageEvent() {
+		GotoMainPageEvent event= new GotoMainPageEvent(this);
+		for (ActionListener listener : listeners) {
+	    	if (listener instanceof GoToMainPageListener){
+	    		listener.actionPerformed(event);
+	    	}
+		}
+	}
+	
 }

@@ -34,4 +34,10 @@ public class CreateLobbyPageController extends PageListeners {
 		}
 		return result;
 	}
-}
+	
+	public void backToMainPage(){
+		fireGoToMainPageEvent();
+	}
+	
+	}
+	

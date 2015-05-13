@@ -155,6 +155,16 @@ public class CreateLobbyPageView extends Page {
 				}
 			}
 		});
+		
+		backButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				controller.backToMainPage();
+				
+			}
+		});
+		
 	}
 
 	@Override
