@@ -78,12 +78,12 @@ public class PageListeners {
 	}
 	
 	//back to mainpage
-	public interface GoToMainPageListener extends ActionListener{
+	public interface GoToMainPageEventListener extends ActionListener{
 	}
 	protected synchronized void fireGoToMainPageEvent() {
 		GotoMainPageEvent event= new GotoMainPageEvent(this);
 		for (ActionListener listener : listeners) {
-	    	if (listener instanceof GoToMainPageListener){
+	    	if (listener instanceof GoToMainPageEventListener){
 	    		listener.actionPerformed(event);
 	    	}
 		}

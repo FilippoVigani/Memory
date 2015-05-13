@@ -132,6 +132,34 @@ public class ServerManager {
 		return result;
 	}
 	
+	public void requestLeaveLobby(Player player, Lobby lobby) throws Exception{
+		connect();
+		try {		
+			streamToServer.reset();
+			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.LeaveLobby, lobby));
+			streamToServer.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			Request obj = (Request)streamFromServer.readObject();
+			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		closeConnection();
+	}
+	
+	
+	
+	
+	
+	
+	
 	public LobbyCreationResult requestCreateLobby(Player player, Lobby lobby, String password) throws Exception{
 		connect();
 		try {

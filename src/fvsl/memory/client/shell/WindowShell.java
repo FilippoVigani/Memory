@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
 import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.client.pages.PageListeners;
+import fvsl.memory.client.pages.PageListeners.GoToMainPageEventListener;
 import fvsl.memory.client.pages.PageManager;
 import fvsl.memory.client.pages.PageListeners.*;
 import fvsl.memory.client.pages.createlobby.CreateLobbyPageView;
@@ -32,7 +34,6 @@ public class WindowShell extends JFrame {
 private void init(){
 	final MainPageView mpw = new MainPageView();
 	final CreateLobbyPageView clw = new CreateLobbyPageView();
-
 	
 	pageManager = new PageManager(this, mpw); 
 
@@ -48,7 +49,15 @@ private void init(){
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			pageManager.loadNewPage(new LobbyPageView((Lobby)e.getSource()));
+			LobbyPageView lpw = new LobbyPageView((Lobby)e.getSource());	
+			pageManager.loadNewPage(lpw);
+			lpw.getController().addEventListener(new GoToMainPageEventListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					pageManager.loadNewPage(mpw);
+				}
+			});
+			
 		}
 	});
 	
@@ -56,16 +65,23 @@ private void init(){
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			pageManager.loadNewPage(new LobbyPageView((Lobby)e.getSource()));
+			LobbyPageView lpw = new LobbyPageView((Lobby)e.getSource());
+			pageManager.loadNewPage(lpw);
+			lpw.getController().addEventListener(new GoToMainPageEventListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					pageManager.loadNewPage(mpw);
+				}
+			});
 		}
 		
 		
 	});
 	
-	clw.getController().addEventListener(new GoToMainPageListener(){
+	clw.getController().addEventListener(new GoToMainPageEventListener(){
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			pageManager.loadNewPage(new MainPageView());
+			pageManager.loadPreviousPage();
 		}
 	});
 	

@@ -23,4 +23,18 @@ public class LobbyPageController extends PageListeners{
 		return Global.getServerManager().requestSetStatusReady(Global.player, lobby);
 	}
 	
+	
+	public void backToMainPage(Lobby lobby){
+		
+		leave(lobby);
+		fireGoToMainPageEvent();
+	}
+	
+	public void leave(Lobby lobby){
+		try {
+			Global.getServerManager().requestLeaveLobby(Global.player, lobby);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

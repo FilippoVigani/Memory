@@ -23,6 +23,14 @@ public class LobbyPageView extends Page {
 	 */
 	private static final long serialVersionUID = -8017492250670854298L;
 	private LobbyPageModel model;
+	public LobbyPageController getController() {
+		return controller;
+	}
+
+	public void setController(LobbyPageController controller) {
+		this.controller = controller;
+	}
+
 	private LobbyPageController controller;
 	private Lobby lobbyBuffer;
 
@@ -82,6 +90,15 @@ public class LobbyPageView extends Page {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.setStatusReady(model.getLobby());
+			}
+		});
+		
+		backButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				controller.backToMainPage(model.getLobby());
+				
 			}
 		});
 	}

@@ -138,7 +138,26 @@ public class ClientRunnable implements Runnable{
 									reply.setContent(StatusChangeResult.Accepted);
 								}
 							}
+						} else if (request.getRequestType() == RequestType.LeaveLobby){
+							Player srcPlayer = request.getPlayer();
+							Lobby srcLobby = request.getCastedContent();
+							Lobby lobby = serverData.getLobbyById(srcLobby.getId());
+							if (lobby != null){
+								Player player = lobby.getConnectedPlayerByName(srcPlayer.getName());
+								if (player != null){
+									synchronized (lobby) {
+										lobby.getConnectedPlayers().remove(player);
+									}
+								}
+								if (player == lobby.getOwner()){
+									synchronized (serverData.getLobbies()){
+										serverData.getLobbies().remove(lobby);
+									}
+								}
+							}
+							
 						}
+						
 					}
 				}
 
