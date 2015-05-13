@@ -24,7 +24,7 @@ public class ClientRunnable implements Runnable{
 	protected ObjectOutputStream streamToClient = null;
 	protected ObjectInputStream streamFromClient = null;
 	
-	private ServerData serverData;
+	protected ServerData serverData;
 
 	public ClientRunnable(Socket clientSocket, String serverText, ServerData serverData) {
 		this.clientSocket = clientSocket;

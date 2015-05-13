@@ -81,7 +81,7 @@ private void init(){
 	clw.getController().addEventListener(new GoToMainPageEventListener(){
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			pageManager.loadPreviousPage();
+			pageManager.loadNewPage(mpw);
 		}
 	});
 	

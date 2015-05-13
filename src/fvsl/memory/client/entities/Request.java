@@ -40,7 +40,9 @@ public class Request implements Serializable {
 		GetPossibleTimerNumbers, 
 		GetConnectedPlayers, 
 		SetPlayerStatusReady,
-		LeaveLobby
+		LeaveLobby,
+		
+		UpdateLobbyList
 	}
 	
 	public enum RequestAction{

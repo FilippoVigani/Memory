@@ -1,20 +1,25 @@
 package fvsl.memory.server.db;
 
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 
 import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.util.MockFactory;
+import fvsl.memory.server.sockets.ClientRunnable;
 
 public class ServerData {
 
 	public ServerData(){
 		lobbies = new ArrayList<Lobby>();
+		clientsOutputStreams = new ArrayList<ObjectOutputStream>();
 		lobbies = MockFactory.getMockLobbiesList();
 		lobbies.add(new Lobby("popopop", "HUH", 1, 1, 1, "huh"));
 	}
 	
 	private ArrayList<Lobby> lobbies;
-
+	private ArrayList<ObjectOutputStream> clientsOutputStreams;
+	
 	/**
 	 * @return the lobbies
 	 */
@@ -25,7 +30,7 @@ public class ServerData {
 	/**
 	 * @param lobbies the lobbies to set
 	 */
-	public void setLobbies(ArrayList<Lobby> lobbies) {
+	public synchronized void setLobbies(ArrayList<Lobby> lobbies) {
 		this.lobbies = lobbies;
 	}
 	
@@ -38,6 +43,20 @@ public class ServerData {
 		}
 		
 		return found?lobby:null;
+	}
+
+	/**
+	 * @return the clientsOutputStreams
+	 */
+	public ArrayList<ObjectOutputStream> getClientsOutputStreams() {
+		return clientsOutputStreams;
+	}
+
+	/**
+	 * @param clientsOutputStreams the clientsOutputStreams to set
+	 */
+	public void setClientsOutputStreams(ArrayList<ObjectOutputStream> clientsOutputStreams) {
+		this.clientsOutputStreams = clientsOutputStreams;
 	}
 	
 }

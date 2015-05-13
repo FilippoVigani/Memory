@@ -10,6 +10,10 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +27,7 @@ import fvsl.memory.client.entities.Player;
 import fvsl.memory.client.entities.Request.LobbyJoiningResult;
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.client.shell.Global;
+import fvsl.memory.client.sockets.GUIUpdaterRunnable;
 
 public class MainPageView extends Page {
 	
@@ -36,6 +41,8 @@ public class MainPageView extends Page {
 	private MainPageModel model;
 	private MainPageController controller;
 	
+	private GUIUpdaterRunnable updater;
+	
 	private JTextField txtUsername;
 	private JTextField txtPassword;
 	private JButton btnCreateLobby;
@@ -44,6 +51,10 @@ public class MainPageView extends Page {
 	
 	public MainPageView(){
 		super();
+		
+		updater = new GUIUpdaterRunnable(this);
+		new Thread(updater).start();
+
 	}
 	
 	@Override
@@ -89,7 +100,10 @@ public class MainPageView extends Page {
 		controller = new MainPageController();
 		model.setPlayer(new Player("Anonymous player")); //Default user name
 		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
-		//model.setLobbies(new ArrayList<Lobby>());
+	}
+	
+	public void updateLobbies(){
+		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
 	}
 	
 	@Override
