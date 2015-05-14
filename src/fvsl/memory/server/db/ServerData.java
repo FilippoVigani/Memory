@@ -18,13 +18,13 @@ public class ServerData {
 		lobbies.add(new Lobby("popopop", "HUH", 1, 1, 1, "huh"));
 	}
 	
-	private ArrayList<Lobby> lobbies;
-	private ArrayList<ClientUpdaterRunnable> clientUpdaters;
+	private volatile ArrayList<Lobby> lobbies;
+	private volatile ArrayList<ClientUpdaterRunnable> clientUpdaters;
 	
 	/**
 	 * @return the lobbies
 	 */
-	public ArrayList<Lobby> getLobbies() {
+	public synchronized ArrayList<Lobby> getLobbies() {
 		return lobbies;
 	}
 
@@ -35,7 +35,7 @@ public class ServerData {
 		this.lobbies = lobbies;
 	}
 	
-	public Lobby getLobbyById(String id){
+	public synchronized Lobby getLobbyById(String id){
 		Lobby lobby = null;
 		boolean found = false;
 		for (int i = 0; !found && i < getLobbies().size(); i++){
@@ -49,14 +49,14 @@ public class ServerData {
 	/**
 	 * @return the clientUpdaters
 	 */
-	public ArrayList<ClientUpdaterRunnable> getClientUpdaters() {
+	public synchronized ArrayList<ClientUpdaterRunnable> getClientUpdaters() {
 		return clientUpdaters;
 	}
 
 	/**
 	 * @param clientUpdaters the clientUpdaters to set
 	 */
-	public void setClientUpdaters(ArrayList<ClientUpdaterRunnable> clientUpdaters) {
+	public synchronized void setClientUpdaters(ArrayList<ClientUpdaterRunnable> clientUpdaters) {
 		this.clientUpdaters = clientUpdaters;
 	}
 

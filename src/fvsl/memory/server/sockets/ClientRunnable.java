@@ -87,10 +87,10 @@ public class ClientRunnable implements Runnable{
 							String password = (String)contents.get(1);
 							
 							//Checks and returns result
-							if (player == null || player.getName() == null || player.getName().isEmpty()){
-								reply.setContent(LobbyJoiningResult.UnacceptedUsername);
-							} else if (lobby == null){
+							if (lobby == null){
 								reply.setContent(LobbyJoiningResult.NotFound);
+							} else if (player == null || player.getName() == null || player.getName().isEmpty() || lobby.getConnectedPlayerByName(player.getName()) != null){
+								reply.setContent(LobbyJoiningResult.UnacceptedUsername);
 							} else if (!lobby.checkPassword(password)){
 								reply.setContent(LobbyJoiningResult.WrongPassword);
 							} else if (lobby.getConnectedPlayers().size() >= lobby.getNumberOfPlayers()){
@@ -119,11 +119,7 @@ public class ClientRunnable implements Runnable{
 								System.out.println("Lobby creata con id " + newId);
 							}
 							
-							for (ClientUpdaterRunnable runnable : serverData.getClientUpdaters()){
-								if (runnable == null) {System.out.println("runnable null");}
-								runnable.setRequest(new Request(null, RequestAction.Ask, RequestType.UpdateLobbyList, null));
-								
-							}
+							notifyUpdate(RequestType.UpdateLobbyList);
 							
 							
 						} else if (request.getRequestType() == RequestType.GetConnectedPlayers){
@@ -157,10 +153,10 @@ public class ClientRunnable implements Runnable{
 										lobby.getConnectedPlayers().remove(player);
 									}
 								}
-								if (player == lobby.getOwner()){
-									synchronized (serverData.getLobbies()){
-										serverData.getLobbies().remove(lobby);
-									}
+								if (player.getName().equals(lobby.getOwner().getName())){
+									System.out.println("Owner of lobby left, removing lobby.");
+									serverData.getLobbies().remove(lobby);
+									notifyUpdate(RequestType.UpdateLobbyList);
 								}
 							}
 							
@@ -180,6 +176,14 @@ public class ClientRunnable implements Runnable{
 			} 
 		}
 
+	}
+	
+	private void notifyUpdate(RequestType requestType){
+		for (ClientUpdaterRunnable runnable : serverData.getClientUpdaters()){
+			if (runnable == null) {System.out.println("runnable null");}
+			runnable.setRequest(new Request(null, RequestAction.Ask, requestType, null));
+			
+		}
 	}
 
 }

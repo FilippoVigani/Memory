@@ -30,69 +30,71 @@ import fvsl.memory.client.shell.Global;
 import fvsl.memory.client.sockets.GUIUpdaterRunnable;
 
 public class MainPageView extends Page {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4161665227369448294L;
 
 	private static final Logger log = Logger.getLogger( MainPageView.class.getName() );
-	
+
 	private MainPageModel model;
 	private MainPageController controller;
-	
+
 	private GUIUpdaterRunnable updater;
-	
+	private Thread updaterThread;
+
 	private JTextField txtUsername;
 	private JTextField txtPassword;
 	private JButton btnCreateLobby;
 	private JButton btnJoinLobby;
 	private JList<Lobby> listLobbies;
-	
+
 	public MainPageView(){
 		super();
-		
+
 		updater = new GUIUpdaterRunnable(this);
-		new Thread(updater).start();
+		updaterThread = new Thread(updater);
+		updaterThread.start();
 
 	}
-	
+
 	@Override
 	protected void loadComponents() {
 		setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		JPanel panel = new JPanel();
 		add(panel);
 		panel.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		JPanel createLobbyPanel = new JPanel();
 		panel.add(createLobbyPanel);
 		createLobbyPanel.setLayout(new BoxLayout(createLobbyPanel, BoxLayout.Y_AXIS));
-		
+
 		txtUsername = new JTextField();
 		createLobbyPanel.add(txtUsername);
 		txtUsername.setColumns(10);
 		txtUsername.setMaximumSize(new Dimension(Integer.MAX_VALUE, txtUsername.getPreferredSize().height) );
-		
+
 		btnCreateLobby = new JButton("Create Lobby");
 		createLobbyPanel.add(btnCreateLobby);
-		
+
 		JPanel joinLobbyPanel = new JPanel();
 		panel.add(joinLobbyPanel);
 		joinLobbyPanel.setLayout(new BoxLayout(joinLobbyPanel, BoxLayout.Y_AXIS));
-		
+
 		listLobbies = new JList<Lobby>();
 		joinLobbyPanel.add(listLobbies);
-		
+
 		txtPassword = new JTextField();
 		joinLobbyPanel.add(txtPassword);
 		txtPassword.setColumns(10);
 		txtPassword.setMaximumSize(new Dimension(Integer.MAX_VALUE, txtPassword.getPreferredSize().height) );
-		
+
 		btnJoinLobby = new JButton("Join Lobby");
 		joinLobbyPanel.add(btnJoinLobby);
 	}
-	
+
 	@Override
 	protected void loadData(){
 		//Spostare su controller (parzialmente) + richiesta al server
@@ -101,13 +103,13 @@ public class MainPageView extends Page {
 		model.setPlayer(new Player("Anonymous player")); //Default user name
 		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
 	}
-	
+
 	public void updateLobbies(){
 		System.out.println("Updating lobbies");
 		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
 		listLobbies.setListData(model.getLobbies().toArray(new Lobby[model.getLobbies().size()]));
 	}
-	
+
 	@Override
 	public void populateViews(){
 		listLobbies.setListData(model.getLobbies().toArray(new Lobby[model.getLobbies().size()]));
@@ -115,42 +117,42 @@ public class MainPageView extends Page {
 		txtUsername.setText(model.getPlayer().getName());
 		txtUsername.selectAll();
 	}
-	
+
 	@Override
 	protected void setUpListeners(){
 		txtUsername.getDocument().addDocumentListener(new DocumentListener() { 
-			  public void changedUpdate(DocumentEvent e) {
-				  	notifyProperty(); 
-				  } 
-				  public void removeUpdate(DocumentEvent e) {
-					  notifyProperty(); 
-				  } 
-				  public void insertUpdate(DocumentEvent e) {
-					  notifyProperty(); 
-				  } 
-				 
-				  public void notifyProperty() { 
-					model.getPlayer().setName(txtUsername.getText());
-				    Global.player = model.getPlayer();
-				  } 
+			public void changedUpdate(DocumentEvent e) {
+				notifyProperty(); 
+			} 
+			public void removeUpdate(DocumentEvent e) {
+				notifyProperty(); 
+			} 
+			public void insertUpdate(DocumentEvent e) {
+				notifyProperty(); 
+			} 
+
+			public void notifyProperty() { 
+				model.getPlayer().setName(txtUsername.getText());
+				Global.player = model.getPlayer();
+			} 
 		});
-		
+
 		txtPassword.getDocument().addDocumentListener(new DocumentListener() { 
-			  public void changedUpdate(DocumentEvent e) {
-				  	notifyProperty(); 
-				  } 
-				  public void removeUpdate(DocumentEvent e) {
-					  notifyProperty(); 
-				  } 
-				  public void insertUpdate(DocumentEvent e) {
-					  notifyProperty(); 
-				  } 
-				 
-				  public void notifyProperty() { 
-				     model.setPassword(txtPassword.getText());
-				  } 
+			public void changedUpdate(DocumentEvent e) {
+				notifyProperty(); 
+			} 
+			public void removeUpdate(DocumentEvent e) {
+				notifyProperty(); 
+			} 
+			public void insertUpdate(DocumentEvent e) {
+				notifyProperty(); 
+			} 
+
+			public void notifyProperty() { 
+				model.setPassword(txtPassword.getText());
+			} 
 		});
-		
+
 		listLobbies.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -160,22 +162,24 @@ public class MainPageView extends Page {
 				}
 			}
 		});
-		
+
 		btnJoinLobby.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                attemptToJoinLobby();
-            }
-        });
-		
+			public void actionPerformed(ActionEvent e)
+			{
+				if (model.getSelectedLobby() != null){
+					attemptToJoinLobby();
+				}
+			}
+		});
+
 		btnCreateLobby.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e)
-            {
-                loadCreateLobbyPage();
-            }
-        });
+			public void actionPerformed(ActionEvent e)
+			{
+				loadCreateLobbyPage();
+			}
+		});
 	}
-	
+
 	protected void loadCreateLobbyPage() {
 		controller.loadCreateLobbyPage();
 	}
@@ -215,7 +219,14 @@ public class MainPageView extends Page {
 	@Override
 	protected void bufferize(Object o) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
+	/*
+	protected void finalize() throws Throwable {
+		  super.finalize();
+
+		  updaterThread.interrupt();
+	}
+	 */
 }

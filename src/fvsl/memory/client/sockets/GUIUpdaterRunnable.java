@@ -16,6 +16,7 @@ import javax.swing.SwingUtilities;
 import fvsl.memory.client.entities.Request;
 import fvsl.memory.client.entities.Request.RequestAction;
 import fvsl.memory.client.entities.Request.RequestType;
+import fvsl.memory.client.pages.Page;
 import fvsl.memory.client.pages.main.MainPageView;
 import fvsl.memory.client.shell.Global;
 
@@ -25,10 +26,10 @@ public class GUIUpdaterRunnable implements Runnable{
 	protected ObjectOutputStream streamToServer;
 
 	protected Socket serverSocket;
-	private MainPageView mainPageView;
+	private Page page;
 
-	public GUIUpdaterRunnable(MainPageView mainPageView){
-		this.mainPageView = mainPageView;
+	public GUIUpdaterRunnable(Page page){
+		this.page = page;
 	}
 
 	@Override
@@ -52,13 +53,13 @@ public class GUIUpdaterRunnable implements Runnable{
 			e.printStackTrace();
 		} 
 
-		while (true){
+		while (!Thread.currentThread().isInterrupted()){
 
 			try {
 
 				Request request = null;
 				try {
-					System.out.println("Waiting for request...");
+					System.out.println("Waiting for update request...");
 					request = (Request)streamFromServer.readObject();
 
 				} catch (ClassNotFoundException e) {
@@ -72,11 +73,14 @@ public class GUIUpdaterRunnable implements Runnable{
 
 				if (request.getRequestAction() == RequestAction.Ask){
 					if (request.getRequestType() == RequestType.UpdateLobbyList){
-						if (mainPageView != null){
+						
+						final MainPageView mpw = (MainPageView)page;
+						
+						if (mpw != null){
 							SwingUtilities.invokeLater(new Runnable() {
 								@Override
 								public void run() {
-									mainPageView.updateLobbies();
+									mpw.updateLobbies();
 								}
 							});
 						}	
@@ -87,7 +91,13 @@ public class GUIUpdaterRunnable implements Runnable{
 				e.printStackTrace();
 			} 
 		}
-
+		try {
+			streamToServer.close();
+			streamFromServer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
