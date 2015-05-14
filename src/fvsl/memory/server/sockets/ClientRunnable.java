@@ -24,7 +24,7 @@ public class ClientRunnable implements Runnable{
 	protected ObjectOutputStream streamToClient = null;
 	protected ObjectInputStream streamFromClient = null;
 	
-	protected ServerData serverData;
+	protected volatile ServerData serverData;
 
 	public ClientRunnable(Socket clientSocket, String serverText, ServerData serverData) {
 		this.clientSocket = clientSocket;
@@ -118,6 +118,14 @@ public class ClientRunnable implements Runnable{
 								reply.setContent(newId);
 								System.out.println("Lobby creata con id " + newId);
 							}
+							
+							for (ClientUpdaterRunnable runnable : serverData.getClientUpdaters()){
+								if (runnable == null) {System.out.println("runnable null");}
+								runnable.setRequest(new Request(null, RequestAction.Ask, RequestType.UpdateLobbyList, null));
+								
+							}
+							
+							
 						} else if (request.getRequestType() == RequestType.GetConnectedPlayers){
 							Lobby srcLobby = request.getCastedContent();
 							String lobbyID = srcLobby.getId();
@@ -166,7 +174,7 @@ public class ClientRunnable implements Runnable{
 				streamToClient.writeObject(reply);
 				streamToClient.flush();
 
-				System.out.print("Request fulfilled...");
+				System.out.println("Request fulfilled...");
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 

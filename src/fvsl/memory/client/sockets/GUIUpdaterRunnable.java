@@ -68,7 +68,7 @@ public class GUIUpdaterRunnable implements Runnable{
 					break;
 				} 
 				
-				System.out.println("Received request " + request.getRequestType());
+				System.out.println("Received update request " + request.getRequestType());
 
 				if (request.getRequestAction() == RequestAction.Ask){
 					if (request.getRequestType() == RequestType.UpdateLobbyList){

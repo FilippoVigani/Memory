@@ -103,7 +103,9 @@ public class MainPageView extends Page {
 	}
 	
 	public void updateLobbies(){
+		System.out.println("Updating lobbies");
 		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
+		listLobbies.setListData(model.getLobbies().toArray(new Lobby[model.getLobbies().size()]));
 	}
 	
 	@Override

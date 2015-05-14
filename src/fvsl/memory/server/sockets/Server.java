@@ -27,7 +27,7 @@ public class Server extends JFrame implements Runnable{
 	protected boolean      isStopped    = false;
 	protected Thread       runningThread= null;
 
-	protected ServerData serverData;
+	protected volatile ServerData serverData;
 
 	public Server(int port){	
 		super();
@@ -62,13 +62,18 @@ public class Server extends JFrame implements Runnable{
 			if (clientSocket == null){ 
 				System.out.println("Client socket is null");
 			} else {
-				Runnable runnable = null;
+				System.out.println("New client on port " + serverPort);
 				if (this.serverPort == Global.PORT){
-					runnable = new ClientRunnable(clientSocket, "Multithreaded Server", serverData);
+					ClientRunnable runnable = new ClientRunnable(clientSocket, "Multithreaded Server", serverData);
+					new Thread(runnable).start();
 				} else if (this.serverPort == Global.UPDATE_PORT){
-					runnable = new ClientUpdaterRunnable(clientSocket, "Updater Server", serverData);
+					ClientUpdaterRunnable runnable = new ClientUpdaterRunnable(clientSocket, "Updater Server", serverData);
+					synchronized (serverData.getClientUpdaters()) {
+						serverData.getClientUpdaters().add(runnable);
+					}
+					System.out.println("Client updater added.");
+					new Thread(runnable).start();
 				}
-				new Thread(runnable).start();
 			}
 		}
 		System.out.println("Server Stopped.") ;
