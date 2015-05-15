@@ -102,6 +102,7 @@ public class ClientRunnable implements Runnable{
 									lobby.getConnectedPlayers().add(player);
 								}
 							}
+							notifyUpdate(RequestType.UpdatePlayersList);
 							
 						} else if (request.getRequestType() == RequestType.CreateLobby){
 							ArrayList<Object> contents = request.getCastedContent();
@@ -142,6 +143,7 @@ public class ClientRunnable implements Runnable{
 									reply.setContent(StatusChangeResult.Accepted);
 								}
 							}
+							notifyUpdate(RequestType.UpdatePlayersList);
 						} else if (request.getRequestType() == RequestType.LeaveLobby){
 							Player srcPlayer = request.getPlayer();
 							Lobby srcLobby = request.getCastedContent();
@@ -161,7 +163,7 @@ public class ClientRunnable implements Runnable{
 									}
 								}
 							}
-							
+							notifyUpdate(RequestType.UpdatePlayersList);
 						}
 						
 					}

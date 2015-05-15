@@ -17,6 +17,7 @@ import fvsl.memory.client.entities.Request;
 import fvsl.memory.client.entities.Request.RequestAction;
 import fvsl.memory.client.entities.Request.RequestType;
 import fvsl.memory.client.pages.Page;
+import fvsl.memory.client.pages.lobby.LobbyPageView;
 import fvsl.memory.client.pages.main.MainPageView;
 import fvsl.memory.client.shell.Global;
 
@@ -36,7 +37,7 @@ public class GUIUpdaterRunnable implements Runnable{
 	public void run() {
 
 		System.out.println("Created gui updater runnable");
-		
+
 		try {
 			serverSocket = new Socket(InetAddress.getLocalHost(), Global.UPDATE_PORT);
 		} catch (UnknownHostException e1) {
@@ -68,22 +69,37 @@ public class GUIUpdaterRunnable implements Runnable{
 					e.printStackTrace();
 					break;
 				} 
-				
+
 				System.out.println("Received update request " + request.getRequestType());
 
 				if (request.getRequestAction() == RequestAction.Ask){
 					if (request.getRequestType() == RequestType.UpdateLobbyList){
-						
-						final MainPageView mpw = (MainPageView)page;
-						
-						if (mpw != null){
-							SwingUtilities.invokeLater(new Runnable() {
-								@Override
-								public void run() {
-									mpw.updateLobbies();
-								}
-							});
-						}	
+
+						if (page instanceof MainPageView){
+							final MainPageView mpw = (MainPageView)page;
+
+							if (mpw != null){
+								SwingUtilities.invokeLater(new Runnable() {
+									@Override
+									public void run() {
+										mpw.updateLobbies();
+									}
+								});
+							}
+						}
+					} else if (request.getRequestType() == RequestType.UpdatePlayersList){
+						if (page instanceof LobbyPageView){
+							final LobbyPageView lpw = (LobbyPageView)page;
+
+							if (lpw != null){
+								SwingUtilities.invokeLater(new Runnable() {
+									@Override
+									public void run() {
+										lpw.updatePlayers();
+									}
+								});
+							}
+						}
 					}
 				}
 

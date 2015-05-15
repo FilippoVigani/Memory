@@ -41,9 +41,6 @@ public class MainPageView extends Page {
 	private MainPageModel model;
 	private MainPageController controller;
 
-	private GUIUpdaterRunnable updater;
-	private Thread updaterThread;
-
 	private JTextField txtUsername;
 	private JTextField txtPassword;
 	private JButton btnCreateLobby;
@@ -52,11 +49,6 @@ public class MainPageView extends Page {
 
 	public MainPageView(){
 		super();
-
-		updater = new GUIUpdaterRunnable(this);
-		updaterThread = new Thread(updater);
-		updaterThread.start();
-
 	}
 
 	@Override
