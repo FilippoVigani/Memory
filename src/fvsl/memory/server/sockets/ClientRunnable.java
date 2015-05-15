@@ -152,10 +152,12 @@ public class ClientRunnable implements Runnable{
 									synchronized (lobby) {
 										lobby.getConnectedPlayers().remove(player);
 									}
-									if (player.getName().equals(lobby.getOwner().getName())){
-										System.out.println("Owner of lobby left, removing lobby.");
-										serverData.getLobbies().remove(lobby);
-										notifyUpdate(RequestType.UpdateLobbyList);
+									if (lobby.getOwner() != null){
+										if (player.getName().equals(lobby.getOwner().getName())){
+											System.out.println("Owner of lobby left, removing lobby.");
+											serverData.getLobbies().remove(lobby);
+											notifyUpdate(RequestType.UpdateLobbyList);
+										}
 									}
 								}
 							}
