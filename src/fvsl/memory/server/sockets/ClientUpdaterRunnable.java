@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import fvsl.memory.client.entities.Request;
+import fvsl.memory.client.entities.StringResources;
 import fvsl.memory.server.db.ServerData;
 
 public class ClientUpdaterRunnable extends ClientRunnable {
@@ -23,17 +24,17 @@ public class ClientUpdaterRunnable extends ClientRunnable {
 
 			streamToClient.flush();
 
-			System.out.println("Created output stream for updater serverside");
+			System.out.println(StringResources.createdUpOS.getArgoument());
 
 			streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
 			
-			System.out.println("Created input stream for updater serverside");
+			System.out.println(StringResources.createdUpIS.getArgoument());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 		while(true){
 			if (request != null){
-				System.out.println("New update request found! - " + request.getRequestType());
+				System.out.println(StringResources.newUpReq.getArgoument()+ request.getRequestType());
 				try {
 					streamToClient.reset();
 					streamToClient.writeObject(request);

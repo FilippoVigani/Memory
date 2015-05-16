@@ -11,7 +11,6 @@ import java.util.UUID;
 
 
 
-import fvsl.memory.client.entities.ClientRunResources;
 import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.entities.Player;
 import fvsl.memory.client.entities.Request;
@@ -19,6 +18,7 @@ import fvsl.memory.client.entities.Request.LobbyJoiningResult;
 import fvsl.memory.client.entities.Request.RequestAction;
 import fvsl.memory.client.entities.Request.RequestType;
 import fvsl.memory.client.entities.Request.StatusChangeResult;
+import fvsl.memory.client.entities.StringResources;
 import fvsl.memory.server.db.ServerData;
 
 public class ClientRunnable implements Runnable{
@@ -43,12 +43,12 @@ public class ClientRunnable implements Runnable{
 			streamToClient = new ObjectOutputStream(clientSocket.getOutputStream());
 
 			streamToClient.flush();
-			System.out.println(ClientRunResources.createdIS.getArgoument());
+			System.out.println(StringResources.createdIS.getArgoument());
 
 			streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
 
 			streamToClient.flush();
-			System.out.println(ClientRunResources.createdOS.getArgoument());
+			System.out.println(StringResources.createdOS.getArgoument());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -68,15 +68,15 @@ public class ClientRunnable implements Runnable{
 				} 
 
 				
-				System.out.println(ClientRunResources.reqAsk.getArgoument());
+				System.out.println(StringResources.reqAsk.getArgoument());
 
 				//Processing request - DA MIGLIORARE
 				Request reply = new Request(RequestAction.Reply);
 				if (request != null){
 					if (request.getRequestAction() == RequestAction.Ask){
-						System.out.print(ClientRunResources.reqAsk.getArgoument());
+						System.out.print(StringResources.reqAsk.getArgoument());
 						if (request.getRequestType() == RequestType.GetLobbies){
-							System.out.println(ClientRunResources.lo.getArgoument());
+							System.out.println(StringResources.lo.getArgoument());
 							reply.setContent(serverData.getLobbies());
 							reply.setRequestType(RequestType.GetLobbies);
 						}
@@ -119,7 +119,7 @@ public class ClientRunnable implements Runnable{
 								lobby.setOwner(player);
 								serverData.getLobbies().add(lobby);
 								reply.setContent(newId);
-								System.out.println(ClientRunResources.createdLo.getArgoument() + newId);
+								System.out.println(StringResources.createdLo.getArgoument() + newId);
 							}
 							
 							notifyUpdate(RequestType.UpdateLobbyList);
@@ -158,7 +158,7 @@ public class ClientRunnable implements Runnable{
 									}
 									if (lobby.getOwner() != null){
 										if (player.getName().equals(lobby.getOwner().getName())){
-											System.out.println(ClientRunResources.destroyedLo.getArgoument());
+											System.out.println(StringResources.destroyedLo.getArgoument());
 											serverData.getLobbies().remove(lobby);
 											notifyUpdate(RequestType.UpdateLobbyList);
 										}
@@ -176,7 +176,7 @@ public class ClientRunnable implements Runnable{
 				streamToClient.writeObject(reply);
 				streamToClient.flush();
 
-				System.out.println(ClientRunResources.reqFf.getArgoument());
+				System.out.println(StringResources.reqFf.getArgoument());
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 
@@ -186,7 +186,7 @@ public class ClientRunnable implements Runnable{
 	
 	private void notifyUpdate(RequestType requestType){
 		for (ClientUpdaterRunnable runnable : serverData.getClientUpdaters()){
-			if (runnable == null) {System.out.println(ClientRunResources.nullRun.getArgoument());}
+			if (runnable == null) {System.out.println(StringResources.nullRun.getArgoument());}
 			runnable.setRequest(new Request(null, RequestAction.Ask, requestType, null));
 			
 		}

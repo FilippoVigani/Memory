@@ -14,6 +14,7 @@ import java.nio.channels.SocketChannel;
 import javax.swing.SwingUtilities;
 
 import fvsl.memory.client.entities.Request;
+import fvsl.memory.client.entities.StringResources;
 import fvsl.memory.client.entities.Request.RequestAction;
 import fvsl.memory.client.entities.Request.RequestType;
 import fvsl.memory.client.pages.Page;
@@ -36,7 +37,7 @@ public class GUIUpdaterRunnable implements Runnable{
 	@Override
 	public void run() {
 
-		System.out.println("Created gui updater runnable");
+		System.out.println(StringResources.createdUpRun.getArgoument());
 
 		try {
 			serverSocket = new Socket(InetAddress.getLocalHost(), Global.UPDATE_PORT);
@@ -60,7 +61,7 @@ public class GUIUpdaterRunnable implements Runnable{
 
 				Request request = null;
 				try {
-					System.out.println("Waiting for update request...");
+					System.out.println(StringResources.w8UpReq.getArgoument());
 					request = (Request)streamFromServer.readObject();
 
 				} catch (ClassNotFoundException e) {

@@ -13,6 +13,7 @@ import java.util.Set;
 
 import javax.swing.JFrame;
 
+import fvsl.memory.client.entities.StringResources;
 import fvsl.memory.client.shell.Global;
 import fvsl.memory.server.db.ServerData;
 
@@ -53,16 +54,16 @@ public class Server extends JFrame implements Runnable{
 				clientSocket = this.serverSocket.accept();
 			} catch (IOException e) {
 				if(isStopped()) {
-					System.out.println("Server Stopped.") ;
+					System.out.println(StringResources.sStop.getArgoument()) ;
 					return;
 				}
 				throw new RuntimeException(
 						"Error accepting client connection", e);
 			}
 			if (clientSocket == null){ 
-				System.out.println("Client socket is null");
+				System.out.println(StringResources.nullCSock.getArgoument());
 			} else {
-				System.out.println("New client on port " + serverPort);
+				System.out.println(StringResources.newC.getArgoument() + serverPort);
 				if (this.serverPort == Global.PORT){
 					ClientRunnable runnable = new ClientRunnable(clientSocket, "Multithreaded Server", serverData);
 					new Thread(runnable).start();
@@ -71,12 +72,12 @@ public class Server extends JFrame implements Runnable{
 					synchronized (serverData.getClientUpdaters()) {
 						serverData.getClientUpdaters().add(runnable);
 					}
-					System.out.println("Client updater added.");
+					System.out.println(StringResources.cUpAdd.getArgoument());
 					new Thread(runnable).start();
 				}
 			}
 		}
-		System.out.println("Server Stopped.") ;
+		System.out.println(StringResources.sStop.getArgoument()) ;
 	}
 
 

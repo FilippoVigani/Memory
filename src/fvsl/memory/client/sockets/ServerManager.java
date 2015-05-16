@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.entities.Player;
 import fvsl.memory.client.entities.Request;
+import fvsl.memory.client.entities.StringResources;
 import fvsl.memory.client.entities.Request.LobbyCreationResult;
 import fvsl.memory.client.entities.Request.LobbyJoiningResult;
 import fvsl.memory.client.entities.Request.RequestAction;
@@ -36,7 +37,7 @@ public class ServerManager {
 		}
 		catch(UnknownHostException uhEx)
 		{
-			System.err.println("Non trovo indirizzo calcolatore ospite!");
+			System.err.println(StringResources.addressNotFound.getArgoument());
 			System.err.println(uhEx);
 			System.exit(1);
 		}
@@ -45,22 +46,22 @@ public class ServerManager {
 		{
 			socket = new Socket(host, PORT);
 
-			System.out.println("Connected to " + host.getHostAddress());
+			System.out.println(StringResources.conTo.getArgoument()+ host.getHostAddress());
 
 			streamFromServer = new ObjectInputStream(socket.getInputStream()); 
 
-			System.out.println("Created input stream clientside");
+			System.out.println(StringResources.createdISCS.getArgoument());
 
 			streamToServer = new ObjectOutputStream(socket.getOutputStream()); 
 
 			streamToServer.flush();
 
-			System.out.println("Created output stream clientside");
+			System.out.println(StringResources.createdOSCS.getArgoument());
 
 		}
 		catch(IOException ioEx)
 		{
-			System.err.println("IOException:" + ioEx.getMessage());
+			System.err.println(StringResources.IOExc.getArgoument() + ioEx.getMessage());
 		}   
 	}
 
@@ -83,12 +84,12 @@ public class ServerManager {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		System.out.println("Request sent");
+		System.out.println(StringResources.reqSent.getArgoument());
 		ArrayList<Lobby> list = null;
 		try {
 			Request obj = (Request)streamFromServer.readObject();
 			list = obj.getCastedContent();
-			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
+			System.out.println(StringResources.SomethingRec.getArgoument() + obj.getRequestType()+ " " +obj.getRequestAction());
 			if (list == null){
 				list = new ArrayList<Lobby>();
 			}
@@ -119,7 +120,7 @@ public class ServerManager {
 		try {
 			Request obj = (Request)streamFromServer.readObject();
 			result = obj.getCastedContent();
-			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction() + " " + result);
+			System.out.println(StringResources.SomethingRec.getArgoument() + obj.getRequestType()+ " " +obj.getRequestAction() + " " + result);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -143,7 +144,7 @@ public class ServerManager {
 		}
 		try {
 			Request obj = (Request)streamFromServer.readObject();
-			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
+			System.out.println(StringResources.SomethingRec.getArgoument() + obj.getRequestType()+ " " +obj.getRequestAction());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
