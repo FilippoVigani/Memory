@@ -8,6 +8,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.UUID;
 
+
+
+
+import fvsl.memory.client.entities.ClientRunResources;
 import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.entities.Player;
 import fvsl.memory.client.entities.Request;
@@ -39,14 +43,12 @@ public class ClientRunnable implements Runnable{
 			streamToClient = new ObjectOutputStream(clientSocket.getOutputStream());
 
 			streamToClient.flush();
-
-			System.out.println("Created output stream serverside");
+			System.out.println(ClientRunResources.createdIS.getArgoument());
 
 			streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
 
 			streamToClient.flush();
-			
-			System.out.println("Created input stream serverside");
+			System.out.println(ClientRunResources.createdOS.getArgoument());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -66,15 +68,15 @@ public class ClientRunnable implements Runnable{
 				} 
 
 				
-				System.out.println("Request received...");
+				System.out.println(ClientRunResources.reqAsk.getArgoument());
 
 				//Processing request - DA MIGLIORARE
 				Request reply = new Request(RequestAction.Reply);
 				if (request != null){
 					if (request.getRequestAction() == RequestAction.Ask){
-						System.out.print("Request ask ");
+						System.out.print(ClientRunResources.reqAsk.getArgoument());
 						if (request.getRequestType() == RequestType.GetLobbies){
-							System.out.println("lobbies");
+							System.out.println(ClientRunResources.lo.getArgoument());
 							reply.setContent(serverData.getLobbies());
 							reply.setRequestType(RequestType.GetLobbies);
 						}
@@ -116,7 +118,7 @@ public class ClientRunnable implements Runnable{
 								lobby.setOwner(player);
 								serverData.getLobbies().add(lobby);
 								reply.setContent(newId);
-								System.out.println("Lobby creata con id " + newId);
+								System.out.println(ClientRunResources.createdLo.getArgoument() + newId);
 							}
 							
 							notifyUpdate(RequestType.UpdateLobbyList);
@@ -154,7 +156,7 @@ public class ClientRunnable implements Runnable{
 									}
 									if (lobby.getOwner() != null){
 										if (player.getName().equals(lobby.getOwner().getName())){
-											System.out.println("Owner of lobby left, removing lobby.");
+											System.out.println(ClientRunResources.destroyedLo.getArgoument());
 											serverData.getLobbies().remove(lobby);
 											notifyUpdate(RequestType.UpdateLobbyList);
 										}
@@ -172,7 +174,7 @@ public class ClientRunnable implements Runnable{
 				streamToClient.writeObject(reply);
 				streamToClient.flush();
 
-				System.out.println("Request fulfilled...");
+				System.out.println(ClientRunResources.reqFf.getArgoument());
 			} catch (IOException e) {
 				e.printStackTrace();
 			} 
@@ -182,7 +184,7 @@ public class ClientRunnable implements Runnable{
 	
 	private void notifyUpdate(RequestType requestType){
 		for (ClientUpdaterRunnable runnable : serverData.getClientUpdaters()){
-			if (runnable == null) {System.out.println("runnable null");}
+			if (runnable == null) {System.out.println(ClientRunResources.nullRun.getArgoument());}
 			runnable.setRequest(new Request(null, RequestAction.Ask, requestType, null));
 			
 		}
