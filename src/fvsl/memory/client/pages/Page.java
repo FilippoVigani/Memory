@@ -2,6 +2,8 @@ package fvsl.memory.client.pages;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import fvsl.memory.client.sockets.GUIUpdaterRunnable;
+
 
 public abstract class Page extends JPanel {
 	///Fields
@@ -21,6 +23,9 @@ public abstract class Page extends JPanel {
 	
 	protected JFrame container;
 	
+	protected GUIUpdaterRunnable updater;
+	protected Thread updaterThread;
+	
 	///Constructors
 	
 	/**
@@ -32,6 +37,10 @@ public abstract class Page extends JPanel {
 		setUpListeners();
 		loadData();
 		populateViews();
+		
+		updater = new GUIUpdaterRunnable(this);
+		updaterThread = new Thread(updater);
+		updaterThread.start();
 	}
 	
 	public Page(Object o){
@@ -41,6 +50,10 @@ public abstract class Page extends JPanel {
 		setUpListeners();
 		loadData();
 		populateViews();
+		
+		updater = new GUIUpdaterRunnable(this);
+		updaterThread = new Thread(updater);
+		updaterThread.start();
 	}
 	
 	///Methods

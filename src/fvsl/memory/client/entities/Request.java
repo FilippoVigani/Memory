@@ -42,7 +42,8 @@ public class Request implements Serializable {
 		SetPlayerStatusReady,
 		LeaveLobby,
 		
-		UpdateLobbyList
+		UpdateLobbyList, 
+		UpdatePlayersList
 	}
 	
 	public enum RequestAction{

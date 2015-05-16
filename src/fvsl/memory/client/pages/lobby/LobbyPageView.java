@@ -129,6 +129,12 @@ public class LobbyPageView extends Page {
 	protected void bufferize(Object o) {
 		lobbyBuffer = (Lobby)o;
 	}
+	
+	public void updatePlayers(){
+		model.getLobby().setConnectedPlayers(controller.getPlayersOfLobbyFromServer(model.getLobby()));
+		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
+		playersTable.setModel(tableModel);
+	}
 
 	protected class PlayersTableModel extends AbstractTableModel{
 		private static final long serialVersionUID = 1L;
