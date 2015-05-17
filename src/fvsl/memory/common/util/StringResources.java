@@ -20,6 +20,7 @@ package fvsl.memory.common.util;
 		nullCSock("Client socket is null"),
 		cUpAdd("Client updater added."),
 		newC("New client on port "),
+		serverStartedOnPort("Server started on port "),
 		//DBHelper
 		conToDB("****Connect to Database****"),
 		conDBTo("DataBase connect to: "),

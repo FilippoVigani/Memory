@@ -80,8 +80,7 @@ public class Server extends JFrame implements Runnable{
 			this.runningThread = Thread.currentThread();
 		}
 		openServerSocket();
-		
-		System.out.println("Server started on port " + serverPort);
+		System.out.println("" + StringResources.serverStartedOnPort + serverPort);
 
 		while(!isStopped()){
 			try {
