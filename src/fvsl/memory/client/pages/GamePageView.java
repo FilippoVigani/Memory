@@ -1,5 +1,6 @@
 package fvsl.memory.client.pages;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -12,12 +13,16 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class GamePageView extends Page {
+import fvsl.memory.client.entities.Lobby;
 
-	
+public class GamePageView extends Page {
+	public GamePageView(Lobby lobby){
+		super(lobby);
+	}
 	private JTable turnTable;
 	@Override
 	protected void bufferize(Object o) {
@@ -28,7 +33,8 @@ public class GamePageView extends Page {
 	@Override
 	protected void loadComponents() {
 		// TODO Auto-generated method stub
-		setSize(800,600);
+
+		boolean turnButton=true;
 		String[] colunmNames= {"giocatore","punteggio","pronto"};
 		Object[][] data={
 				{"stefano", "100",turnButton},
@@ -36,9 +42,6 @@ public class GamePageView extends Page {
 				{"podf", "100",turnButton}
 		};
 		JTable turnTable = new JTable(data,colunmNames);
-		turnTable.setPreferredScrollableViewportSize(new Dimension(800,600));
-		 
-		
 		JPanel pannello=new JPanel();
 		add(pannello);
 		pannello.setLayout(new BorderLayout());
@@ -47,17 +50,23 @@ public class GamePageView extends Page {
 		JPanel	pannelloDestra= new JPanel();
 		pannelloSinistra.setLayout(new BoxLayout(pannelloSinistra, BoxLayout.PAGE_AXIS));
 		pannello.add(pannelloDestra,BorderLayout.CENTER);
-		pannelloSinistra.add(Box.createRigidArea(new Dimension(50,210)));
+		pannelloSinistra.add(Box.createRigidArea(new Dimension(0,210)));
 		pannelloSinistra.add(turnTable);
-		
-		pannelloDestra.setLayout(new GridLayout(8,5,10,5));
+		pannelloSinistra.add(Box.createRigidArea(new Dimension(0,300)));
+		pannelloDestra.setLayout(new GridLayout(0,5,10,5));
 		//pannelloDestra.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		for(int i=0;i<40;i++){
 			JButton Button;
 			pannelloDestra.add(Button=new JButton ("bottone"+i));
-			Button.setSize(new Dimension(200,200));
 		}
-	}
+		//pannelloDestra.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("ciao");
+		list.add("pollo");
+		list.add("pollicino");
+		
+		}
+	
 
 	@Override
 	protected void setUpListeners() {

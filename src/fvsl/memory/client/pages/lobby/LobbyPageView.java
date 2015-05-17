@@ -45,6 +45,7 @@ public class LobbyPageView extends Page {
 	private JLabel numberOfPairsLabel;
 	private JLabel timerLabel;
 	private JTable playersTable;
+	private JButton startButton;
 
 
 	@Override
@@ -66,7 +67,7 @@ public class LobbyPageView extends Page {
 
 		readyButton= new JButton("PRONTO");
 		backButton= new JButton("torna indietro");
-
+		startButton= new JButton("START");
 
 		lobbyNameLabel = new JLabel();
 		numberOfPairsLabel = new JLabel();
@@ -86,6 +87,7 @@ public class LobbyPageView extends Page {
 		pannelloDestra.add(playersTable);
 		pannelloDestra.add(Box.createRigidArea(new Dimension(55,60)));
 		pannelloDestra.add(readyButton);
+		pannelloDestra.add(startButton);
 	}
 
 	@Override
@@ -106,6 +108,13 @@ public class LobbyPageView extends Page {
 				
 			}
 		});
+		startButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				controller.GoToGamePage(model.getLobby());
+			}
+		});
+	
 	}
 
 	@Override

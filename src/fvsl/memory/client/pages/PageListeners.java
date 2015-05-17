@@ -50,6 +50,16 @@ public class PageListeners {
             super(source, 0, null);
         }
 	}
+	public class GoToGamePageEvent extends ActionEvent{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public GoToGamePageEvent(Object source) {
+            super(source, 0, null);
+        }
+	}
 	
 	//Create lobby
 	public interface GoToCreateLobbyEventListener extends ActionListener{
@@ -84,6 +94,17 @@ public class PageListeners {
 		GotoMainPageEvent event= new GotoMainPageEvent(this);
 		for (ActionListener listener : listeners) {
 	    	if (listener instanceof GoToMainPageEventListener){
+	    		listener.actionPerformed(event);
+	    	}
+		}
+	}
+	//go to gamePage
+	public interface GoToGamePageEventListener extends ActionListener{
+	}
+	protected synchronized void fireGoToGamePageEvent() {
+		GoToGamePageEvent event= new GoToGamePageEvent(this);
+		for (ActionListener listener : listeners) {
+			if (listener instanceof GoToGamePageEventListener){
 	    		listener.actionPerformed(event);
 	    	}
 		}

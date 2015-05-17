@@ -37,4 +37,7 @@ public class LobbyPageController extends PageListeners{
 			e.printStackTrace();
 		}
 	}
+	public void GoToGamePage(Lobby lobby){
+		fireGoToGamePageEvent();
+	}
 }
