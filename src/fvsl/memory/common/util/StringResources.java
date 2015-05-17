@@ -1,4 +1,4 @@
-package fvsl.memory.client.entities;
+package fvsl.memory.common.util;
 
 	public enum StringResources{
 		//ClientRunnable
@@ -7,7 +7,7 @@ package fvsl.memory.client.entities;
 		reqAsk ("Request ask "),
 		createdLo("Lobby creata con id "),
 		destroyedLo("Owner of lobby left, removing lobby."),
-		lo("lobbies"),
+		lobbies("lobbies"),
 		reqFf("Request fulfilled..."),
 		reqRec("Request received..."),
 		nullRun("runnable null"),
@@ -38,14 +38,14 @@ package fvsl.memory.client.entities;
 		reqSent("Request sent");
 		
 		
-		private final String argoument;
-		StringResources( String argoument ){
-			
-			this.argoument=argoument;
+		private final String text;
+		StringResources( String text ){
+			this.text=text;
 		}
-	
-		public String getArgoument() {
-			return argoument;
+		
+		@Override
+		public String toString(){
+			return text;
 		}
 		
 }

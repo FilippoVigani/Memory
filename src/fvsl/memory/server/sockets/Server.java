@@ -18,6 +18,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import fvsl.memory.common.settings.Settings;
+import fvsl.memory.common.util.StringResources;
 import fvsl.memory.server.db.ServerData;
 import fvsl.memory.server.util.MessageConsole;
 
