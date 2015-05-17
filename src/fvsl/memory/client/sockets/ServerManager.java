@@ -7,15 +7,17 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Vector;
 
-import fvsl.memory.client.entities.Lobby;
-import fvsl.memory.client.entities.Player;
-import fvsl.memory.client.entities.Request;
-import fvsl.memory.client.entities.Request.LobbyCreationResult;
-import fvsl.memory.client.entities.Request.LobbyJoiningResult;
-import fvsl.memory.client.entities.Request.RequestAction;
-import fvsl.memory.client.entities.Request.RequestType;
-import fvsl.memory.client.entities.Request.StatusChangeResult;
+import fvsl.memory.common.entities.Lobby;
+import fvsl.memory.common.entities.Player;
+import fvsl.memory.common.entities.Request;
+import fvsl.memory.common.entities.Request.LobbyCreationResult;
+import fvsl.memory.common.entities.Request.LobbyJoiningResult;
+import fvsl.memory.common.entities.Request.LobbyLeavingResult;
+import fvsl.memory.common.entities.Request.RequestAction;
+import fvsl.memory.common.entities.Request.RequestType;
+import fvsl.memory.common.entities.Request.StatusChangeResult;
 
 public class ServerManager {
 
@@ -74,7 +76,7 @@ public class ServerManager {
 		}
 	}
 
-	public ArrayList<Lobby> requestLobbies(Player player) throws Exception{
+	public Vector<Lobby> requestLobbies(Player player) throws Exception{
 		connect();
 		try {
 			streamToServer.reset();
@@ -84,13 +86,13 @@ public class ServerManager {
 			e1.printStackTrace();
 		}
 		System.out.println("Request sent");
-		ArrayList<Lobby> list = null;
+		Vector<Lobby> list = null;
 		try {
 			Request obj = (Request)streamFromServer.readObject();
 			list = obj.getCastedContent();
 			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
 			if (list == null){
-				list = new ArrayList<Lobby>();
+				list = new Vector<Lobby>();
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -125,14 +127,11 @@ public class ServerManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 		closeConnection();
-		
 		return result;
 	}
 	
-	public void requestLeaveLobby(Player player, Lobby lobby) throws Exception{
+	public LobbyLeavingResult requestLeaveLobby(Player player, Lobby lobby) throws Exception{
 		connect();
 		try {		
 			streamToServer.reset();
@@ -141,32 +140,28 @@ public class ServerManager {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		
+		LobbyLeavingResult result = LobbyLeavingResult.Failed;
+		
 		try {
 			Request obj = (Request)streamFromServer.readObject();
-			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
+			result = obj.getCastedContent();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 		closeConnection();
+		return result;
 	}
-	
-	
-	
-	
-	
-	
 	
 	public LobbyCreationResult requestCreateLobby(Player player, Lobby lobby, String password) throws Exception{
 		connect();
 		try {
-			streamToServer.reset();
 			ArrayList<Object> content = new ArrayList<Object>();
 			content.add(lobby);
 			content.add(password);
+			streamToServer.reset();
 			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.CreateLobby, content));
 			streamToServer.flush();
 		} catch (IOException e1) {
@@ -187,14 +182,11 @@ public class ServerManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		closeConnection();
-		
 		return result;
 	}
 
-	public ArrayList<Player> requestConnectedPlayers(Player player, Lobby lobby) throws Exception{
-		
+	public Vector<Player> requestConnectedPlayers(Player player, Lobby lobby) throws Exception{
 		connect();
 		try {
 			streamToServer.reset();
@@ -204,7 +196,7 @@ public class ServerManager {
 			e1.printStackTrace();
 		}
 		
-		ArrayList<Player> result = null;
+		Vector<Player> result = null;
 		
 		try {
 			Request obj = (Request)streamFromServer.readObject();
@@ -214,9 +206,7 @@ public class ServerManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		closeConnection();
-		
 		return result;
 	}
 
@@ -240,9 +230,7 @@ public class ServerManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		closeConnection();
-		
 		return result;
 	}
 }

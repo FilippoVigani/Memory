@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import fvsl.memory.client.shell.Global;
+import fvsl.memory.client.shell.Application;
 
 public class PageManager implements ActionListener{
 
@@ -20,24 +20,13 @@ public class PageManager implements ActionListener{
 	private JFrame container;
 
 	public Page loadNewPage(Page page) {
-		if (currentPage == null)
-			page.setLevel(0);
-		else
-			page.setLevel(currentPage.getLevel() + 1);
-		page.setSourcePage(currentPage);
+		page.initialize();
 		currentPage = page;
+		Application.getUpdater().setPage(currentPage);
 		container.setContentPane(page);
 		container.pack();
-		container.setSize(Global.WINDOW_WIDTH, Global.WINDOW_HEIGHT);
+		container.setSize(Application.WINDOW_WIDTH, Application.WINDOW_HEIGHT);
 		return page;
-	}
-
-	public void loadPreviousPage() {
-		if (!currentPage.isRoot()) {
-			container.setContentPane(currentPage.getSourcePage());
-			container.pack();
-			container.setSize(Global.WINDOW_WIDTH, Global.WINDOW_HEIGHT);
-		}
 	}
 	
 	@Override

@@ -1,7 +1,8 @@
-package fvsl.memory.client.entities;
+package fvsl.memory.common.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Lobby implements Serializable {
 
@@ -16,7 +17,7 @@ public class Lobby implements Serializable {
 	private int numberOfPairs;
 	private double turnTimer;
 	private String password;
-	private ArrayList<Player> connectedPlayers;
+	private Vector<Player> connectedPlayers;
 	private Player owner;
 	
 	public Lobby(String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
@@ -26,7 +27,7 @@ public class Lobby implements Serializable {
 		this.numberOfPairs = numberOfPairs;
 		this.turnTimer = turnTimer;
 		this.password = password;
-		connectedPlayers = new ArrayList<Player>();
+		connectedPlayers = new Vector<Player>();
 	}
 	
 	public Lobby(String id, String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
@@ -37,12 +38,12 @@ public class Lobby implements Serializable {
 		this.numberOfPairs = numberOfPairs;
 		this.turnTimer = turnTimer;
 		this.password = password;
-		connectedPlayers = new ArrayList<Player>();
+		connectedPlayers = new Vector<Player>();
 	}
 	
 	
 	public Lobby() {
-		connectedPlayers = new ArrayList<Player>();
+		connectedPlayers = new Vector<Player>();
 	}
 
 	/**
@@ -123,14 +124,14 @@ public class Lobby implements Serializable {
 	/**
 	 * @return the connectedPlayers
 	 */
-	public ArrayList<Player> getConnectedPlayers() {
+	public Vector<Player> getConnectedPlayers() {
 		return connectedPlayers;
 	}
 
 	/**
 	 * @param connectedPlayers the connectedPlayers to set
 	 */
-	public void setConnectedPlayers(ArrayList<Player> connectedPlayers) {
+	public void setConnectedPlayers(Vector<Player> connectedPlayers) {
 		this.connectedPlayers = connectedPlayers;
 	}
 

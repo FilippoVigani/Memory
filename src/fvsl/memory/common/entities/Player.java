@@ -1,4 +1,4 @@
-package fvsl.memory.client.entities;
+package fvsl.memory.common.entities;
 
 import java.io.Serializable;
 

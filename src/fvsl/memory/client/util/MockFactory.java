@@ -2,7 +2,7 @@ package fvsl.memory.client.util;
 
 import java.util.ArrayList;
 
-import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.common.entities.Lobby;
 
 public class MockFactory {
 	public static ArrayList<Lobby> getMockLobbiesList(){

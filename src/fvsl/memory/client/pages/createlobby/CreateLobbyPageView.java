@@ -15,9 +15,9 @@ import javax.swing.JComboBox;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import fvsl.memory.client.entities.Lobby;
-import fvsl.memory.client.entities.Request.LobbyCreationResult;
 import fvsl.memory.client.pages.Page;
+import fvsl.memory.common.entities.Lobby;
+import fvsl.memory.common.entities.Request.LobbyCreationResult;
 
 
 public class CreateLobbyPageView extends Page {
@@ -32,6 +32,7 @@ public class CreateLobbyPageView extends Page {
 	
 	public CreateLobbyPageView(){
 		super();
+		controller = new CreateLobbyPageController();
 	}
 
 	private JButton creaButton;
@@ -171,7 +172,6 @@ public class CreateLobbyPageView extends Page {
 	protected void loadData() {
 		model = new CreateLobbyPageModel();
 		model.setLobby(new Lobby("New Lobby", model.getPossiblePlayers()[0], model.getPossiblePairs()[0], model.getPossibleTimers()[0], null));
-		controller = new CreateLobbyPageController();
 		//Prendi valori di "default" qui (dal controller) e mettili nel model (vanno creati altri campi)
 	}
 

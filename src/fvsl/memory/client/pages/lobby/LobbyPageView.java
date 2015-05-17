@@ -7,12 +7,13 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-import fvsl.memory.client.entities.Lobby;
-import fvsl.memory.client.entities.Player;
-import fvsl.memory.client.entities.Request.StatusChangeResult;
 import fvsl.memory.client.pages.Page;
+import fvsl.memory.common.entities.Lobby;
+import fvsl.memory.common.entities.Player;
+import fvsl.memory.common.entities.Request.StatusChangeResult;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 
 
@@ -134,11 +135,11 @@ public class LobbyPageView extends Page {
 	protected class PlayersTableModel extends AbstractTableModel{
 		private static final long serialVersionUID = 1L;
 
-		private ArrayList<Player> list = new ArrayList<Player>();
+		private Vector<Player> list = new Vector<Player>();
 
 		private String[] columnNames = { "Player", "Status"}; 
 
-		public PlayersTableModel(ArrayList<Player> list){
+		public PlayersTableModel(Vector<Player> list){
 			this.list = list;
 		} 
 

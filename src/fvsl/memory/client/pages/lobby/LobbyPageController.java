@@ -1,18 +1,20 @@
 package fvsl.memory.client.pages.lobby;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
-import fvsl.memory.client.entities.Lobby;
-import fvsl.memory.client.entities.Player;
-import fvsl.memory.client.entities.Request.StatusChangeResult;
 import fvsl.memory.client.pages.PageListeners;
-import fvsl.memory.client.shell.Global;
+import fvsl.memory.client.shell.Application;
+import fvsl.memory.common.entities.Lobby;
+import fvsl.memory.common.entities.Player;
+import fvsl.memory.common.entities.Request.LobbyLeavingResult;
+import fvsl.memory.common.entities.Request.StatusChangeResult;
 
 public class LobbyPageController extends PageListeners{
-	
-	public ArrayList<Player> getPlayersOfLobbyFromServer(Lobby lobby){
+
+	public Vector<Player> getPlayersOfLobbyFromServer(Lobby lobby){
 		try {
-			return Global.getServerManager().requestConnectedPlayers(Global.player, lobby);
+			return Application.getServerManager().requestConnectedPlayers(Application.player, lobby);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -20,21 +22,24 @@ public class LobbyPageController extends PageListeners{
 	}
 
 	public StatusChangeResult setStatusReady(Lobby lobby) {
-		return Global.getServerManager().requestSetStatusReady(Global.player, lobby);
+		return Application.getServerManager().requestSetStatusReady(Application.player, lobby);
 	}
-	
-	
+
+
 	public void backToMainPage(Lobby lobby){
-		
-		leave(lobby);
-		fireGoToMainPageEvent();
+		if (leaveLobby(lobby) == LobbyLeavingResult.Accepted)
+		{
+			fireGoToMainPageEvent();
+		}
 	}
-	
-	public void leave(Lobby lobby){
+
+	public LobbyLeavingResult leaveLobby(Lobby lobby){
+
 		try {
-			Global.getServerManager().requestLeaveLobby(Global.player, lobby);
+			return Application.getServerManager().requestLeaveLobby(Application.player, lobby);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 }

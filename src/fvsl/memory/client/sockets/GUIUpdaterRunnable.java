@@ -7,19 +7,21 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
 import javax.swing.SwingUtilities;
 
-import fvsl.memory.client.entities.Request;
-import fvsl.memory.client.entities.Request.RequestAction;
-import fvsl.memory.client.entities.Request.RequestType;
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.client.pages.lobby.LobbyPageView;
 import fvsl.memory.client.pages.main.MainPageView;
-import fvsl.memory.client.shell.Global;
+import fvsl.memory.client.shell.Application;
+import fvsl.memory.common.entities.Request;
+import fvsl.memory.common.entities.Request.RequestAction;
+import fvsl.memory.common.entities.Request.RequestType;
+import fvsl.memory.common.settings.Settings;
 
 public class GUIUpdaterRunnable implements Runnable{
 
@@ -27,7 +29,7 @@ public class GUIUpdaterRunnable implements Runnable{
 	protected ObjectOutputStream streamToServer;
 
 	protected Socket serverSocket;
-	private Page page;
+	private volatile Page page;
 
 	public GUIUpdaterRunnable(Page page){
 		this.page = page;
@@ -35,11 +37,11 @@ public class GUIUpdaterRunnable implements Runnable{
 
 	@Override
 	public void run() {
-
+		
 		System.out.println("Created gui updater runnable");
 
 		try {
-			serverSocket = new Socket(InetAddress.getLocalHost(), Global.UPDATE_PORT);
+			serverSocket = new Socket(InetAddress.getLocalHost(), Settings.UPDATE_PORT);
 		} catch (UnknownHostException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
@@ -54,7 +56,7 @@ public class GUIUpdaterRunnable implements Runnable{
 			e.printStackTrace();
 		} 
 
-		while (!Thread.currentThread().isInterrupted()){
+		while (!Thread.currentThread().isInterrupted() && !serverSocket.isClosed()){
 
 			try {
 
@@ -65,6 +67,8 @@ public class GUIUpdaterRunnable implements Runnable{
 
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
+				} catch (SocketException e) {
+					return;
 				} catch (EOFException e) {
 					e.printStackTrace();
 					break;
@@ -91,6 +95,7 @@ public class GUIUpdaterRunnable implements Runnable{
 						if (page instanceof LobbyPageView){
 							final LobbyPageView lpw = (LobbyPageView)page;
 
+							
 							if (lpw != null){
 								SwingUtilities.invokeLater(new Runnable() {
 									@Override
@@ -107,13 +112,36 @@ public class GUIUpdaterRunnable implements Runnable{
 				e.printStackTrace();
 			} 
 		}
+		close(false);
+	}
+
+	public void close(boolean closeSocket){
 		try {
-			streamToServer.close();
-			streamFromServer.close();
+			if (streamFromServer != null)
+				streamFromServer.close();
+			if (streamToServer != null)
+				streamToServer.close();
+			if (closeSocket && serverSocket != null){
+				serverSocket.close();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
 	}
 
+	/**
+	 * @return the page
+	 */
+	public Page getPage() {
+		return page;
+	}
+
+	/**
+	 * @param page the page to set
+	 */
+	public void setPage(Page page) {
+		this.page = page;
+	}
+	
 }

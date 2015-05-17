@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import fvsl.memory.client.entities.Lobby;
+import fvsl.memory.common.entities.Lobby;
 
 public class PageListeners {
 	//Event to go to a different page

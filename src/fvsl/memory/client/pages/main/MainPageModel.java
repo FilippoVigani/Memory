@@ -1,14 +1,15 @@
 package fvsl.memory.client.pages.main;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
-import fvsl.memory.client.entities.Lobby;
-import fvsl.memory.client.entities.Player;
+import fvsl.memory.common.entities.Lobby;
+import fvsl.memory.common.entities.Player;
 
 //In realtà sarebbe MainPageModel, (vedi MVC)
 public class MainPageModel {
 	private Player player;
-	private ArrayList<Lobby> lobbies;
+	private Vector<Lobby> lobbies;
 	private Lobby selectedLobby;
 	private String password;
 	
@@ -27,13 +28,13 @@ public class MainPageModel {
 	/**
 	 * @return the lobbies
 	 */
-	public ArrayList<Lobby> getLobbies() {
+	public Vector<Lobby> getLobbies() {
 		return lobbies;
 	}
 	/**
 	 * @param lobbies the lobbies to set
 	 */
-	public void setLobbies(ArrayList<Lobby> lobbies) {
+	public void setLobbies(Vector<Lobby> lobbies) {
 		this.lobbies = lobbies;
 	}
 	/**

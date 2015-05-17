@@ -10,10 +10,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,12 +18,11 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import fvsl.memory.client.entities.Lobby;
-import fvsl.memory.client.entities.Player;
-import fvsl.memory.client.entities.Request.LobbyJoiningResult;
 import fvsl.memory.client.pages.Page;
-import fvsl.memory.client.shell.Global;
-import fvsl.memory.client.sockets.GUIUpdaterRunnable;
+import fvsl.memory.client.shell.Application;
+import fvsl.memory.common.entities.Lobby;
+import fvsl.memory.common.entities.Player;
+import fvsl.memory.common.entities.Request.LobbyJoiningResult;
 
 public class MainPageView extends Page {
 
@@ -49,6 +44,7 @@ public class MainPageView extends Page {
 
 	public MainPageView(){
 		super();
+		controller = new MainPageController();
 	}
 
 	@Override
@@ -91,8 +87,10 @@ public class MainPageView extends Page {
 	protected void loadData(){
 		//Spostare su controller (parzialmente) + richiesta al server
 		model = new MainPageModel();
-		controller = new MainPageController();
-		model.setPlayer(new Player("Anonymous player")); //Default user name
+		model.setPlayer(Application.player);
+		if (model.getPlayer() == null){
+			model.setPlayer(new Player("Anonymous player")); //Default user name
+		}
 		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
 	}
 
@@ -125,7 +123,7 @@ public class MainPageView extends Page {
 
 			public void notifyProperty() { 
 				model.getPlayer().setName(txtUsername.getText());
-				Global.player = model.getPlayer();
+				Application.player = model.getPlayer();
 			} 
 		});
 
@@ -213,12 +211,5 @@ public class MainPageView extends Page {
 		// TODO Auto-generated method stub
 
 	}
-
-	/*
-	protected void finalize() throws Throwable {
-		  super.finalize();
-
-		  updaterThread.interrupt();
-	}
-	 */
+	 
 }

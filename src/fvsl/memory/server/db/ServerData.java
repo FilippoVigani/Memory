@@ -3,39 +3,40 @@ package fvsl.memory.server.db;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Vector;
 
-import fvsl.memory.client.entities.Lobby;
 import fvsl.memory.client.util.MockFactory;
+import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.server.sockets.ClientRunnable;
 import fvsl.memory.server.sockets.ClientUpdaterRunnable;
 
 public class ServerData {
 
 	public ServerData(){
-		lobbies = new ArrayList<Lobby>();
-		clientUpdaters = new ArrayList<ClientUpdaterRunnable>();
-		lobbies = MockFactory.getMockLobbiesList();
-		lobbies.add(new Lobby("popopop", "HUH", 1, 1, 1, "huh"));
+		lobbies = new Vector<Lobby>();
+		lobbies.add(new Lobby("dsfdsafereres", "HUH", 2, 1, 1, ""));
+		lobbies.add(new Lobby("asfsadfadsfas", "HUH2", 3, 1, 1, ""));
+		clientUpdaters = new Vector<ClientUpdaterRunnable>();
 	}
 	
-	private volatile ArrayList<Lobby> lobbies;
-	private volatile ArrayList<ClientUpdaterRunnable> clientUpdaters;
+	private volatile Vector<Lobby> lobbies;
+	private volatile Vector<ClientUpdaterRunnable> clientUpdaters;
 	
 	/**
 	 * @return the lobbies
 	 */
-	public synchronized ArrayList<Lobby> getLobbies() {
+	public Vector<Lobby> getLobbies() {
 		return lobbies;
 	}
 
 	/**
 	 * @param lobbies the lobbies to set
 	 */
-	public synchronized void setLobbies(ArrayList<Lobby> lobbies) {
+	public synchronized void setLobbies(Vector<Lobby> lobbies) {
 		this.lobbies = lobbies;
 	}
 	
-	public synchronized Lobby getLobbyById(String id){
+	public Lobby getLobbyById(String id){
 		Lobby lobby = null;
 		boolean found = false;
 		for (int i = 0; !found && i < getLobbies().size(); i++){
@@ -49,14 +50,14 @@ public class ServerData {
 	/**
 	 * @return the clientUpdaters
 	 */
-	public synchronized ArrayList<ClientUpdaterRunnable> getClientUpdaters() {
+	public Vector<ClientUpdaterRunnable> getClientUpdaters() {
 		return clientUpdaters;
 	}
 
 	/**
 	 * @param clientUpdaters the clientUpdaters to set
 	 */
-	public synchronized void setClientUpdaters(ArrayList<ClientUpdaterRunnable> clientUpdaters) {
+	public synchronized void setClientUpdaters(Vector<ClientUpdaterRunnable> clientUpdaters) {
 		this.clientUpdaters = clientUpdaters;
 	}
 
