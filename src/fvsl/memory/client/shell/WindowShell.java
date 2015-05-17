@@ -5,7 +5,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
-import fvsl.memory.client.pages.PageListeners;
 import fvsl.memory.client.pages.PageListeners.GoToMainPageEventListener;
 import fvsl.memory.client.pages.PageManager;
 import fvsl.memory.client.pages.PageListeners.*;

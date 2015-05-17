@@ -10,9 +10,6 @@ import javax.swing.table.TableModel;
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
-import fvsl.memory.common.entities.Request.StatusChangeResult;
-
-import java.util.ArrayList;
 import java.util.Vector;
 
 

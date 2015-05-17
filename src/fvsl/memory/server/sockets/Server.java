@@ -1,22 +1,15 @@
 package fvsl.memory.server.sockets;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.TextArea;
 import java.io.*;
 import java.net.*;
-import java.nio.channels.SeekableByteChannel;
 import java.util.concurrent.*;
 
-import javax.sql.PooledConnection;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
-
 import fvsl.memory.common.settings.Settings;
 import fvsl.memory.common.util.StringResources;
 import fvsl.memory.server.db.ServerData;

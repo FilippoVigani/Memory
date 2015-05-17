@@ -5,19 +5,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.nio.ByteBuffer;
-import java.nio.channels.SocketChannel;
-
 import javax.swing.SwingUtilities;
 
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.client.pages.lobby.LobbyPageView;
 import fvsl.memory.client.pages.main.MainPageView;
-import fvsl.memory.client.shell.Application;
 import fvsl.memory.common.entities.Request;
 import fvsl.memory.common.entities.Request.RequestAction;
 import fvsl.memory.common.entities.Request.RequestType;

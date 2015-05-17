@@ -1,6 +1,5 @@
 package fvsl.memory.client.pages.lobby;
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 import fvsl.memory.client.pages.PageListeners;
