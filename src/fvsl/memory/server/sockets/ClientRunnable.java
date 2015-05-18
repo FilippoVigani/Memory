@@ -18,6 +18,7 @@ import fvsl.memory.common.entities.Request.LobbyLeavingResult;
 import fvsl.memory.common.entities.Request.RequestAction;
 import fvsl.memory.common.entities.Request.RequestType;
 import fvsl.memory.common.entities.Request.StatusChangeResult;
+import fvsl.memory.server.db.Game;
 import fvsl.memory.server.db.ServerData;
 
 public class ClientRunnable implements Runnable{
@@ -240,11 +241,18 @@ public class ClientRunnable implements Runnable{
 			}
 		}
 		if (checkIfAllAreReady(lobby)){
-			notifyUpdate(RequestType.StartGame, lobby);
+			startGame(lobby);
 		} else {
 			notifyUpdate(RequestType.UpdatePlayersList);
 		}
 		return reply;
+	}
+	
+	private void startGame(Lobby lobby){
+		synchronized (serverData.getGames()) {
+			serverData.getGames().add(new Game(lobby));
+		}
+		notifyUpdate(RequestType.StartGame, lobby);
 	}
 	
 	private boolean checkIfAllAreReady(Lobby lobby){

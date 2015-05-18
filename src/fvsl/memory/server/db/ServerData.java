@@ -9,13 +9,13 @@ public class ServerData {
 
 	public ServerData(){
 		lobbies = new Vector<Lobby>();
-		lobbies.add(new Lobby("dsfdsafereres", "HUH", 2, 1, 1, ""));
-		lobbies.add(new Lobby("asfsadfadsfas", "HUH2", 3, 1, 1, ""));
+		games = new Vector<Game>();
 		clientUpdaters = new Vector<ClientUpdaterRunnable>();
 	}
 	
 	private volatile Vector<Lobby> lobbies;
 	private volatile Vector<ClientUpdaterRunnable> clientUpdaters;
+	private volatile Vector<Game> games;
 	
 	/**
 	 * @return the lobbies
@@ -54,6 +54,20 @@ public class ServerData {
 	 */
 	public synchronized void setClientUpdaters(Vector<ClientUpdaterRunnable> clientUpdaters) {
 		this.clientUpdaters = clientUpdaters;
+	}
+
+	/**
+	 * @return the games
+	 */
+	public Vector<Game> getGames() {
+		return games;
+	}
+
+	/**
+	 * @param games the games to set
+	 */
+	public void setGames(Vector<Game> games) {
+		this.games = games;
 	}
 
 	
