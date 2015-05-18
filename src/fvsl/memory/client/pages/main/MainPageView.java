@@ -7,7 +7,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JList;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,31 +58,36 @@ public class MainPageView extends Page {
 
 		JPanel panel = new JPanel();
 		add(panel);
-		panel.setLayout(new GridLayout(1, 1, 0, 0));
+		panel.setLayout(new BorderLayout());
 
 		JPanel createLobbyPanel = new JPanel();
-		panel.add(createLobbyPanel);
+		panel.add(createLobbyPanel, BorderLayout.WEST);
 		createLobbyPanel.setLayout(new BoxLayout(createLobbyPanel,BoxLayout.PAGE_AXIS));
+		JPanel buttonPanel = new JPanel();
 		txtUsername = new JTextField();
 		createLobbyPanel.add(Box.createRigidArea(new Dimension(55,25)));
 		createLobbyPanel.add(txtUsername);
-		createLobbyPanel.add(Box.createRigidArea(new Dimension(55,400)));
-		txtUsername.setColumns(10);
-		txtUsername.setMaximumSize(new Dimension(Integer.MAX_VALUE, txtUsername.getPreferredSize().height) );
-
+		createLobbyPanel.add(Box.createRigidArea(new Dimension(55,500)));
+		//txtUsername.setColumns(10);
+		//txtUsername.setMaximumSize(new Dimension(Integer.MAX_VALUE,100) );
+		txtUsername.setBorder((new TitledBorder ( new EtchedBorder (), "Player Name" )));
 		btnCreateLobby = new JButton("Create Lobby");
-		createLobbyPanel.add(btnCreateLobby);
+		buttonPanel.setLayout(new BorderLayout());
+		panel.add(buttonPanel,BorderLayout.SOUTH);
+		//createLobbyPanel.add(btnCreateLobby);
 		btnCreateLobby.setAlignmentX(CENTER_ALIGNMENT);
 		//btnCreateLobby.setBounds(100,400,150,50);
 		JPanel joinLobbyPanel = new JPanel();
-		panel.add(joinLobbyPanel);
+		panel.add(joinLobbyPanel,BorderLayout.CENTER);
 		joinLobbyPanel.setLayout(new BoxLayout(joinLobbyPanel,BoxLayout.PAGE_AXIS));
-		joinLobbyPanel.setBorder(new TitledBorder ( new EtchedBorder (), "Lobbies" ));
+		//joinLobbyPanel.setBorder(new TitledBorder ( new EtchedBorder (), "Lobbies" ));
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,25)));
 		listLobbies = new JList<Lobby>();
+		listLobbies.setBorder((new TitledBorder ( new EtchedBorder (), "Lobbies" )));
 		joinLobbyPanel.add(listLobbies);
 		listLobbies.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
 		txtPassword = new JTextField();
+		txtPassword.setBorder((new TitledBorder ( new EtchedBorder (), "Password" )));
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,5)));
 		joinLobbyPanel.add(txtPassword);
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,50)));
@@ -89,8 +96,11 @@ public class MainPageView extends Page {
 		txtPassword.setMaximumSize(new Dimension(Integer.MAX_VALUE, txtPassword.getPreferredSize().height) );
 
 		btnJoinLobby = new JButton("Join Lobby");
-		joinLobbyPanel.add(btnJoinLobby);
-		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,100)));
+		buttonPanel.add(btnCreateLobby,BorderLayout.WEST);
+		
+		buttonPanel.add(btnJoinLobby,BorderLayout.CENTER);
+		//joinLobbyPanel.add(btnJoinLobby);
+		//joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,100)));
 	}
 
 
