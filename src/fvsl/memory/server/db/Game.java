@@ -50,6 +50,7 @@ public class Game {
 	//returns the card value
 	public String turnCard(String cardId){
 		Card card = getCardById(cardId);
+		card.setTurned(true);
 		if (turnedCards[0] == null){
 			turnedCards[0] = card;
 		} else {
@@ -74,6 +75,13 @@ public class Game {
 				turnedCards[0].getValue().equals(turnedCards[1].getValue())){
 			//Adding points (could be more complicated)
 			score.put(turnPlayer, score.get(turnPlayer) + 1);
+		} else {
+			if (turnedCards[0] != null){
+				turnedCards[0].setTurned(false);
+			}
+			if (turnedCards[1] != null){
+				turnedCards[1].setTurned(false);
+			}
 		}
 		
 		turnedCards = new Card[0];
