@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
@@ -73,6 +75,7 @@ public class MainPageView extends Page {
 		JPanel joinLobbyPanel = new JPanel();
 		panel.add(joinLobbyPanel);
 		joinLobbyPanel.setLayout(new BoxLayout(joinLobbyPanel,BoxLayout.PAGE_AXIS));
+		joinLobbyPanel.setBorder(new TitledBorder ( new EtchedBorder (), "Lobbies" ));
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,25)));
 		listLobbies = new JList<Lobby>();
 		joinLobbyPanel.add(listLobbies);
