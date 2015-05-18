@@ -108,6 +108,7 @@ public class ClientRunnable implements Runnable{
 					streamToClient.flush();
 					System.out.println("Request fulfilled...");
 					clean();
+					setStopped(true);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} 

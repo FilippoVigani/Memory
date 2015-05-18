@@ -62,10 +62,11 @@ public class Server extends JFrame implements Runnable{
 		scroll.setBounds(0,0,495,272);
 		//scroll.setBorder(new TitledBorder ( new EtchedBorder (), "Server console" ));
 		MessageConsole mc = new MessageConsole(tArea);
-		mc.redirectOut();
+		//mc.redirectOut();
+		mc.redirectOut(null, System.out);
 		mc.redirectErr(Color.RED, null);
 		mc.setMessageLines(100);
-		mc.redirectOut(null, System.out);
+		
 	}
 	
 	public void run(){
