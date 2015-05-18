@@ -1,4 +1,5 @@
 package fvsl.memory.client.pages.main;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -53,35 +54,42 @@ public class MainPageView extends Page {
 
 		JPanel panel = new JPanel();
 		add(panel);
-		panel.setLayout(new GridLayout(1, 0, 0, 0));
+		panel.setLayout(new GridLayout(1, 1, 0, 0));
 
 		JPanel createLobbyPanel = new JPanel();
 		panel.add(createLobbyPanel);
-		createLobbyPanel.setLayout(new BoxLayout(createLobbyPanel, BoxLayout.Y_AXIS));
-
+		createLobbyPanel.setLayout(new BoxLayout(createLobbyPanel,BoxLayout.PAGE_AXIS));
 		txtUsername = new JTextField();
+		createLobbyPanel.add(Box.createRigidArea(new Dimension(55,25)));
 		createLobbyPanel.add(txtUsername);
+		createLobbyPanel.add(Box.createRigidArea(new Dimension(55,400)));
 		txtUsername.setColumns(10);
 		txtUsername.setMaximumSize(new Dimension(Integer.MAX_VALUE, txtUsername.getPreferredSize().height) );
 
 		btnCreateLobby = new JButton("Create Lobby");
 		createLobbyPanel.add(btnCreateLobby);
-
+		btnCreateLobby.setAlignmentX(CENTER_ALIGNMENT);
+		//btnCreateLobby.setBounds(100,400,150,50);
 		JPanel joinLobbyPanel = new JPanel();
 		panel.add(joinLobbyPanel);
-		joinLobbyPanel.setLayout(new BoxLayout(joinLobbyPanel, BoxLayout.Y_AXIS));
-
+		joinLobbyPanel.setLayout(new BoxLayout(joinLobbyPanel,BoxLayout.PAGE_AXIS));
+		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,25)));
 		listLobbies = new JList<Lobby>();
 		joinLobbyPanel.add(listLobbies);
-
+		listLobbies.setMaximumSize(new Dimension(Short.MAX_VALUE,Short.MAX_VALUE));
 		txtPassword = new JTextField();
+		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,5)));
 		joinLobbyPanel.add(txtPassword);
+		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,50)));
+		txtPassword.setBounds(100, 340, 270, 25);
 		txtPassword.setColumns(10);
 		txtPassword.setMaximumSize(new Dimension(Integer.MAX_VALUE, txtPassword.getPreferredSize().height) );
 
 		btnJoinLobby = new JButton("Join Lobby");
 		joinLobbyPanel.add(btnJoinLobby);
+		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,100)));
 	}
+
 
 	@Override
 	protected void loadData(){
