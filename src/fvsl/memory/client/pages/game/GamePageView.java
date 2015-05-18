@@ -1,5 +1,6 @@
 package fvsl.memory.client.pages.game;
 
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -18,11 +19,16 @@ public class GamePageView extends Page {
 	public GamePageView(Lobby lobby){
 		super(lobby);
 	}
+	
 	private JTable turnTable;
+	private Lobby bufferLobby;
+	private JPanel cardsPanel;
+	
+	private GamePageModel model;
+	
 	@Override
 	protected void bufferize(Object o) {
-		// TODO Auto-generated method stub
-		
+		bufferLobby = (Lobby)o;
 	}
 	private boolean turnButton=true;
 	@Override
@@ -42,19 +48,15 @@ public class GamePageView extends Page {
 		pannello.setLayout(new BorderLayout());
 		JPanel pannelloSinistra=new JPanel();
 		pannello.add(pannelloSinistra,BorderLayout.WEST);
-		JPanel	pannelloDestra= new JPanel();
+		cardsPanel= new JPanel();
 		pannelloSinistra.setLayout(new BoxLayout(pannelloSinistra, BoxLayout.PAGE_AXIS));
-		pannello.add(pannelloDestra,BorderLayout.CENTER);
+		pannello.add(cardsPanel,BorderLayout.CENTER);
 		pannelloSinistra.add(Box.createRigidArea(new Dimension(0,210)));
 		pannelloSinistra.add(turnTable);
 		pannelloSinistra.add(Box.createRigidArea(new Dimension(0,300)));
-		pannelloDestra.setLayout(new GridLayout(0,5,10,5));
-		//pannelloDestra.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		for(int i=0;i<40;i++){
-			JButton Button;
-			pannelloDestra.add(Button=new JButton ("bottone"+i));
-		}
-		//pannelloDestra.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
+		cardsPanel.setLayout(new GridLayout(0,5,10,5));
+		//cardsPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		//cardsPanel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("ciao");
 		list.add("pollo");
@@ -71,14 +73,16 @@ public class GamePageView extends Page {
 
 	@Override
 	protected void loadData() {
-		// TODO Auto-generated method stub
-		
+		model = new GamePageModel();
+		model.setLobby(bufferLobby);
 	}
 
 	@Override
 	protected void populateViews() {
-		// TODO Auto-generated method stub
-		
+		for(int i=0;i<model.getLobby().getNumberOfPairs()*2;i++){
+			JButton Button;
+			cardsPanel.add(Button=new JButton ("bottone"+i));
+		}
 	}
 	
 }
