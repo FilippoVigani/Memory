@@ -43,7 +43,8 @@ public class Request implements Serializable {
 		LeaveLobby,
 		
 		UpdateLobbyList, 
-		UpdatePlayersList
+		UpdatePlayersList, 
+		DeletedLobby
 	}
 	
 	public enum RequestAction{

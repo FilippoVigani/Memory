@@ -136,6 +136,12 @@ public class LobbyPageView extends Page {
 		playersTable.setModel(tableModel);
 	}
 
+	public void respondToDeletedLobby(Lobby lobby){
+		if (model.getLobby().getId().equals(lobby.getId())){
+			controller.backToMainPage(model.getLobby());
+		}
+	}
+	
 	protected class PlayersTableModel extends AbstractTableModel{
 		private static final long serialVersionUID = 1L;
 

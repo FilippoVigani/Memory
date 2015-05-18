@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.Authenticator.RequestorType;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -258,20 +259,34 @@ public class ClientRunnable implements Runnable{
 				if (lobby.getOwner() != null){
 					if (player.getName().equals(lobby.getOwner().getName())){
 						System.out.println("Owner of lobby left, removing lobby.");
-						serverData.getLobbies().remove(lobby);
+						synchronized (serverData.getLobbies()) {
+							serverData.getLobbies().remove(lobby);
+						}	
 						notifyUpdate(RequestType.UpdateLobbyList);
+						notifyUpdate(RequestType.DeletedLobby, lobby);
 					}
 				}
 			}
+		} else {
+			reply.setContent(LobbyLeavingResult.Accepted);
 		}
 		notifyUpdate(RequestType.UpdatePlayersList);
 		return reply;
 	}
 
 	private void notifyUpdate(RequestType requestType){
+		notifyUpdate(requestType, null);
+	}
+	
+	private void notifyUpdate(RequestType requestType, Object content){
 		for (ClientUpdaterRunnable runnable : serverData.getClientUpdaters()){
-			if (runnable == null) {serverData.getClientUpdaters().remove(runnable);}
-			runnable.setRequest(new Request(null, RequestAction.Ask, requestType, null));
+			if (runnable == null) {
+				serverData.getClientUpdaters().remove(runnable);
+			} else {
+				synchronized (runnable){
+					runnable.setRequest(new Request(null, RequestAction.Ask, requestType, content));
+				}
+			}
 		}
 	}
 

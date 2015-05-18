@@ -28,23 +28,22 @@ public class ClientUpdaterRunnable implements Runnable{
 	}
 
 	public void run(){
+		try {
+			streamToClient = new ObjectOutputStream(clientSocket.getOutputStream());
+
+			streamToClient.flush();
+
+			System.out.println("Created output stream for updater serverside");
+
+			streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
+
+			System.out.println("Created input stream for updater serverside");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
 		while (!isStopped()){
-			try {
-				streamToClient = new ObjectOutputStream(clientSocket.getOutputStream());
-
-				streamToClient.flush();
-
-				System.out.println("Created output stream for updater serverside");
-
-				streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
-
-				System.out.println("Created input stream for updater serverside");
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-
-			while (!isStopped()){
+			synchronized (this) {
 				if (request != null){
 					System.out.println("New update request found! - " + request.getRequestType());
 					try {

@@ -8,11 +8,13 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+
 import javax.swing.SwingUtilities;
 
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.client.pages.lobby.LobbyPageView;
 import fvsl.memory.client.pages.main.MainPageView;
+import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Request;
 import fvsl.memory.common.entities.Request.RequestAction;
 import fvsl.memory.common.entities.Request.RequestType;
@@ -98,6 +100,23 @@ public class GUIUpdaterRunnable implements Runnable{
 										lpw.updatePlayers();
 									}
 								});
+							}
+						}
+					} else if (request.getRequestType() == RequestType.DeletedLobby){
+						if (page instanceof LobbyPageView){
+							final LobbyPageView lpw = (LobbyPageView)page;
+							
+							if (lpw != null){
+								
+								final Lobby lobby = request.getCastedContent();
+								
+								SwingUtilities.invokeLater(new Runnable() {
+									@Override
+									public void run() {
+										lpw.respondToDeletedLobby(lobby);
+									}
+								});
+								
 							}
 						}
 					}
