@@ -31,6 +31,10 @@ public class LobbyPageController extends PageListeners{
 			fireGoToMainPageEvent();
 		}
 	}
+	
+	public void goToGamePage(Lobby lobby){
+		fireGoToGamePageEvent();
+	}
 
 	public LobbyLeavingResult leaveLobby(Lobby lobby){
 

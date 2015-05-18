@@ -239,8 +239,20 @@ public class ClientRunnable implements Runnable{
 				reply.setContent(StatusChangeResult.Accepted);
 			}
 		}
-		notifyUpdate(RequestType.UpdatePlayersList);
+		if (checkIfAllAreReady(lobby)){
+			notifyUpdate(RequestType.StartGame, lobby);
+		} else {
+			notifyUpdate(RequestType.UpdatePlayersList);
+		}
 		return reply;
+	}
+	
+	private boolean checkIfAllAreReady(Lobby lobby){
+		boolean allReady = lobby.getNumberOfPlayers() == lobby.getConnectedPlayers().size();
+		for (int i = 0; allReady && i < lobby.getConnectedPlayers().size(); i++){
+			allReady = lobby.getConnectedPlayers().get(i).isReady();
+		}
+		return allReady;
 	}
 
 	private Request leaveLobby(Request request){

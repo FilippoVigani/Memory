@@ -3,17 +3,17 @@ package fvsl.memory.common.entities;
 import java.io.Serializable;
 
 public class Request implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8527944560427371477L;
-	
+
 	private Player player;
 	private RequestAction requestAction;
 	private RequestType requestType;
 	private Object content;
-	
+
 	public Request(Player player, RequestAction requestAction, RequestType requestType, Object content) {
 		super();
 		this.player = player;
@@ -25,7 +25,7 @@ public class Request implements Serializable {
 	public Request(RequestAction requestAction) {
 		this.requestAction = requestAction;
 	}
-	
+
 	public Request() {
 		// TODO Auto-generated constructor stub
 	}
@@ -41,17 +41,18 @@ public class Request implements Serializable {
 		GetConnectedPlayers, 
 		SetPlayerStatusReady,
 		LeaveLobby,
-		
+
 		UpdateLobbyList, 
 		UpdatePlayersList, 
-		DeletedLobby
+		DeletedLobby, 
+		StartGame
 	}
-	
+
 	public enum RequestAction{
 		Ask,
 		Reply
 	}
-	
+
 	public enum LobbyJoiningResult{
 		Failed,
 		Accepted,
@@ -60,17 +61,17 @@ public class Request implements Serializable {
 		UnacceptedUsername,
 		NotFound
 	}
-	
+
 	public enum LobbyLeavingResult{
 		Accepted,
 		Failed
 	}
-	
+
 	public enum LobbyCreationResult{
 		Failed,
 		Accepted
 	}
-	
+
 	public enum StatusChangeResult{
 		Accepted,
 		Failed
@@ -103,7 +104,7 @@ public class Request implements Serializable {
 	public Object getContent() {
 		return content;
 	}
-	
+
 	/**
 	 * @return the content casted to the type it is assigned to
 	 */

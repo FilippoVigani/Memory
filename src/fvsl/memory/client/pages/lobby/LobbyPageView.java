@@ -142,6 +142,12 @@ public class LobbyPageView extends Page {
 		}
 	}
 	
+	public void respondToStartGame(Lobby lobby){
+		if (model.getLobby().getId().equals(lobby.getId())){
+			controller.goToGamePage(model.getLobby());
+		}
+	}
+	
 	protected class PlayersTableModel extends AbstractTableModel{
 		private static final long serialVersionUID = 1L;
 

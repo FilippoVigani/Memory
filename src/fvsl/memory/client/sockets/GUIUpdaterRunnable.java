@@ -8,6 +8,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.net.Authenticator.RequestorType;
 
 import javax.swing.SwingUtilities;
 
@@ -114,6 +115,23 @@ public class GUIUpdaterRunnable implements Runnable{
 									@Override
 									public void run() {
 										lpw.respondToDeletedLobby(lobby);
+									}
+								});
+								
+							}
+						}
+					} else if (request.getRequestType() == RequestType.StartGame){
+						if (page instanceof LobbyPageView){
+							final LobbyPageView lpw = (LobbyPageView)page;
+							
+							if (lpw != null){
+								
+								final Lobby lobby = request.getCastedContent();
+								
+								SwingUtilities.invokeLater(new Runnable() {
+									@Override
+									public void run() {
+										lpw.respondToStartGame(lobby);
 									}
 								});
 								

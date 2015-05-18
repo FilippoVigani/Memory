@@ -9,6 +9,7 @@ import fvsl.memory.client.pages.PageListeners.GoToMainPageEventListener;
 import fvsl.memory.client.pages.PageManager;
 import fvsl.memory.client.pages.PageListeners.*;
 import fvsl.memory.client.pages.createlobby.CreateLobbyPageView;
+import fvsl.memory.client.pages.game.GamePageView;
 import fvsl.memory.client.pages.lobby.LobbyPageView;
 import fvsl.memory.client.pages.main.MainPageView;
 import fvsl.memory.client.sockets.GUIUpdaterRunnable;
@@ -68,6 +69,14 @@ private void init(){
 				}
 			});
 			
+			final GamePageView gpw = new GamePageView((Lobby)e.getSource());
+			
+			lpw.getController().addEventListener(new GoToGamePageEventListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					pageManager.loadNewPage(gpw);
+				}
+			});
 		}
 	});
 	
@@ -81,6 +90,15 @@ private void init(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					pageManager.loadNewPage(mpw);
+				}
+			});
+			
+			final GamePageView gpw = new GamePageView((Lobby)e.getSource());
+			
+			lpw.getController().addEventListener(new GoToGamePageEventListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					pageManager.loadNewPage(gpw);
 				}
 			});
 		}
