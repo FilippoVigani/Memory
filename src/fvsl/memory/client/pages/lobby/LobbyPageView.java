@@ -1,4 +1,5 @@
 package fvsl.memory.client.pages.lobby;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import javax.swing.table.TableModel;
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
+
 import java.util.Vector;
 
 
@@ -50,16 +52,14 @@ public class LobbyPageView extends Page {
 		setLayout(new GridLayout(1, 0, 0, 0));
 		JPanel pannello=new JPanel();
 		add(pannello);
-		pannello.setLayout(new GridLayout(1,1,0,50));
+		pannello.setLayout(new GridLayout(1,1,0,0));
 
 		JPanel pannelloSinistra=new JPanel();
-		//pannelloSinistra.setLayout(new BoxLayout(pannelloSinistra, BoxLayout.Y_AXIS));
+		pannelloSinistra.setLayout(new BoxLayout(pannelloSinistra, BoxLayout.PAGE_AXIS));
 		pannello.add(pannelloSinistra);
 		JPanel	pannelloDestra= new JPanel();
-		//pannelloDestra.setLayout(new BoxLayout(pannelloDestra, BoxLayout.Y_AXIS));
+		pannelloDestra.setLayout(new BoxLayout(pannelloDestra, BoxLayout.PAGE_AXIS));
 		pannello.add(pannelloDestra);
-		pannelloSinistra.setLayout(new GridLayout(5,1,25,25));
-		pannelloDestra.setLayout(new GridLayout(8,2,0,0));
 		pannelloDestra.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 
 
@@ -70,16 +70,23 @@ public class LobbyPageView extends Page {
 		lobbyNameLabel = new JLabel();
 		numberOfPairsLabel = new JLabel();
 		timerLabel = new JLabel();
-
+		pannelloSinistra.add(Box.createRigidArea(new Dimension(55,25)));
 		pannelloSinistra.add(lobbyNameLabel);
+		pannelloSinistra.add(Box.createRigidArea(new Dimension(55,60)));
 		pannelloSinistra.add(numberOfPairsLabel);
+		pannelloSinistra.add(Box.createRigidArea(new Dimension(55,60)));
 		pannelloSinistra.add(timerLabel);
-		pannelloSinistra.add(readyButton);
+		pannelloSinistra.add(Box.createRigidArea(new Dimension(55,60)));
+		pannelloSinistra.add(backButton);
 
 		playersTable = new JTable();
+		
+		pannelloDestra.add(Box.createRigidArea(new Dimension(55,100)));
 		pannelloDestra.add(playersTable);
-		pannelloDestra.add(backButton);
+		pannelloDestra.add(Box.createRigidArea(new Dimension(55,60)));
+		pannelloDestra.add(readyButton);
 	}
+
 
 	@Override
 	protected void setUpListeners() {
