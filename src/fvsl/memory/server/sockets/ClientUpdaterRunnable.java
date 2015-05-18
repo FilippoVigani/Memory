@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Vector;
 
 import fvsl.memory.common.entities.Request;
 import fvsl.memory.server.db.ServerData;
@@ -19,12 +20,13 @@ public class ClientUpdaterRunnable implements Runnable{
 
 	protected volatile ServerData serverData;
 
-	protected volatile Request request = null;
+	protected volatile Vector<Request> requests;
 
 	public ClientUpdaterRunnable(Socket clientSocket, String serverText, ServerData serverData) {
 		this.clientSocket = clientSocket;
 		this.serverText = serverText;
 		this.serverData = serverData;
+		requests = new Vector<Request>();
 	}
 
 	public void run(){
@@ -44,10 +46,10 @@ public class ClientUpdaterRunnable implements Runnable{
 
 		while (!isStopped()){
 			synchronized (this) {
-				if (request != null){
-					System.out.println("New update request found! - " + request.getRequestType());
+				if (requests.size() > 0){
+					System.out.println("Polling new update request - " + requests.firstElement().getRequestType());
 					try {
-						streamToClient.writeObject(request);
+						streamToClient.writeObject(requests.firstElement());
 						streamToClient.flush();
 					} catch (SocketException e) {
 						clean(false);
@@ -55,24 +57,10 @@ public class ClientUpdaterRunnable implements Runnable{
 					} catch (IOException e) {
 						e.printStackTrace();
 					} 
-					setRequest(null);
+					requests.remove(requests.firstElement());
 				}
 			}
 		}
-	}
-
-	/**
-	 * @return the request
-	 */
-	public Request getRequest() {
-		return request;
-	}
-
-	/**
-	 * @param request the request to set
-	 */
-	public synchronized void setRequest(Request request) {
-		this.request = request;
 	}
 
 	private void clean(boolean closeSocket){
@@ -100,6 +88,20 @@ public class ClientUpdaterRunnable implements Runnable{
 	 */
 	public void setStopped(boolean isStopped) {
 		this.isStopped = isStopped;
+	}
+
+	/**
+	 * @return the requests
+	 */
+	public Vector<Request> getRequests() {
+		return requests;
+	}
+
+	/**
+	 * @param requests the requests to set
+	 */
+	public void setRequests(Vector<Request> requests) {
+		this.requests = requests;
 	}
 
 }

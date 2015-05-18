@@ -283,8 +283,8 @@ public class ClientRunnable implements Runnable{
 			if (runnable == null) {
 				serverData.getClientUpdaters().remove(runnable);
 			} else {
-				synchronized (runnable){
-					runnable.setRequest(new Request(null, RequestAction.Ask, requestType, content));
+				synchronized (runnable.getRequests()){
+					runnable.getRequests().add(new Request(null, RequestAction.Ask, requestType, content));
 				}
 			}
 		}
