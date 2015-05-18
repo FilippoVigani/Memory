@@ -1,15 +1,17 @@
-package fvsl.memory.client.pages;
+package fvsl.memory.client.pages.game;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import fvsl.memory.client.pages.Page;
 import fvsl.memory.common.entities.Lobby;
 
 public class GamePageView extends Page {
