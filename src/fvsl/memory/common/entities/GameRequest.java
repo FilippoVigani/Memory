@@ -2,8 +2,6 @@ package fvsl.memory.common.entities;
 
 import java.io.Serializable;
 
-import fvsl.memory.common.entities.GameRequest.GameRequestAction;
-
 public class GameRequest implements Serializable{
 	
 	/**

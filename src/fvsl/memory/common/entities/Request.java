@@ -46,6 +46,7 @@ public class Request implements Serializable {
 		UpdatePlayersList, 
 		DeletedLobby,
 		StartGame,
+		GetCardsIds,
 		GameRequest
 	}
 

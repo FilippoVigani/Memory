@@ -13,15 +13,12 @@ public class CardButton extends JButton {
 	 */
 	private static final long serialVersionUID = -3176672112421455182L;
 
-	public CardButton(Card card) {
-		this.card = card;
-		String path = "cartacoperta.jpg";
-		if (!(card.getValue() == null || card.getValue().isEmpty())){
-			path = Mapper.getMapper().getCardsMap().get(card.getValue());
-		}
-		Image img = new ImageIcon(this.getClass().getResource(path)).getImage(); 
+	public CardButton(){
 		
-		setIcon(new ImageIcon(img));
+	}
+	
+	public CardButton(Card card) {
+		setCard(card);
 	}
 
 	public Card getCard() {
@@ -30,5 +27,12 @@ public class CardButton extends JButton {
 
 	public void setCard(Card card) {
 		this.card = card;
+		String path = "/card_folded.jpg";
+		if (!(card.getValue() == null || card.getValue().isEmpty())){
+			path = Mapper.getMapper().getCardsMap().get(card.getValue());
+		}
+		Image img = new ImageIcon(this.getClass().getResource(path)).getImage(); 
+		
+		setIcon(new ImageIcon(img));
 	}
 }

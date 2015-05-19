@@ -9,6 +9,7 @@ import java.net.SocketException;
 import java.net.Authenticator.RequestorType;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.Vector;
 
 import fvsl.memory.common.entities.GameRequest;
 import fvsl.memory.common.entities.GameRequest.GameRequestAction;
@@ -101,6 +102,9 @@ public class ClientRunnable implements Runnable{
 								break;
 							case LeaveLobby: 
 								reply = leaveLobby(request);
+								break;
+							case GetCardsIds: 
+								reply = getCardsIds(request);
 								break;
 							case GameRequest:
 								gameRequest((GameRequest)request.getContent());
@@ -333,6 +337,22 @@ public class ClientRunnable implements Runnable{
 			reply.setContent(LobbyLeavingResult.Accepted);
 		}
 		notifyUpdate(RequestType.UpdatePlayersList);
+		return reply;
+	}
+	
+	private Request getCardsIds(Request request){
+		Request reply = new Request(RequestAction.Reply);
+		reply.setRequestType(RequestType.GetCardsIds);
+		
+		String gameId = request.getCastedContent();
+		
+		Vector<String> ids = new Vector<String>();
+		
+		for (Card card : serverData.getGameById(gameId).getCards()){
+			ids.add(card.getId());
+		}
+
+		reply.setContent(ids);
 		return reply;
 	}
 

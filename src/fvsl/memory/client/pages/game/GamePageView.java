@@ -1,6 +1,5 @@
 package fvsl.memory.client.pages.game;
 
-import javax.management.modelmbean.ModelMBean;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,8 +12,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import fvsl.memory.client.pages.Page;
+import fvsl.memory.client.shell.Application;
+import fvsl.memory.common.entities.CardButton;
 import fvsl.memory.common.entities.GameRequest;
 import fvsl.memory.common.entities.Lobby;
 
@@ -22,14 +24,16 @@ public class GamePageView extends Page {
 	public GamePageView(Lobby lobby){
 		super(lobby);
 	}
-	
+
 	private JTable turnTable;
 	private Lobby bufferLobby;
 	private JPanel cardsPanel;
-	
+
 	private GamePageModel model;
 	private GamePageController controller;
-	
+
+	private Vector<CardButton> buttons;
+
 	@Override
 	protected void bufferize(Object o) {
 		bufferLobby = (Lobby)o;
@@ -61,18 +65,21 @@ public class GamePageView extends Page {
 		cardsPanel.setLayout(new GridLayout(0,5,10,5));
 		//cardsPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		//cardsPanel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("ciao");
-		list.add("pollo");
-		list.add("pollicino");
-		
+
+		buttons = new Vector<CardButton>();
+		for(int i=0;i<model.getLobby().getNumberOfPairs()*2;i++){
+			CardButton button = new CardButton();
+			buttons.add(button);
+			cardsPanel.add(button);
 		}
-	
+
+	}
+
 
 	@Override
 	protected void setUpListeners() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -80,20 +87,20 @@ public class GamePageView extends Page {
 		model = new GamePageModel();
 		model.setLobby(bufferLobby);
 		controller= new GamePageController();
+		model.setCards(controller.getCardsFromServer(Application.player, model.getLobby().getId()));
 	}
 
 	@Override
 	protected void populateViews() {
-		for(int i=0;i<model.getLobby().getNumberOfPairs()*2;i++){
-			JButton Button;
-			cardsPanel.add(Button=new JButton ("bottone"+i));
+		for (int i = 0; i < buttons.size(); i++){
+			buttons.get(i).setCard(model.getCards().get(i));
 		}
 	}
 
 
 	public void respondToGameRequest(GameRequest gameRequest) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
