@@ -19,8 +19,8 @@ public class GameRequest implements Serializable{
 	public enum GameRequestAction{
 		TurnCard,
 		LosePlayerTurn,
-		WinPlayerTurn
-		
+		WinPlayerTurn,
+		FoldCard
 	}
 
 	public GameRequest(String id, GameRequestAction action) {

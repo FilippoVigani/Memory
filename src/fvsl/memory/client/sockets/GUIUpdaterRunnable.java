@@ -147,6 +147,8 @@ public class GUIUpdaterRunnable implements Runnable{
 								
 								final GameRequest gameRequest = request.getCastedContent();
 								
+								System.out.println("Game request: " + gameRequest.getAction());
+								
 								SwingUtilities.invokeLater(new Runnable() {
 									@Override
 									public void run() {

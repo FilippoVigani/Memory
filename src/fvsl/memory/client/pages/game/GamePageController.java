@@ -10,9 +10,9 @@ import fvsl.memory.common.entities.Player;
 
 public class GamePageController extends PageListeners{
 
-	public Vector<Card> getCardsFromServer(Player player, String gameId){
+	public Vector<Card> getCardsFromServer(String gameId){
 		Vector<Card> cards = new Vector<Card>();
-		for (String id : Application.getServerManager().getCardsIds(player, gameId)){
+		for (String id : Application.getServerManager().requestCardsIds(Application.player, gameId)){
 			cards.add(new Card(id, null));
 		}
 		return cards;
@@ -25,5 +25,9 @@ public class GamePageController extends PageListeners{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public Player getTurnPlayerFromServer(String gameId) {
+		return Application.getServerManager().requestTurnPlayer(Application.player, gameId);
 	}
 }

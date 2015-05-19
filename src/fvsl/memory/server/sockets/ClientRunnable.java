@@ -106,6 +106,9 @@ public class ClientRunnable implements Runnable{
 							case GetCardsIds: 
 								reply = getCardsIds(request);
 								break;
+							case GetTurnPlayer: 
+								reply = getTurnPlayer(request);
+								break;
 							case GameRequest:
 								gameRequest((GameRequest)request.getContent());
 								clean();
@@ -132,35 +135,59 @@ public class ClientRunnable implements Runnable{
 	private void gameRequest(GameRequest request) {
 		if (request.getAction() == GameRequestAction.TurnCard){
 			Game game = serverData.getGameById(request.getId());
-			Player player = request.getPlayer();
-			if (game.getTurnPlayer().getName().equals(player.getName())){ //It's the turn of the player, proceed
-				Card turnedCard = game.turnCard(request.getCard().getId());
-				
-				int turnNumber = game.getTurnNumber();
-				
-				GameRequest reply = new GameRequest(game.getId(), GameRequestAction.TurnCard);
-				reply.setPlayer(player);
-				reply.setCard(turnedCard);
-				
-				notifyUpdate(RequestType.GameRequest, reply);
-				
-				if (game.getTurnNumber() != turnNumber){
-					if (player.getName().equals(game.getTurnPlayer())){ //Player won turn
-						GameRequest playerWonTurnRequest = new GameRequest(game.getId(), GameRequestAction.WinPlayerTurn);
-						playerWonTurnRequest.setPlayer(player);
-						playerWonTurnRequest.setNextPlayer(game.getTurnPlayer());
-						playerWonTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
-						notifyUpdate(RequestType.GameRequest, playerWonTurnRequest);
-					} else { //Player lost turn
-						GameRequest playerLostTurnRequest = new GameRequest(game.getId(), GameRequestAction.LosePlayerTurn);
-						playerLostTurnRequest.setPlayer(player);
-						playerLostTurnRequest.setNextPlayer(game.getTurnPlayer());
-						playerLostTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
-						notifyUpdate(RequestType.GameRequest, playerLostTurnRequest);
+			synchronized (game) {
+				Player player = request.getPlayer();
+				if (game.getTurnPlayer().getName().equals(player.getName())){ //It's the turn of the player, proceed
+					Integer turnNumber = game.getTurnNumber();
+					if (!game.getCardById(request.getCard().getId()).isTurned()){ //Card hasn't already been turned
+						Card turnedCard = game.turnCard(request.getCard().getId());		
+
+						GameRequest reply = new GameRequest(game.getId(), GameRequestAction.TurnCard);
+						reply.setPlayer(player);
+						reply.setCard(turnedCard);
+
+						notifyUpdate(RequestType.GameRequest, reply);
+						
+						if (game.getTurnNumber() != turnNumber){
+							
+							//Attendo per permettere di visualizzare la carta
+							try {
+								Thread.sleep(1500);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+							if (player.getName().equals(game.getTurnPlayer().getName())){ //Player won turn
+								GameRequest playerWonTurnRequest = new GameRequest(game.getId(), GameRequestAction.WinPlayerTurn);
+								playerWonTurnRequest.setPlayer(player);
+								playerWonTurnRequest.setNextPlayer(game.getTurnPlayer());
+								playerWonTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
+								notifyUpdate(RequestType.GameRequest, playerWonTurnRequest);
+							} else { //Player lost turn
+								if (game.getCardsToBeFolded()[0] != null){
+									GameRequest foldCard1 = new GameRequest(game.getId(), GameRequestAction.FoldCard);
+									foldCard1.setPlayer(player);
+									foldCard1.setCard(game.getCardsToBeFolded()[0]);
+									notifyUpdate(RequestType.GameRequest, foldCard1);
+									if (game.getCardsToBeFolded()[1] != null){
+										GameRequest foldCard2 = new GameRequest(game.getId(), GameRequestAction.FoldCard);
+										foldCard2.setPlayer(player);
+										foldCard2.setCard(game.getCardsToBeFolded()[1]);
+										notifyUpdate(RequestType.GameRequest, foldCard2);
+									}
+								}
+
+								GameRequest playerLostTurnRequest = new GameRequest(game.getId(), GameRequestAction.LosePlayerTurn);
+								playerLostTurnRequest.setPlayer(player);
+								playerLostTurnRequest.setNextPlayer(game.getTurnPlayer());
+								playerLostTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
+								notifyUpdate(RequestType.GameRequest, playerLostTurnRequest);
+							}
+						}
 					}
 				}
 			}
-			
 		}
 	}
 
@@ -226,19 +253,6 @@ public class ClientRunnable implements Runnable{
 
 
 		String newId = UUID.randomUUID().toString();
-		/*
-		Lobby lobby = new Lobby(newId, srcLobby.getName(), srcLobby.getNumberOfPlayers(), srcLobby.getNumberOfPairs(), srcLobby.getTurnTimer(), password);
-
-		System.out.println("Creato oggetto");
-
-		lobby.setOwner(player);
-
-
-		synchronized (serverData.getLobbies()) {
-			System.out.println("get lobbies");
-			serverData.getLobbies().add(lobby);
-			System.out.println("aggiunta lobby");
-		}*/
 
 		srcLobby.setId(newId);
 		srcLobby.setPassword(password);
@@ -293,14 +307,17 @@ public class ClientRunnable implements Runnable{
 		}
 		return reply;
 	}
-	
+
 	private void startGame(Lobby lobby){
 		synchronized (serverData.getGames()) {
 			serverData.getGames().add(new Game(lobby));
 		}
+		synchronized (serverData.getLobbies()) {
+			serverData.getLobbies().remove(lobby);
+		}
 		notifyUpdate(RequestType.StartGame, lobby);
 	}
-	
+
 	private boolean checkIfAllAreReady(Lobby lobby){
 		boolean allReady = lobby.getNumberOfPlayers() == lobby.getConnectedPlayers().size();
 		for (int i = 0; allReady && i < lobby.getConnectedPlayers().size(); i++){
@@ -339,15 +356,15 @@ public class ClientRunnable implements Runnable{
 		notifyUpdate(RequestType.UpdatePlayersList);
 		return reply;
 	}
-	
+
 	private Request getCardsIds(Request request){
 		Request reply = new Request(RequestAction.Reply);
 		reply.setRequestType(RequestType.GetCardsIds);
-		
+
 		String gameId = request.getCastedContent();
-		
+
 		Vector<String> ids = new Vector<String>();
-		
+
 		for (Card card : serverData.getGameById(gameId).getCards()){
 			ids.add(card.getId());
 		}
@@ -356,10 +373,21 @@ public class ClientRunnable implements Runnable{
 		return reply;
 	}
 
+	private Request getTurnPlayer(Request request){
+		Request reply = new Request(RequestAction.Reply);
+		reply.setRequestType(RequestType.GetTurnPlayer);
+
+		String gameId = request.getCastedContent();
+
+		reply.setContent(serverData.getGameById(gameId).getTurnPlayer());
+
+		return reply;
+	}
+
 	private void notifyUpdate(RequestType requestType){
 		notifyUpdate(requestType, null);
 	}
-	
+
 	private void notifyUpdate(RequestType requestType, Object content){
 		for (ClientUpdaterRunnable runnable : serverData.getClientUpdaters()){
 			if (runnable == null) {

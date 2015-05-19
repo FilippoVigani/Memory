@@ -1,9 +1,12 @@
-package fvsl.memory.common.entities;
+package fvsl.memory.client.pages.game;
 
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import fvsl.memory.common.entities.Card;
+import fvsl.memory.common.util.Mapper;
 
 public class CardButton extends JButton {
 
@@ -31,8 +34,9 @@ public class CardButton extends JButton {
 		if (!(card.getValue() == null || card.getValue().isEmpty())){
 			path = Mapper.getMapper().getCardsMap().get(card.getValue());
 		}
-		Image img = new ImageIcon(this.getClass().getResource(path)).getImage(); 
 		
-		setIcon(new ImageIcon(img));
+		ImageIcon img = new ImageIcon(this.getClass().getResource(path)); 
+		
+		setIcon(img);
 	}
 }

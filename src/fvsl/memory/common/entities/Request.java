@@ -45,8 +45,10 @@ public class Request implements Serializable {
 		UpdateLobbyList, 
 		UpdatePlayersList, 
 		DeletedLobby,
+		
 		StartGame,
 		GetCardsIds,
+		GetTurnPlayer,
 		GameRequest
 	}
 

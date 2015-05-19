@@ -17,8 +17,8 @@ import java.util.Vector;
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.client.shell.Application;
 import fvsl.memory.common.entities.Card;
-import fvsl.memory.common.entities.CardButton;
 import fvsl.memory.common.entities.GameRequest;
+import fvsl.memory.common.entities.GameRequest.GameRequestAction;
 import fvsl.memory.common.entities.Lobby;
 
 public class GamePageView extends Page {
@@ -95,7 +95,7 @@ public class GamePageView extends Page {
 
 	private void cardButtonPressed(CardButton button){
 		Card card = button.getCard();
-		if (card.getValue() != null){
+		if (card.getId() != null){
 			//if (Application.player.getName().equals(model.getTurnPlayer().getName()))
 			controller.attemptToTurnCard(model.getLobby().getId(), card);
 		}
@@ -106,7 +106,8 @@ public class GamePageView extends Page {
 		model = new GamePageModel();
 		model.setLobby(bufferLobby);
 		controller= new GamePageController();
-		model.setCards(controller.getCardsFromServer(Application.player, model.getLobby().getId()));
+		model.setCards(controller.getCardsFromServer(model.getLobby().getId()));
+		model.setTurnPlayer(controller.getTurnPlayerFromServer(model.getLobby().getId()));
 	}
 
 	@Override
@@ -120,8 +121,24 @@ public class GamePageView extends Page {
 
 
 	public void respondToGameRequest(GameRequest gameRequest) {
-		// TODO Auto-generated method stub
-
+		if (gameRequest.getId().equals(model.getLobby().getId())){
+			if (gameRequest.getAction() == GameRequestAction.TurnCard){
+				Card card = gameRequest.getCard();
+				getCardButtonByCardId(card.getId()).setCard(card);
+			} else if (gameRequest.getAction() == GameRequestAction.FoldCard){
+				Card card = gameRequest.getCard();
+				getCardButtonByCardId(card.getId()).setCard(new Card(card.getId(), null));
+			}
+		}
+	}
+	
+	private CardButton getCardButtonByCardId(String cardId){
+		for (CardButton cardButton : buttons){
+			if (cardButton.getCard().getId().equals(cardId)){
+				return cardButton;
+			}
+		}
+		return null;
 	}
 
 }

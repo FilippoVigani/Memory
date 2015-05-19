@@ -1,6 +1,12 @@
 package fvsl.memory.common.entities;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2830066687217678432L;
 	//Position ID
 	private String id;
 	//Figure value

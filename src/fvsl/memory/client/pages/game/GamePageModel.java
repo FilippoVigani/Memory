@@ -3,7 +3,6 @@ package fvsl.memory.client.pages.game;
 import java.util.Vector;
 
 import fvsl.memory.common.entities.Card;
-import fvsl.memory.common.entities.CardButton;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
 
@@ -55,5 +54,12 @@ public class GamePageModel {
 		this.cards = cards;
 	}
 
-	
+	public Card getCardById(String cardId){
+		for (Card card : cards){
+			if (card.getId().equals(cardId)){
+				return card;
+			}
+		}
+		return null;
+	}
 }

@@ -252,7 +252,7 @@ public class ServerManager {
 		return result;
 	}
 
-	public Vector<String> getCardsIds(Player player, String gameId) {
+	public Vector<String> requestCardsIds(Player player, String gameId) {
 		connect();
 		try {
 			streamToServer.reset();
@@ -277,5 +277,29 @@ public class ServerManager {
 		}
 		closeConnection();
 		return list;
+	}
+	
+	public Player requestTurnPlayer(Player player, String gameId) {
+		connect();
+		try {
+			streamToServer.reset();
+			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.GetTurnPlayer, gameId));
+			streamToServer.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		System.out.println("Request sent");
+		Player turnPlayer = null;
+		try {
+			Request obj = (Request)streamFromServer.readObject();
+			player = obj.getCastedContent();
+			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
+		return player;
 	}
 }

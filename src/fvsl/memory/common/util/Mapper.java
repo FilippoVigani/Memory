@@ -1,4 +1,4 @@
-package fvsl.memory.common.entities;
+package fvsl.memory.common.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class Mapper {
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
 				//System.out.println("File " + listOfFiles[i].getName());
-				cardsMap.put(("c"+i), listOfFiles[i].getName());
+				cardsMap.put(("c"+i), "/figures/" + listOfFiles[i].getName());
 			} 
 		}
 	}
