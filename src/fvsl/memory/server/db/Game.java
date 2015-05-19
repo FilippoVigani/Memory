@@ -38,10 +38,10 @@ public class Game {
 		ArrayList<String> cardValues = new ArrayList<String>(Mapper.getMapper().getCardsMap().keySet());
 		
 		for (int i = 0; i < lobby.getNumberOfPairs() && cardValues.size() > 0; i++){
-			String cardValue = cardValues.get(rng.nextInt(cardValues.size()));
+			String cardValue = cardValues.get(rng.nextInt(cardValues.size()+1));
 			
-			cards.insertElementAt((new Card(UUID.randomUUID().toString(),cardValue)), rng.nextInt(cardValues.size()));
-			cards.insertElementAt((new Card(UUID.randomUUID().toString(),cardValue)), rng.nextInt(cardValues.size()));
+			cards.insertElementAt((new Card(UUID.randomUUID().toString(),cardValue)), rng.nextInt(cards.size()+1));
+			cards.insertElementAt((new Card(UUID.randomUUID().toString(),cardValue)), rng.nextInt(cards.size()+1));
 			cardValues.remove(cardValue);
 		}
 		

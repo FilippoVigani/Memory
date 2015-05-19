@@ -1,27 +1,25 @@
 package fvsl.memory.common.entities;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class Mapper {
 	private HashMap<String, String> cardsMap;
-	
-	private static Mapper mapper;
-	private File folder = new File("/Memory/res");
-	private File[] listOfFiles = folder.listFiles();
 
-	
+	private static Mapper mapper;
+
 	public Mapper(){
+		File[] listOfFiles = new File("res/figures").listFiles();
 		cardsMap = new HashMap<String, String>();
-		 for (int i = 0; i < listOfFiles.length; i++) {
-		      if (listOfFiles[i].isFile()) {
-		        System.out.println("File " + listOfFiles[i].getName());
-		        cardsMap.put(("c"+i), listOfFiles[i].getName());
-		      } 
-		    }
-		
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				//System.out.println("File " + listOfFiles[i].getName());
+				cardsMap.put(("c"+i), listOfFiles[i].getName());
+			} 
+		}
 	}
-	
+
 	public static Mapper getMapper(){
 		if (mapper == null){
 			mapper = new Mapper();

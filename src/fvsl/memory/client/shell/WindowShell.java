@@ -31,10 +31,11 @@ public class WindowShell extends JFrame {
 
 	public WindowShell() {
 		setTitle("Simple example");
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		init();
+		setLocationRelativeTo(null);
+		setResizable(false);
 	}
 
 private void init(){

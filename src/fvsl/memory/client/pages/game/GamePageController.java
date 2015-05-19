@@ -17,4 +17,13 @@ public class GamePageController extends PageListeners{
 		}
 		return cards;
 	}
+
+	public void attemptToTurnCard(String gameId, Card card) {
+		try {
+			Application.getServerManager().requestToTurnCard(Application.player, gameId, card);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

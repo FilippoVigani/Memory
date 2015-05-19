@@ -16,6 +16,7 @@ import java.util.Vector;
 
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.client.shell.Application;
+import fvsl.memory.common.entities.Card;
 import fvsl.memory.common.entities.CardButton;
 import fvsl.memory.common.entities.GameRequest;
 import fvsl.memory.common.entities.Lobby;
@@ -67,7 +68,7 @@ public class GamePageView extends Page {
 		//cardsPanel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 
 		buttons = new Vector<CardButton>();
-		for(int i=0;i<model.getLobby().getNumberOfPairs()*2;i++){
+		for(int i=0;i<bufferLobby.getNumberOfPairs()*2;i++){
 			CardButton button = new CardButton();
 			buttons.add(button);
 			cardsPanel.add(button);
@@ -78,8 +79,26 @@ public class GamePageView extends Page {
 
 	@Override
 	protected void setUpListeners() {
-		// TODO Auto-generated method stub
+		ActionListener listener = new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cardButtonPressed((CardButton)e.getSource());
+			}
+		};
+
+		for (CardButton button : buttons){
+			button.addActionListener(listener);
+		}
+
+	}
+
+	private void cardButtonPressed(CardButton button){
+		Card card = button.getCard();
+		if (card.getValue() != null){
+			//if (Application.player.getName().equals(model.getTurnPlayer().getName()))
+			controller.attemptToTurnCard(model.getLobby().getId(), card);
+		}
 	}
 
 	@Override
@@ -93,7 +112,9 @@ public class GamePageView extends Page {
 	@Override
 	protected void populateViews() {
 		for (int i = 0; i < buttons.size(); i++){
-			buttons.get(i).setCard(model.getCards().get(i));
+			if (i < model.getCards().size()){
+				buttons.get(i).setCard(model.getCards().get(i));
+			}
 		}
 	}
 

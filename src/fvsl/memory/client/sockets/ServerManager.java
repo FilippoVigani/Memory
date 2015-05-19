@@ -9,9 +9,12 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import fvsl.memory.common.entities.Card;
+import fvsl.memory.common.entities.GameRequest;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.entities.Request;
+import fvsl.memory.common.entities.GameRequest.GameRequestAction;
 import fvsl.memory.common.entities.Request.LobbyCreationResult;
 import fvsl.memory.common.entities.Request.LobbyJoiningResult;
 import fvsl.memory.common.entities.Request.LobbyLeavingResult;
@@ -74,6 +77,21 @@ public class ServerManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void requestToTurnCard(Player player, String gameId, Card card) throws Exception{
+		connect();
+		try {
+			streamToServer.reset();
+			GameRequest request = new GameRequest(gameId, GameRequestAction.TurnCard);
+			request.setCard(card);
+			request.setPlayer(player);
+			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.GameRequest, request));
+			streamToServer.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		closeConnection();
 	}
 
 	public Vector<Lobby> requestLobbies(Player player) throws Exception{
