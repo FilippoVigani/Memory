@@ -134,13 +134,13 @@ public class CreateLobbyPageView extends Page {
 			
 		nCoppieCombo.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        model.getLobby().setNumberOfPlayers((Integer)nCoppieCombo.getSelectedItem());
+		        model.getLobby().setNumberOfPairs((Integer)nCoppieCombo.getSelectedItem());
 		    }
 		});
 		
 		timerCombo.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
-		        model.getLobby().setNumberOfPlayers((Integer)timerCombo.getSelectedItem());
+		        model.getLobby().setTurnTimer((Integer)timerCombo.getSelectedItem());
 		    }
 		});
 		

@@ -27,6 +27,7 @@ public class GamePageView extends Page {
 	private JPanel cardsPanel;
 	
 	private GamePageModel model;
+	private GamePageController controller;
 	
 	@Override
 	protected void bufferize(Object o) {
@@ -77,6 +78,7 @@ public class GamePageView extends Page {
 	protected void loadData() {
 		model = new GamePageModel();
 		model.setLobby(bufferLobby);
+		controller= new GamePageController();
 	}
 
 	@Override

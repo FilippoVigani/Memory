@@ -6,7 +6,7 @@ public class CreateLobbyPageModel {
 	private Lobby lobby;
 	private String password;
 	private Integer[] possiblePlayers = {2,3,4};
-	private Integer[] possiblePairs = {10,16,20};
+	private Integer[] possiblePairs = {10,15,20};
 	private Integer[] possibleTimers = {5,10,15};
 	
 	/**

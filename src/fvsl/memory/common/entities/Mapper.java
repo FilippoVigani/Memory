@@ -9,7 +9,7 @@ public class Mapper {
 	
 	public Mapper(){
 		cardsMap = new HashMap<String, String>();
-		cardsMap.put("c1", "smile1.jpg");
+			cardsMap.put("c1", "smile.jpg");
 	}
 	
 	public static Mapper getMapper(){
