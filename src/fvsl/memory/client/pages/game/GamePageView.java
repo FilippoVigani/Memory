@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import fvsl.memory.client.pages.Page;
+import fvsl.memory.common.entities.GameRequest;
 import fvsl.memory.common.entities.Lobby;
 
 public class GamePageView extends Page {
@@ -87,6 +88,12 @@ public class GamePageView extends Page {
 			JButton Button;
 			cardsPanel.add(Button=new JButton ("bottone"+i));
 		}
+	}
+
+
+	public void respondToGameRequest(GameRequest gameRequest) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -13,8 +13,10 @@ import java.net.Authenticator.RequestorType;
 import javax.swing.SwingUtilities;
 
 import fvsl.memory.client.pages.Page;
+import fvsl.memory.client.pages.game.GamePageView;
 import fvsl.memory.client.pages.lobby.LobbyPageView;
 import fvsl.memory.client.pages.main.MainPageView;
+import fvsl.memory.common.entities.GameRequest;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Request;
 import fvsl.memory.common.entities.Request.RequestAction;
@@ -136,6 +138,24 @@ public class GUIUpdaterRunnable implements Runnable{
 								});
 								
 							}
+						}
+					} else if (request.getRequestType() == RequestType.GameRequest){
+						if (page instanceof GamePageView){
+							final GamePageView gpw = (GamePageView)page;
+							
+							if (gpw != null){
+								
+								final GameRequest gameRequest = request.getCastedContent();
+								
+								SwingUtilities.invokeLater(new Runnable() {
+									@Override
+									public void run() {
+										gpw.respondToGameRequest(gameRequest);
+									}
+								});
+								
+							}
+							
 						}
 					}
 				}

@@ -16,6 +16,9 @@ public class Game {
 	private volatile Vector<Card> cards;
 	private volatile Vector<Player> players;
 	private volatile Hashtable<Player, Integer> score;
+	private volatile Hashtable<Player, Integer> guessStreak;
+	
+	private volatile int turnNumber;
 	
 	private volatile Card[] turnedCards;
 	
@@ -23,9 +26,11 @@ public class Game {
 	
 	public Game(Lobby lobby){
 		this.id = lobby.getId();
+		turnNumber = 0;
 		rng = new Random(System.nanoTime());
 		players = lobby.getConnectedPlayers();
 		score = new Hashtable<Player, Integer>();
+		guessStreak = new Hashtable<Player, Integer>();
 		cards = new Vector<Card>();
 		
 		turnedCards = new Card[2];
@@ -42,13 +47,14 @@ public class Game {
 		
 		for (Player player : players){
 			score.put(player, 0);
+			guessStreak.put(player, 0);
 		}
 		
 		turnPlayer = players.get(rng.nextInt(players.size()));
 	}
 	
 	//returns the card value
-	public String turnCard(String cardId){
+	public Card turnCard(String cardId){
 		Card card = getCardById(cardId);
 		card.setTurned(true);
 		if (turnedCards[0] == null){
@@ -58,7 +64,7 @@ public class Game {
 			endTurn();
 		}
 		
-		return card.getValue();
+		return card;
 	}
 	
 	public Card getCardById(String cardId){
@@ -74,8 +80,10 @@ public class Game {
 		if (turnedCards[0] != null && turnedCards[1] != null && 
 				turnedCards[0].getValue().equals(turnedCards[1].getValue())){
 			//Adding points (could be more complicated)
-			score.put(turnPlayer, score.get(turnPlayer) + 1);
+			guessStreak.put(turnPlayer, guessStreak.get(turnPlayer) + 1);
+			score.put(turnPlayer, score.get(turnPlayer) + guessStreak.get(turnPlayer));
 		} else {
+			guessStreak.put(turnPlayer, 0);
 			if (turnedCards[0] != null){
 				turnedCards[0].setTurned(false);
 			}
@@ -86,7 +94,22 @@ public class Game {
 		
 		turnedCards = new Card[0];
 		
-		turnPlayer = players.get((players.indexOf(turnPlayer)+1) % players.size()); 
+		turnPlayer = players.get((players.indexOf(turnPlayer)+1) % players.size());
+		
+		turnNumber++;
+	}
+	
+	public Integer getPlayerPoints(Player player){
+		return score.get(getPlayerByName(player.getName()));
+	}
+
+	private Player getPlayerByName(String name) {
+		for (Player player : players){
+			if (player.getName().equals(name)){
+				return player;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -122,5 +145,19 @@ public class Game {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * @return the turnNumber
+	 */
+	public int getTurnNumber() {
+		return turnNumber;
+	}
+
+	/**
+	 * @param turnNumber the turnNumber to set
+	 */
+	public void setTurnNumber(int turnNumber) {
+		this.turnNumber = turnNumber;
 	}
 }

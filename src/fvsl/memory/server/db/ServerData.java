@@ -32,14 +32,21 @@ public class ServerData {
 	}
 	
 	public Lobby getLobbyById(String id){
-		Lobby lobby = null;
-		boolean found = false;
-		for (int i = 0; !found && i < getLobbies().size(); i++){
-			lobby = getLobbies().get(i);
-			found = lobby.getId().equals(id);
+		for (Lobby lobby : getLobbies()){
+			if (lobby.getId().equals(id)){
+				return lobby;
+			}
 		}
-		
-		return found?lobby:null;
+		return null;
+	}
+	
+	public Game getGameById(String id){
+		for (Game game : getGames()){
+			if (game.getId().equals(id)){
+				return game;
+			}
+		}
+		return null;
 	}
 
 	/**

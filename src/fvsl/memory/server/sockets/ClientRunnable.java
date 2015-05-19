@@ -10,6 +10,9 @@ import java.net.Authenticator.RequestorType;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import fvsl.memory.common.entities.GameRequest;
+import fvsl.memory.common.entities.GameRequest.GameRequestAction;
+import fvsl.memory.common.entities.Card;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.entities.Request;
@@ -99,6 +102,10 @@ public class ClientRunnable implements Runnable{
 							case LeaveLobby: 
 								reply = leaveLobby(request);
 								break;
+							case GameRequest:
+								gameRequest((GameRequest)request.getContent());
+								clean();
+								return;
 							default:
 								break;
 							}
@@ -115,6 +122,41 @@ public class ClientRunnable implements Runnable{
 					e.printStackTrace();
 				} 
 			}
+		}
+	}
+
+	private void gameRequest(GameRequest request) {
+		if (request.getAction() == GameRequestAction.TurnCard){
+			Game game = serverData.getGameById(request.getId());
+			Player player = request.getPlayer();
+			if (game.getTurnPlayer().getName().equals(player.getName())){ //It's the turn of the player, proceed
+				Card turnedCard = game.turnCard(request.getCard().getId());
+				
+				int turnNumber = game.getTurnNumber();
+				
+				GameRequest reply = new GameRequest(game.getId(), GameRequestAction.TurnCard);
+				reply.setPlayer(player);
+				reply.setCard(turnedCard);
+				
+				notifyUpdate(RequestType.GameRequest, reply);
+				
+				if (game.getTurnNumber() != turnNumber){
+					if (player.getName().equals(game.getTurnPlayer())){ //Player won turn
+						GameRequest playerWonTurnRequest = new GameRequest(game.getId(), GameRequestAction.WinPlayerTurn);
+						playerWonTurnRequest.setPlayer(player);
+						playerWonTurnRequest.setNextPlayer(game.getTurnPlayer());
+						playerWonTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
+						notifyUpdate(RequestType.GameRequest, playerWonTurnRequest);
+					} else { //Player lost turn
+						GameRequest playerLostTurnRequest = new GameRequest(game.getId(), GameRequestAction.LosePlayerTurn);
+						playerLostTurnRequest.setPlayer(player);
+						playerLostTurnRequest.setNextPlayer(game.getTurnPlayer());
+						playerLostTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
+						notifyUpdate(RequestType.GameRequest, playerLostTurnRequest);
+					}
+				}
+			}
+			
 		}
 	}
 
