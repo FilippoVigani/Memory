@@ -10,24 +10,24 @@ public class Mapper {
 
 	private static Mapper mapper;
 
-	public Mapper(){
+	public Mapper() {
 		File[] listOfFiles = new File("res/figures").listFiles(new FilenameFilter() {
-		    @Override 
-		    public boolean accept(File dir, String name) {
-		        return name.endsWith(".jpg") || name.endsWith(".png") || name.endsWith(".jpeg");
-		    } 
-		}); 
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".jpg") || name.endsWith(".png") || name.endsWith(".jpeg");
+			}
+		});
 		cardsMap = new HashMap<String, String>();
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
-				//System.out.println("File " + listOfFiles[i].getName());
-				cardsMap.put(("c"+i), "/figures/" + listOfFiles[i].getName());
-			} 
+				// System.out.println("File " + listOfFiles[i].getName());
+				cardsMap.put(("c" + i), "/figures/" + listOfFiles[i].getName());
+			}
 		}
 	}
 
-	public static Mapper getMapper(){
-		if (mapper == null){
+	public static Mapper getMapper() {
+		if (mapper == null) {
 			mapper = new Mapper();
 		}
 		return mapper;
@@ -41,7 +41,8 @@ public class Mapper {
 	}
 
 	/**
-	 * @param cardsMap the cardsMap to set
+	 * @param cardsMap
+	 *            the cardsMap to set
 	 */
 	public void setCardsMap(HashMap<String, String> cardsMap) {
 		this.cardsMap = cardsMap;

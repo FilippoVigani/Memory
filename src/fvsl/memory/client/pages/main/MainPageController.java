@@ -11,9 +11,9 @@ import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.entities.Request.LobbyJoiningResult;
 
 public class MainPageController extends PageListeners {
-	private static final Logger log = Logger.getLogger( MainPageController.class.getName() );
-	
-	public Vector<Lobby> getLobbiesFromServer(Player player){
+	private static final Logger log = Logger.getLogger(MainPageController.class.getName());
+
+	public Vector<Lobby> getLobbiesFromServer(Player player) {
 		try {
 			return Application.getServerManager().requestLobbies(player);
 		} catch (Exception e) {
@@ -21,7 +21,7 @@ public class MainPageController extends PageListeners {
 			return new Vector<Lobby>();
 		}
 	}
-	
+
 	public LobbyJoiningResult requestLobbyJoining(Player player, Lobby selectedLobby, String password) {
 		log.log(Level.INFO, player.getName() + " tries to join lobby " + selectedLobby.getName(), selectedLobby);
 		try {
@@ -31,14 +31,13 @@ public class MainPageController extends PageListeners {
 			return null;
 		}
 	}
-	
+
 	protected void loadCreateLobbyPage() {
 		fireGoToCreateLobbyEvent();
 	}
-	
+
 	protected void loadLobbyPage(Lobby lobby) {
 		fireGoToLobbyEvent(lobby);
 	}
-	
 
 }

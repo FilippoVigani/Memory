@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 
 import fvsl.memory.client.shell.Application;
 
-public class PageManager implements ActionListener{
+public class PageManager implements ActionListener {
 
 	public PageManager(JFrame container, Page rootPage) {
 		this.rootPage = rootPage;
@@ -28,7 +28,7 @@ public class PageManager implements ActionListener{
 		container.setSize(Application.WINDOW_WIDTH, Application.WINDOW_HEIGHT);
 		return page;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	}

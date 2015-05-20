@@ -30,46 +30,39 @@ public class ServerManager {
 	private ObjectOutputStream streamToServer;
 	Socket socket = null;
 
-
-	public ServerManager(){
+	public ServerManager() {
 	}
 
-	public void connect(){
-		try
-		{
+	public void connect() {
+		try {
 			host = InetAddress.getLocalHost();
-		}
-		catch(UnknownHostException uhEx)
-		{
+		} catch (UnknownHostException uhEx) {
 			System.err.println("Non trovo indirizzo calcolatore ospite!");
 			System.err.println(uhEx);
 			System.exit(1);
 		}
 
-		try 
-		{
+		try {
 			socket = new Socket(host, PORT);
 
 			System.out.println("Connected to " + host.getHostAddress());
 
-			streamFromServer = new ObjectInputStream(socket.getInputStream()); 
+			streamFromServer = new ObjectInputStream(socket.getInputStream());
 
 			System.out.println("Created input stream clientside");
 
-			streamToServer = new ObjectOutputStream(socket.getOutputStream()); 
+			streamToServer = new ObjectOutputStream(socket.getOutputStream());
 
 			streamToServer.flush();
 
 			System.out.println("Created output stream clientside");
 
-		}
-		catch(IOException ioEx)
-		{
+		} catch (IOException ioEx) {
 			System.err.println("IOException:" + ioEx.getMessage());
-		}   
+		}
 	}
 
-	public void closeConnection(){
+	public void closeConnection() {
 		try {
 			streamFromServer.close();
 			streamToServer.close();
@@ -78,8 +71,8 @@ public class ServerManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public void requestToTurnCard(Player player, String gameId, Card card) throws Exception{
+
+	public void requestToTurnCard(Player player, String gameId, Card card) throws Exception {
 		connect();
 		try {
 			streamToServer.reset();
@@ -94,7 +87,7 @@ public class ServerManager {
 		closeConnection();
 	}
 
-	public Vector<Lobby> requestLobbies(Player player) throws Exception{
+	public Vector<Lobby> requestLobbies(Player player) throws Exception {
 		connect();
 		try {
 			streamToServer.reset();
@@ -106,10 +99,10 @@ public class ServerManager {
 		System.out.println("Request sent");
 		Vector<Lobby> list = null;
 		try {
-			Request obj = (Request)streamFromServer.readObject();
+			Request obj = (Request) streamFromServer.readObject();
 			list = obj.getCastedContent();
-			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
-			if (list == null){
+			System.out.println("Something has been received: " + obj.getRequestType() + " " + obj.getRequestAction());
+			if (list == null) {
 				list = new Vector<Lobby>();
 			}
 		} catch (ClassNotFoundException e) {
@@ -120,8 +113,8 @@ public class ServerManager {
 		closeConnection();
 		return list;
 	}
-	
-	public LobbyJoiningResult requestJoinLobby(Player player, Lobby lobby, String password) throws Exception{
+
+	public LobbyJoiningResult requestJoinLobby(Player player, Lobby lobby, String password) throws Exception {
 		connect();
 		try {
 			ArrayList<Object> content = new ArrayList<Object>();
@@ -133,13 +126,13 @@ public class ServerManager {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		LobbyJoiningResult result = LobbyJoiningResult.Failed;
-		
+
 		try {
-			Request obj = (Request)streamFromServer.readObject();
+			Request obj = (Request) streamFromServer.readObject();
 			result = obj.getCastedContent();
-			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction() + " " + result);
+			System.out.println("Something has been received: " + obj.getRequestType() + " " + obj.getRequestAction() + " " + result);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -148,21 +141,21 @@ public class ServerManager {
 		closeConnection();
 		return result;
 	}
-	
-	public LobbyLeavingResult requestLeaveLobby(Player player, Lobby lobby) throws Exception{
+
+	public LobbyLeavingResult requestLeaveLobby(Player player, Lobby lobby) throws Exception {
 		connect();
-		try {		
+		try {
 			streamToServer.reset();
 			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.LeaveLobby, lobby));
 			streamToServer.flush();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		LobbyLeavingResult result = LobbyLeavingResult.Failed;
-		
+
 		try {
-			Request obj = (Request)streamFromServer.readObject();
+			Request obj = (Request) streamFromServer.readObject();
 			result = obj.getCastedContent();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -172,8 +165,8 @@ public class ServerManager {
 		closeConnection();
 		return result;
 	}
-	
-	public LobbyCreationResult requestCreateLobby(Player player, Lobby lobby, String password) throws Exception{
+
+	public LobbyCreationResult requestCreateLobby(Player player, Lobby lobby, String password) throws Exception {
 		connect();
 		try {
 			ArrayList<Object> content = new ArrayList<Object>();
@@ -185,13 +178,13 @@ public class ServerManager {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		LobbyCreationResult result = LobbyCreationResult.Failed;
-		
+
 		try {
-			Request obj = (Request)streamFromServer.readObject();
+			Request obj = (Request) streamFromServer.readObject();
 			String lobbyId = obj.getCastedContent();
-			if (!(lobbyId == null || lobbyId.isEmpty())){
+			if (!(lobbyId == null || lobbyId.isEmpty())) {
 				result = LobbyCreationResult.Accepted;
 				lobby.setId(lobbyId);
 			}
@@ -204,7 +197,7 @@ public class ServerManager {
 		return result;
 	}
 
-	public Vector<Player> requestConnectedPlayers(Player player, Lobby lobby) throws Exception{
+	public Vector<Player> requestConnectedPlayers(Player player, Lobby lobby) throws Exception {
 		connect();
 		try {
 			streamToServer.reset();
@@ -213,11 +206,11 @@ public class ServerManager {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		Vector<Player> result = null;
-		
+
 		try {
-			Request obj = (Request)streamFromServer.readObject();
+			Request obj = (Request) streamFromServer.readObject();
 			result = obj.getCastedContent();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -237,11 +230,11 @@ public class ServerManager {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		StatusChangeResult result = StatusChangeResult.Failed;
-		
+
 		try {
-			Request obj = (Request)streamFromServer.readObject();
+			Request obj = (Request) streamFromServer.readObject();
 			result = obj.getCastedContent();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -264,10 +257,10 @@ public class ServerManager {
 		System.out.println("Request sent");
 		Vector<String> list = null;
 		try {
-			Request obj = (Request)streamFromServer.readObject();
+			Request obj = (Request) streamFromServer.readObject();
 			list = obj.getCastedContent();
-			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
-			if (list == null){
+			System.out.println("Something has been received: " + obj.getRequestType() + " " + obj.getRequestAction());
+			if (list == null) {
 				list = new Vector<String>();
 			}
 		} catch (ClassNotFoundException e) {
@@ -278,7 +271,7 @@ public class ServerManager {
 		closeConnection();
 		return list;
 	}
-	
+
 	public Player requestTurnPlayer(Player player, String gameId) {
 		connect();
 		try {
@@ -291,9 +284,9 @@ public class ServerManager {
 		System.out.println("Request sent");
 		Player turnPlayer = null;
 		try {
-			Request obj = (Request)streamFromServer.readObject();
+			Request obj = (Request) streamFromServer.readObject();
 			player = obj.getCastedContent();
-			System.out.println("Something has been received: " + obj.getRequestType()+ " " +obj.getRequestAction());
+			System.out.println("Something has been received: " + obj.getRequestType() + " " + obj.getRequestAction());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

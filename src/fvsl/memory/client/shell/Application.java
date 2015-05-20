@@ -7,18 +7,18 @@ import fvsl.memory.common.entities.Player;
 public final class Application {
 	public static final int WINDOW_WIDTH = 1100;
 	public static final int WINDOW_HEIGHT = 600;
-	
+
 	private static ServerManager serverManager;
 	public static Player player;
-	
+
 	protected volatile static GUIUpdaterRunnable updater;
 	protected volatile static Thread updaterThread;
-	
+
 	/**
 	 * @return the serverManager
 	 */
 	public static ServerManager getServerManager() {
-		if (serverManager == null){
+		if (serverManager == null) {
 			serverManager = new ServerManager();
 		}
 		return serverManager;
@@ -32,7 +32,8 @@ public final class Application {
 	}
 
 	/**
-	 * @param updater the updater to set
+	 * @param updater
+	 *            the updater to set
 	 */
 	public static void setUpdater(GUIUpdaterRunnable updater) {
 		Application.updater = updater;
@@ -46,7 +47,8 @@ public final class Application {
 	}
 
 	/**
-	 * @param updaterThread the updaterThread to set
+	 * @param updaterThread
+	 *            the updaterThread to set
 	 */
 	public static void setUpdaterThread(Thread updaterThread) {
 		Application.updaterThread = updaterThread;

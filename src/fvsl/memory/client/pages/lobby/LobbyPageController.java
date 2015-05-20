@@ -9,9 +9,9 @@ import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.entities.Request.LobbyLeavingResult;
 import fvsl.memory.common.entities.Request.StatusChangeResult;
 
-public class LobbyPageController extends PageListeners{
+public class LobbyPageController extends PageListeners {
 
-	public Vector<Player> getPlayersOfLobbyFromServer(Lobby lobby){
+	public Vector<Player> getPlayersOfLobbyFromServer(Lobby lobby) {
 		try {
 			return Application.getServerManager().requestConnectedPlayers(Application.player, lobby);
 		} catch (Exception e) {
@@ -24,19 +24,17 @@ public class LobbyPageController extends PageListeners{
 		return Application.getServerManager().requestSetStatusReady(Application.player, lobby);
 	}
 
-
-	public void backToMainPage(Lobby lobby){
-		if (leaveLobby(lobby) == LobbyLeavingResult.Accepted)
-		{
+	public void backToMainPage(Lobby lobby) {
+		if (leaveLobby(lobby) == LobbyLeavingResult.Accepted) {
 			fireGoToMainPageEvent();
 		}
 	}
-	
-	public void goToGamePage(Lobby lobby){
+
+	public void goToGamePage(Lobby lobby) {
 		fireGoToGamePageEvent();
 	}
 
-	public LobbyLeavingResult leaveLobby(Lobby lobby){
+	public LobbyLeavingResult leaveLobby(Lobby lobby) {
 
 		try {
 			return Application.getServerManager().requestLeaveLobby(Application.player, lobby);

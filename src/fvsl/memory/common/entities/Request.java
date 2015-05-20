@@ -30,55 +30,32 @@ public class Request implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public enum RequestType{
-		GetLobbies,
-		JoinLobby,
-		CreateLobby,
-		DeleteLobby,
-		GetPossiblePlayersNumbers,
-		GetPossiblePairsNumbers,
-		GetPossibleTimerNumbers, 
-		GetConnectedPlayers, 
-		SetPlayerStatusReady,
-		LeaveLobby,
+	public enum RequestType {
+		GetLobbies, JoinLobby, CreateLobby, DeleteLobby, GetPossiblePlayersNumbers, GetPossiblePairsNumbers, GetPossibleTimerNumbers, GetConnectedPlayers, SetPlayerStatusReady, LeaveLobby,
 
-		UpdateLobbyList, 
-		UpdatePlayersList, 
-		DeletedLobby,
-		
-		StartGame,
-		GetCardsIds,
-		GetTurnPlayer,
-		GameRequest
+		UpdateLobbyList, UpdatePlayersList, DeletedLobby,
+
+		StartGame, GetCardsIds, GetTurnPlayer, GameRequest
 	}
 
-	public enum RequestAction{
-		Ask,
-		Reply
+	public enum RequestAction {
+		Ask, Reply
 	}
 
-	public enum LobbyJoiningResult{
-		Failed,
-		Accepted,
-		WrongPassword,
-		FullLobby,
-		UnacceptedUsername,
-		NotFound
+	public enum LobbyJoiningResult {
+		Failed, Accepted, WrongPassword, FullLobby, UnacceptedUsername, NotFound
 	}
 
-	public enum LobbyLeavingResult{
-		Accepted,
-		Failed
+	public enum LobbyLeavingResult {
+		Accepted, Failed
 	}
 
-	public enum LobbyCreationResult{
-		Failed,
-		Accepted
+	public enum LobbyCreationResult {
+		Failed, Accepted
 	}
 
-	public enum StatusChangeResult{
-		Accepted,
-		Failed
+	public enum StatusChangeResult {
+		Accepted, Failed
 	}
 
 	/**
@@ -96,7 +73,8 @@ public class Request implements Serializable {
 	}
 
 	/**
-	 * @param requestAction the requestAction to set
+	 * @param requestAction
+	 *            the requestAction to set
 	 */
 	public void setRequestAction(RequestAction requestAction) {
 		this.requestAction = requestAction;
@@ -113,12 +91,13 @@ public class Request implements Serializable {
 	 * @return the content casted to the type it is assigned to
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T getCastedContent(){
-		return (T)content;
+	public <T> T getCastedContent() {
+		return (T) content;
 	}
 
 	/**
-	 * @param content the content to set
+	 * @param content
+	 *            the content to set
 	 */
 	public void setContent(Object content) {
 		this.content = content;
@@ -128,8 +107,6 @@ public class Request implements Serializable {
 		requestType = type;
 	}
 
-
-
 	/**
 	 * @return the player
 	 */
@@ -138,7 +115,8 @@ public class Request implements Serializable {
 	}
 
 	/**
-	 * @param player the player to set
+	 * @param player
+	 *            the player to set
 	 */
 	public void setPlayerName(Player player) {
 		this.player = player;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import fvsl.memory.common.entities.Lobby;
 
 public class MockFactory {
-	public static ArrayList<Lobby> getMockLobbiesList(){
+	public static ArrayList<Lobby> getMockLobbiesList() {
 		ArrayList<Lobby> list = new ArrayList<Lobby>();
 		list.add(new Lobby("sadasd", "MockLobby1", 2, 30, 19, null));
 		list.add(new Lobby("ghdf", "MockLobby2", 2, 10, 9, null));

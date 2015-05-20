@@ -1,4 +1,5 @@
 package fvsl.memory.client.shell;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -15,9 +16,10 @@ import fvsl.memory.client.pages.main.MainPageView;
 import fvsl.memory.client.sockets.GUIUpdaterRunnable;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.util.StringResources;
+
 /**
  * @author Filippo Vigani
- *
+ * 
  */
 public class WindowShell extends JFrame {
 
@@ -26,7 +28,7 @@ public class WindowShell extends JFrame {
 	 */
 	private static final long serialVersionUID = 1980870011702344758L;
 	private PageManager pageManager;
-	
+
 	MainPageView mpw;
 	CreateLobbyPageView clw;
 
@@ -36,94 +38,93 @@ public class WindowShell extends JFrame {
 
 		init();
 		setLocationRelativeTo(null);
-		//setResizable(false);
+		// setResizable(false);
 	}
 
-private void init(){
-	mpw = new MainPageView();
-	clw = new CreateLobbyPageView();
-	
-	Application.setUpdater(new GUIUpdaterRunnable(mpw));
-	Application.setUpdaterThread(new Thread(Application.getUpdater()));
-	
-	pageManager = new PageManager(this, mpw); 
-	
-	Application.getUpdaterThread().start();
+	private void init() {
+		mpw = new MainPageView();
+		clw = new CreateLobbyPageView();
 
-	mpw.getController().addEventListener(new GoToCreateLobbyEventListener(){
+		Application.setUpdater(new GUIUpdaterRunnable(mpw));
+		Application.setUpdaterThread(new Thread(Application.getUpdater()));
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			pageManager.loadNewPage(clw);
-		}
-	});
-	
-	mpw.getController().addEventListener(new GoToLobbyEventListener(){
+		pageManager = new PageManager(this, mpw);
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			LobbyPageView lpw = new LobbyPageView((Lobby)e.getSource());	
-			pageManager.loadNewPage(lpw);
-			lpw.getController().addEventListener(new GoToMainPageEventListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					pageManager.loadNewPage(mpw);
-				}
-			});
-			
-			final GamePageView gpw = new GamePageView((Lobby)e.getSource());
-			
-			lpw.getController().addEventListener(new GoToGamePageEventListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					pageManager.loadNewPage(gpw);
-				}
-			});
-		}
-	});
-	
-	clw.getController().addEventListener(new GoToLobbyEventListener(){
+		Application.getUpdaterThread().start();
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			LobbyPageView lpw = new LobbyPageView((Lobby)e.getSource());
-			pageManager.loadNewPage(lpw);
-			lpw.getController().addEventListener(new GoToMainPageEventListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					pageManager.loadNewPage(mpw);
+		mpw.getController().addEventListener(new GoToCreateLobbyEventListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pageManager.loadNewPage(clw);
+			}
+		});
+
+		mpw.getController().addEventListener(new GoToLobbyEventListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LobbyPageView lpw = new LobbyPageView((Lobby) e.getSource());
+				pageManager.loadNewPage(lpw);
+				lpw.getController().addEventListener(new GoToMainPageEventListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						pageManager.loadNewPage(mpw);
+					}
+				});
+
+				final GamePageView gpw = new GamePageView((Lobby) e.getSource());
+
+				lpw.getController().addEventListener(new GoToGamePageEventListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						pageManager.loadNewPage(gpw);
+					}
+				});
+			}
+		});
+
+		clw.getController().addEventListener(new GoToLobbyEventListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LobbyPageView lpw = new LobbyPageView((Lobby) e.getSource());
+				pageManager.loadNewPage(lpw);
+				lpw.getController().addEventListener(new GoToMainPageEventListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						pageManager.loadNewPage(mpw);
+					}
+				});
+
+				final GamePageView gpw = new GamePageView((Lobby) e.getSource());
+
+				lpw.getController().addEventListener(new GoToGamePageEventListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						pageManager.loadNewPage(gpw);
+					}
+				});
+			}
+
+		});
+
+		clw.getController().addEventListener(new GoToMainPageEventListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pageManager.loadNewPage(mpw);
+			}
+		});
+
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				if (Application.getUpdater() != null) {
+					Application.getUpdater().close(true);
 				}
-			});
-			
-			final GamePageView gpw = new GamePageView((Lobby)e.getSource());
-			
-			lpw.getController().addEventListener(new GoToGamePageEventListener(){
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					pageManager.loadNewPage(gpw);
-				}
-			});
-		}
-		
-		
-	});
-	
-	clw.getController().addEventListener(new GoToMainPageEventListener(){
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			pageManager.loadNewPage(mpw);
-		}
-	});
-	
-	this.addWindowListener(new WindowAdapter() {
-	    @Override
-	    public void windowClosing(WindowEvent e) {
-	    	if (Application.getUpdater() != null){
-	    		Application.getUpdater().close(true);
-	    	}
-	        System.exit(1);
-	    }
-	});
-}
+				System.exit(1);
+			}
+		});
+	}
 
 }

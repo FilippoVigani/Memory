@@ -8,13 +8,15 @@ import java.util.List;
 import fvsl.memory.common.entities.Lobby;
 
 public class PageListeners {
-	//Event to go to a different page
+	// Event to go to a different page
 
 	private List<ActionListener> listeners = new ArrayList<ActionListener>();
-	public synchronized void addEventListener(ActionListener listener)  {
+
+	public synchronized void addEventListener(ActionListener listener) {
 		listeners.add(listener);
 	}
-	public synchronized void removeEventListener(ActionListener listener)   {
+
+	public synchronized void removeEventListener(ActionListener listener) {
 		listeners.remove(listener);
 	}
 
@@ -28,27 +30,28 @@ public class PageListeners {
 			super(source, 0, null);
 		}
 	}
-	public class GotoMainPageEvent extends ActionEvent{
+
+	public class GotoMainPageEvent extends ActionEvent {
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = -41013621096958698L;
 
-		public GotoMainPageEvent(Object source){
-			super(source,0,null);
+		public GotoMainPageEvent(Object source) {
+			super(source, 0, null);
 		}
 	}
-	
-	public class GoToGamePageEvent extends ActionEvent{
+
+	public class GoToGamePageEvent extends ActionEvent {
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1753984169035400846L;
 
-		public GoToGamePageEvent(Object source){
-			super(source,0,null);
+		public GoToGamePageEvent(Object source) {
+			super(source, 0, null);
 		}
 	}
 
@@ -63,52 +66,53 @@ public class PageListeners {
 		}
 	}
 
-	//Create lobby
-	public interface GoToCreateLobbyEventListener extends ActionListener{
+	// Create lobby
+	public interface GoToCreateLobbyEventListener extends ActionListener {
 	}
 
 	protected synchronized void fireGoToCreateLobbyEvent() {
 		GoToCreateLobbyEvent event = new GoToCreateLobbyEvent(this);
 		for (ActionListener listener : listeners) {
-			if (listener instanceof GoToCreateLobbyEventListener){
+			if (listener instanceof GoToCreateLobbyEventListener) {
 				listener.actionPerformed(event);
 			}
 		}
 	}
 
-	//Join lobby
-	public interface GoToLobbyEventListener extends ActionListener{
+	// Join lobby
+	public interface GoToLobbyEventListener extends ActionListener {
 	}
 
 	protected synchronized void fireGoToLobbyEvent(Lobby lobby) {
 		GoToLobbyEvent event = new GoToLobbyEvent(lobby);
 		for (ActionListener listener : listeners) {
-			if (listener instanceof GoToLobbyEventListener){
+			if (listener instanceof GoToLobbyEventListener) {
 				listener.actionPerformed(event);
 			}
 		}
 	}
 
-	//back to mainpage
-	public interface GoToMainPageEventListener extends ActionListener{
+	// back to mainpage
+	public interface GoToMainPageEventListener extends ActionListener {
 	}
+
 	protected synchronized void fireGoToMainPageEvent() {
-		GotoMainPageEvent event= new GotoMainPageEvent(this);
+		GotoMainPageEvent event = new GotoMainPageEvent(this);
 		for (ActionListener listener : listeners) {
-			if (listener instanceof GoToMainPageEventListener){
+			if (listener instanceof GoToMainPageEventListener) {
 				listener.actionPerformed(event);
 			}
 		}
 	}
 
-
-	//Go to game page
-	public interface GoToGamePageEventListener extends ActionListener{
+	// Go to game page
+	public interface GoToGamePageEventListener extends ActionListener {
 	}
+
 	protected synchronized void fireGoToGamePageEvent() {
-		GoToGamePageEvent event= new GoToGamePageEvent(this);
+		GoToGamePageEvent event = new GoToGamePageEvent(this);
 		for (ActionListener listener : listeners) {
-			if (listener instanceof GoToGamePageEventListener){
+			if (listener instanceof GoToGamePageEventListener) {
 				listener.actionPerformed(event);
 			}
 		}

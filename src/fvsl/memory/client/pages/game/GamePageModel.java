@@ -11,7 +11,7 @@ public class GamePageModel {
 	private Lobby lobby;
 	private Player turnPlayer;
 	private Vector<Card> cards;
-	
+
 	/**
 	 * @return the lobby
 	 */
@@ -20,7 +20,8 @@ public class GamePageModel {
 	}
 
 	/**
-	 * @param lobby the lobby to set
+	 * @param lobby
+	 *            the lobby to set
 	 */
 	public void setLobby(Lobby lobby) {
 		this.lobby = lobby;
@@ -34,7 +35,8 @@ public class GamePageModel {
 	}
 
 	/**
-	 * @param turnPlayer the turnPlayer to set
+	 * @param turnPlayer
+	 *            the turnPlayer to set
 	 */
 	public void setTurnPlayer(Player turnPlayer) {
 		this.turnPlayer = turnPlayer;
@@ -48,15 +50,16 @@ public class GamePageModel {
 	}
 
 	/**
-	 * @param cards the cards to set
+	 * @param cards
+	 *            the cards to set
 	 */
 	public void setCards(Vector<Card> cards) {
 		this.cards = cards;
 	}
 
-	public Card getCardById(String cardId){
-		for (Card card : cards){
-			if (card.getId().equals(cardId)){
+	public Card getCardById(String cardId) {
+		for (Card card : cards) {
+			if (card.getId().equals(cardId)) {
 				return card;
 			}
 		}

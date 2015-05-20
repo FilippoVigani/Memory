@@ -18,15 +18,15 @@ public class CreateLobbyPageController extends PageListeners {
 
 		System.out.println(result.toString() + ", Lobby creata con id: " + lobby.getId());
 
-		if (result == LobbyCreationResult.Accepted){
+		if (result == LobbyCreationResult.Accepted) {
 			LobbyJoiningResult joiningResult = LobbyJoiningResult.Failed;
 			try {
 				joiningResult = Application.getServerManager().requestJoinLobby(Application.player, lobby, password);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (!(joiningResult == LobbyJoiningResult.Accepted)){
-				//Delete lobby
+			if (!(joiningResult == LobbyJoiningResult.Accepted)) {
+				// Delete lobby
 				result = LobbyCreationResult.Failed;
 			} else {
 				fireGoToLobbyEvent(lobby);
@@ -35,9 +35,8 @@ public class CreateLobbyPageController extends PageListeners {
 		return result;
 	}
 
-	public void backToMainPage(){
+	public void backToMainPage() {
 		fireGoToMainPageEvent();
 	}
 
 }
-

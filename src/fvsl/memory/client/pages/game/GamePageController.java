@@ -8,11 +8,11 @@ import fvsl.memory.common.entities.Card;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
 
-public class GamePageController extends PageListeners{
+public class GamePageController extends PageListeners {
 
-	public Vector<Card> getCardsFromServer(String gameId){
+	public Vector<Card> getCardsFromServer(String gameId) {
 		Vector<Card> cards = new Vector<Card>();
-		for (String id : Application.getServerManager().requestCardsIds(Application.player, gameId)){
+		for (String id : Application.getServerManager().requestCardsIds(Application.player, gameId)) {
 			cards.add(new Card(id, null));
 		}
 		return cards;

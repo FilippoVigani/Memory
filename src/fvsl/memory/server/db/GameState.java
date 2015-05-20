@@ -28,7 +28,7 @@ public class GameState {
 
 	private volatile Player turnPlayer;
 
-	public GameState(Lobby lobby){
+	public GameState(Lobby lobby) {
 		setPerformingAction(false);
 		this.id = lobby.getId();
 		turnNumber = 0;
@@ -42,15 +42,15 @@ public class GameState {
 
 		ArrayList<String> cardValues = new ArrayList<String>(Mapper.getMapper().getCardsMap().keySet());
 
-		for (int i = 0; i < lobby.getNumberOfPairs() && cardValues.size() > 0; i++){
+		for (int i = 0; i < lobby.getNumberOfPairs() && cardValues.size() > 0; i++) {
 			String cardValue = cardValues.get(rng.nextInt(cardValues.size()));
 
-			cards.insertElementAt((new Card(UUID.randomUUID().toString(),cardValue)), rng.nextInt(cards.size()+1));
-			cards.insertElementAt((new Card(UUID.randomUUID().toString(),cardValue)), rng.nextInt(cards.size()+1));
+			cards.insertElementAt((new Card(UUID.randomUUID().toString(), cardValue)), rng.nextInt(cards.size() + 1));
+			cards.insertElementAt((new Card(UUID.randomUUID().toString(), cardValue)), rng.nextInt(cards.size() + 1));
 			cardValues.remove(cardValue);
 		}
 
-		for (Player player : players){
+		for (Player player : players) {
 			score.put(player, 0);
 			guessStreak.put(player, 0);
 		}
@@ -58,14 +58,14 @@ public class GameState {
 		turnPlayer = players.get(rng.nextInt(players.size()));
 	}
 
-	//returns the card value
-	public Card turnCard(String cardId){
+	// returns the card value
+	public Card turnCard(String cardId) {
 		Card card = getCardById(cardId);
 		card.setTurned(true);
-		
-		System.out.println("GAME " + getId() + " - " +turnPlayer.getName() + " turned card " + cardId + "(" + card.getValue() + ")");
-		
-		if (turnedCards[0] == null){
+
+		System.out.println("GAME " + getId() + " - " + turnPlayer.getName() + " turned card " + cardId + "(" + card.getValue() + ")");
+
+		if (turnedCards[0] == null) {
 			turnedCards[0] = card;
 		} else {
 			turnedCards[1] = card;
@@ -75,29 +75,28 @@ public class GameState {
 		return card;
 	}
 
-	public Card getCardById(String cardId){
-		for (int i = 0; i < cards.size(); i++){
-			if (cardId.equals(cards.get(i).getId())){
+	public Card getCardById(String cardId) {
+		for (int i = 0; i < cards.size(); i++) {
+			if (cardId.equals(cards.get(i).getId())) {
 				return cards.get(i);
 			}
 		}
 		return null;
 	}
 
-	public void endTurn(){
-		boolean playerWonTurn = turnedCards[0] != null && turnedCards[1] != null && 
-				turnedCards[0].getValue().equals(turnedCards[1].getValue());
-		
-		if (playerWonTurn){ //Player won turn
-			System.out.println("GAME " + getId() + " - " +turnPlayer.getName() + " WON turn " + turnNumber);
+	public void endTurn() {
+		boolean playerWonTurn = turnedCards[0] != null && turnedCards[1] != null && turnedCards[0].getValue().equals(turnedCards[1].getValue());
+
+		if (playerWonTurn) { // Player won turn
+			System.out.println("GAME " + getId() + " - " + turnPlayer.getName() + " WON turn " + turnNumber);
 			guessStreak.put(turnPlayer, guessStreak.get(turnPlayer) + 1);
 			score.put(turnPlayer, score.get(turnPlayer) + guessStreak.get(turnPlayer));
 		} else {
 			guessStreak.put(turnPlayer, 0);
-			if (turnedCards[0] != null){
+			if (turnedCards[0] != null) {
 				turnedCards[0].setTurned(false);
 			}
-			if (turnedCards[1] != null){
+			if (turnedCards[1] != null) {
 				turnedCards[1].setTurned(false);
 			}
 		}
@@ -105,24 +104,24 @@ public class GameState {
 		cardsToBeFolded = turnedCards;
 		turnedCards = new Card[2];
 
-		System.out.println("GAME " + getId() + " - " +turnPlayer.getName() + " ended turn " + turnNumber);
+		System.out.println("GAME " + getId() + " - " + turnPlayer.getName() + " ended turn " + turnNumber);
 
-		if (!playerWonTurn){
-			turnPlayer = players.get((players.indexOf(turnPlayer)+1) % players.size());
+		if (!playerWonTurn) {
+			turnPlayer = players.get((players.indexOf(turnPlayer) + 1) % players.size());
 		}
 
-		synchronized (turnNumber){
+		synchronized (turnNumber) {
 			turnNumber = turnNumber + 1;
 		}
 	}
 
-	public Integer getPlayerPoints(Player player){
+	public Integer getPlayerPoints(Player player) {
 		return score.get(getPlayerByName(player.getName()));
 	}
 
 	private Player getPlayerByName(String name) {
-		for (Player player : players){
-			if (player.getName().equals(name)){
+		for (Player player : players) {
+			if (player.getName().equals(name)) {
 				return player;
 			}
 		}
@@ -151,7 +150,8 @@ public class GameState {
 	}
 
 	/**
-	 * @param turnPlayer the turnPlayer to set
+	 * @param turnPlayer
+	 *            the turnPlayer to set
 	 */
 	public void setTurnPlayer(Player turnPlayer) {
 		this.turnPlayer = turnPlayer;
@@ -179,7 +179,8 @@ public class GameState {
 	}
 
 	/**
-	 * @param cardsToBeFolded the cardsToBeFolded to set
+	 * @param cardsToBeFolded
+	 *            the cardsToBeFolded to set
 	 */
 	public void setCardsToBeFolded(Card[] cardsToBeFolded) {
 		this.cardsToBeFolded = cardsToBeFolded;
@@ -193,7 +194,8 @@ public class GameState {
 	}
 
 	/**
-	 * @param isPerformingAction the isPerformingAction to set
+	 * @param isPerformingAction
+	 *            the isPerformingAction to set
 	 */
 	public synchronized void setPerformingAction(Boolean isPerformingAction) {
 		this.isPerformingAction = isPerformingAction;

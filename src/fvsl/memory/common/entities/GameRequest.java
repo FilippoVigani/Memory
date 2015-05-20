@@ -2,13 +2,13 @@ package fvsl.memory.common.entities;
 
 import java.io.Serializable;
 
-public class GameRequest implements Serializable{
-	
+public class GameRequest implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5323430997124137633L;
-	
+
 	private String id;
 	private Player player;
 	private Player nextPlayer;
@@ -16,11 +16,8 @@ public class GameRequest implements Serializable{
 	private Integer playerPoints;
 	private GameRequestAction action;
 
-	public enum GameRequestAction{
-		TurnCard,
-		LosePlayerTurn,
-		WinPlayerTurn,
-		FoldCard
+	public enum GameRequestAction {
+		TurnCard, LosePlayerTurn, WinPlayerTurn, FoldCard
 	}
 
 	public GameRequest(String id, GameRequestAction action) {
@@ -36,7 +33,8 @@ public class GameRequest implements Serializable{
 	}
 
 	/**
-	 * @param player the player to set
+	 * @param player
+	 *            the player to set
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
@@ -50,7 +48,8 @@ public class GameRequest implements Serializable{
 	}
 
 	/**
-	 * @param nextPlayer the nextPlayer to set
+	 * @param nextPlayer
+	 *            the nextPlayer to set
 	 */
 	public void setNextPlayer(Player nextPlayer) {
 		this.nextPlayer = nextPlayer;
@@ -64,7 +63,8 @@ public class GameRequest implements Serializable{
 	}
 
 	/**
-	 * @param card the card to set
+	 * @param card
+	 *            the card to set
 	 */
 	public void setCard(Card card) {
 		this.card = card;
@@ -78,7 +78,8 @@ public class GameRequest implements Serializable{
 	}
 
 	/**
-	 * @param action the action to set
+	 * @param action
+	 *            the action to set
 	 */
 	public void setAction(GameRequestAction action) {
 		this.action = action;
@@ -92,7 +93,8 @@ public class GameRequest implements Serializable{
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -106,7 +108,8 @@ public class GameRequest implements Serializable{
 	}
 
 	/**
-	 * @param playerPoints the playerPoints to set
+	 * @param playerPoints
+	 *            the playerPoints to set
 	 */
 	public void setPlayerPoints(Integer playerPoints) {
 		this.playerPoints = playerPoints;

@@ -2,15 +2,15 @@ package fvsl.memory.common.entities;
 
 import java.io.Serializable;
 
-public class Player implements Serializable{
+public class Player implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6587194458690535519L;
 	private String name;
 	private boolean ready;
-	private Integer score; //Used by client only
-	
+	private Integer score; // Used by client only
+
 	public Player(String name) {
 		super();
 		this.name = name;
@@ -26,7 +26,8 @@ public class Player implements Serializable{
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -40,7 +41,8 @@ public class Player implements Serializable{
 	}
 
 	/**
-	 * @param ready the ready to set
+	 * @param ready
+	 *            the ready to set
 	 */
 	public void setReady(boolean ready) {
 		this.ready = ready;
@@ -54,7 +56,8 @@ public class Player implements Serializable{
 	}
 
 	/**
-	 * @param score the score to set
+	 * @param score
+	 *            the score to set
 	 */
 	public void setScore(Integer score) {
 		this.score = score;

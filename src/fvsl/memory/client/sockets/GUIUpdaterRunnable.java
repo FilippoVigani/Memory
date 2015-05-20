@@ -23,7 +23,7 @@ import fvsl.memory.common.entities.Request.RequestAction;
 import fvsl.memory.common.entities.Request.RequestType;
 import fvsl.memory.common.settings.Settings;
 
-public class GUIUpdaterRunnable implements Runnable{
+public class GUIUpdaterRunnable implements Runnable {
 
 	protected ObjectInputStream streamFromServer;
 	protected ObjectOutputStream streamToServer;
@@ -31,13 +31,13 @@ public class GUIUpdaterRunnable implements Runnable{
 	protected Socket serverSocket;
 	private volatile Page page;
 
-	public GUIUpdaterRunnable(Page page){
+	public GUIUpdaterRunnable(Page page) {
 		this.page = page;
 	}
 
 	@Override
 	public void run() {
-		
+
 		System.out.println("Created gui updater runnable");
 
 		try {
@@ -49,21 +49,21 @@ public class GUIUpdaterRunnable implements Runnable{
 		}
 
 		try {
-			streamFromServer = new ObjectInputStream(serverSocket.getInputStream());		
-			streamToServer = new ObjectOutputStream(serverSocket.getOutputStream()); 
+			streamFromServer = new ObjectInputStream(serverSocket.getInputStream());
+			streamToServer = new ObjectOutputStream(serverSocket.getOutputStream());
 			streamToServer.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} 
+		}
 
-		while (!Thread.currentThread().isInterrupted() && !serverSocket.isClosed()){
+		while (!Thread.currentThread().isInterrupted() && !serverSocket.isClosed()) {
 
 			try {
 
 				Request request = null;
 				try {
 					System.out.println("Waiting for update request...");
-					request = (Request)streamFromServer.readObject();
+					request = (Request) streamFromServer.readObject();
 
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
@@ -72,17 +72,17 @@ public class GUIUpdaterRunnable implements Runnable{
 				} catch (EOFException e) {
 					e.printStackTrace();
 					break;
-				} 
+				}
 
 				System.out.println("Received update request " + request.getRequestType());
 
-				if (request.getRequestAction() == RequestAction.Ask){
-					if (request.getRequestType() == RequestType.UpdateLobbyList){
+				if (request.getRequestAction() == RequestAction.Ask) {
+					if (request.getRequestType() == RequestType.UpdateLobbyList) {
 
-						if (page instanceof MainPageView){
-							final MainPageView mpw = (MainPageView)page;
+						if (page instanceof MainPageView) {
+							final MainPageView mpw = (MainPageView) page;
 
-							if (mpw != null){
+							if (mpw != null) {
 								SwingUtilities.invokeLater(new Runnable() {
 									@Override
 									public void run() {
@@ -91,12 +91,11 @@ public class GUIUpdaterRunnable implements Runnable{
 								});
 							}
 						}
-					} else if (request.getRequestType() == RequestType.UpdatePlayersList){
-						if (page instanceof LobbyPageView){
-							final LobbyPageView lpw = (LobbyPageView)page;
+					} else if (request.getRequestType() == RequestType.UpdatePlayersList) {
+						if (page instanceof LobbyPageView) {
+							final LobbyPageView lpw = (LobbyPageView) page;
 
-							
-							if (lpw != null){
+							if (lpw != null) {
 								SwingUtilities.invokeLater(new Runnable() {
 									@Override
 									public void run() {
@@ -105,83 +104,83 @@ public class GUIUpdaterRunnable implements Runnable{
 								});
 							}
 						}
-					} else if (request.getRequestType() == RequestType.DeletedLobby){
-						if (page instanceof LobbyPageView){
-							final LobbyPageView lpw = (LobbyPageView)page;
-							
-							if (lpw != null){
-								
+					} else if (request.getRequestType() == RequestType.DeletedLobby) {
+						if (page instanceof LobbyPageView) {
+							final LobbyPageView lpw = (LobbyPageView) page;
+
+							if (lpw != null) {
+
 								final Lobby lobby = request.getCastedContent();
-								
+
 								SwingUtilities.invokeLater(new Runnable() {
 									@Override
 									public void run() {
 										lpw.respondToDeletedLobby(lobby);
 									}
 								});
-								
+
 							}
 						}
-					} else if (request.getRequestType() == RequestType.StartGame){
-						if (page instanceof LobbyPageView){
-							final LobbyPageView lpw = (LobbyPageView)page;
-							
-							if (lpw != null){
-								
+					} else if (request.getRequestType() == RequestType.StartGame) {
+						if (page instanceof LobbyPageView) {
+							final LobbyPageView lpw = (LobbyPageView) page;
+
+							if (lpw != null) {
+
 								final Lobby lobby = request.getCastedContent();
-								
+
 								SwingUtilities.invokeLater(new Runnable() {
 									@Override
 									public void run() {
 										lpw.respondToStartGame(lobby);
 									}
 								});
-								
+
 							}
 						}
-					} else if (request.getRequestType() == RequestType.GameRequest){
-						if (page instanceof GamePageView){
-							final GamePageView gpw = (GamePageView)page;
-							
-							if (gpw != null){
-								
+					} else if (request.getRequestType() == RequestType.GameRequest) {
+						if (page instanceof GamePageView) {
+							final GamePageView gpw = (GamePageView) page;
+
+							if (gpw != null) {
+
 								final GameRequest gameRequest = request.getCastedContent();
-								
+
 								System.out.println("Game request: " + gameRequest.getAction());
-								
+
 								SwingUtilities.invokeLater(new Runnable() {
 									@Override
 									public void run() {
 										gpw.respondToGameRequest(gameRequest);
 									}
 								});
-								
+
 							}
-							
+
 						}
 					}
 				}
 
 			} catch (IOException e) {
 				e.printStackTrace();
-			} 
+			}
 		}
 		close(false);
 	}
 
-	public void close(boolean closeSocket){
+	public void close(boolean closeSocket) {
 		try {
 			if (streamFromServer != null)
 				streamFromServer.close();
 			if (streamToServer != null)
 				streamToServer.close();
-			if (closeSocket && serverSocket != null){
+			if (closeSocket && serverSocket != null) {
 				serverSocket.close();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 	}
 
 	/**
@@ -192,10 +191,11 @@ public class GUIUpdaterRunnable implements Runnable{
 	}
 
 	/**
-	 * @param page the page to set
+	 * @param page
+	 *            the page to set
 	 */
 	public void setPage(Page page) {
 		this.page = page;
 	}
-	
+
 }

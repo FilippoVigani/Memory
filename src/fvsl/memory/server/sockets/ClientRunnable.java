@@ -25,10 +25,10 @@ import fvsl.memory.common.entities.Request.StatusChangeResult;
 import fvsl.memory.server.db.GameState;
 import fvsl.memory.server.db.ServerData;
 
-public class ClientRunnable implements Runnable{
+public class ClientRunnable implements Runnable {
 
 	protected Socket clientSocket = null;
-	protected String serverText   = null;
+	protected String serverText = null;
 	protected ObjectOutputStream streamToClient = null;
 	protected ObjectInputStream streamFromClient = null;
 	protected boolean isStopped;
@@ -44,8 +44,8 @@ public class ClientRunnable implements Runnable{
 	@Override
 	public void run() {
 
-		while (!isStopped()){
-			//Opening streams
+		while (!isStopped()) {
+			// Opening streams
 			try {
 				streamToClient = new ObjectOutputStream(clientSocket.getOutputStream());
 
@@ -59,19 +59,19 @@ public class ClientRunnable implements Runnable{
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			while (!isStopped()){
+			while (!isStopped()) {
 
 				try {
 					Request request = null;
 					try {
-						//System.out.println("Waiting for request...");
-						request = (Request)streamFromClient.readObject();
+						// System.out.println("Waiting for request...");
+						request = (Request) streamFromClient.readObject();
 
 					} catch (ClassNotFoundException e) {
-						//e.printStackTrace();
+						// e.printStackTrace();
 					} catch (EOFException e) {
 						break;
-					} catch (SocketException e){
+					} catch (SocketException e) {
 						System.out.println("Socket error, closing");
 						clean();
 						return;
@@ -79,10 +79,10 @@ public class ClientRunnable implements Runnable{
 
 					System.out.print("Request received ");
 
-					//Processing request - DA MIGLIORARE
+					// Processing request - DA MIGLIORARE
 					Request reply = null;
-					if (request != null){
-						if (request.getRequestAction() == RequestAction.Ask){
+					if (request != null) {
+						if (request.getRequestAction() == RequestAction.Ask) {
 							System.out.println(request.getRequestType());
 							switch (request.getRequestType()) {
 							case GetLobbies:
@@ -100,17 +100,17 @@ public class ClientRunnable implements Runnable{
 							case SetPlayerStatusReady:
 								reply = setPlayerStatusReady(request);
 								break;
-							case LeaveLobby: 
+							case LeaveLobby:
 								reply = leaveLobby(request);
 								break;
-							case GetCardsIds: 
+							case GetCardsIds:
 								reply = getCardsIds(request);
 								break;
-							case GetTurnPlayer: 
+							case GetTurnPlayer:
 								reply = getTurnPlayer(request);
 								break;
 							case GameRequest:
-								gameRequest((GameRequest)request.getContent());
+								gameRequest((GameRequest) request.getContent());
 								clean();
 								return;
 							default:
@@ -119,7 +119,7 @@ public class ClientRunnable implements Runnable{
 						}
 					}
 
-					//Returning results
+					// Returning results
 					streamToClient.writeObject(reply);
 					streamToClient.flush();
 					System.out.println("Request fulfilled...");
@@ -127,7 +127,7 @@ public class ClientRunnable implements Runnable{
 					setStopped(true);
 				} catch (IOException e) {
 					e.printStackTrace();
-				} 
+				}
 			}
 		}
 	}
@@ -136,15 +136,25 @@ public class ClientRunnable implements Runnable{
 
 		GameState game = serverData.getGameById(request.getId());
 		System.out.println("game performing: " + game.isPerformingAction());
-		if (!game.isPerformingAction()){
-			if (request.getAction() == GameRequestAction.TurnCard){
+		if (!game.isPerformingAction()) {
+			if (request.getAction() == GameRequestAction.TurnCard) {
 				synchronized (game.getId()) {
 					game.setPerformingAction(true);
 					Player player = request.getPlayer();
-					if (game.getTurnPlayer().getName().equals(player.getName())){ //It's the turn of the player, proceed
+					if (game.getTurnPlayer().getName().equals(player.getName())) { // It's
+																					// the
+																					// turn
+																					// of
+																					// the
+																					// player,
+																					// proceed
 						Integer turnNumber = game.getTurnNumber();
-						if (!game.getCardById(request.getCard().getId()).isTurned()){ //Card hasn't already been turned
-							Card turnedCard = game.turnCard(request.getCard().getId());		
+						if (!game.getCardById(request.getCard().getId()).isTurned()) { // Card
+																						// hasn't
+																						// already
+																						// been
+																						// turned
+							Card turnedCard = game.turnCard(request.getCard().getId());
 
 							GameRequest reply = new GameRequest(game.getId(), GameRequestAction.TurnCard);
 							reply.setPlayer(player);
@@ -152,9 +162,10 @@ public class ClientRunnable implements Runnable{
 
 							notifyUpdate(RequestType.GameRequest, reply);
 
-							if (game.getTurnNumber() != turnNumber){
+							if (game.getTurnNumber() != turnNumber) {
 
-								//Attendo per permettere di visualizzare la carta
+								// Attendo per permettere di visualizzare la
+								// carta
 								try {
 									Thread.sleep(1500);
 								} catch (InterruptedException e) {
@@ -162,19 +173,21 @@ public class ClientRunnable implements Runnable{
 									e.printStackTrace();
 								}
 
-								if (player.getName().equals(game.getTurnPlayer().getName())){ //Player won turn
+								if (player.getName().equals(game.getTurnPlayer().getName())) { // Player
+																								// won
+																								// turn
 									GameRequest playerWonTurnRequest = new GameRequest(game.getId(), GameRequestAction.WinPlayerTurn);
 									playerWonTurnRequest.setPlayer(player);
 									playerWonTurnRequest.setNextPlayer(game.getTurnPlayer());
 									playerWonTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
 									notifyUpdate(RequestType.GameRequest, playerWonTurnRequest);
-								} else { //Player lost turn
-									if (game.getCardsToBeFolded()[0] != null){
+								} else { // Player lost turn
+									if (game.getCardsToBeFolded()[0] != null) {
 										GameRequest foldCard1 = new GameRequest(game.getId(), GameRequestAction.FoldCard);
 										foldCard1.setPlayer(player);
 										foldCard1.setCard(game.getCardsToBeFolded()[0]);
 										notifyUpdate(RequestType.GameRequest, foldCard1);
-										if (game.getCardsToBeFolded()[1] != null){
+										if (game.getCardsToBeFolded()[1] != null) {
 											GameRequest foldCard2 = new GameRequest(game.getId(), GameRequestAction.FoldCard);
 											foldCard2.setPlayer(player);
 											foldCard2.setCard(game.getCardsToBeFolded()[1]);
@@ -197,7 +210,7 @@ public class ClientRunnable implements Runnable{
 		}
 	}
 
-	private void clean(){
+	private void clean() {
 		try {
 			streamFromClient.close();
 			streamToClient.close();
@@ -208,7 +221,7 @@ public class ClientRunnable implements Runnable{
 		}
 	}
 
-	private Request getLobbies(Request request){
+	private Request getLobbies(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		synchronized (serverData.getLobbies()) {
 			reply.setContent(serverData.getLobbies());
@@ -217,25 +230,25 @@ public class ClientRunnable implements Runnable{
 		return reply;
 	}
 
-	private Request joinLobby(Request request){
+	private Request joinLobby(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		ArrayList<Object> contents = request.getCastedContent();
-		Player player = request.getPlayer(); 
-		String lobbyID = ((Lobby)contents.get(0)).getId();
+		Player player = request.getPlayer();
+		String lobbyID = ((Lobby) contents.get(0)).getId();
 		Lobby lobby = serverData.getLobbyById(lobbyID);
 
-		String password = (String)contents.get(1);
+		String password = (String) contents.get(1);
 
-		//Checks and returns result
-		if (lobby == null){
+		// Checks and returns result
+		if (lobby == null) {
 			reply.setContent(LobbyJoiningResult.NotFound);
 		} else {
 			synchronized (serverData.getLobbies()) {
-				if (player == null || player.getName() == null || player.getName().isEmpty() || lobby.getConnectedPlayerByName(player.getName()) != null){
+				if (player == null || player.getName() == null || player.getName().isEmpty() || lobby.getConnectedPlayerByName(player.getName()) != null) {
 					reply.setContent(LobbyJoiningResult.UnacceptedUsername);
-				} else if (!lobby.checkPassword(password)){
+				} else if (!lobby.checkPassword(password)) {
 					reply.setContent(LobbyJoiningResult.WrongPassword);
-				} else if (lobby.getConnectedPlayers().size() >= lobby.getNumberOfPlayers()){
+				} else if (lobby.getConnectedPlayers().size() >= lobby.getNumberOfPlayers()) {
 					reply.setContent(LobbyJoiningResult.FullLobby);
 				} else {
 					reply.setContent(LobbyJoiningResult.Accepted);
@@ -248,15 +261,14 @@ public class ClientRunnable implements Runnable{
 		return reply;
 	}
 
-	private Request createLobby(Request request){
+	private Request createLobby(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		ArrayList<Object> contents = request.getCastedContent();
 		Player player = request.getPlayer();
-		Lobby srcLobby = (Lobby)contents.get(0);
-		String password = (String)contents.get(1);
+		Lobby srcLobby = (Lobby) contents.get(0);
+		String password = (String) contents.get(1);
 
 		System.out.println("Preso contenuto");
-
 
 		String newId = UUID.randomUUID().toString();
 
@@ -268,45 +280,46 @@ public class ClientRunnable implements Runnable{
 			serverData.getLobbies().add(srcLobby);
 		}
 
-		//}
+		// }
 
 		reply.setContent(newId);
 		System.out.println("Lobby creata con id " + newId);
-
 
 		notifyUpdate(RequestType.UpdateLobbyList);
 		return reply;
 	}
 
-	private Request getConnectedPlayers(Request request){
+	private Request getConnectedPlayers(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 
 		Lobby srcLobby = request.getCastedContent();
 		String lobbyID = srcLobby.getId();
 		Lobby lobby = serverData.getLobbyById(lobbyID);
-		if (lobby != null){
+		if (lobby != null) {
 			Player player = lobby.getConnectedPlayerByName(request.getPlayer().getName());
-			if (lobby != null && player != null){ //Restituisce la lista solo se il player che la richiede è connesso
+			if (lobby != null && player != null) { // Restituisce la lista solo
+													// se il player che la
+													// richiede è connesso
 				reply.setContent(lobby.getConnectedPlayers());
 			}
 		}
 		return reply;
 	}
 
-	private Request setPlayerStatusReady(Request request){
+	private Request setPlayerStatusReady(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		reply.setContent(StatusChangeResult.Failed);
 		Player srcPlayer = request.getPlayer();
 		Lobby srcLobby = request.getCastedContent();
 		Lobby lobby = serverData.getLobbyById(srcLobby.getId());
-		if (lobby != null){
+		if (lobby != null) {
 			Player player = lobby.getConnectedPlayerByName(srcPlayer.getName());
-			if (player != null){
+			if (player != null) {
 				player.setReady(true);
 				reply.setContent(StatusChangeResult.Accepted);
 			}
 		}
-		if (checkIfAllAreReady(lobby)){
+		if (checkIfAllAreReady(lobby)) {
 			startGame(lobby);
 		} else {
 			notifyUpdate(RequestType.UpdatePlayersList);
@@ -314,7 +327,7 @@ public class ClientRunnable implements Runnable{
 		return reply;
 	}
 
-	private void startGame(Lobby lobby){
+	private void startGame(Lobby lobby) {
 		synchronized (serverData.getGames()) {
 			serverData.getGames().add(new GameState(lobby));
 		}
@@ -324,33 +337,33 @@ public class ClientRunnable implements Runnable{
 		notifyUpdate(RequestType.StartGame, lobby);
 	}
 
-	private boolean checkIfAllAreReady(Lobby lobby){
+	private boolean checkIfAllAreReady(Lobby lobby) {
 		boolean allReady = lobby.getNumberOfPlayers() == lobby.getConnectedPlayers().size();
-		for (int i = 0; allReady && i < lobby.getConnectedPlayers().size(); i++){
+		for (int i = 0; allReady && i < lobby.getConnectedPlayers().size(); i++) {
 			allReady = lobby.getConnectedPlayers().get(i).isReady();
 		}
 		return allReady;
 	}
 
-	private Request leaveLobby(Request request){
+	private Request leaveLobby(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		reply.setContent(LobbyLeavingResult.Failed);
 		Player srcPlayer = request.getPlayer();
 		Lobby srcLobby = request.getCastedContent();
 		Lobby lobby = serverData.getLobbyById(srcLobby.getId());
-		if (lobby != null){
+		if (lobby != null) {
 			Player player = lobby.getConnectedPlayerByName(srcPlayer.getName());
-			if (player != null){
+			if (player != null) {
 				synchronized (lobby) {
 					lobby.getConnectedPlayers().remove(player);
 				}
 				reply.setContent(LobbyLeavingResult.Accepted);
-				if (lobby.getOwner() != null){
-					if (player.getName().equals(lobby.getOwner().getName())){
+				if (lobby.getOwner() != null) {
+					if (player.getName().equals(lobby.getOwner().getName())) {
 						System.out.println("Owner of lobby left, removing lobby.");
 						synchronized (serverData.getLobbies()) {
 							serverData.getLobbies().remove(lobby);
-						}	
+						}
 						notifyUpdate(RequestType.UpdateLobbyList);
 						notifyUpdate(RequestType.DeletedLobby, lobby);
 					}
@@ -363,7 +376,7 @@ public class ClientRunnable implements Runnable{
 		return reply;
 	}
 
-	private Request getCardsIds(Request request){
+	private Request getCardsIds(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		reply.setRequestType(RequestType.GetCardsIds);
 
@@ -371,7 +384,7 @@ public class ClientRunnable implements Runnable{
 
 		Vector<String> ids = new Vector<String>();
 
-		for (Card card : serverData.getGameById(gameId).getCards()){
+		for (Card card : serverData.getGameById(gameId).getCards()) {
 			ids.add(card.getId());
 		}
 
@@ -379,7 +392,7 @@ public class ClientRunnable implements Runnable{
 		return reply;
 	}
 
-	private Request getTurnPlayer(Request request){
+	private Request getTurnPlayer(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		reply.setRequestType(RequestType.GetTurnPlayer);
 
@@ -390,16 +403,16 @@ public class ClientRunnable implements Runnable{
 		return reply;
 	}
 
-	private void notifyUpdate(RequestType requestType){
+	private void notifyUpdate(RequestType requestType) {
 		notifyUpdate(requestType, null);
 	}
 
-	private void notifyUpdate(RequestType requestType, Object content){
-		for (ClientUpdaterRunnable runnable : serverData.getClientUpdaters()){
+	private void notifyUpdate(RequestType requestType, Object content) {
+		for (ClientUpdaterRunnable runnable : serverData.getClientUpdaters()) {
 			if (runnable == null) {
 				serverData.getClientUpdaters().remove(runnable);
 			} else {
-				synchronized (runnable.getRequests()){
+				synchronized (runnable.getRequests()) {
 					runnable.getRequests().add(new Request(null, RequestAction.Ask, requestType, content));
 				}
 			}
@@ -414,7 +427,8 @@ public class ClientRunnable implements Runnable{
 	}
 
 	/**
-	 * @param isStopped the isStopped to set
+	 * @param isStopped
+	 *            the isStopped to set
 	 */
 	public void setStopped(boolean isStopped) {
 		this.isStopped = isStopped;

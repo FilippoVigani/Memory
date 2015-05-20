@@ -9,7 +9,7 @@ public class Lobby implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2379632040815885727L;
-	
+
 	private String id;
 	private String name;
 	private int numberOfPlayers;
@@ -18,7 +18,7 @@ public class Lobby implements Serializable {
 	private String password;
 	private Vector<Player> connectedPlayers;
 	private Player owner;
-	
+
 	public Lobby(String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
 		super();
 		this.name = name;
@@ -28,7 +28,7 @@ public class Lobby implements Serializable {
 		this.password = password;
 		connectedPlayers = new Vector<Player>();
 	}
-	
+
 	public Lobby(String id, String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
 		super();
 		this.id = id;
@@ -39,8 +39,7 @@ public class Lobby implements Serializable {
 		this.password = password;
 		connectedPlayers = new Vector<Player>();
 	}
-	
-	
+
 	public Lobby() {
 		connectedPlayers = new Vector<Player>();
 	}
@@ -51,50 +50,61 @@ public class Lobby implements Serializable {
 	public String getName() {
 		return name;
 	}
+
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	/**
 	 * @return the numberOfPlayers
 	 */
 	public int getNumberOfPlayers() {
 		return numberOfPlayers;
 	}
+
 	/**
-	 * @param numberOfPlayers the numberOfPlayers to set
+	 * @param numberOfPlayers
+	 *            the numberOfPlayers to set
 	 */
 	public void setNumberOfPlayers(int numberOfPlayers) {
 		this.numberOfPlayers = numberOfPlayers;
 	}
+
 	/**
 	 * @return the numberOfPairs
 	 */
 	public int getNumberOfPairs() {
 		return numberOfPairs;
 	}
+
 	/**
-	 * @param numberOfPairs the numberOfPairs to set
+	 * @param numberOfPairs
+	 *            the numberOfPairs to set
 	 */
 	public void setNumberOfPairs(int numberOfPairs) {
 		this.numberOfPairs = numberOfPairs;
 	}
+
 	/**
 	 * @return the turnTimer
 	 */
 	public double getTurnTimer() {
 		return turnTimer;
 	}
+
 	/**
-	 * @param turnTimer the turnTimer to set
+	 * @param turnTimer
+	 *            the turnTimer to set
 	 */
 	public void setTurnTimer(double turnTimer) {
 		this.turnTimer = turnTimer;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return name;
 	}
 
@@ -106,20 +116,21 @@ public class Lobby implements Serializable {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	public boolean checkPassword(String password){
+
+	public boolean checkPassword(String password) {
 		return (this.password == null || this.password.equals("")) ? true : this.password.equals(password);
 	}
 
-	public void setPassword(String password){
+	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	/**
 	 * @return the connectedPlayers
 	 */
@@ -128,7 +139,8 @@ public class Lobby implements Serializable {
 	}
 
 	/**
-	 * @param connectedPlayers the connectedPlayers to set
+	 * @param connectedPlayers
+	 *            the connectedPlayers to set
 	 */
 	public void setConnectedPlayers(Vector<Player> connectedPlayers) {
 		this.connectedPlayers = connectedPlayers;
@@ -137,14 +149,14 @@ public class Lobby implements Serializable {
 	public Player getConnectedPlayerByName(String name) {
 		Player player = null;
 		boolean found = false;
-		for (int i = 0; !found && i < getConnectedPlayers().size(); i++){
+		for (int i = 0; !found && i < getConnectedPlayers().size(); i++) {
 			player = getConnectedPlayers().get(i);
 			found = player.getName().equals(name);
 		}
-		
-		return found?player:null;
+
+		return found ? player : null;
 	}
-	
+
 	/**
 	 * @return the owner
 	 */
@@ -153,7 +165,8 @@ public class Lobby implements Serializable {
 	}
 
 	/**
-	 * @param owner the owner to set
+	 * @param owner
+	 *            the owner to set
 	 */
 	public void setOwner(Player owner) {
 		this.owner = owner;
