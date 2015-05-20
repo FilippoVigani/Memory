@@ -60,7 +60,6 @@ public class MainPageView extends Page {
 		JPanel panel = new JPanel();
 		add(panel);
 		panel.setLayout(new BorderLayout());
-
 		JPanel createLobbyPanel = new JPanel();
 		panel.add(createLobbyPanel, BorderLayout.WEST);
 		createLobbyPanel.setLayout(new BoxLayout(createLobbyPanel, BoxLayout.PAGE_AXIS));

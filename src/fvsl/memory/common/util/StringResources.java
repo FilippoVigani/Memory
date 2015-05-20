@@ -3,7 +3,8 @@ package fvsl.memory.common.util;
 public enum StringResources {
 	// ClientRunnable
 	createdIS("Created output stream serverside"), createdOS("Created input stream serverside"), reqAsk("Request ask "), createdLo("Lobby creata con id "), destroyedLo(
-			"Owner of lobby left, removing lobby."), lobbies("lobbies"), reqFf("Request fulfilled..."), reqRec("Request received..."), nullRun("runnable null"),
+			"Owner of lobby left, removing lobby."), lobbies("lobbies"), reqFf("Request fulfilled..."), reqRec("Request received..."), nullRun("runnable null"), socketErr("Socket error, closing"),
+			
 	// ClientUpdateRunnable
 	createdUpOS("Created output stream for updater serverside"), createdUpIS("Created input stream for updater serverside"), newUpReq("New update request found! - "),
 	// Server
@@ -14,8 +15,9 @@ public enum StringResources {
 	createdUpRun("Created gui updater runnable"), w8UpReq("Waiting for update request..."), recivedUpReq("Received update request "),
 	// ServerManager
 	addressNotFound("Non trovo indirizzo calcolatore ospite!"), conTo("Connected to "), createdOSCS("Created output stream clientside"), createdISCS("Created input stream clientside"), IOExc(
-			"IOException:"), SomethingRec("Something has been received: "), reqSent("Request sent"), windowTitle("Memory game");
-
+			"IOException:"), SomethingRec("Something has been received: "), reqSent("Request sent"), windowTitle("Memory game"),
+	//MainPageView
+	createdL("Create Lobby");
 	private final String text;
 
 	StringResources(String text) {

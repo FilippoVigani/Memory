@@ -1,5 +1,8 @@
 package fvsl.memory.client.pages.createlobby;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -7,12 +10,19 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -45,45 +55,60 @@ public class CreateLobbyPageView extends Page {
 
 	@Override
 	protected void loadComponents() {
-		JPanel pannello = new JPanel();
-		add(pannello);
-		pannello.setLayout(new GridLayout(6, 2, 55, 55));
-
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		add(panel);
+		JPanel settingPanel = new JPanel();
+		JPanel titlePanel=new JPanel();
+		panel.add(titlePanel,BorderLayout.NORTH);
+		panel.add(settingPanel,BorderLayout.CENTER);
+		
+		titlePanel.setLayout(new BoxLayout(titlePanel,BoxLayout.PAGE_AXIS));
+		titlePanel.add(Box.createRigidArea(new Dimension(10,10)));
+		settingPanel.setLayout(new GridLayout(6, 2, 60, 60));
 		lobbyNameField = new JTextField();
+		Border border = BorderFactory.createLineBorder(Color.BLACK, 5);
+		lobbyNameField.setBorder(border);
 		lobbyNameField.setColumns(10);
-
+		JLabel	createLobbyPageLabel=new JLabel("CREATE LOBBY PAGE");
+		createLobbyPageLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		JLabel	lobbyNameLabel=new JLabel("lobby name");
+		lobbyNameLabel.setFont(new Font("Arial", Font.BOLD, 20));
 		JLabel nGiocatoriLabel = new JLabel("numero giocatori");
-
+		nGiocatoriLabel.setFont(new Font("Arial", Font.BOLD, 20));
 		JLabel nCoppieLabel = new JLabel("numero coppie");
-
+		nCoppieLabel.setFont(new Font("Arial", Font.BOLD, 20));
 		JLabel timerLabel = new JLabel("timer");
-
+		timerLabel.setFont(new Font("Arial", Font.BOLD, 20));
 		JLabel passwordLabel = new JLabel("inserire Password");
-
+		passwordLabel.setFont(new Font("Arial", Font.BOLD, 20));
 		passwordField = new JTextField();
 		passwordField.setColumns(10);
-
+		passwordField.setBorder(border);
 		// I valori di default dovrebbe prenderli da server
 		nGCombo = new JComboBox<Integer>();
 		nCoppieCombo = new JComboBox<Integer>();
 		timerCombo = new JComboBox<Integer>();
 
-		creaButton = new JButton("Crea Stanza");
-		backButton = new JButton("Torna Indietro");
-
-		pannello.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		pannello.add(new JLabel("createLobbyPage"));
-		pannello.add(lobbyNameField);
-		pannello.add(nGiocatoriLabel);
-		pannello.add(nGCombo);
-		pannello.add(nCoppieLabel);
-		pannello.add(nCoppieCombo);
-		pannello.add(timerLabel);
-		pannello.add(timerCombo);
-		pannello.add(passwordLabel);
-		pannello.add(passwordField);
-		pannello.add(creaButton);
-		pannello.add(backButton);
+		creaButton = new JButton("create lobby");
+		backButton = new JButton("back");
+		
+		titlePanel.add(createLobbyPageLabel);
+		titlePanel.add(Box.createRigidArea(new Dimension(20,20)));
+		settingPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		settingPanel.add(lobbyNameLabel);
+		settingPanel.add(lobbyNameField);
+		settingPanel.add(nGiocatoriLabel);
+		settingPanel.add(nGCombo);
+		settingPanel.add(nCoppieLabel);
+		settingPanel.add(nCoppieCombo);
+		settingPanel.add(timerLabel);
+		settingPanel.add(timerCombo);
+		settingPanel.add(passwordLabel);
+		settingPanel.add(passwordField);
+		settingPanel.add(backButton);
+		settingPanel.add(creaButton);
+		
 
 	}
 
