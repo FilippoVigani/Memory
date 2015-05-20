@@ -22,6 +22,7 @@ import fvsl.memory.common.entities.Request.LobbyLeavingResult;
 import fvsl.memory.common.entities.Request.RequestAction;
 import fvsl.memory.common.entities.Request.RequestType;
 import fvsl.memory.common.entities.Request.StatusChangeResult;
+import fvsl.memory.common.util.StringResources;
 import fvsl.memory.server.db.GameState;
 import fvsl.memory.server.db.ServerData;
 
@@ -49,13 +50,13 @@ public class ClientRunnable implements Runnable {
 			try {
 				streamToClient = new ObjectOutputStream(clientSocket.getOutputStream());
 
-				System.out.println("Created output stream serverside");
+				System.out.println(StringResources.createdOS);
 
 				streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
 
 				streamToClient.flush();
 
-				System.out.println("Created input stream serverside");
+				System.out.println(StringResources.createdIS);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -72,12 +73,12 @@ public class ClientRunnable implements Runnable {
 					} catch (EOFException e) {
 						break;
 					} catch (SocketException e) {
-						System.out.println("Socket error, closing");
+						System.out.println(StringResources.socketErr);
 						clean();
 						return;
 					}
 
-					System.out.print("Request received ");
+					System.out.print(StringResources.reqRec);
 
 					// Processing request - DA MIGLIORARE
 					Request reply = null;
@@ -122,7 +123,7 @@ public class ClientRunnable implements Runnable {
 					// Returning results
 					streamToClient.writeObject(reply);
 					streamToClient.flush();
-					System.out.println("Request fulfilled...");
+					System.out.println(StringResources.reqFf);
 					clean();
 					setStopped(true);
 				} catch (IOException e) {
