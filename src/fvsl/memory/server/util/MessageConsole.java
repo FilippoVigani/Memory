@@ -207,7 +207,10 @@ public class MessageConsole {
 					document.insertString(0, line, attributes);
 					textComponent.setCaretPosition(0);
 				}
-			} catch (BadLocationException ble) {
+			} catch (BadLocationException e) {
+				e.printStackTrace();
+			} catch (Exception e){
+				e.printStackTrace();
 			}
 
 			if (printStream != null) {

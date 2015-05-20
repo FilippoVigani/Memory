@@ -1,15 +1,19 @@
 package fvsl.memory.server.sockets;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.*;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+
 import fvsl.memory.common.settings.Settings;
 import fvsl.memory.common.util.StringResources;
 import fvsl.memory.server.db.ServerData;
@@ -63,11 +67,10 @@ public class Server extends JFrame implements Runnable {
 		scroll.setBounds(0, 0, 595, 372);
 		// scroll.setBorder(new TitledBorder ( new EtchedBorder (),
 		// "Server console" ));
+		
 		MessageConsole mc = new MessageConsole(tArea);
-		// mc.redirectOut();
 		mc.redirectOut(null, System.out);
-		mc.redirectErr(Color.RED, null);
-		mc.setMessageLines(100);
+		mc.redirectErr(Color.RED, System.out);
 
 	}
 

@@ -82,7 +82,6 @@ public class CardButton extends JButton {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Dimension size = this.getSize();
-		System.out.println("Size: " + size.width + " " + size.height);
 		if (size.width != size.height){
 			int d = Math.min(size.width, size.height);
 			setSize(d, d);

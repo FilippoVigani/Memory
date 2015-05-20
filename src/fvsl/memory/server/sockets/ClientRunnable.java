@@ -214,6 +214,19 @@ public class ClientRunnable implements Runnable {
 					if (game.getTurnPlayer().getName().equals(player.getName())){
 						game.endTurn();
 						
+						if (game.getCardsToBeFolded()[0] != null) {
+							GameRequest foldCard1 = new GameRequest(game.getId(), GameRequestAction.FoldCard);
+							foldCard1.setPlayer(player);
+							foldCard1.setCard(game.getCardsToBeFolded()[0]);
+							notifyUpdate(RequestType.GameRequest, foldCard1);
+							if (game.getCardsToBeFolded()[1] != null) {
+								GameRequest foldCard2 = new GameRequest(game.getId(), GameRequestAction.FoldCard);
+								foldCard2.setPlayer(player);
+								foldCard2.setCard(game.getCardsToBeFolded()[1]);
+								notifyUpdate(RequestType.GameRequest, foldCard2);
+							}
+						}
+						
 						GameRequest playerLostTurnRequest = new GameRequest(game.getId(), GameRequestAction.LosePlayerTurn);
 						playerLostTurnRequest.setPlayer(player);
 						playerLostTurnRequest.setNextPlayer(game.getTurnPlayer());
