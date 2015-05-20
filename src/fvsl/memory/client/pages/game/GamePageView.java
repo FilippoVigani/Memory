@@ -155,6 +155,10 @@ public class GamePageView extends Page {
 			controller.attemptToTurnCard(model.getLobby().getId(), card);
 		}
 	}
+	
+	private void turnTimeout(){
+		controller.reportTurnTimeout(model.getLobby().getId());
+	}
 
 	@Override
 	protected void loadData() {
@@ -195,6 +199,14 @@ public class GamePageView extends Page {
 							remaining -= interval; 
 							if (remaining < 0) {
 								remaining = 0L;
+								pauseTimer();
+								SwingUtilities.invokeLater(new Runnable() {
+
+									@Override
+									public void run() {
+										turnTimeout();
+									}
+								});
 							}
 
 							//int minutes = (int)(remaining/60000);

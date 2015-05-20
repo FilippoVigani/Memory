@@ -207,6 +207,21 @@ public class ClientRunnable implements Runnable {
 					}
 					game.setPerformingAction(false);
 				}
+			} else if (request.getAction() == GameRequestAction.PlayerTurnTimeout) {
+				synchronized (game.getId()) {
+					game.setPerformingAction(true);
+					Player player = request.getPlayer();
+					if (game.getTurnPlayer().getName().equals(player.getName())){
+						game.endTurn();
+						
+						GameRequest playerLostTurnRequest = new GameRequest(game.getId(), GameRequestAction.LosePlayerTurn);
+						playerLostTurnRequest.setPlayer(player);
+						playerLostTurnRequest.setNextPlayer(game.getTurnPlayer());
+						playerLostTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
+						notifyUpdate(RequestType.GameRequest, playerLostTurnRequest);
+					}
+					game.setPerformingAction(false);
+				}
 			}
 		}
 	}

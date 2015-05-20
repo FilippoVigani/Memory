@@ -295,4 +295,19 @@ public class ServerManager {
 		closeConnection();
 		return player;
 	}
+
+	public void requestTurnTimeout(Player player, String gameId) {
+		connect();
+		GameRequest gameRequest = new GameRequest(gameId, GameRequestAction.PlayerTurnTimeout);
+		gameRequest.setPlayer(player);
+		try {
+			streamToServer.reset();
+			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.GameRequest, gameRequest));
+			streamToServer.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		System.out.println("Request sent");
+		closeConnection();
+	}
 }

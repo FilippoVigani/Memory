@@ -30,4 +30,8 @@ public class GamePageController extends PageListeners {
 	public Player getTurnPlayerFromServer(String gameId) {
 		return Application.getServerManager().requestTurnPlayer(Application.player, gameId);
 	}
+
+	public void reportTurnTimeout(String gameId) {
+		Application.getServerManager().requestTurnTimeout(Application.player, gameId);
+	}
 }
