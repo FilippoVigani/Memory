@@ -22,6 +22,7 @@ public class GameState {
 
 	private Integer turnNumber;
 	private volatile Boolean isPerformingAction;
+	private volatile Boolean isStarted;
 
 	private volatile Card[] turnedCards;
 	private volatile Card[] cardsToBeFolded;
@@ -30,6 +31,7 @@ public class GameState {
 
 	public GameState(Lobby lobby) {
 		setPerformingAction(false);
+		setStarted(false);
 		this.id = lobby.getId();
 		turnNumber = 0;
 		rng = new Random(System.nanoTime());
@@ -199,5 +201,19 @@ public class GameState {
 	 */
 	public synchronized void setPerformingAction(Boolean isPerformingAction) {
 		this.isPerformingAction = isPerformingAction;
+	}
+
+	/**
+	 * @return the isStarted
+	 */
+	public synchronized Boolean isStarted() {
+		return isStarted;
+	}
+
+	/**
+	 * @param isStarted the isStarted to set
+	 */
+	public synchronized void setStarted(Boolean isStarted) {
+		this.isStarted = isStarted;
 	}
 }

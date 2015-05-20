@@ -136,7 +136,7 @@ public class ClientRunnable implements Runnable {
 
 		GameState game = serverData.getGameById(request.getId());
 		System.out.println("game performing: " + game.isPerformingAction());
-		if (!game.isPerformingAction()) {
+		if (!game.isPerformingAction() && game.isStarted()) {
 			if (request.getAction() == GameRequestAction.TurnCard) {
 				synchronized (game.getId()) {
 					game.setPerformingAction(true);
@@ -334,7 +334,27 @@ public class ClientRunnable implements Runnable {
 		synchronized (serverData.getLobbies()) {
 			serverData.getLobbies().remove(lobby);
 		}
-		notifyUpdate(RequestType.StartGame, lobby);
+		notifyUpdate(RequestType.SetupGame, lobby);
+		System.out.println("Setting up game...");
+		
+		final Lobby l = lobby;
+		
+		new Thread(){
+			@Override
+			public void run(){
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				System.out.println("Starting game");
+				synchronized (serverData.getGameById(l.getId()).getId()){
+					serverData.getGameById(l.getId()).setStarted(true);
+				}
+				notifyUpdate(RequestType.StartGame, l);
+			}
+		}.start();
+		
 	}
 
 	private boolean checkIfAllAreReady(Lobby lobby) {

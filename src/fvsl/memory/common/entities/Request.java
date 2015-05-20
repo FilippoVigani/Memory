@@ -35,7 +35,7 @@ public class Request implements Serializable {
 
 		UpdateLobbyList, UpdatePlayersList, DeletedLobby,
 
-		StartGame, GetCardsIds, GetTurnPlayer, GameRequest
+		SetupGame, StartGame, GetCardsIds, GetTurnPlayer, GameRequest
 	}
 
 	public enum RequestAction {

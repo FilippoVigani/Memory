@@ -27,6 +27,7 @@ public class CardButton extends JButton {
 
 	public CardButton() {
 		// setLayout(new BorderLayout());
+
 		addComponentListener(new ComponentAdapter() {
 
 			@Override
@@ -41,6 +42,8 @@ public class CardButton extends JButton {
 				Image scaled = image.getScaledInstance(size.width, size.height, java.awt.Image.SCALE_SMOOTH);
 				if (image.getHeight(btn) != size.height && image.getWidth(btn) != size.width) {
 					btn.setIcon(new ImageIcon(scaled));
+
+					btn.removeComponentListener(this);
 				}
 			}
 
@@ -74,11 +77,16 @@ public class CardButton extends JButton {
 		}
 	}
 
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Dimension size = this.getSize();
-		int d = Math.min(size.width, size.height);
-		setSize(d, d);
+		System.out.println("Size: " + size.width + " " + size.height);
+		if (size.width != size.height){
+			int d = Math.min(size.width, size.height);
+			setSize(d, d);
+			setPreferredSize(new Dimension(d,d));
+		}
 	}
 }

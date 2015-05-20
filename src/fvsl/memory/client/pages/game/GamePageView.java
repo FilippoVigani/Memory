@@ -9,6 +9,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
@@ -17,13 +18,13 @@ import javax.swing.table.TableModel;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import fvsl.memory.client.pages.Page;
@@ -53,7 +54,15 @@ public class GamePageView extends Page {
 	private GamePageModel model;
 	private GamePageController controller;
 
+	private int numberOfCardsTurnedInThisRound;
+
 	private Vector<CardButton> buttons;
+
+	private JLabel timerLabel;
+	private volatile Long remaining;
+	private final long interval = 10;
+	private boolean timerRunning;
+	private boolean timerPaused;
 
 	@Override
 	protected void bufferize(Object o) {
@@ -74,8 +83,21 @@ public class GamePageView extends Page {
 		scorePanel = new JPanel();
 		containerPanel.add(scorePanel, BorderLayout.WEST);
 		cardsPanel = new JPanel();
-		containerPanel.add(cardsPanel, BorderLayout.CENTER);
+		JPanel timerAndCardsPanel = new JPanel();
+		timerAndCardsPanel.setLayout(new BoxLayout(timerAndCardsPanel, BoxLayout.Y_AXIS));
+		JPanel cardsPanelContainer = new JPanel(new FlowLayout());
 
+		JPanel timerPanel = new JPanel();;
+		//timerPanel.setLayout();
+		timerLabel = new JLabel();
+		timerLabel.setFont(new Font("Arial", Font.BOLD, 40));
+		timerLabel.setText("00:00");
+		timerPanel.add(timerLabel);
+
+		timerAndCardsPanel.add(timerPanel);
+		cardsPanelContainer.add(cardsPanel);
+		timerAndCardsPanel.add(cardsPanelContainer);
+		containerPanel.add(timerAndCardsPanel, BorderLayout.CENTER);
 		playerNameLabel = new JLabel();
 		playerNamePanel = new JPanel();
 		playerNameLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -89,7 +111,6 @@ public class GamePageView extends Page {
 		scorePanel.add(Box.createVerticalGlue());
 		scorePanel.add(tablePanel);
 		scorePanel.add(Box.createVerticalGlue());
-
 		// scorePanel.add(Box.createRigidArea(new Dimension(0,300)));
 
 		int columns = 5;
@@ -142,6 +163,7 @@ public class GamePageView extends Page {
 		controller = new GamePageController();
 		model.setCards(controller.getCardsFromServer(model.getLobby().getId()));
 		model.setTurnPlayer(controller.getTurnPlayerFromServer(model.getLobby().getId()));
+		remaining = 0L;
 	}
 
 	@Override
@@ -156,25 +178,96 @@ public class GamePageView extends Page {
 		playersTable.setModel(tableModel);
 	}
 
+	private void startTimer(){
+		long duration = (long)(model.getLobby().getTurnTimer() * 1000);
+		synchronized (remaining) {
+			remaining = duration;
+		}
+		timerRunning = true;
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				while (timerRunning){
+					if (!timerPaused){
+						synchronized (remaining) {
+
+							remaining -= interval; 
+							if (remaining < 0) {
+								remaining = 0L;
+							}
+
+							//int minutes = (int)(remaining/60000);
+						}
+						final int seconds = (int)((remaining)/1000);
+						final int decimal = (int)(((remaining)%1000)/10);
+						SwingUtilities.invokeLater(new Runnable() {
+
+							@Override
+							public void run() {
+								timerLabel.setText(String.format("%02d", seconds) + ":" + String.format("%02d", decimal));
+							}
+						});
+
+
+						try {
+							Thread.sleep(interval);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}).start();
+	}
+
+	private void refreshTimer(){
+		timerPaused = false;
+		synchronized (remaining) {
+			remaining = (long)(model.getLobby().getTurnTimer() * 1000);
+		}
+	}
+	private void stopTimer(){
+		timerRunning = false;
+	}
+
+	private void pauseTimer(){
+		timerPaused = true;
+	}
+
 	public void respondToGameRequest(GameRequest gameRequest) {
 		if (gameRequest.getId().equals(model.getLobby().getId())) {
 			if (gameRequest.getAction() == GameRequestAction.TurnCard) {
 				Card card = gameRequest.getCard();
 				getCardButtonByCardId(card.getId()).setCard(card);
+				numberOfCardsTurnedInThisRound++;
+				if (numberOfCardsTurnedInThisRound >= 2){
+					pauseTimer();
+				}
 			} else if (gameRequest.getAction() == GameRequestAction.FoldCard) {
 				Card card = gameRequest.getCard();
 				getCardButtonByCardId(card.getId()).setCard(new Card(card.getId(), null));
 			} else if (gameRequest.getAction() == GameRequestAction.LosePlayerTurn) {
+				numberOfCardsTurnedInThisRound = 0;
 				Player nextPlayer = gameRequest.getNextPlayer();
 				Integer playerPoints = gameRequest.getPlayerPoints();
 				model.getTurnPlayer().setScore(playerPoints);
 				model.setTurnPlayer(model.getLobby().getConnectedPlayerByName(nextPlayer.getName()));
 				refreshTable();
+				refreshTimer();
 			} else if (gameRequest.getAction() == GameRequestAction.WinPlayerTurn) {
+				numberOfCardsTurnedInThisRound = 0;
 				Integer playerPoints = gameRequest.getPlayerPoints();
 				model.getTurnPlayer().setScore(playerPoints);
 				refreshTable();
+				refreshTimer();
 			}
+		}
+	}
+
+	public void startGame(Lobby lobby){
+		if (lobby.getId().equals(model.getLobby().getId())){
+			startTimer();
 		}
 	}
 

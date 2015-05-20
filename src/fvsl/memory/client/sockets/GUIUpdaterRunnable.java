@@ -121,7 +121,7 @@ public class GUIUpdaterRunnable implements Runnable {
 
 							}
 						}
-					} else if (request.getRequestType() == RequestType.StartGame) {
+					} else if (request.getRequestType() == RequestType.SetupGame) {
 						if (page instanceof LobbyPageView) {
 							final LobbyPageView lpw = (LobbyPageView) page;
 
@@ -152,6 +152,24 @@ public class GUIUpdaterRunnable implements Runnable {
 									@Override
 									public void run() {
 										gpw.respondToGameRequest(gameRequest);
+									}
+								});
+
+							}
+
+						}
+					} else if (request.getRequestType() == RequestType.StartGame) {
+						if (page instanceof GamePageView) {
+							final GamePageView gpw = (GamePageView) page;
+
+							if (gpw != null) {
+
+								final Lobby lobby = request.getCastedContent();
+
+								SwingUtilities.invokeLater(new Runnable() {
+									@Override
+									public void run() {
+										gpw.startGame(lobby);
 									}
 								});
 
