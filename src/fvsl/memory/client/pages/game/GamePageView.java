@@ -3,12 +3,21 @@ package fvsl.memory.client.pages.game;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -21,6 +30,7 @@ import fvsl.memory.client.pages.Page;
 import fvsl.memory.client.shell.Application;
 import fvsl.memory.common.entities.Card;
 import fvsl.memory.common.entities.GameRequest;
+import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.entities.GameRequest.GameRequestAction;
 import fvsl.memory.common.entities.Lobby;
 
@@ -29,9 +39,16 @@ public class GamePageView extends Page {
 		super(lobby);
 	}
 
-	private JTable turnTable;
+	private JTable playersTable;
 	private Lobby bufferLobby;
+	
+	private JPanel containerPanel;
+	private JPanel scorePanel;
 	private JPanel cardsPanel;
+	private JPanel tablePanel;
+	
+	private JLabel playerNameLabel;
+	private JPanel playerNamePanel;
 
 	private GamePageModel model;
 	private GamePageController controller;
@@ -45,26 +62,34 @@ public class GamePageView extends Page {
 	@Override
 	protected void loadComponents() {
 		// TODO Auto-generated method stub
-
-		boolean turnButton=true;
-		String[] colunmNames= {"giocatore","punteggio","pronto"};
-		Object[][] data={
-				{"stefano", "100",turnButton},
-				{"io", "100",turnButton},
-				{"podf", "100",turnButton}
-		};
-		JTable turnTable = new JTable(data,colunmNames);
-		JPanel pannello=new JPanel();
-		add(pannello);
-		pannello.setLayout(new BorderLayout());
-		JPanel scorePanel=new JPanel();
-		pannello.add(scorePanel,BorderLayout.WEST);
-		cardsPanel= new JPanel();
-		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.PAGE_AXIS));
-		pannello.add(cardsPanel,BorderLayout.CENTER);
-		scorePanel.add(Box.createRigidArea(new Dimension(0,210)));
-		scorePanel.add(turnTable);
-		scorePanel.add(Box.createRigidArea(new Dimension(0,300)));
+		
+		playersTable = new JTable();
+		tablePanel = new JPanel();
+		
+		containerPanel=new JPanel();
+		add(containerPanel);
+		containerPanel.setLayout(new BorderLayout());
+		
+		scorePanel=new JPanel();
+		containerPanel.add(scorePanel,BorderLayout.WEST);
+		cardsPanel = new JPanel();
+		containerPanel.add(cardsPanel,BorderLayout.CENTER);
+		
+		playerNameLabel = new JLabel();
+		playerNamePanel = new JPanel();
+		playerNameLabel.setFont(new Font("Arial", Font.BOLD, 24));
+		playerNamePanel.setBorder((new TitledBorder ( new EtchedBorder (), "Player" )));
+		playerNamePanel.add(playerNameLabel);
+		tablePanel.setBorder((new TitledBorder ( new EtchedBorder (), "Scoreboard" )));
+		tablePanel.setAlignmentX(Component.CENTER_ALIGNMENT); 
+		tablePanel.add(new JScrollPane(playersTable));
+		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.PAGE_AXIS)); 
+		scorePanel.add(playerNamePanel);
+		scorePanel.add(Box.createVerticalGlue()); 
+		scorePanel.add(tablePanel);
+		scorePanel.add(Box.createVerticalGlue());
+		
+		//scorePanel.add(Box.createRigidArea(new Dimension(0,300)));
 		
 		int columns = 5;
 		int rows = bufferLobby.getNumberOfPairs()*2/columns;
@@ -77,7 +102,7 @@ public class GamePageView extends Page {
 			CardButton button = new CardButton();
 			buttons.add(button);
 			//button.setPreferredSize(new Dimension(120, 120));
-			button.setPreferredSize(new Dimension(500/columns, 400/rows));
+			button.setPreferredSize(new Dimension(500/columns, 380/rows));
 			cardsPanel.add(button);
 			
 		}
@@ -125,6 +150,9 @@ public class GamePageView extends Page {
 				buttons.get(i).setCard(model.getCards().get(i));
 			}
 		}
+		playerNameLabel.setText(Application.player.getName());
+		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
+		playersTable.setModel(tableModel);
 	}
 
 
@@ -136,8 +164,23 @@ public class GamePageView extends Page {
 			} else if (gameRequest.getAction() == GameRequestAction.FoldCard){
 				Card card = gameRequest.getCard();
 				getCardButtonByCardId(card.getId()).setCard(new Card(card.getId(), null));
+			} else if (gameRequest.getAction() == GameRequestAction.LosePlayerTurn){
+				Player nextPlayer = gameRequest.getNextPlayer();
+				Integer playerPoints = gameRequest.getPlayerPoints();
+				model.getTurnPlayer().setScore(playerPoints);
+				model.setTurnPlayer(model.getLobby().getConnectedPlayerByName(nextPlayer.getName()));
+				refreshTable();
+			} else if (gameRequest.getAction() == GameRequestAction.WinPlayerTurn){
+				Integer playerPoints = gameRequest.getPlayerPoints();
+				model.getTurnPlayer().setScore(playerPoints);
+				refreshTable();
 			}
 		}
+	}
+	
+	private void refreshTable(){
+		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
+		playersTable.setModel(tableModel);
 	}
 	
 	private CardButton getCardButtonByCardId(String cardId){
@@ -148,5 +191,58 @@ public class GamePageView extends Page {
 		}
 		return null;
 	}
+	
+	protected class PlayersTableModel extends AbstractTableModel{
+		private static final long serialVersionUID = 1L;
 
+		private Vector<Player> list = new Vector<Player>();
+
+		private String[] columnNames = { "Player", "Score", "Turn"}; 
+
+		public PlayersTableModel(Vector<Player> list){
+			this.list = list;
+		} 
+
+		@Override 
+		public String getColumnName(int columnIndex){
+			return columnNames[columnIndex];
+		} 
+
+		@Override
+		public int getColumnCount() {
+			return columnNames.length;
+		}
+
+		@Override
+		public int getRowCount() {
+			return list.size();
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			Player player = list.get(rowIndex);
+			switch (columnIndex) {
+			case 0:  
+				return player.getName();
+			case 1: 
+				return player.getScore();
+			case 2:
+				return model.getTurnPlayer().getName().equals(player.getName());
+			}
+			return null;
+		}
+
+		@Override 
+		public Class<?> getColumnClass(int columnIndex){
+			switch (columnIndex){
+			case 0: 
+				return String.class;
+			case 1: 
+				return Integer.class;
+			case 2: 
+				return Boolean.class;
+			}
+			return null;
+		}
+	}
 }

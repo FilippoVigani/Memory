@@ -45,7 +45,7 @@ public class Server extends JFrame implements Runnable{
 	public void initView(){
 		setTitle("Server console");
 		setVisible(true);
-		setSize(500, 300);
+		setSize(600, 400);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		
@@ -59,7 +59,7 @@ public class Server extends JFrame implements Runnable{
 		tArea.setEditable(false);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		middlePanel.add(scroll);
-		scroll.setBounds(0,0,495,272);
+		scroll.setBounds(0,0,595,372);
 		//scroll.setBorder(new TitledBorder ( new EtchedBorder (), "Server console" ));
 		MessageConsole mc = new MessageConsole(tArea);
 		//mc.redirectOut();

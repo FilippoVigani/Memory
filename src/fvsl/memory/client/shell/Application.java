@@ -5,7 +5,7 @@ import fvsl.memory.client.sockets.ServerManager;
 import fvsl.memory.common.entities.Player;
 
 public final class Application {
-	public static final int WINDOW_WIDTH = 800;
+	public static final int WINDOW_WIDTH = 1100;
 	public static final int WINDOW_HEIGHT = 600;
 	
 	private static ServerManager serverManager;
