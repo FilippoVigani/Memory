@@ -1,6 +1,7 @@
 package fvsl.memory.common.util;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -10,7 +11,12 @@ public class Mapper {
 	private static Mapper mapper;
 
 	public Mapper(){
-		File[] listOfFiles = new File("res/figures").listFiles();
+		File[] listOfFiles = new File("res/figures").listFiles(new FilenameFilter() {
+		    @Override 
+		    public boolean accept(File dir, String name) {
+		        return name.endsWith(".jpg") || name.endsWith(".png") || name.endsWith(".jpeg");
+		    } 
+		}); 
 		cardsMap = new HashMap<String, String>();
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
