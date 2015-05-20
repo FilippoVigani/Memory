@@ -9,13 +9,13 @@ public class ServerData {
 
 	public ServerData(){
 		lobbies = new Vector<Lobby>();
-		games = new Vector<Game>();
+		games = new Vector<GameState>();
 		clientUpdaters = new Vector<ClientUpdaterRunnable>();
 	}
 	
 	private volatile Vector<Lobby> lobbies;
 	private volatile Vector<ClientUpdaterRunnable> clientUpdaters;
-	private volatile Vector<Game> games;
+	private volatile Vector<GameState> games;
 	
 	/**
 	 * @return the lobbies
@@ -40,8 +40,8 @@ public class ServerData {
 		return null;
 	}
 	
-	public Game getGameById(String id){
-		for (Game game : getGames()){
+	public GameState getGameById(String id){
+		for (GameState game : getGames()){
 			if (game.getId().equals(id)){
 				return game;
 			}
@@ -66,14 +66,14 @@ public class ServerData {
 	/**
 	 * @return the games
 	 */
-	public Vector<Game> getGames() {
+	public Vector<GameState> getGames() {
 		return games;
 	}
 
 	/**
 	 * @param games the games to set
 	 */
-	public void setGames(Vector<Game> games) {
+	public void setGames(Vector<GameState> games) {
 		this.games = games;
 	}
 

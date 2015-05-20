@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import fvsl.memory.common.entities.*;
 import fvsl.memory.common.util.Mapper;
 
-public class Game {
+public class GameState {
 
 	private Random rng;
 
@@ -21,13 +21,15 @@ public class Game {
 	private volatile Hashtable<Player, Integer> guessStreak;
 
 	private Integer turnNumber;
+	private volatile Boolean isPerformingAction;
 
 	private volatile Card[] turnedCards;
 	private volatile Card[] cardsToBeFolded;
 
 	private volatile Player turnPlayer;
 
-	public Game(Lobby lobby){
+	public GameState(Lobby lobby){
+		setPerformingAction(false);
 		this.id = lobby.getId();
 		turnNumber = 0;
 		rng = new Random(System.nanoTime());
@@ -181,5 +183,19 @@ public class Game {
 	 */
 	public void setCardsToBeFolded(Card[] cardsToBeFolded) {
 		this.cardsToBeFolded = cardsToBeFolded;
+	}
+
+	/**
+	 * @return the isPerformingAction
+	 */
+	public synchronized Boolean isPerformingAction() {
+		return isPerformingAction;
+	}
+
+	/**
+	 * @param isPerformingAction the isPerformingAction to set
+	 */
+	public synchronized void setPerformingAction(Boolean isPerformingAction) {
+		this.isPerformingAction = isPerformingAction;
 	}
 }

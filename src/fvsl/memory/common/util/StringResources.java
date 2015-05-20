@@ -36,7 +36,8 @@ package fvsl.memory.common.util;
 		createdISCS("Created input stream clientside"),
 		IOExc("IOException:"),
 		SomethingRec("Something has been received: "),
-		reqSent("Request sent");
+		reqSent("Request sent"), 
+		windowTitle("Memory game");
 		
 		
 		private final String text;

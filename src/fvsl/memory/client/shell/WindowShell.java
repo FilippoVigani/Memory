@@ -14,6 +14,7 @@ import fvsl.memory.client.pages.lobby.LobbyPageView;
 import fvsl.memory.client.pages.main.MainPageView;
 import fvsl.memory.client.sockets.GUIUpdaterRunnable;
 import fvsl.memory.common.entities.Lobby;
+import fvsl.memory.common.util.StringResources;
 /**
  * @author Filippo Vigani
  *
@@ -30,7 +31,7 @@ public class WindowShell extends JFrame {
 	CreateLobbyPageView clw;
 
 	public WindowShell() {
-		setTitle("Simple example");
+		setTitle(StringResources.windowTitle.toString());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		init();
