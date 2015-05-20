@@ -1,11 +1,16 @@
 package fvsl.memory.client.pages.lobby;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
@@ -44,44 +49,75 @@ public class LobbyPageView extends Page {
 	private JLabel numberOfPairsLabel;
 	private JLabel timerLabel;
 	private JTable playersTable;
-
+	private JPanel tablePanel;
+	private JPanel playersPanel;
+	
 	@Override
 	protected void loadComponents() {
 
 		setLayout(new GridLayout(1, 0, 0, 0));
 		JPanel pannello = new JPanel();
 		add(pannello);
-		pannello.setLayout(new GridLayout(1, 1, 0, 0));
+		pannello.setLayout(new GridLayout(1, 1, 10, 10));
 
-		JPanel pannelloSinistra = new JPanel();
-		pannelloSinistra.setLayout(new BoxLayout(pannelloSinistra, BoxLayout.PAGE_AXIS));
-		pannello.add(pannelloSinistra);
-		JPanel pannelloDestra = new JPanel();
-		pannelloDestra.setLayout(new BoxLayout(pannelloDestra, BoxLayout.PAGE_AXIS));
-		pannello.add(pannelloDestra);
-		pannelloDestra.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+		JPanel infoPanel = new JPanel();
+		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.PAGE_AXIS));
+		pannello.add(infoPanel);
+		playersPanel = new JPanel();
+		playersPanel.setLayout(new BoxLayout(playersPanel, BoxLayout.PAGE_AXIS));
+		pannello.add(playersPanel);
+		playersPanel.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 
-		readyButton = new JButton("PRONTO");
-		backButton = new JButton("torna indietro");
+		readyButton = new JButton("Ready");
+		backButton = new JButton("Go Back");
 
 		lobbyNameLabel = new JLabel();
+		lobbyNameLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		numberOfPairsLabel = new JLabel();
+		numberOfPairsLabel.setFont(new Font("Arial", Font.BOLD, 20));
 		timerLabel = new JLabel();
-		pannelloSinistra.add(Box.createRigidArea(new Dimension(55, 25)));
-		pannelloSinistra.add(lobbyNameLabel);
-		pannelloSinistra.add(Box.createRigidArea(new Dimension(55, 60)));
-		pannelloSinistra.add(numberOfPairsLabel);
-		pannelloSinistra.add(Box.createRigidArea(new Dimension(55, 60)));
-		pannelloSinistra.add(timerLabel);
-		pannelloSinistra.add(Box.createRigidArea(new Dimension(55, 60)));
-		pannelloSinistra.add(backButton);
+		timerLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		//infoPanel.add(Box.createVerticalGlue());
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.setBorder((new TitledBorder(new EtchedBorder(), "Name")));
+		panel.add(Box.createHorizontalGlue());
+		panel.add(lobbyNameLabel);
+		panel.add(Box.createHorizontalGlue());
+		infoPanel.add(panel);
+		//infoPanel.add(Box.createVerticalGlue());
+		panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.setBorder((new TitledBorder(new EtchedBorder(), "Number of pairs")));
+		panel.add(Box.createHorizontalGlue());
+		panel.add(numberOfPairsLabel);
+		panel.add(Box.createHorizontalGlue());
+		infoPanel.add(panel);
+		//infoPanel.add(Box.createVerticalGlue());
+		panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.setBorder((new TitledBorder(new EtchedBorder(), "Timer")));
+		panel.add(Box.createHorizontalGlue());
+		panel.add(timerLabel);
+		panel.add(Box.createHorizontalGlue());
+		infoPanel.add(panel);
+		infoPanel.add(Box.createVerticalGlue());
+		infoPanel.add(backButton);
+		infoPanel.add(Box.createVerticalGlue());
 
+		infoPanel.setBorder((new TitledBorder(new EtchedBorder(), "Lobby info")));
+		
 		playersTable = new JTable();
-
-		pannelloDestra.add(Box.createRigidArea(new Dimension(55, 100)));
-		pannelloDestra.add(playersTable);
-		pannelloDestra.add(Box.createRigidArea(new Dimension(55, 60)));
-		pannelloDestra.add(readyButton);
+		tablePanel = new JPanel();
+		
+		//playersPanel.add(Box.createRigidArea(new Dimension(55, 100)));
+		tablePanel.setBorder((new TitledBorder(new EtchedBorder(), "Connected Players")));
+		tablePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		tablePanel.add(new JScrollPane(playersTable));
+		tablePanel.add(readyButton);
+		playersPanel.add(tablePanel);
+		tablePanel.add(Box.createVerticalGlue());
+		//playersPanel.add(Box.createRigidArea(new Dimension(55, 60)));
 	}
 
 	@Override
@@ -91,6 +127,7 @@ public class LobbyPageView extends Page {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.setStatusReady(model.getLobby());
+				readyButton.setEnabled(false);
 			}
 		});
 
@@ -116,7 +153,7 @@ public class LobbyPageView extends Page {
 	protected void populateViews() {
 		lobbyNameLabel.setText(model.getLobby().getName());
 		numberOfPairsLabel.setText(model.getLobby().getNumberOfPairs() + " pairs");
-		timerLabel.setText(model.getLobby().getTurnTimer() + " seconds.");
+		timerLabel.setText(model.getLobby().getTurnTimer() + " seconds");
 		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
 		playersTable.setModel(tableModel);
 	}
@@ -149,7 +186,7 @@ public class LobbyPageView extends Page {
 
 		private Vector<Player> list = new Vector<Player>();
 
-		private String[] columnNames = { "Player", "Status" };
+		private String[] columnNames = { "Player", "Ready" };
 
 		public PlayersTableModel(Vector<Player> list) {
 			this.list = list;
