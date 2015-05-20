@@ -36,7 +36,7 @@ public class WindowShell extends JFrame {
 
 		init();
 		setLocationRelativeTo(null);
-		setResizable(false);
+		//setResizable(false);
 	}
 
 private void init(){

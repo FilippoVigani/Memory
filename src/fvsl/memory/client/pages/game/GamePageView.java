@@ -5,9 +5,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.SpringLayout;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +42,6 @@ public class GamePageView extends Page {
 	protected void bufferize(Object o) {
 		bufferLobby = (Lobby)o;
 	}
-	private boolean turnButton=true;
 	@Override
 	protected void loadComponents() {
 		// TODO Auto-generated method stub
@@ -55,23 +57,29 @@ public class GamePageView extends Page {
 		JPanel pannello=new JPanel();
 		add(pannello);
 		pannello.setLayout(new BorderLayout());
-		JPanel pannelloSinistra=new JPanel();
-		pannello.add(pannelloSinistra,BorderLayout.WEST);
+		JPanel scorePanel=new JPanel();
+		pannello.add(scorePanel,BorderLayout.WEST);
 		cardsPanel= new JPanel();
-		pannelloSinistra.setLayout(new BoxLayout(pannelloSinistra, BoxLayout.PAGE_AXIS));
+		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.PAGE_AXIS));
 		pannello.add(cardsPanel,BorderLayout.CENTER);
-		pannelloSinistra.add(Box.createRigidArea(new Dimension(0,210)));
-		pannelloSinistra.add(turnTable);
-		pannelloSinistra.add(Box.createRigidArea(new Dimension(0,300)));
-		cardsPanel.setLayout(new GridLayout(0,5,10,5));
+		scorePanel.add(Box.createRigidArea(new Dimension(0,210)));
+		scorePanel.add(turnTable);
+		scorePanel.add(Box.createRigidArea(new Dimension(0,300)));
+		
+		int columns = 5;
+		int rows = bufferLobby.getNumberOfPairs()*2/columns;
+		
+		cardsPanel.setLayout(new GridLayout(rows, columns, 5, 5));
 		//cardsPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		//cardsPanel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-
 		buttons = new Vector<CardButton>();
 		for(int i=0;i<bufferLobby.getNumberOfPairs()*2;i++){
 			CardButton button = new CardButton();
 			buttons.add(button);
+			//button.setPreferredSize(new Dimension(120, 120));
+			button.setPreferredSize(new Dimension(500/columns, 400/rows));
 			cardsPanel.add(button);
+			
 		}
 
 	}
