@@ -9,6 +9,7 @@ import fvsl.memory.client.shell.Application;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.entities.Request.LobbyJoiningResult;
+import fvsl.memory.common.util.StringResources;
 
 public class MainPageController extends PageListeners {
 	private static final Logger log = Logger.getLogger(MainPageController.class.getName());
@@ -23,7 +24,7 @@ public class MainPageController extends PageListeners {
 	}
 
 	public LobbyJoiningResult requestLobbyJoining(Player player, Lobby selectedLobby, String password) {
-		log.log(Level.INFO, player.getName() + " tries to join lobby " + selectedLobby.getName(), selectedLobby);
+		log.log(Level.INFO, player.getName() + StringResources.tryJoinLo + selectedLobby.getName(), selectedLobby);
 		try {
 			return Application.getServerManager().requestJoinLobby(player, selectedLobby, password);
 		} catch (Exception e) {

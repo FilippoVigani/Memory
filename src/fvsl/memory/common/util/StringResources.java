@@ -10,14 +10,19 @@ public enum StringResources {
 	// Server
 	sStop("Server Stopped."), nullCSock("Client socket is null"), cUpAdd("Client updater added."), newC("New client on port "), serverStartedOnPort("Server started on port "),
 	// DBHelper
-	conToDB("****Connect to Database****"), conDBTo("DataBase connect to: "), closedDBCon("Database Connection Closed"),
+	conToDB("****Connect to Database****"), conDBTo("DataBase connect to: "), closedDBCon("Database Connection Closed"),url("URL:"),conExc("Exception in getLocalConeection() "),
 	// GUIUpdaterRunnable
 	createdUpRun("Created gui updater runnable"), w8UpReq("Waiting for update request..."), recivedUpReq("Received update request "),
 	// ServerManager
 	addressNotFound("Non trovo indirizzo calcolatore ospite!"), conTo("Connected to "), createdOSCS("Created output stream clientside"), createdISCS("Created input stream clientside"), IOExc(
 			"IOException:"), SomethingRec("Something has been received: "), reqSent("Request sent"), windowTitle("Memory game"),
-	//MainPageView
-	createdL("Create Lobby");
+	//CreateLobbyPage
+	unJoinLo("Unable to join lobby: "),newLo("new lobby"),
+	//LobbyPage
+	player("player"),
+	//MainPage
+	tryJoinLo(" tries to join lobby ");
+	
 	private final String text;
 
 	StringResources(String text) {

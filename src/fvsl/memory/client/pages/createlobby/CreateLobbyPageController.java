@@ -5,6 +5,7 @@ import fvsl.memory.client.shell.Application;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Request.LobbyCreationResult;
 import fvsl.memory.common.entities.Request.LobbyJoiningResult;
+import fvsl.memory.common.util.StringResources;
 
 public class CreateLobbyPageController extends PageListeners {
 
@@ -16,7 +17,7 @@ public class CreateLobbyPageController extends PageListeners {
 			e.printStackTrace();
 		}
 
-		System.out.println(result.toString() + ", Lobby creata con id: " + lobby.getId());
+		System.out.println(result.toString() +StringResources.createdLo + lobby.getId());
 
 		if (result == LobbyCreationResult.Accepted) {
 			LobbyJoiningResult joiningResult = LobbyJoiningResult.Failed;

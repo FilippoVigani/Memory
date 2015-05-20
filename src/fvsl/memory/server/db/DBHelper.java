@@ -1,7 +1,8 @@
 package fvsl.memory.server.db;
 
-import java.sql.DriverManager;
 import java.sql.*;
+
+import fvsl.memory.common.util.StringResources;
 
 public class DBHelper {
 	private static Connection connection = null;
@@ -17,16 +18,16 @@ public class DBHelper {
 		try {
 			Class.forName(SQL_JDBC_DRIVER);// Register jdbc driver
 
-			System.out.println("****Connect to Database****");
+			System.out.println(StringResources.conToDB);
 
 			// 4. open a connection
 			connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
-			System.out.println("DataBase connect to: " + connection.getMetaData().getDriverName());
-			System.out.println("URL: " + connection.getMetaData().getURL());
+			System.out.println(StringResources.conDBTo + connection.getMetaData().getDriverName());
+			System.out.println(StringResources.url + connection.getMetaData().getURL());
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("Exception in getLocalConeection() " + e.getMessage());
+			System.err.println(StringResources.conExc + e.getMessage());
 		}
 		return connection;
 	}
@@ -34,7 +35,7 @@ public class DBHelper {
 	public static void setConnectionClose() throws SQLException {
 		if (connection != null) {
 			connection.close();
-			System.out.println("Database Connection Closed");
+			System.out.println(StringResources.closedDBCon);
 		}
 	}
 

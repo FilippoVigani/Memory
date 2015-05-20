@@ -29,6 +29,7 @@ import javax.swing.event.DocumentListener;
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Request.LobbyCreationResult;
+import fvsl.memory.common.util.StringResources;
 
 public class CreateLobbyPageView extends Page {
 
@@ -63,51 +64,50 @@ public class CreateLobbyPageView extends Page {
 		panel.add(titlePanel,BorderLayout.NORTH);
 		panel.add(settingPanel,BorderLayout.CENTER);
 		
-		titlePanel.setLayout(new BoxLayout(titlePanel,BoxLayout.PAGE_AXIS));
-		titlePanel.add(Box.createRigidArea(new Dimension(10,10)));
-		settingPanel.setLayout(new GridLayout(6, 2, 60, 60));
+		settingPanel.setLayout(new BoxLayout(settingPanel,BoxLayout.PAGE_AXIS));
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(settingPanel,BoxLayout.LINE_AXIS));
+		panel.add(buttonPanel,BorderLayout.SOUTH);
+		buttonPanel.setLayout(new GridLayout(1,2));
+		
 		lobbyNameField = new JTextField();
-		Border border = BorderFactory.createLineBorder(Color.BLACK, 5);
-		lobbyNameField.setBorder(border);
+		lobbyNameField.setBorder((new TitledBorder(new EtchedBorder(), "Lobby Name")));
 		lobbyNameField.setColumns(10);
-		JLabel	createLobbyPageLabel=new JLabel("CREATE LOBBY PAGE");
-		createLobbyPageLabel.setFont(new Font("Arial", Font.BOLD, 30));
-		JLabel	lobbyNameLabel=new JLabel("lobby name");
-		lobbyNameLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		JLabel nGiocatoriLabel = new JLabel("numero giocatori");
-		nGiocatoriLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		JLabel nCoppieLabel = new JLabel("numero coppie");
-		nCoppieLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		JLabel timerLabel = new JLabel("timer");
-		timerLabel.setFont(new Font("Arial", Font.BOLD, 20));
-		JLabel passwordLabel = new JLabel("inserire Password");
-		passwordLabel.setFont(new Font("Arial", Font.BOLD, 20));
 		passwordField = new JTextField();
 		passwordField.setColumns(10);
-		passwordField.setBorder(border);
+		passwordField.setBorder((new TitledBorder(new EtchedBorder(), "Password")));
 		// I valori di default dovrebbe prenderli da server
 		nGCombo = new JComboBox<Integer>();
+		nGCombo.setBorder((new TitledBorder(new EtchedBorder(), "Numero Giocatori")));
 		nCoppieCombo = new JComboBox<Integer>();
+		nCoppieCombo.setBorder((new TitledBorder(new EtchedBorder(), "Numero Coppie")));
 		timerCombo = new JComboBox<Integer>();
-
+		timerCombo.setBorder((new TitledBorder(new EtchedBorder(), "timer")));
 		creaButton = new JButton("create lobby");
 		backButton = new JButton("back");
 		
-		titlePanel.add(createLobbyPageLabel);
-		titlePanel.add(Box.createRigidArea(new Dimension(20,20)));
+	
+		titlePanel.add(Box.createRigidArea(new Dimension(350,30)));
 		settingPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		settingPanel.add(lobbyNameLabel);
+		//settingPanel.add(lobbyNameLabel);
 		settingPanel.add(lobbyNameField);
-		settingPanel.add(nGiocatoriLabel);
+		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
+		//settingPanel.add(nGiocatoriLabel);
 		settingPanel.add(nGCombo);
-		settingPanel.add(nCoppieLabel);
+		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
+		//settingPanel.add(nCoppieLabel);
 		settingPanel.add(nCoppieCombo);
-		settingPanel.add(timerLabel);
+		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
+		//settingPanel.add(timerLabel);
 		settingPanel.add(timerCombo);
-		settingPanel.add(passwordLabel);
+		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
+		//settingPanel.add(passwordLabel);
 		settingPanel.add(passwordField);
-		settingPanel.add(backButton);
-		settingPanel.add(creaButton);
+		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
+		buttonPanel.add(backButton);
+		buttonPanel.add(creaButton);
+		
 		
 
 	}
@@ -176,7 +176,7 @@ public class CreateLobbyPageView extends Page {
 				LobbyCreationResult result = controller.attemptToCreateLobby(model.getLobby(), model.getPassword());
 
 				if (!(result == LobbyCreationResult.Accepted)) {
-					JOptionPane.showMessageDialog(container, "Unable to join lobby: " + result.toString());
+					JOptionPane.showMessageDialog(container, StringResources.unJoinLo + result.toString());
 				}
 			}
 		});
