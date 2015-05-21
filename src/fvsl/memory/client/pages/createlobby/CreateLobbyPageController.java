@@ -2,7 +2,10 @@
  * 
  */
 package fvsl.memory.client.pages.createlobby;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import fvsl.memory.client.pages.PageListeners;
 import fvsl.memory.client.shell.Application;
 import fvsl.memory.common.entities.Lobby;

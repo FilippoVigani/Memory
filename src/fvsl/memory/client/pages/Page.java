@@ -42,17 +42,34 @@ public abstract class Page extends JPanel {
 	}
 
 	// /Methods
-
+	/**
+	 * Instantiates a new page.
+	 */
 	protected abstract void bufferize(Object o);
-
+	
+	/**
+	 * Load Components to build the graphic view
+	 */
 	protected abstract void loadComponents();
 
+	/**
+	 * Instantiates all listeners  of the page trough the ControllerPage
+	 */
 	protected abstract void setUpListeners();
 
+	/**
+	 * Load all needed data of the page in the ModelPage
+	 */
 	protected abstract void loadData();
 
+	/**
+	 * Use model data to populate the ViewPage
+	 */
 	protected abstract void populateViews();
-
+	
+	/**
+	 * Control the window exit 
+	 */
 	protected abstract void onExit();
 
 	/**

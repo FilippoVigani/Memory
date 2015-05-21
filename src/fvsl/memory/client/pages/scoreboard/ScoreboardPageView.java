@@ -1,5 +1,8 @@
 package fvsl.memory.client.pages.scoreboard;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -23,7 +26,8 @@ import java.util.Vector;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ScoreboardPageView.
+ * The Class ScoreboardPageView, show players and their scores in a table in order from the highest score to the lower,
+ * and allows to go to the main page
  */
 public class ScoreboardPageView extends Page {
 	/**
@@ -97,6 +101,9 @@ public class ScoreboardPageView extends Page {
 
 	}
 
+	/**
+	 * set up all the table features
+	 */
 	protected class PlayersTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
 

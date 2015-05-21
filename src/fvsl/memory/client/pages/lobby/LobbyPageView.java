@@ -1,5 +1,8 @@
 package fvsl.memory.client.pages.lobby;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -21,7 +24,8 @@ import java.util.Vector;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class LobbyPageView.
+ * The Class LobbyPageView, shows all the lobby settings on the left side and the list of connected players on the right side,
+ * the entire list has to be ready to start the game,this class allows to go back to the main page too.
  */
 public class LobbyPageView extends Page {
 
@@ -184,7 +188,7 @@ public class LobbyPageView extends Page {
 	}
 
 	/**
-	 * Update players.
+	 * This method maintains the player table always up-to-date
 	 */
 	public void updatePlayers() {
 		model.getLobby().setConnectedPlayers(controller.getPlayersOfLobbyFromServer(model.getLobby()));
@@ -193,7 +197,7 @@ public class LobbyPageView extends Page {
 	}
 
 	/**
-	 * Respond to deleted lobby.
+	 * Respond to deleted lobby.after deleting the lobby it go back to main page.
 	 * 
 	 * @param lobby
 	 *            the lobby
@@ -205,7 +209,7 @@ public class LobbyPageView extends Page {
 	}
 
 	/**
-	 * Respond to start game.
+	 * Respond to start game,going to the game page view
 	 * 
 	 * @param lobby
 	 *            the lobby
@@ -221,6 +225,10 @@ public class LobbyPageView extends Page {
 		controller.leaveLobby(model.getLobby());
 	}
 
+	
+	/**
+	 * set up the table features
+	 */
 	protected class PlayersTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
 

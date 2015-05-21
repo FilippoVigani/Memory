@@ -1,5 +1,8 @@
 package fvsl.memory.client.pages;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,7 +12,7 @@ import fvsl.memory.common.entities.Lobby;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class PageListeners.
+ * The Class PageListeners.here there are all events.
  */
 public class PageListeners {
 	// Event to go to a different page

@@ -1,5 +1,8 @@
 package fvsl.memory.client.pages.main;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;

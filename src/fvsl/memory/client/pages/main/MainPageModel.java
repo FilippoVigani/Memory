@@ -1,5 +1,8 @@
 package fvsl.memory.client.pages.main;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import java.util.Vector;
 
 import fvsl.memory.common.entities.Lobby;

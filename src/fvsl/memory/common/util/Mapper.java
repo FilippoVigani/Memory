@@ -1,5 +1,8 @@
 package fvsl.memory.common.util;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.HashMap;

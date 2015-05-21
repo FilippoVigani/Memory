@@ -2,7 +2,10 @@
  * 
  */
 package fvsl.memory.client.pages.createlobby;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import fvsl.memory.common.entities.Lobby;
 
 // TODO: Auto-generated Javadoc

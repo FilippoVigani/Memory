@@ -1,5 +1,8 @@
 package fvsl.memory.client.pages.scoreboard;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import fvsl.memory.client.pages.PageListeners;
 
 // TODO: Auto-generated Javadoc

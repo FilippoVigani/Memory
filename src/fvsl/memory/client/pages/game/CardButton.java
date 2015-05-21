@@ -28,10 +28,13 @@ public class CardButton extends JButton {
 	 * Instantiates a new card button.
 	 */
 	public CardButton() {
-		// setLayout(new BorderLayout());
+		
 
 		addComponentListener(new ComponentAdapter() {
 
+			/**
+			 *resize the icon dimension to the button dimension
+			 */
 			@Override
 			public void componentResized(ComponentEvent e) {
 				JButton btn = (JButton) e.getComponent();

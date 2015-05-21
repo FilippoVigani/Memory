@@ -2,7 +2,10 @@
  * 
  */
 package fvsl.memory.client.pages.createlobby;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -31,7 +34,7 @@ import fvsl.memory.common.util.StringResources;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class CreateLobbyPageView.
+ * This page allow to choose all lobby and game settings like (lobby name, turn timer, players number, pairs number,lobby password)  
  */
 public class CreateLobbyPageView extends Page {
 
@@ -80,6 +83,9 @@ public class CreateLobbyPageView extends Page {
 	 */
 	@Override
 	protected void loadComponents() {
+		/**
+		 * Setting up panels
+		 */
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		add(panel);
@@ -87,10 +93,9 @@ public class CreateLobbyPageView extends Page {
 		JPanel titlePanel = new JPanel();
 		panel.add(titlePanel, BorderLayout.NORTH);
 		panel.add(settingPanel, BorderLayout.CENTER);
-
 		settingPanel.setLayout(new BoxLayout(settingPanel, BoxLayout.PAGE_AXIS));
-
 		JPanel buttonPanel = new JPanel();
+		
 		buttonPanel.setLayout(new BoxLayout(settingPanel, BoxLayout.LINE_AXIS));
 		panel.add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.setLayout(new GridLayout(1, 2));
@@ -110,7 +115,10 @@ public class CreateLobbyPageView extends Page {
 		timerCombo.setBorder((new TitledBorder(new EtchedBorder(), StringResources.timer.toString())));
 		creaButton = new JButton(StringResources.createLo.toString());
 		backButton = new JButton(StringResources.back.toString());
-
+		
+		/**
+		 * Adding Component 
+		 */
 		titlePanel.add(Box.createRigidArea(new Dimension(350, 30)));
 		settingPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		settingPanel.add(lobbyNameField);

@@ -1,5 +1,8 @@
 package fvsl.memory.client.pages.main;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
@@ -32,7 +35,8 @@ import fvsl.memory.common.util.StringResources;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class MainPageView.
+ * The Class MainPageView, allows to write the name player and change it how many times you want, there are two way to play:
+ *  create an own lobby or join in an already existent lobby.
  */
 public class MainPageView extends Page {
 
@@ -75,20 +79,14 @@ public class MainPageView extends Page {
 		createLobbyPanel.add(Box.createRigidArea(new Dimension(55, 25)));
 		createLobbyPanel.add(txtUsername);
 		createLobbyPanel.add(Box.createRigidArea(new Dimension(55, 500)));
-		// txtUsername.setColumns(10);
-		// txtUsername.setMaximumSize(new Dimension(Integer.MAX_VALUE,100) );
 		txtUsername.setBorder((new TitledBorder(new EtchedBorder(), StringResources.namePl.toString())));
 		btnCreateLobby = new JButton(StringResources.createLo.toString());
 		buttonPanel.setLayout(new BorderLayout());
 		panel.add(buttonPanel, BorderLayout.SOUTH);
-		// createLobbyPanel.add(btnCreateLobby);
 		btnCreateLobby.setAlignmentX(CENTER_ALIGNMENT);
-		// btnCreateLobby.setBounds(100,400,150,50);
 		JPanel joinLobbyPanel = new JPanel();
 		panel.add(joinLobbyPanel, BorderLayout.CENTER);
 		joinLobbyPanel.setLayout(new BoxLayout(joinLobbyPanel, BoxLayout.PAGE_AXIS));
-		// joinLobbyPanel.setBorder(new TitledBorder ( new EtchedBorder (),
-		// "Lobbies" ));
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55, 25)));
 		listLobbies = new JList<Lobby>();
 		listLobbies.setBorder((new TitledBorder(new EtchedBorder(), StringResources.lobbies.toString())));
@@ -107,8 +105,6 @@ public class MainPageView extends Page {
 		buttonPanel.add(btnCreateLobby, BorderLayout.WEST);
 
 		buttonPanel.add(btnJoinLobby, BorderLayout.CENTER);
-		// joinLobbyPanel.add(btnJoinLobby);
-		// joinLobbyPanel.add(Box.createRigidArea(new Dimension(55,100)));
 	}
 
 	@Override
@@ -222,6 +218,10 @@ public class MainPageView extends Page {
 		controller.loadCreateLobbyPage();
 	}
 
+	/**
+	 * Control the joining lobby checking if all needs are met
+	 *
+	 */
 	protected void attemptToJoinLobby() {
 		LobbyJoiningResult result = controller.requestLobbyJoining(model.getPlayer(), model.getSelectedLobby(), model.getPassword());
 		if (result == LobbyJoiningResult.Accepted) {

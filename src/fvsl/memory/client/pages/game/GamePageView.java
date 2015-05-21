@@ -1,5 +1,8 @@
 package fvsl.memory.client.pages.game;
-
+/**
+ * @author Stefano Leggio
+ *
+ */
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -33,7 +36,8 @@ import fvsl.memory.common.util.StringResources;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class GamePageView.
+ * The Class GamePageView shows the players table on the left side showing player name, score and turn, and on the right side
+ * there are all the cards(button) 
  */
 public class GamePageView extends Page {
 	/**
@@ -169,7 +173,9 @@ public class GamePageView extends Page {
 			controller.attemptToTurnCard(model.getLobby().getId(), card);
 		}
 	}
-
+	/**
+	 * turn TimeOut
+	 */
 	private void turnTimeout() {
 		controller.reportTurnTimeout(model.getLobby().getId());
 	}
@@ -195,6 +201,10 @@ public class GamePageView extends Page {
 		playersTable.setModel(tableModel);
 	}
 
+	/**
+	 * Start Timer
+	 *
+	 */
 	private void startTimer() {
 		long duration = (long) (model.getLobby().getTurnTimer() * 1000);
 		synchronized (remaining) {
@@ -244,7 +254,11 @@ public class GamePageView extends Page {
 			}
 		}).start();
 	}
-
+	
+	
+	/**
+	 *Reset the timer 
+	 */
 	private void refreshTimer() {
 		timerPaused = false;
 		synchronized (remaining) {
@@ -252,10 +266,16 @@ public class GamePageView extends Page {
 		}
 	}
 
+	/**
+	 *Stop timer
+	 */
 	private void stopTimer() {
 		timerRunning = false;
 	}
 
+	/**
+	 *Pause Timer
+	 */
 	private void pauseTimer() {
 		timerPaused = true;
 	}
@@ -324,11 +344,15 @@ public class GamePageView extends Page {
 		}
 	}
 
+	/**
+	 *allow the players table to be always up-to-date
+	 */
 	private void refreshTable() {
 		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
 		playersTable.setModel(tableModel);
 	}
 
+	
 	private CardButton getCardButtonByCardId(String cardId) {
 		for (CardButton cardButton : buttons) {
 			if (cardButton.getCard().getId().equals(cardId)) {
@@ -338,6 +362,9 @@ public class GamePageView extends Page {
 		return null;
 	}
 
+	/**
+	 * set up the table features
+	 */
 	protected class PlayersTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
 
@@ -410,6 +437,7 @@ public class GamePageView extends Page {
 		this.controller = controller;
 	}
 
+	
 	@Override
 	protected void onExit() {
 		if (model.getTurnPlayer().getName().equals(Application.player.getName())) {
