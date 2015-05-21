@@ -8,6 +8,7 @@ import java.net.SocketException;
 import java.util.Vector;
 
 import fvsl.memory.common.entities.Request;
+import fvsl.memory.common.util.StringResources;
 import fvsl.memory.server.db.ServerData;
 
 public class ClientUpdaterRunnable implements Runnable {
@@ -35,11 +36,11 @@ public class ClientUpdaterRunnable implements Runnable {
 
 			streamToClient.flush();
 
-			System.out.println("Created output stream for updater serverside");
+			System.out.println(StringResources.createdUpOS);
 
 			streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
 
-			System.out.println("Created input stream for updater serverside");
+			System.out.println(StringResources.createdUpIS);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -47,7 +48,7 @@ public class ClientUpdaterRunnable implements Runnable {
 		while (!isStopped()) {
 			synchronized (this) {
 				if (requests.size() > 0) {
-					System.out.println("Polling new update request - " + requests.firstElement().getRequestType());
+					System.out.println(StringResources.pollNewUpReq.toString() + requests.firstElement().getRequestType());
 					try {
 						streamToClient.writeObject(requests.firstElement());
 						streamToClient.flush();

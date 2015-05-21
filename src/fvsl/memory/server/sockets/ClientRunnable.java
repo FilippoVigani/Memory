@@ -136,7 +136,7 @@ public class ClientRunnable implements Runnable {
 	private void gameRequest(GameRequest request) {
 
 		GameState game = serverData.getGameById(request.getId());
-		System.out.println("game performing: " + game.isPerformingAction());
+		System.out.println(StringResources.gamePerf.toString() + game.isPerformingAction());
 		if (!game.isPerformingAction() && game.isStarted()) {
 			if (request.getAction() == GameRequestAction.TurnCard) {
 				synchronized (game.getId()) {
@@ -297,7 +297,7 @@ public class ClientRunnable implements Runnable {
 		Lobby srcLobby = (Lobby) contents.get(0);
 		String password = (String) contents.get(1);
 
-		System.out.println("Preso contenuto");
+		System.out.println(StringResources.contentTaken);
 
 		String newId = UUID.randomUUID().toString();
 
@@ -312,7 +312,7 @@ public class ClientRunnable implements Runnable {
 		// }
 
 		reply.setContent(newId);
-		System.out.println("Lobby creata con id " + newId);
+		System.out.println(StringResources.createdLo.toString() + newId);
 
 		notifyUpdate(RequestType.UpdateLobbyList);
 		return reply;
@@ -364,7 +364,7 @@ public class ClientRunnable implements Runnable {
 			serverData.getLobbies().remove(lobby);
 		}
 		notifyUpdate(RequestType.SetupGame, lobby);
-		System.out.println("Setting up game...");
+		System.out.println(StringResources.setUpGame);
 		
 		final Lobby l = lobby;
 		
@@ -376,7 +376,7 @@ public class ClientRunnable implements Runnable {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				System.out.println("Starting game");
+				System.out.println(StringResources.startGame);
 				synchronized (serverData.getGameById(l.getId()).getId()){
 					serverData.getGameById(l.getId()).setStarted(true);
 				}
@@ -409,7 +409,7 @@ public class ClientRunnable implements Runnable {
 				reply.setContent(LobbyLeavingResult.Accepted);
 				if (lobby.getOwner() != null) {
 					if (player.getName().equals(lobby.getOwner().getName())) {
-						System.out.println("Owner of lobby left, removing lobby.");
+						System.out.println(StringResources.destroyedLo);
 						synchronized (serverData.getLobbies()) {
 							serverData.getLobbies().remove(lobby);
 						}

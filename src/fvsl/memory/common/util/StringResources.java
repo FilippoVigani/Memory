@@ -9,7 +9,8 @@ public enum StringResources {
 	// ClientUpdateRunnable
 	createdUpOS("Created output stream for updater serverside"), createdUpIS("Created input stream for updater serverside"), pollNewUpReq("Polling new update request - "),
 	// Server
-	sConsole("Server console"),multyTS("Multithreaded Server"),sStop("Server Stopped."),errorAcptCC("Error accepting client connection"),errorCloseS("Error closing server"),cantOpnePort("Cannot open port "),upServ("Updater Server"), nullCSock("Client socket is null"), cUpAdd("Client updater added."), newC("New client on port "), serverStartedOnPort("Server started on port "),
+	sConsole("Server console"),multyTS("Multithreaded Server"),sStop("Server Stopped."),errorAcptCC("Error accepting client connection"),errorCloseS("Error closing server"),cantOpnePort("Cannot open port "),
+	upServ("Updater Server"), nullCSock("Client socket is null"), cUpAdd("Client updater added."), newC("New client on port "), serverStartedOnPort("Server started on port "),
 	// DBHelper
 	conToDB("****Connect to Database****"), conDBTo("DataBase connect to: "), closedDBCon("Database Connection Closed"),url("URL:"),conExc("Exception in getLocalConeection() "),
 	// GUIUpdaterRunnable
@@ -28,7 +29,7 @@ public enum StringResources {
 	tryJoinLo(" tries to join lobby "),joinLo("Join Lobby"),anonymousPl("Anonymous player"),updateLo("Updating lobbies"),changeSelLo("Lobby selection changed "),
 	succjoinLo("successfully joined the lobby "),namePl("Player Name"),
 	//mapper
-	resFig("res/figures"),fig("figures"),jpg(".jpg"),png(".png"),jpeg(".jpeg"),idLetter("c");
+	resFig("res/figures"),fig("/figures/"),jpg(".jpg"),png(".png"),jpeg(".jpeg"),idLetter("c");
 	
 	
 	private final String text;

@@ -22,6 +22,7 @@ import fvsl.memory.common.entities.Request;
 import fvsl.memory.common.entities.Request.RequestAction;
 import fvsl.memory.common.entities.Request.RequestType;
 import fvsl.memory.common.settings.Settings;
+import fvsl.memory.common.util.StringResources;
 
 public class GUIUpdaterRunnable implements Runnable {
 
@@ -38,7 +39,7 @@ public class GUIUpdaterRunnable implements Runnable {
 	@Override
 	public void run() {
 
-		System.out.println("Created gui updater runnable");
+		System.out.println(StringResources.createdUpRun);
 
 		try {
 			serverSocket = new Socket(InetAddress.getLocalHost(), Settings.UPDATE_PORT);
@@ -62,7 +63,7 @@ public class GUIUpdaterRunnable implements Runnable {
 
 				Request request = null;
 				try {
-					System.out.println("Waiting for update request...");
+					System.out.println(StringResources.w8UpReq);
 					request = (Request) streamFromServer.readObject();
 
 				} catch (ClassNotFoundException e) {
@@ -74,7 +75,7 @@ public class GUIUpdaterRunnable implements Runnable {
 					break;
 				}
 
-				System.out.println("Received update request " + request.getRequestType());
+				System.out.println(StringResources.recivedUpReq.toString() + request.getRequestType());
 
 				if (request.getRequestAction() == RequestAction.Ask) {
 					if (request.getRequestType() == RequestType.UpdateLobbyList) {
@@ -146,7 +147,7 @@ public class GUIUpdaterRunnable implements Runnable {
 
 								final GameRequest gameRequest = request.getCastedContent();
 
-								System.out.println("Game request: " + gameRequest.getAction());
+								System.out.println(StringResources.gameReq.toString() + gameRequest.getAction());
 
 								SwingUtilities.invokeLater(new Runnable() {
 									@Override

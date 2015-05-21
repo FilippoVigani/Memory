@@ -17,6 +17,7 @@ import javax.swing.table.TableModel;
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
+import fvsl.memory.common.util.StringResources;
 
 import java.util.Vector;
 
@@ -72,15 +73,15 @@ public class LobbyPageView extends Page {
 		backButton = new JButton("Go Back");
 
 		lobbyNameLabel = new JLabel();
-		lobbyNameLabel.setFont(new Font("Arial", Font.BOLD, 24));
+		lobbyNameLabel.setFont(new Font(StringResources.textStyle.toString(), Font.BOLD, 24));
 		numberOfPairsLabel = new JLabel();
-		numberOfPairsLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		numberOfPairsLabel.setFont(new Font(StringResources.textStyle.toString(), Font.BOLD, 20));
 		timerLabel = new JLabel();
-		timerLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		timerLabel.setFont(new Font(StringResources.textStyle.toString(), Font.BOLD, 20));
 		//infoPanel.add(Box.createVerticalGlue());
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.setBorder((new TitledBorder(new EtchedBorder(), "Name")));
+		panel.setBorder((new TitledBorder(new EtchedBorder(),StringResources.name.toString())));
 		panel.add(Box.createHorizontalGlue());
 		panel.add(lobbyNameLabel);
 		panel.add(Box.createHorizontalGlue());
@@ -88,7 +89,7 @@ public class LobbyPageView extends Page {
 		//infoPanel.add(Box.createVerticalGlue());
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.setBorder((new TitledBorder(new EtchedBorder(), "Number of pairs")));
+		panel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.coupleNum.toString())));
 		panel.add(Box.createHorizontalGlue());
 		panel.add(numberOfPairsLabel);
 		panel.add(Box.createHorizontalGlue());
@@ -96,7 +97,7 @@ public class LobbyPageView extends Page {
 		//infoPanel.add(Box.createVerticalGlue());
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.setBorder((new TitledBorder(new EtchedBorder(), "Timer")));
+		panel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.timer.toString())));
 		panel.add(Box.createHorizontalGlue());
 		panel.add(timerLabel);
 		panel.add(Box.createHorizontalGlue());
@@ -105,13 +106,13 @@ public class LobbyPageView extends Page {
 		infoPanel.add(backButton);
 		infoPanel.add(Box.createVerticalGlue());
 
-		infoPanel.setBorder((new TitledBorder(new EtchedBorder(), "Lobby info")));
+		infoPanel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.infoLo.toString())));
 		
 		playersTable = new JTable();
 		tablePanel = new JPanel();
 		
 		//playersPanel.add(Box.createRigidArea(new Dimension(55, 100)));
-		tablePanel.setBorder((new TitledBorder(new EtchedBorder(), "Connected Players")));
+		tablePanel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.connectedPl.toString())));
 		tablePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		tablePanel.add(new JScrollPane(playersTable));
 		tablePanel.add(readyButton);
@@ -152,8 +153,8 @@ public class LobbyPageView extends Page {
 	@Override
 	protected void populateViews() {
 		lobbyNameLabel.setText(model.getLobby().getName());
-		numberOfPairsLabel.setText(model.getLobby().getNumberOfPairs() + " pairs");
-		timerLabel.setText(model.getLobby().getTurnTimer() + " seconds");
+		numberOfPairsLabel.setText(model.getLobby().getNumberOfPairs() + StringResources.pairs.toString());
+		timerLabel.setText(model.getLobby().getTurnTimer() + StringResources.sec.toString());
 		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
 		playersTable.setModel(tableModel);
 	}
@@ -186,7 +187,7 @@ public class LobbyPageView extends Page {
 
 		private Vector<Player> list = new Vector<Player>();
 
-		private String[] columnNames = { "Player", "Ready" };
+		private String[] columnNames = { StringResources.player.toString(), StringResources.rdy.toString() };
 
 		public PlayersTableModel(Vector<Player> list) {
 			this.list = list;
@@ -212,7 +213,7 @@ public class LobbyPageView extends Page {
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			Player player = null;
 			if (rowIndex > list.size() - 1) {
-				player = new Player("~Free slot~");
+				player = new Player(StringResources.freeSlot.toString());
 			} else {
 				player = list.get(rowIndex);
 			}

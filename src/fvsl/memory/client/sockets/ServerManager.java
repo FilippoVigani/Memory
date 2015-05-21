@@ -21,6 +21,7 @@ import fvsl.memory.common.entities.Request.LobbyLeavingResult;
 import fvsl.memory.common.entities.Request.RequestAction;
 import fvsl.memory.common.entities.Request.RequestType;
 import fvsl.memory.common.entities.Request.StatusChangeResult;
+import fvsl.memory.common.util.StringResources;
 
 public class ServerManager {
 
@@ -37,7 +38,7 @@ public class ServerManager {
 		try {
 			host = InetAddress.getLocalHost();
 		} catch (UnknownHostException uhEx) {
-			System.err.println("Non trovo indirizzo calcolatore ospite!");
+			System.err.println(StringResources.addressNotFound);
 			System.err.println(uhEx);
 			System.exit(1);
 		}
@@ -45,20 +46,20 @@ public class ServerManager {
 		try {
 			socket = new Socket(host, PORT);
 
-			System.out.println("Connected to " + host.getHostAddress());
+			System.out.println(StringResources.conTo + host.getHostAddress());
 
 			streamFromServer = new ObjectInputStream(socket.getInputStream());
 
-			System.out.println("Created input stream clientside");
+			System.out.println(StringResources.createdISCS);
 
 			streamToServer = new ObjectOutputStream(socket.getOutputStream());
 
 			streamToServer.flush();
 
-			System.out.println("Created output stream clientside");
+			System.out.println(StringResources.createdOSCS);
 
 		} catch (IOException ioEx) {
-			System.err.println("IOException:" + ioEx.getMessage());
+			System.err.println(StringResources.IOExc + ioEx.getMessage());
 		}
 	}
 
@@ -96,12 +97,12 @@ public class ServerManager {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		System.out.println("Request sent");
+		System.out.println(StringResources.reqSent);
 		Vector<Lobby> list = null;
 		try {
 			Request obj = (Request) streamFromServer.readObject();
 			list = obj.getCastedContent();
-			System.out.println("Something has been received: " + obj.getRequestType() + " " + obj.getRequestAction());
+			System.out.println(StringResources.SomethingRec.toString() + obj.getRequestType() + " " + obj.getRequestAction());
 			if (list == null) {
 				list = new Vector<Lobby>();
 			}
@@ -132,7 +133,7 @@ public class ServerManager {
 		try {
 			Request obj = (Request) streamFromServer.readObject();
 			result = obj.getCastedContent();
-			System.out.println("Something has been received: " + obj.getRequestType() + " " + obj.getRequestAction() + " " + result);
+			System.out.println(StringResources.SomethingRec.toString() + obj.getRequestType() + " " + obj.getRequestAction() + " " + result);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -254,12 +255,12 @@ public class ServerManager {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		System.out.println("Request sent");
+		System.out.println(StringResources.reqSent);
 		Vector<String> list = null;
 		try {
 			Request obj = (Request) streamFromServer.readObject();
 			list = obj.getCastedContent();
-			System.out.println("Something has been received: " + obj.getRequestType() + " " + obj.getRequestAction());
+			System.out.println(StringResources.SomethingRec.toString() + obj.getRequestType() + " " + obj.getRequestAction());
 			if (list == null) {
 				list = new Vector<String>();
 			}
@@ -281,12 +282,12 @@ public class ServerManager {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		System.out.println("Request sent");
+		System.out.println(StringResources.reqSent);
 		Player turnPlayer = null;
 		try {
 			Request obj = (Request) streamFromServer.readObject();
 			player = obj.getCastedContent();
-			System.out.println("Something has been received: " + obj.getRequestType() + " " + obj.getRequestAction());
+			System.out.println(StringResources.SomethingRec.toString() + obj.getRequestType() + " " + obj.getRequestAction());
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -307,7 +308,7 @@ public class ServerManager {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		System.out.println("Request sent");
+		System.out.println(StringResources.reqSent);
 		closeConnection();
 	}
 }

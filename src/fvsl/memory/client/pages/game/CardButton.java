@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 
 import fvsl.memory.common.entities.Card;
 import fvsl.memory.common.util.Mapper;
+import fvsl.memory.common.util.StringResources;
 
 public class CardButton extends JButton {
 
@@ -60,7 +61,7 @@ public class CardButton extends JButton {
 
 	public void setCard(Card card) {
 		this.card = card;
-		String path = "/card_folded.jpg";
+		String path = StringResources.foldedCard.toString();
 		if (!(card.getValue() == null || card.getValue().isEmpty())) {
 			path = Mapper.getMapper().getCardsMap().get(card.getValue());
 		}

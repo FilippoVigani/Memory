@@ -34,6 +34,7 @@ import fvsl.memory.common.entities.GameRequest;
 import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.entities.GameRequest.GameRequestAction;
 import fvsl.memory.common.entities.Lobby;
+import fvsl.memory.common.util.StringResources;
 
 public class GamePageView extends Page {
 	public GamePageView(Lobby lobby) {
@@ -90,8 +91,8 @@ public class GamePageView extends Page {
 		JPanel timerPanel = new JPanel();;
 		//timerPanel.setLayout();
 		timerLabel = new JLabel();
-		timerLabel.setFont(new Font("Arial", Font.BOLD, 40));
-		timerLabel.setText("00:00");
+		timerLabel.setFont(new Font(StringResources.textStyle.toString(), Font.BOLD, 40));
+		timerLabel.setText(StringResources.timerStart.toString());
 		timerPanel.add(timerLabel);
 
 		timerAndCardsPanel.add(timerPanel);
@@ -100,10 +101,10 @@ public class GamePageView extends Page {
 		containerPanel.add(timerAndCardsPanel, BorderLayout.CENTER);
 		playerNameLabel = new JLabel();
 		playerNamePanel = new JPanel();
-		playerNameLabel.setFont(new Font("Arial", Font.BOLD, 24));
-		playerNamePanel.setBorder((new TitledBorder(new EtchedBorder(), "Player")));
+		playerNameLabel.setFont(new Font(StringResources.textStyle.toString(), Font.BOLD, 24));
+		playerNamePanel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.player.toString())));
 		playerNamePanel.add(playerNameLabel);
-		tablePanel.setBorder((new TitledBorder(new EtchedBorder(), "Scoreboard")));
+		tablePanel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.scoreboard.toString())));
 		tablePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		tablePanel.add(new JScrollPane(playersTable));
 		scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.PAGE_AXIS));
@@ -301,8 +302,7 @@ public class GamePageView extends Page {
 		private static final long serialVersionUID = 1L;
 
 		private Vector<Player> list = new Vector<Player>();
-
-		private String[] columnNames = { "Player", "Score", "Turn" };
+		private String[] columnNames = { StringResources.player.toString(), StringResources.score.toString(), StringResources.turn.toString() };
 
 		public PlayersTableModel(Vector<Player> list) {
 			this.list = list;

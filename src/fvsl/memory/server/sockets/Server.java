@@ -47,7 +47,7 @@ public class Server extends JFrame implements Runnable {
 	}
 
 	public void initView() {
-		setTitle("Server console");
+		setTitle(StringResources.sConsole.toString());
 		setVisible(true);
 		setSize(600, 400);
 		setResizable(false);
@@ -84,18 +84,18 @@ public class Server extends JFrame implements Runnable {
 		while (!isStopped()) {
 			try {
 				if (serverPort == Settings.PORT) {
-					pool.execute(new ClientRunnable(serverSocket.accept(), "Multithreaded Server", serverData));
+					pool.execute(new ClientRunnable(serverSocket.accept(), StringResources.multyTS.toString(), serverData));
 				} else if (serverPort == Settings.UPDATE_PORT) {
-					ClientUpdaterRunnable updater = new ClientUpdaterRunnable(serverSocket.accept(), "Updater Server", serverData);
+					ClientUpdaterRunnable updater = new ClientUpdaterRunnable(serverSocket.accept(), StringResources.upServ.toString(), serverData);
 					serverData.getClientUpdaters().add(updater);
 					pool.execute(updater);
 				}
 			} catch (IOException e) {
 				if (isStopped()) {
-					System.out.println("Server Stopped.");
+					System.out.println(StringResources.sStop);
 					return;
 				}
-				throw new RuntimeException("Error accepting client connection", e);
+				throw new RuntimeException(StringResources.errorAcptCC.toString(), e);
 			}
 			/*
 			 * if (clientSocket == null){
@@ -112,7 +112,7 @@ public class Server extends JFrame implements Runnable {
 			 * Thread(runnable).start(); } }
 			 */
 		}
-		System.out.println("Server Stopped.");
+		System.out.println(StringResources.sStop);
 	}
 
 	private synchronized boolean isStopped() {
@@ -124,7 +124,7 @@ public class Server extends JFrame implements Runnable {
 		try {
 			this.serverSocket.close();
 		} catch (IOException e) {
-			throw new RuntimeException("Error closing server", e);
+			throw new RuntimeException(StringResources.errorCloseS.toString(), e);
 		}
 	}
 
@@ -132,7 +132,7 @@ public class Server extends JFrame implements Runnable {
 		try {
 			this.serverSocket = new ServerSocket(this.serverPort);
 		} catch (IOException e) {
-			throw new RuntimeException("Cannot open port " + serverPort, e);
+			throw new RuntimeException(StringResources.cantOpnePort.toString() + serverPort, e);
 		}
 	}
 

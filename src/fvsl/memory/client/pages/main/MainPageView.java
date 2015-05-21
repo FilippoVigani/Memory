@@ -29,6 +29,7 @@ import fvsl.memory.client.shell.Application;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.entities.Request.LobbyJoiningResult;
+import fvsl.memory.common.util.StringResources;
 
 public class MainPageView extends Page {
 
@@ -70,8 +71,8 @@ public class MainPageView extends Page {
 		createLobbyPanel.add(Box.createRigidArea(new Dimension(55, 500)));
 		// txtUsername.setColumns(10);
 		// txtUsername.setMaximumSize(new Dimension(Integer.MAX_VALUE,100) );
-		txtUsername.setBorder((new TitledBorder(new EtchedBorder(), "Player Name")));
-		btnCreateLobby = new JButton("Create Lobby");
+		txtUsername.setBorder((new TitledBorder(new EtchedBorder(), StringResources.namePl.toString())));
+		btnCreateLobby = new JButton(StringResources.createLo.toString());
 		buttonPanel.setLayout(new BorderLayout());
 		panel.add(buttonPanel, BorderLayout.SOUTH);
 		// createLobbyPanel.add(btnCreateLobby);
@@ -84,11 +85,11 @@ public class MainPageView extends Page {
 		// "Lobbies" ));
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55, 25)));
 		listLobbies = new JList<Lobby>();
-		listLobbies.setBorder((new TitledBorder(new EtchedBorder(), "Lobbies")));
+		listLobbies.setBorder((new TitledBorder(new EtchedBorder(),StringResources.lobbies.toString())));
 		joinLobbyPanel.add(listLobbies);
 		listLobbies.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		txtPassword = new JTextField();
-		txtPassword.setBorder((new TitledBorder(new EtchedBorder(), "Password")));
+		txtPassword.setBorder((new TitledBorder(new EtchedBorder(),StringResources.psw.toString())));
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55, 5)));
 		joinLobbyPanel.add(txtPassword);
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55, 50)));
@@ -96,7 +97,7 @@ public class MainPageView extends Page {
 		txtPassword.setColumns(10);
 		txtPassword.setMaximumSize(new Dimension(Integer.MAX_VALUE, txtPassword.getPreferredSize().height));
 
-		btnJoinLobby = new JButton("Join Lobby");
+		btnJoinLobby = new JButton(StringResources.joinLo.toString());
 		buttonPanel.add(btnCreateLobby, BorderLayout.WEST);
 
 		buttonPanel.add(btnJoinLobby, BorderLayout.CENTER);
@@ -110,14 +111,14 @@ public class MainPageView extends Page {
 		model = new MainPageModel();
 		model.setPlayer(Application.player);
 		if (model.getPlayer() == null) {
-			model.setPlayer(new Player("Anonymous player")); // Default user
+			model.setPlayer(new Player(StringResources.anonymousPl.toString())); // Default user
 																// name
 		}
 		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
 	}
 
 	public void updateLobbies() {
-		System.out.println("Updating lobbies");
+		System.out.println(StringResources.updateLo.toString());
 		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
 		listLobbies.setListData(model.getLobbies().toArray(new Lobby[model.getLobbies().size()]));
 	}
@@ -173,7 +174,7 @@ public class MainPageView extends Page {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (listLobbies.getValueIsAdjusting() == false) {
-					log.log(Level.FINE, "Lobby selection changed " + listLobbies.getSelectedValue());
+					log.log(Level.FINE, StringResources.updateLo.toString() + listLobbies.getSelectedValue());
 					model.setSelectedLobby(listLobbies.getSelectedValue());
 				}
 			}
@@ -201,11 +202,11 @@ public class MainPageView extends Page {
 	protected void attemptToJoinLobby() {
 		LobbyJoiningResult result = controller.requestLobbyJoining(model.getPlayer(), model.getSelectedLobby(), model.getPassword());
 		if (result == LobbyJoiningResult.Accepted) {
-			log.log(Level.INFO, model.getPlayer().getName() + " successfully joined the lobby " + model.getSelectedLobby(), model.getSelectedLobby());
+			log.log(Level.INFO, model.getPlayer().getName() +StringResources.succjoinLo.toString() + model.getSelectedLobby(), model.getSelectedLobby());
 			controller.loadLobbyPage(model.getSelectedLobby());
 		} else {
-			log.log(Level.WARNING, model.getPlayer().getName() + " was unable to join the lobby " + model.getSelectedLobby() + ": " + result.toString(), result);
-			JOptionPane.showMessageDialog(container, "Unable to join lobby: " + result.toString());
+			log.log(Level.WARNING, model.getPlayer().getName() + StringResources.unJoinLo.toString() + model.getSelectedLobby() + ": " + result.toString(), result);
+			JOptionPane.showMessageDialog(container,StringResources.unJoinLo.toString() + result.toString());
 		}
 	}
 

@@ -72,37 +72,32 @@ public class CreateLobbyPageView extends Page {
 		buttonPanel.setLayout(new GridLayout(1,2));
 		
 		lobbyNameField = new JTextField();
-		lobbyNameField.setBorder((new TitledBorder(new EtchedBorder(), "Lobby Name")));
+		lobbyNameField.setBorder((new TitledBorder(new EtchedBorder(), StringResources.loName.toString())));
 		lobbyNameField.setColumns(10);
 		passwordField = new JTextField();
 		passwordField.setColumns(10);
-		passwordField.setBorder((new TitledBorder(new EtchedBorder(), "Password")));
+		passwordField.setBorder((new TitledBorder(new EtchedBorder(), StringResources.psw.toString())));
 		// I valori di default dovrebbe prenderli da server
 		nGCombo = new JComboBox<Integer>();
-		nGCombo.setBorder((new TitledBorder(new EtchedBorder(), "Numero Giocatori")));
+		nGCombo.setBorder((new TitledBorder(new EtchedBorder(), StringResources.playerNum.toString())));
 		nCoppieCombo = new JComboBox<Integer>();
-		nCoppieCombo.setBorder((new TitledBorder(new EtchedBorder(), "Numero Coppie")));
+		nCoppieCombo.setBorder((new TitledBorder(new EtchedBorder(), StringResources.coupleNum.toString())));
 		timerCombo = new JComboBox<Integer>();
-		timerCombo.setBorder((new TitledBorder(new EtchedBorder(), "timer")));
-		creaButton = new JButton("create lobby");
-		backButton = new JButton("back");
+		timerCombo.setBorder((new TitledBorder(new EtchedBorder(),StringResources.timer.toString())));
+		creaButton = new JButton(StringResources.createLo.toString());
+		backButton = new JButton(StringResources.back.toString());
 		
 	
 		titlePanel.add(Box.createRigidArea(new Dimension(350,30)));
 		settingPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		//settingPanel.add(lobbyNameLabel);
 		settingPanel.add(lobbyNameField);
 		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
-		//settingPanel.add(nGiocatoriLabel);
 		settingPanel.add(nGCombo);
 		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
-		//settingPanel.add(nCoppieLabel);
 		settingPanel.add(nCoppieCombo);
 		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
-		//settingPanel.add(timerLabel);
 		settingPanel.add(timerCombo);
 		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
-		//settingPanel.add(passwordLabel);
 		settingPanel.add(passwordField);
 		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
 		buttonPanel.add(backButton);

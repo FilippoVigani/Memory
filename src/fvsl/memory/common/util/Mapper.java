@@ -11,17 +11,17 @@ public class Mapper {
 	private static Mapper mapper;
 
 	public Mapper() {
-		File[] listOfFiles = new File("res/figures").listFiles(new FilenameFilter() {
+		File[] listOfFiles = new File(StringResources.resFig.toString()).listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				return name.endsWith(".jpg") || name.endsWith(".png") || name.endsWith(".jpeg");
+				return name.endsWith(StringResources.jpg.toString()) || name.endsWith(StringResources.png.toString()) || name.endsWith(StringResources.jpeg.toString());
 			}
 		});
 		cardsMap = new HashMap<String, String>();
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
 				// System.out.println("File " + listOfFiles[i].getName());
-				cardsMap.put(("c" + i), "/figures/" + listOfFiles[i].getName());
+				cardsMap.put((StringResources.idLetter.toString() + i), StringResources.fig + listOfFiles[i].getName());
 			}
 		}
 	}
