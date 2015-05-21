@@ -53,7 +53,7 @@ public class ScoreboardPageView extends Page {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 		scoreTable = new JTable();
 		panel.add(new JScrollPane(scoreTable));
-		backButton = new JButton("Continue");
+		backButton = new JButton(StringResources.cont.toString());
 		panel.add(backButton);
 		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));

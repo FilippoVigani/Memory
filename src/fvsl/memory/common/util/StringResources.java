@@ -29,6 +29,8 @@ public enum StringResources {
 	// MainPage
 	tryJoinLo(" tries to join lobby "), joinLo("Join Lobby"), anonymousPl("Anonymous player"), updateLo("Updating lobbies"), changeSelLo("Lobby selection changed "), succjoinLo(
 			"successfully joined the lobby "), namePl("Player Name"),
+	//ScoreBoard
+	cont("Continue"),
 	// mapper
 	resFig("res/figures"), fig("/figures/"), jpg(".jpg"), png(".png"), jpeg(".jpeg"), idLetter("c");
 
