@@ -10,6 +10,9 @@ import fvsl.memory.client.shell.Application;
 // TODO: Auto-generated Javadoc
 /**
  * The Class PageManager. Control the switch of various pages.
+ * 
+ * @author Filippo Vigani
+ *
  */
 public class PageManager implements ActionListener {
 

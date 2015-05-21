@@ -13,6 +13,9 @@ import fvsl.memory.common.entities.Lobby;
 // TODO: Auto-generated Javadoc
 /**
  * The Class PageListeners.here there are all events.
+ * 
+ * @author Filippo Vigani
+ *
  */
 public class PageListeners {
 	// Event to go to a different page

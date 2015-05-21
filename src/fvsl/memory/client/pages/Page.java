@@ -5,7 +5,10 @@ import javax.swing.JPanel;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Page.
+ * The base class page with all the defined methods to create and populate a page.
+ * 
+ * @author Filippo Vigani
+ *
  */
 public abstract class Page extends JPanel {
 	// /Fields
