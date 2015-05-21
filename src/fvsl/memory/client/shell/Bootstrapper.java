@@ -2,7 +2,7 @@ package fvsl.memory.client.shell;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Bootstrapper.
+ * Contains the main method and creates a new instance of WindowShell.
  */
 public class Bootstrapper {
 

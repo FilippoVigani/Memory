@@ -24,7 +24,8 @@ import fvsl.memory.common.util.StringResources;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class GUIUpdaterRunnable.
+ * Runnable to be run on a second thread by a client, waiting for requests from the server.
+ * Handles the requests and invokes the according methods on the main thread.
  */
 public class GUIUpdaterRunnable implements Runnable {
 
@@ -32,6 +33,9 @@ public class GUIUpdaterRunnable implements Runnable {
 	protected ObjectOutputStream streamToServer;
 
 	protected Socket serverSocket;
+	/**
+	 * The page on which the main thread is.
+	 */
 	private volatile Page page;
 	private boolean isRunning;
 

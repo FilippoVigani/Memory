@@ -20,7 +20,12 @@ import fvsl.memory.common.util.StringResources;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class WindowShell.
+ * A JFrame containing the different pages. Controls them by using the events associated
+ * to the pages and the PageManager.
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class WindowShell extends JFrame {
 
@@ -30,14 +35,15 @@ public class WindowShell extends JFrame {
 	private static final long serialVersionUID = 1980870011702344758L;
 	private PageManager pageManager;
 
-	/** The mpw. */
+	/** The MainPageView. */
 	MainPageView mpw;
 
-	/** The clw. */
+	/** The CreateLobbyView. */
 	CreateLobbyPageView clw;
 
 	/**
 	 * Instantiates a new window shell.
+	 * Calls the init() method.
 	 */
 	public WindowShell() {
 		setTitle(StringResources.windowTitle.toString());
@@ -45,9 +51,12 @@ public class WindowShell extends JFrame {
 
 		init();
 		setLocationRelativeTo(null);
-		// setResizable(false);
 	}
 
+	/**
+	 * Sets up all listeners to the different pages and controls their events.
+	 * Creates a new GUIUpdaterRunnable and sets the page to the MainPageView.
+	 */
 	private void init() {
 		mpw = new MainPageView();
 		clw = new CreateLobbyPageView();

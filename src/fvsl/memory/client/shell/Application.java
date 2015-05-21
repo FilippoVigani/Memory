@@ -6,7 +6,8 @@ import fvsl.memory.common.entities.Player;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Application.
+ * Contains static information about the application that should be shared among threads or 
+ * different pages.
  */
 public final class Application {
 

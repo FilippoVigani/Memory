@@ -25,7 +25,11 @@ import fvsl.memory.common.util.StringResources;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ServerManager.
+ * Connects to the server on a new socket and sends Requests, returning an according result.
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class ServerManager {
 
@@ -44,7 +48,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Connect.
+	 * Connects and creates a new socket.
 	 */
 	public void connect() {
 		try {
@@ -76,7 +80,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Close connection.
+	 * Closes the connection.
 	 */
 	public void closeConnection() {
 		try {
@@ -116,7 +120,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Request lobbies.
+	 * Requests the lobbies
 	 * 
 	 * @param player
 	 *            the player
@@ -152,7 +156,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Request join lobby.
+	 * Request to join a lobby.
 	 * 
 	 * @param player
 	 *            the player
@@ -193,7 +197,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Request leave lobby.
+	 * Requests to leave a lobby.
 	 * 
 	 * @param player
 	 *            the player
@@ -228,7 +232,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Request create lobby.
+	 * Requests to create a lobby.
 	 * 
 	 * @param player
 	 *            the player
@@ -272,7 +276,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Request connected players.
+	 * Requests the connected players to a lobby.
 	 * 
 	 * @param player
 	 *            the player
@@ -307,7 +311,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Request set status ready.
+	 * Requests to set the player status to ready.
 	 * 
 	 * @param player
 	 *            the player
@@ -340,7 +344,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Request cards ids.
+	 * Request the cards ids.
 	 * 
 	 * @param player
 	 *            the player
@@ -376,7 +380,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Request turn player.
+	 * Requests the turn player.
 	 * 
 	 * @param player
 	 *            the player
@@ -408,7 +412,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Request turn timeout.
+	 * Informs that a player hasn't moved in time.
 	 * 
 	 * @param player
 	 *            the player
@@ -431,7 +435,7 @@ public class ServerManager {
 	}
 
 	/**
-	 * Request to leave game.
+	 * Requests to leave a game.
 	 * 
 	 * @param player
 	 *            the player
