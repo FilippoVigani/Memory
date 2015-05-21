@@ -13,6 +13,7 @@ import fvsl.memory.client.pages.createlobby.CreateLobbyPageView;
 import fvsl.memory.client.pages.game.GamePageView;
 import fvsl.memory.client.pages.lobby.LobbyPageView;
 import fvsl.memory.client.pages.main.MainPageView;
+import fvsl.memory.client.pages.scoreboard.ScoreboardPageView;
 import fvsl.memory.client.sockets.GUIUpdaterRunnable;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.util.StringResources;
@@ -75,6 +76,15 @@ public class WindowShell extends JFrame {
 
 				final GamePageView gpw = new GamePageView((Lobby) e.getSource());
 
+				final ScoreboardPageView scw = new ScoreboardPageView((Lobby) e.getSource());
+
+				gpw.getController().addEventListener(new GoToScoreboardEventListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						pageManager.loadNewPage(scw);
+					}
+				});
+
 				lpw.getController().addEventListener(new GoToGamePageEventListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -98,6 +108,14 @@ public class WindowShell extends JFrame {
 				});
 
 				final GamePageView gpw = new GamePageView((Lobby) e.getSource());
+				final ScoreboardPageView scw = new ScoreboardPageView((Lobby) e.getSource());
+
+				gpw.getController().addEventListener(new GoToScoreboardEventListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						pageManager.loadNewPage(scw);
+					}
+				});
 
 				lpw.getController().addEventListener(new GoToGamePageEventListener() {
 					@Override

@@ -115,7 +115,7 @@ public class GamePageView extends Page {
 		// scorePanel.add(Box.createRigidArea(new Dimension(0,300)));
 
 		int columns = 5;
-		int rows = bufferLobby.getNumberOfPairs() * 2 / columns;
+		int rows = bufferLobby.getNumberOfPairs() * 2 / columns + 1;
 
 		cardsPanel.setLayout(new GridLayout(rows, columns, 5, 5));
 		// cardsPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -283,6 +283,13 @@ public class GamePageView extends Page {
 			startTimer();
 		}
 	}
+	
+
+	public void endGame(String id) {
+		if (id.equals(model.getLobby().getId())){
+			stopTimer();
+		}
+	}
 
 	private void refreshTable() {
 		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
@@ -349,5 +356,19 @@ public class GamePageView extends Page {
 			}
 			return null;
 		}
+	}
+
+	/**
+	 * @return the controller
+	 */
+	public GamePageController getController() {
+		return controller;
+	}
+
+	/**
+	 * @param controller the controller to set
+	 */
+	public void setController(GamePageController controller) {
+		this.controller = controller;
 	}
 }

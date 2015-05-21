@@ -177,6 +177,24 @@ public class GUIUpdaterRunnable implements Runnable {
 							}
 
 						}
+					} else if (request.getRequestType() == RequestType.EndGame) {
+						if (page instanceof GamePageView) {
+							final GamePageView gpw = (GamePageView) page;
+
+							if (gpw != null) {
+
+								final String id = request.getCastedContent();
+
+								SwingUtilities.invokeLater(new Runnable() {
+									@Override
+									public void run() {
+										gpw.endGame(id);
+									}
+								});
+
+							}
+
+						}
 					}
 				}
 

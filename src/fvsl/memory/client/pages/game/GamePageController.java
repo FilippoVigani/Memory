@@ -34,4 +34,8 @@ public class GamePageController extends PageListeners {
 	public void reportTurnTimeout(String gameId) {
 		Application.getServerManager().requestTurnTimeout(Application.player, gameId);
 	}
+	
+	public void goToScoreboardPage(Lobby lobby) {
+		fireGoToScoreboardEvent(lobby);
+	}
 }

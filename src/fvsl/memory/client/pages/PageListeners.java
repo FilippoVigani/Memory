@@ -66,6 +66,17 @@ public class PageListeners {
 		}
 	}
 
+	public class GoToScoreboardEvent extends ActionEvent {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -3856940450599430419L;
+
+		public GoToScoreboardEvent(Object source) {
+			super(source, 0, null);
+		}
+	}
+
 	// Create lobby
 	public interface GoToCreateLobbyEventListener extends ActionListener {
 	}
@@ -87,6 +98,19 @@ public class PageListeners {
 		GoToLobbyEvent event = new GoToLobbyEvent(lobby);
 		for (ActionListener listener : listeners) {
 			if (listener instanceof GoToLobbyEventListener) {
+				listener.actionPerformed(event);
+			}
+		}
+	}
+
+	// Scoreboard
+	public interface GoToScoreboardEventListener extends ActionListener {
+	}
+
+	protected synchronized void fireGoToScoreboardEvent(Lobby lobby) {
+		GoToScoreboardEvent event = new GoToScoreboardEvent(lobby);
+		for (ActionListener listener : listeners) {
+			if (listener instanceof GoToScoreboardEventListener) {
 				listener.actionPerformed(event);
 			}
 		}

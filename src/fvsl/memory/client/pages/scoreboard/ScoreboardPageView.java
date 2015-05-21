@@ -42,7 +42,6 @@ public class ScoreboardPageView extends Page {
 		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
 		scoreTable=new JTable();
 		panel.add(new JScrollPane(scoreTable));
-		panel.add
 		
 	
 	}

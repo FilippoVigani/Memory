@@ -236,6 +236,9 @@ public class ClientRunnable implements Runnable {
 					game.setPerformingAction(false);
 				}
 			}
+			if (game.isGameOver()){
+				notifyUpdate(RequestType.EndGame, game.getId());
+			}
 		}
 	}
 

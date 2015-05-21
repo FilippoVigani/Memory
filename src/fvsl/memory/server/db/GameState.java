@@ -21,8 +21,10 @@ public class GameState {
 	private volatile Hashtable<Player, Integer> guessStreak;
 
 	private Integer turnNumber;
+	private Integer totalCardsTurned;
 	private volatile Boolean isPerformingAction;
 	private volatile Boolean isStarted;
+	private volatile Boolean isGameOver;
 
 	private volatile Card[] turnedCards;
 	private volatile Card[] cardsToBeFolded;
@@ -32,8 +34,10 @@ public class GameState {
 	public GameState(Lobby lobby) {
 		setPerformingAction(false);
 		setStarted(false);
+		setGameOver(false);
 		this.id = lobby.getId();
 		turnNumber = 0;
+		totalCardsTurned = 0;
 		rng = new Random(System.nanoTime());
 		players = lobby.getConnectedPlayers();
 		score = new Hashtable<Player, Integer>();
@@ -64,9 +68,10 @@ public class GameState {
 	public Card turnCard(String cardId) {
 		Card card = getCardById(cardId);
 		card.setTurned(true);
-
+		totalCardsTurned++;
+		
 		System.out.println("GAME " + getId() + " - " + turnPlayer.getName() + " turned card " + cardId + "(" + card.getValue() + ")");
-
+		
 		if (turnedCards[0] == null) {
 			turnedCards[0] = card;
 		} else {
@@ -97,9 +102,11 @@ public class GameState {
 			guessStreak.put(turnPlayer, 0);
 			if (turnedCards[0] != null) {
 				turnedCards[0].setTurned(false);
+				totalCardsTurned--;
 			}
 			if (turnedCards[1] != null) {
 				turnedCards[1].setTurned(false);
+				totalCardsTurned--;
 			}
 		}
 
@@ -115,6 +122,15 @@ public class GameState {
 		synchronized (turnNumber) {
 			turnNumber = turnNumber + 1;
 		}
+		
+		if (totalCardsTurned == cards.size()){
+			endGame();
+		}
+	}
+	
+	public void endGame(){
+		setGameOver(true);
+		System.out.println("GAME " + getId() + " is over!");
 	}
 
 	public Integer getPlayerPoints(Player player) {
@@ -215,5 +231,19 @@ public class GameState {
 	 */
 	public synchronized void setStarted(Boolean isStarted) {
 		this.isStarted = isStarted;
+	}
+
+	/**
+	 * @return the isGameOver
+	 */
+	public synchronized Boolean isGameOver() {
+		return isGameOver;
+	}
+
+	/**
+	 * @param isGameOver the isGameOver to set
+	 */
+	public synchronized void setGameOver(Boolean isGameOver) {
+		this.isGameOver = isGameOver;
 	}
 }
