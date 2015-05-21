@@ -24,7 +24,7 @@ public class CreateLobbyPageModel {
 	private Integer[] possiblePairs = { 10, 15, 20 };
 
 	/** The possible timers. */
-	private Integer[] possibleTimers = { 5, 10, 15 };
+	private Integer[] possibleTimers = { 15, 10, 5 };
 
 	/**
 	 * Gets the lobby.
