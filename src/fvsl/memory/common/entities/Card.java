@@ -6,14 +6,22 @@ import java.io.Serializable;
 /**
  * The Class Card.
  */
+/**
+ * @author Filippo Vigani
+ *
+ */
 public class Card implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2830066687217678432L;
-	// Position ID
+	/**
+	 * The ID to identify the position and the card itself
+	 */
 	private String id;
-	// Figure value
+	/**
+	 * The value representing the figure to be displayed on the card once turned
+	 */
 	private String value;
 
 	private boolean isTurned;

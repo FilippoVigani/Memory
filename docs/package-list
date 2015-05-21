@@ -1,0 +1,14 @@
+fvsl.memory.client.pages
+fvsl.memory.client.pages.createlobby
+fvsl.memory.client.pages.game
+fvsl.memory.client.pages.lobby
+fvsl.memory.client.pages.main
+fvsl.memory.client.pages.scoreboard
+fvsl.memory.client.shell
+fvsl.memory.client.sockets
+fvsl.memory.common.entities
+fvsl.memory.common.settings
+fvsl.memory.common.util
+fvsl.memory.server.db
+fvsl.memory.server.sockets
+fvsl.memory.server.util

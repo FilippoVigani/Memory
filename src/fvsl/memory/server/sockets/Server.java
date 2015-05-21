@@ -18,7 +18,12 @@ import fvsl.memory.server.util.MessageConsole;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Server.
+ * A multithreaded server accepting sockets. 
+ * It also contains a text view that shows the output of the system.
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class Server extends JFrame implements Runnable {
 
@@ -72,8 +77,6 @@ public class Server extends JFrame implements Runnable {
 		setLocationRelativeTo(null);
 
 		JPanel middlePanel = new JPanel();
-		// middlePanel.setBorder ( new TitledBorder ( new EtchedBorder (),
-		// "Server console" ) );
 
 		add(middlePanel);
 
@@ -83,8 +86,6 @@ public class Server extends JFrame implements Runnable {
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		middlePanel.add(scroll);
 		scroll.setBounds(0, 0, 595, 372);
-		// scroll.setBorder(new TitledBorder ( new EtchedBorder (),
-		// "Server console" ));
 
 		MessageConsole mc = new MessageConsole(tArea);
 		mc.redirectOut(null, System.out);
@@ -110,7 +111,7 @@ public class Server extends JFrame implements Runnable {
 				if (serverPort == Settings.PORT) {
 					pool.execute(new ClientRunnable(serverSocket.accept(), StringResources.multyTS.toString(), serverData));
 				} else if (serverPort == Settings.UPDATE_PORT) {
-					ClientUpdaterRunnable updater = new ClientUpdaterRunnable(serverSocket.accept(), StringResources.upServ.toString(), serverData);
+					ClientUpdaterRunnable updater = new ClientUpdaterRunnable(serverSocket.accept(), StringResources.upServ.toString());
 					serverData.getClientUpdaters().add(updater);
 					pool.execute(updater);
 				}
@@ -121,20 +122,6 @@ public class Server extends JFrame implements Runnable {
 				}
 				throw new RuntimeException(StringResources.errorAcptCC.toString(), e);
 			}
-			/*
-			 * if (clientSocket == null){
-			 * System.out.println("Client socket is null"); } else {
-			 * System.out.println("New client on port " + serverPort); if
-			 * (this.serverPort == Global.PORT){ ClientRunnable runnable = new
-			 * ClientRunnable(clientSocket, "Multithreaded Server", serverData);
-			 * new Thread(runnable).start(); } else if (this.serverPort ==
-			 * Global.UPDATE_PORT){ ClientUpdaterRunnable runnable = new
-			 * ClientUpdaterRunnable(clientSocket, "Updater Server",
-			 * serverData); synchronized (serverData.getClientUpdaters()) {
-			 * serverData.getClientUpdaters().add(runnable); }
-			 * System.out.println("Client updater added."); new
-			 * Thread(runnable).start(); } }
-			 */
 		}
 		System.out.println(StringResources.sStop);
 	}
@@ -144,7 +131,7 @@ public class Server extends JFrame implements Runnable {
 	}
 
 	/**
-	 * Stop.
+	 * Closes the server socket.
 	 */
 	public synchronized void stop() {
 		this.isStopped = true;
@@ -155,6 +142,9 @@ public class Server extends JFrame implements Runnable {
 		}
 	}
 
+	/**
+	 * Opens a new server socket
+	 */
 	private void openServerSocket() {
 		try {
 			this.serverSocket = new ServerSocket(this.serverPort);

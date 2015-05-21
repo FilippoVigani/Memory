@@ -10,16 +10,26 @@ import fvsl.memory.common.util.Mapper;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class GameState.
+ * Data and methods representing the state of a game
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class GameState {
 
 	private Random rng;
 
+	/**
+	 * ID of the game (corresponding the one of the lobby)
+	 */
 	private String id;
 	private volatile Vector<Card> cards;
 	private volatile Vector<Player> players;
 	private volatile Hashtable<Player, Integer> score;
+	/**
+	 * Players get more point if they make right guesses in a row.
+	 */
 	private volatile Hashtable<Player, Integer> guessStreak;
 
 	private Integer turnNumber;
@@ -34,7 +44,7 @@ public class GameState {
 	private volatile Player turnPlayer;
 
 	/**
-	 * Instantiates a new game state.
+	 * Instantiates a new game state, shuffles the cards by providing a value for them, randomes the first player
 	 * 
 	 * @param lobby
 	 *            the lobby
@@ -74,7 +84,7 @@ public class GameState {
 
 	// returns the card value
 	/**
-	 * Turn card.
+	 * Turn a card. If two cards has been turned, ends the round (turn).
 	 * 
 	 * @param cardId
 	 *            the card id
@@ -114,7 +124,7 @@ public class GameState {
 	}
 
 	/**
-	 * End turn.
+	 * Ends the turn. If the turned cards have same value the score is updated. Otherwise change the turn of the player.
 	 */
 	public void endTurn() {
 		boolean playerWonTurn = turnedCards[0] != null && turnedCards[1] != null && turnedCards[0].getValue().equals(turnedCards[1].getValue());
@@ -154,7 +164,7 @@ public class GameState {
 	}
 
 	/**
-	 * End game.
+	 * Ends the game by setting a flag.
 	 */
 	public void endGame() {
 		setGameOver(true);
@@ -182,7 +192,7 @@ public class GameState {
 	}
 
 	/**
-	 * Kick player.
+	 * Kicks a player from the game.
 	 * 
 	 * @param player
 	 *            the player

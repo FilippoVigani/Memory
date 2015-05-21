@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Request.
+ * The Class Request representing a general two-way request, whose content can be various
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class Request implements Serializable {
 
@@ -60,43 +64,50 @@ public class Request implements Serializable {
 	 */
 	public enum RequestType {
 
-		/** The Get lobbies. */
+		/** Gets all the lobbies. */
 		GetLobbies,
-		/** The Join lobby. */
+		/** Join a specific lobby. */
 		JoinLobby,
-		/** The Create lobby. */
+		/** Create a new lobby. */
 		CreateLobby,
-		/** The Delete lobby. */
+		/** Delete an existing lobby. */
 		DeleteLobby,
-		/** The Get possible players numbers. */
+		/** Get possible players numbers. */
 		GetPossiblePlayersNumbers,
-		/** The Get possible pairs numbers. */
+		/** Get possible pairs numbers. */
 		GetPossiblePairsNumbers,
-		/** The Get possible timer numbers. */
+		/** Get possible timer numbers. */
 		GetPossibleTimerNumbers,
-		/** The Get connected players. */
+		/** Get the connected players to a lobby. */
 		GetConnectedPlayers,
-		/** The Set player status ready. */
+		/** Set player status to ready in a lobby. */
 		SetPlayerStatusReady,
-		/** The Leave lobby. */
+		/** Leave lobby. */
 		LeaveLobby,
 
-		/** The Update lobby list. */
-		UpdateLobbyList, /** The Update players list. */
-		UpdatePlayersList, /** The Deleted lobby. */
+		/** The lobby list has been changed. */
+		UpdateLobbyList, 
+		/** The players list has been changed. */
+		UpdatePlayersList, 
+		/** A lobby has been deleted. */
 		DeletedLobby,
 
-		/** The Setup game. */
-		SetupGame, /** The Start game. */
-		StartGame, /** The Get cards ids. */
-		GetCardsIds, /** The Get turn player. */
-		GetTurnPlayer, /** The Game request. */
-		GameRequest, /** The End game. */
+		/** Setup a game. */
+		SetupGame, 
+		/** Start a game. */
+		StartGame, 
+		/** Get all cards ids. */
+		GetCardsIds, 
+		/** Get the player that can move. */
+		GetTurnPlayer, 
+		/** States that it contains a game request. */
+		GameRequest, 
+		/** Game is over. */
 		EndGame
 	}
 
 	/**
-	 * The Enum RequestAction.
+	 * Direction of the request.
 	 */
 	public enum RequestAction {
 
@@ -107,54 +118,54 @@ public class Request implements Serializable {
 	}
 
 	/**
-	 * The Enum LobbyJoiningResult.
+	 * Result after joining a lobby.
 	 */
 	public enum LobbyJoiningResult {
 
-		/** The Failed. */
+		/** Failed. */
 		Failed,
-		/** The Accepted. */
+		/** Accepted. */
 		Accepted,
-		/** The Wrong password. */
+		/** Wrong password. */
 		WrongPassword,
-		/** The Full lobby. */
+		/** Full lobby. */
 		FullLobby,
-		/** The Unaccepted username. */
+		/** Unaccepted username. */
 		UnacceptedUsername,
-		/** The Not found. */
+		/** Not found. */
 		NotFound
 	}
 
 	/**
-	 * The Enum LobbyLeavingResult.
+	 * Result after leaving a lobby.
 	 */
 	public enum LobbyLeavingResult {
 
-		/** The Accepted. */
+		/** Accepted. */
 		Accepted,
-		/** The Failed. */
+		/** Failed. */
 		Failed
 	}
 
 	/**
-	 * The Enum LobbyCreationResult.
+	 * Result after creating a lobby.
 	 */
 	public enum LobbyCreationResult {
 
-		/** The Failed. */
+		/** Failed. */
 		Failed,
-		/** The Accepted. */
+		/** Accepted. */
 		Accepted
 	}
 
 	/**
-	 * The Enum StatusChangeResult.
+	 * Result after changing the status of a player.
 	 */
 	public enum StatusChangeResult {
 
-		/** The Accepted. */
+		/** Accepted. */
 		Accepted,
-		/** The Failed. */
+		/** Failed. */
 		Failed
 	}
 

@@ -18,7 +18,19 @@ import javax.swing.text.*;
  *  You can limit the number of lines to hold in the Document.
  */
 /**
- * The Class MessageConsole.
+ *  Create a simple console to display text messages.
+ *
+ *  Messages can be directed here from different sources. Each source can
+ *  have its messages displayed in a different color.
+ *
+ *  Messages can either be appended to the console or inserted as the first
+ *  line of the console
+ *
+ *  You can limit the number of lines to hold in the Document.
+ */
+/**
+ * @author Rob Camick
+ *
  */
 public class MessageConsole {
 	private JTextComponent textComponent;
@@ -36,15 +48,12 @@ public class MessageConsole {
 		this(textComponent, true);
 	}
 
-	/*
+	/**
 	 * Use the text component specified as a simply console to display text
 	 * messages.
 	 * 
 	 * The messages can either be appended to the end of the console or inserted
 	 * as the first line of the console.
-	 */
-	/**
-	 * Instantiates a new message console.
 	 * 
 	 * @param textComponent
 	 *            the text component
@@ -58,25 +67,19 @@ public class MessageConsole {
 		textComponent.setEditable(false);
 	}
 
-	/*
+	/**
 	 * Redirect the output from the standard output to the console using the
 	 * default text color and null PrintStream
-	 */
-	/**
-	 * Redirect out.
 	 */
 	public void redirectOut() {
 		redirectOut(null, null);
 	}
 
-	/*
+	/**
 	 * Redirect the output from the standard output to the console using the
 	 * specified color and PrintStream. When a PrintStream is specified the
 	 * message will be added to the Document before it is also written to the
 	 * PrintStream.
-	 */
-	/**
-	 * Redirect out.
 	 * 
 	 * @param textColor
 	 *            the text color
@@ -88,25 +91,19 @@ public class MessageConsole {
 		System.setOut(new PrintStream(cos, true));
 	}
 
-	/*
+	/**
 	 * Redirect the output from the standard error to the console using the
 	 * default text color and null PrintStream
-	 */
-	/**
-	 * Redirect err.
 	 */
 	public void redirectErr() {
 		redirectErr(null, null);
 	}
 
-	/*
+	/**
 	 * Redirect the output from the standard error to the console using the
 	 * specified color and PrintStream. When a PrintStream is specified the
 	 * message will be added to the Document before it is also written to the
 	 * PrintStream.
-	 */
-	/**
-	 * Redirect err.
 	 * 
 	 * @param textColor
 	 *            the text color
@@ -118,15 +115,13 @@ public class MessageConsole {
 		System.setErr(new PrintStream(cos, true));
 	}
 
-	/*
+	/**
 	 * To prevent memory from being used up you can control the number of lines
 	 * to display in the console
 	 * 
 	 * This number can be dynamically changed, but the console will only be
 	 * updated the next time the Document is updated.
-	 */
-	/**
-	 * Sets the message lines.
+	 * 
 	 * 
 	 * @param lines
 	 *            the new message lines
@@ -139,14 +134,12 @@ public class MessageConsole {
 		document.addDocumentListener(limitLinesListener);
 	}
 
-	/*
+	/**
 	 * Class to intercept output from a PrintStream and add it to a Document.
 	 * The output can optionally be redirected to a different PrintStream. The
 	 * text displayed in the Document can be color coded to indicate the output
 	 * source.
-	 */
-	/**
-	 * The Class ConsoleOutputStream.
+	 *
 	 */
 	class ConsoleOutputStream extends ByteArrayOutputStream {
 		private final String EOL = System.getProperty("line.separator");
@@ -155,11 +148,8 @@ public class MessageConsole {
 		private StringBuffer buffer = new StringBuffer(80);
 		private boolean isFirstLine;
 
-		/*
-		 * Specify the option text color and PrintStream
-		 */
 		/**
-		 * Instantiates a new console output stream.
+		 * Specify the option text color and PrintStream
 		 * 
 		 * @param textColor
 		 *            the text color
@@ -178,7 +168,7 @@ public class MessageConsole {
 				isFirstLine = true;
 		}
 
-		/*
+		/**
 		 * Override this method to intercept the output text. Each line of text
 		 * output will actually involve invoking this method twice:
 		 * 
@@ -207,7 +197,7 @@ public class MessageConsole {
 			reset();
 		}
 
-		/*
+		/**
 		 * We don't want to have blank lines in the Document. The first line
 		 * added will simply be the message. For additional lines it will be:
 		 * 
@@ -230,7 +220,7 @@ public class MessageConsole {
 
 		}
 
-		/*
+		/**
 		 * We don't want to merge the new message with the existing message so
 		 * the line will be inserted as:
 		 * 
@@ -244,7 +234,7 @@ public class MessageConsole {
 			}
 		}
 
-		/*
+		/**
 		 * The message and the newLine have been added to the buffer in the
 		 * appropriate order so we can now update the Document and send the text
 		 * to the optional PrintStream.

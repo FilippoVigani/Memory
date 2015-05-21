@@ -7,7 +7,11 @@ import fvsl.memory.server.sockets.ClientUpdaterRunnable;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ServerData.
+ * Holds all the data of the server, and provides it in a synchronized manner
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class ServerData {
 

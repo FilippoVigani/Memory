@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Mapper.
+ * Creates a map between the card ids and the available files (resources) representing the cards
  */
 public class Mapper {
 	private HashMap<String, String> cardsMap;

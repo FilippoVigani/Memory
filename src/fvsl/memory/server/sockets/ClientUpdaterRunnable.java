@@ -13,7 +13,13 @@ import fvsl.memory.server.db.ServerData;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ClientUpdaterRunnable.
+ * Represents the connection to a client's secondary thread GUIUpdaterRunnable running on its own thread.
+ * Handles the requests he receives from ClientRunnable and forwards them to the clients
+ * by polling them from a queue
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class ClientUpdaterRunnable implements Runnable {
 
@@ -22,8 +28,6 @@ public class ClientUpdaterRunnable implements Runnable {
 	protected ObjectOutputStream streamToClient = null;
 	protected ObjectInputStream streamFromClient = null;
 	protected boolean isStopped;
-
-	protected volatile ServerData serverData;
 
 	protected volatile Vector<Request> requests;
 
@@ -34,13 +38,10 @@ public class ClientUpdaterRunnable implements Runnable {
 	 *            the client socket
 	 * @param serverText
 	 *            the server text
-	 * @param serverData
-	 *            the server data
 	 */
-	public ClientUpdaterRunnable(Socket clientSocket, String serverText, ServerData serverData) {
+	public ClientUpdaterRunnable(Socket clientSocket, String serverText) {
 		this.clientSocket = clientSocket;
 		this.serverText = serverText;
-		this.serverData = serverData;
 		requests = new Vector<Request>();
 	}
 

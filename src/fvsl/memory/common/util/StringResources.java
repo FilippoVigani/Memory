@@ -2,7 +2,11 @@ package fvsl.memory.common.util;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Enum StringResources.
+ * Contains all the strings of the application
+ */
+/**
+ * @author Stefano Leggio
+ *
  */
 public enum StringResources {
 	// ClientRunnable

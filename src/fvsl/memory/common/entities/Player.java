@@ -4,16 +4,21 @@ import java.io.Serializable;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Player.
+ * The Class Player representing a player that can be in a lobby or in a game, identified by the name
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class Player implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -6587194458690535519L;
 	private String name;
 	private boolean ready;
-	private Integer score; // Used by client only
+	/**
+	 * Used only by the client
+	 */
+	private Integer score; 
 
 	/**
 	 * Instantiates a new player.

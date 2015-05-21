@@ -5,7 +5,11 @@ import java.util.Vector;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Lobby.
+ * Represents a lobby where players can connect or disconnect, holds data about the game settings
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class Lobby implements Serializable {
 

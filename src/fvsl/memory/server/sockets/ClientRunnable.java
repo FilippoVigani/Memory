@@ -27,7 +27,13 @@ import fvsl.memory.server.db.ServerData;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class ClientRunnable.
+ * Represents the connection to a client running on its own thread.
+ * Handles the requests he receives from clients, manipulates an instance of ServerData,
+ * notifies all ClientUpdaterRunnable in case it's needed
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class ClientRunnable implements Runnable {
 
@@ -151,6 +157,10 @@ public class ClientRunnable implements Runnable {
 		}
 	}
 
+	/**
+	 * Handles the requests concerning a game
+	 * @param request
+	 */
 	private void gameRequest(GameRequest request) {
 
 		GameState game = serverData.getGameById(request.getId());
@@ -273,6 +283,9 @@ public class ClientRunnable implements Runnable {
 		}
 	}
 
+	/**
+	 * Closes socket and streams.
+	 */
 	private void clean() {
 		try {
 			streamFromClient.close();
@@ -284,6 +297,11 @@ public class ClientRunnable implements Runnable {
 		}
 	}
 
+	/**
+	 * Gets all the lobbies from serverData
+	 * @param request The request
+	 * @return A request to be forwarded to the client
+	 */
 	private Request getLobbies(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		synchronized (serverData.getLobbies()) {
@@ -293,6 +311,11 @@ public class ClientRunnable implements Runnable {
 		return reply;
 	}
 
+	/**
+	 * Joins a lobby
+	 * @param request The request
+	 * @return A request to be forwarded to the client
+	 */
 	private Request joinLobby(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		ArrayList<Object> contents = request.getCastedContent();
@@ -324,6 +347,11 @@ public class ClientRunnable implements Runnable {
 		return reply;
 	}
 
+	/**
+	 * Creates a new lobby.
+	 * @param request The request
+	 * @return A request to be forwarded to the client
+	 */
 	private Request createLobby(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		ArrayList<Object> contents = request.getCastedContent();
@@ -352,6 +380,11 @@ public class ClientRunnable implements Runnable {
 		return reply;
 	}
 
+	/**
+	 * Gets all the connected players in a lobby
+	 * @param request The request
+	 * @return A request to be forwarded to the client
+	 */
 	private Request getConnectedPlayers(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 
@@ -369,6 +402,11 @@ public class ClientRunnable implements Runnable {
 		return reply;
 	}
 
+	/**
+	 * Sets the status of the player
+	 * @param request The request
+	 * @return A request to be forwarded to the client
+	 */
 	private Request setPlayerStatusReady(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		reply.setContent(StatusChangeResult.Failed);
@@ -390,6 +428,11 @@ public class ClientRunnable implements Runnable {
 		return reply;
 	}
 
+	/**
+	 * Starts a new game, creating a GameState and storing it in ServerData
+	 * @param request The request
+	 * @return A request to be forwarded to the client
+	 */
 	private void startGame(Lobby lobby) {
 		synchronized (serverData.getGames()) {
 			serverData.getGames().add(new GameState(lobby));
@@ -420,6 +463,11 @@ public class ClientRunnable implements Runnable {
 
 	}
 
+	/**
+	 * Checks if all the players in a lobby are ready to start the game
+	 * @param request The request
+	 * @return A request to be forwarded to the client
+	 */
 	private boolean checkIfAllAreReady(Lobby lobby) {
 		boolean allReady = lobby.getNumberOfPlayers() == lobby.getConnectedPlayers().size();
 		for (int i = 0; allReady && i < lobby.getConnectedPlayers().size(); i++) {
@@ -428,6 +476,11 @@ public class ClientRunnable implements Runnable {
 		return allReady;
 	}
 
+	/**
+	 * Allows a player to leave a lobby.
+	 * @param request The request
+	 * @return A request to be forwarded to the client
+	 */
 	private Request leaveLobby(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		reply.setContent(LobbyLeavingResult.Failed);
@@ -459,6 +512,11 @@ public class ClientRunnable implements Runnable {
 		return reply;
 	}
 
+	/**
+	 * Gets all the card ids
+	 * @param request The request
+	 * @return A request to be forwarded to the client
+	 */
 	private Request getCardsIds(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		reply.setRequestType(RequestType.GetCardsIds);
@@ -475,6 +533,11 @@ public class ClientRunnable implements Runnable {
 		return reply;
 	}
 
+	/**
+	 * Gets the information of the player whose turn is to move
+	 * @param request The request
+	 * @return A request to be forwarded to the client
+	 */
 	private Request getTurnPlayer(Request request) {
 		Request reply = new Request(RequestAction.Reply);
 		reply.setRequestType(RequestType.GetTurnPlayer);
@@ -490,6 +553,11 @@ public class ClientRunnable implements Runnable {
 		notifyUpdate(requestType, null);
 	}
 
+	/**
+	 * Notifies all ClientUpdaterRunnable to send a request to all the clients
+	 * @param requestType The type of the request
+	 * @param content The content of the request
+	 */
 	private void notifyUpdate(RequestType requestType, Object content) {
 		for (ClientUpdaterRunnable runnable : serverData.getClientUpdaters()) {
 			if (runnable == null) {

@@ -5,7 +5,7 @@ import javax.swing.event.*;
 import javax.swing.text.*;
 
 // TODO: Auto-generated Javadoc
-/*
+/**
  *  A class to control the maximum number of lines to be stored in a Document
  *
  *  Excess lines can be removed from the start or end of the Document
@@ -27,16 +27,17 @@ import javax.swing.text.*;
  * 
  * @see LimitLinesDocumentEvent
  */
+/**
+ * @author Rob Camick
+ *
+ */
 public class LimitLinesDocumentListener implements DocumentListener {
 	private int maximumLines;
 	private boolean isRemoveFromStart;
 
-	/*
+	/**
 	 * Specify the number of lines to be stored in the Document. Extra lines
 	 * will be removed from the start of the Document.
-	 */
-	/**
-	 * Instantiates a new limit lines document listener.
 	 * 
 	 * @param maximumLines
 	 *            the maximum lines
@@ -45,13 +46,10 @@ public class LimitLinesDocumentListener implements DocumentListener {
 		this(maximumLines, true);
 	}
 
-	/*
+	/**
 	 * Specify the number of lines to be stored in the Document. Extra lines
 	 * will be removed from the start or end of the Document, depending on the
 	 * boolean value specified.
-	 */
-	/**
-	 * Instantiates a new limit lines document listener.
 	 * 
 	 * @param maximumLines
 	 *            the maximum lines
@@ -63,10 +61,8 @@ public class LimitLinesDocumentListener implements DocumentListener {
 		this.isRemoveFromStart = isRemoveFromStart;
 	}
 
-	/*
-	 * Return the maximum number of lines to be stored in the Document
-	 */
 	/**
+	 * Return the maximum number of lines to be stored in the Document
 	 * Gets the limit lines.
 	 * 
 	 * @return the limit lines
@@ -75,10 +71,9 @@ public class LimitLinesDocumentListener implements DocumentListener {
 		return maximumLines;
 	}
 
-	/*
-	 * Set the maximum number of lines to be stored in the Document
-	 */
 	/**
+	 * Set the maximum number of lines to be stored in the Document
+	 * 
 	 * Sets the limit lines.
 	 * 
 	 * @param maximumLines
@@ -134,7 +129,7 @@ public class LimitLinesDocumentListener implements DocumentListener {
 	public void changedUpdate(DocumentEvent e) {
 	}
 
-	/*
+	/**
 	 * Remove lines from the Document when necessary
 	 */
 	private void removeLines(DocumentEvent e) {
@@ -153,7 +148,7 @@ public class LimitLinesDocumentListener implements DocumentListener {
 		}
 	}
 
-	/*
+	/**
 	 * Remove lines from the start of the Document
 	 */
 	private void removeFromStart(Document document, Element root) {
@@ -167,7 +162,7 @@ public class LimitLinesDocumentListener implements DocumentListener {
 		}
 	}
 
-	/*
+	/**
 	 * Remove lines from the end of the Document
 	 */
 	private void removeFromEnd(Document document, Element root) {

@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class GameRequest.
+ * The Class GameRequest. Represents a two-way request within the context of a game
+ */
+/**
+ * @author Filippo Vigani
+ *
  */
 public class GameRequest implements Serializable {
 
@@ -13,6 +17,9 @@ public class GameRequest implements Serializable {
 	 */
 	private static final long serialVersionUID = 5323430997124137633L;
 
+	/**
+	 * Id of the game (or lobby)
+	 */
 	private String id;
 	private Player player;
 	private Player nextPlayer;
@@ -21,21 +28,21 @@ public class GameRequest implements Serializable {
 	private GameRequestAction action;
 
 	/**
-	 * The Enum GameRequestAction.
+	 * The Action representing the request
 	 */
 	public enum GameRequestAction {
 
-		/** The Turn card. */
+		/** A card has been turned. */
 		TurnCard,
-		/** The Lose player turn. */
+		/** A player lost the turn. */
 		LosePlayerTurn,
-		/** The Win player turn. */
+		/** A player won the turn. */
 		WinPlayerTurn,
-		/** The Fold card. */
+		/** A card has to be folded. */
 		FoldCard,
-		/** The Player turn timeout. */
+		/** A player didn't turn two cards in time. */
 		PlayerTurnTimeout,
-		/** The Player leave game. */
+		/** A player should leave the game. */
 		PlayerLeaveGame
 	}
 
