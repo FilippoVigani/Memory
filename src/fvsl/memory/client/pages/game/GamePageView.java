@@ -265,14 +265,14 @@ public class GamePageView extends Page {
 				numberOfCardsTurnedInThisRound = 0;
 				Player nextPlayer = gameRequest.getNextPlayer();
 				Integer playerPoints = gameRequest.getPlayerPoints();
-				model.getTurnPlayer().setScore(playerPoints);
+				model.getLobby().getConnectedPlayerByName(gameRequest.getPlayer().getName()).setScore(playerPoints);
 				model.setTurnPlayer(model.getLobby().getConnectedPlayerByName(nextPlayer.getName()));
 				refreshTable();
 				refreshTimer();
 			} else if (gameRequest.getAction() == GameRequestAction.WinPlayerTurn) {
 				numberOfCardsTurnedInThisRound = 0;
 				Integer playerPoints = gameRequest.getPlayerPoints();
-				model.getTurnPlayer().setScore(playerPoints);
+				model.getLobby().getConnectedPlayerByName(gameRequest.getPlayer().getName()).setScore(playerPoints);
 				refreshTable();
 				refreshTimer();
 			} else if (gameRequest.getAction() == GameRequestAction.PlayerLeaveGame){
