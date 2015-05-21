@@ -43,8 +43,9 @@ public class GamePageView extends Page {
 
 	/**
 	 * Instantiates a new game page view.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 */
 	public GamePageView(Lobby lobby) {
 		super(lobby);
@@ -261,8 +262,9 @@ public class GamePageView extends Page {
 
 	/**
 	 * Respond to game request.
-	 *
-	 * @param gameRequest the game request
+	 * 
+	 * @param gameRequest
+	 *            the game request
 	 */
 	public void respondToGameRequest(GameRequest gameRequest) {
 		if (gameRequest.getId().equals(model.getLobby().getId())) {
@@ -299,8 +301,9 @@ public class GamePageView extends Page {
 
 	/**
 	 * Start game.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 */
 	public void startGame(Lobby lobby) {
 		if (lobby.getId().equals(model.getLobby().getId())) {
@@ -310,8 +313,9 @@ public class GamePageView extends Page {
 
 	/**
 	 * End game.
-	 *
-	 * @param id the id
+	 * 
+	 * @param id
+	 *            the id
 	 */
 	public void endGame(String id) {
 		if (id.equals(model.getLobby().getId())) {
@@ -389,7 +393,7 @@ public class GamePageView extends Page {
 
 	/**
 	 * Gets the controller.
-	 *
+	 * 
 	 * @return the controller
 	 */
 	public GamePageController getController() {
@@ -398,8 +402,9 @@ public class GamePageView extends Page {
 
 	/**
 	 * Sets the controller.
-	 *
-	 * @param controller the new controller
+	 * 
+	 * @param controller
+	 *            the new controller
 	 */
 	public void setController(GamePageController controller) {
 		this.controller = controller;

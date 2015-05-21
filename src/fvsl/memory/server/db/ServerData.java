@@ -26,7 +26,7 @@ public class ServerData {
 
 	/**
 	 * Gets the lobbies.
-	 *
+	 * 
 	 * @return the lobbies
 	 */
 	public Vector<Lobby> getLobbies() {
@@ -35,8 +35,9 @@ public class ServerData {
 
 	/**
 	 * Sets the lobbies.
-	 *
-	 * @param lobbies the new lobbies
+	 * 
+	 * @param lobbies
+	 *            the new lobbies
 	 */
 	public synchronized void setLobbies(Vector<Lobby> lobbies) {
 		this.lobbies = lobbies;
@@ -44,8 +45,9 @@ public class ServerData {
 
 	/**
 	 * Gets the lobby by id.
-	 *
-	 * @param id the id
+	 * 
+	 * @param id
+	 *            the id
 	 * @return the lobby by id
 	 */
 	public Lobby getLobbyById(String id) {
@@ -59,8 +61,9 @@ public class ServerData {
 
 	/**
 	 * Gets the game by id.
-	 *
-	 * @param id the id
+	 * 
+	 * @param id
+	 *            the id
 	 * @return the game by id
 	 */
 	public GameState getGameById(String id) {
@@ -74,7 +77,7 @@ public class ServerData {
 
 	/**
 	 * Gets the client updaters.
-	 *
+	 * 
 	 * @return the client updaters
 	 */
 	public Vector<ClientUpdaterRunnable> getClientUpdaters() {
@@ -83,8 +86,9 @@ public class ServerData {
 
 	/**
 	 * Sets the client updaters.
-	 *
-	 * @param clientUpdaters the new client updaters
+	 * 
+	 * @param clientUpdaters
+	 *            the new client updaters
 	 */
 	public synchronized void setClientUpdaters(Vector<ClientUpdaterRunnable> clientUpdaters) {
 		this.clientUpdaters = clientUpdaters;
@@ -92,7 +96,7 @@ public class ServerData {
 
 	/**
 	 * Gets the games.
-	 *
+	 * 
 	 * @return the games
 	 */
 	public Vector<GameState> getGames() {
@@ -101,8 +105,9 @@ public class ServerData {
 
 	/**
 	 * Sets the games.
-	 *
-	 * @param games the new games
+	 * 
+	 * @param games
+	 *            the new games
 	 */
 	public void setGames(Vector<GameState> games) {
 		this.games = games;

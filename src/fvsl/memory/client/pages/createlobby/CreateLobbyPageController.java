@@ -18,9 +18,11 @@ public class CreateLobbyPageController extends PageListeners {
 
 	/**
 	 * Attempt to create lobby.
-	 *
-	 * @param lobby the lobby
-	 * @param password the password
+	 * 
+	 * @param lobby
+	 *            the lobby
+	 * @param password
+	 *            the password
 	 * @return the lobby creation result
 	 */
 	public LobbyCreationResult attemptToCreateLobby(Lobby lobby, String password) {

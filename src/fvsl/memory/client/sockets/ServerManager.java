@@ -33,7 +33,7 @@ public class ServerManager {
 	private static final int PORT = 17829;
 	private ObjectInputStream streamFromServer;
 	private ObjectOutputStream streamToServer;
-	
+
 	/** The socket. */
 	Socket socket = null;
 
@@ -90,11 +90,15 @@ public class ServerManager {
 
 	/**
 	 * Request to turn card.
-	 *
-	 * @param player the player
-	 * @param gameId the game id
-	 * @param card the card
-	 * @throws Exception the exception
+	 * 
+	 * @param player
+	 *            the player
+	 * @param gameId
+	 *            the game id
+	 * @param card
+	 *            the card
+	 * @throws Exception
+	 *             the exception
 	 */
 	public void requestToTurnCard(Player player, String gameId, Card card) throws Exception {
 		connect();
@@ -113,10 +117,12 @@ public class ServerManager {
 
 	/**
 	 * Request lobbies.
-	 *
-	 * @param player the player
+	 * 
+	 * @param player
+	 *            the player
 	 * @return the vector
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public Vector<Lobby> requestLobbies(Player player) throws Exception {
 		connect();
@@ -147,12 +153,16 @@ public class ServerManager {
 
 	/**
 	 * Request join lobby.
-	 *
-	 * @param player the player
-	 * @param lobby the lobby
-	 * @param password the password
+	 * 
+	 * @param player
+	 *            the player
+	 * @param lobby
+	 *            the lobby
+	 * @param password
+	 *            the password
 	 * @return the lobby joining result
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public LobbyJoiningResult requestJoinLobby(Player player, Lobby lobby, String password) throws Exception {
 		connect();
@@ -184,11 +194,14 @@ public class ServerManager {
 
 	/**
 	 * Request leave lobby.
-	 *
-	 * @param player the player
-	 * @param lobby the lobby
+	 * 
+	 * @param player
+	 *            the player
+	 * @param lobby
+	 *            the lobby
 	 * @return the lobby leaving result
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public LobbyLeavingResult requestLeaveLobby(Player player, Lobby lobby) throws Exception {
 		connect();
@@ -216,12 +229,16 @@ public class ServerManager {
 
 	/**
 	 * Request create lobby.
-	 *
-	 * @param player the player
-	 * @param lobby the lobby
-	 * @param password the password
+	 * 
+	 * @param player
+	 *            the player
+	 * @param lobby
+	 *            the lobby
+	 * @param password
+	 *            the password
 	 * @return the lobby creation result
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public LobbyCreationResult requestCreateLobby(Player player, Lobby lobby, String password) throws Exception {
 		connect();
@@ -256,11 +273,14 @@ public class ServerManager {
 
 	/**
 	 * Request connected players.
-	 *
-	 * @param player the player
-	 * @param lobby the lobby
+	 * 
+	 * @param player
+	 *            the player
+	 * @param lobby
+	 *            the lobby
 	 * @return the vector
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public Vector<Player> requestConnectedPlayers(Player player, Lobby lobby) throws Exception {
 		connect();
@@ -288,9 +308,11 @@ public class ServerManager {
 
 	/**
 	 * Request set status ready.
-	 *
-	 * @param player the player
-	 * @param lobby the lobby
+	 * 
+	 * @param player
+	 *            the player
+	 * @param lobby
+	 *            the lobby
 	 * @return the status change result
 	 */
 	public StatusChangeResult requestSetStatusReady(Player player, Lobby lobby) {
@@ -319,9 +341,11 @@ public class ServerManager {
 
 	/**
 	 * Request cards ids.
-	 *
-	 * @param player the player
-	 * @param gameId the game id
+	 * 
+	 * @param player
+	 *            the player
+	 * @param gameId
+	 *            the game id
 	 * @return the vector
 	 */
 	public Vector<String> requestCardsIds(Player player, String gameId) {
@@ -353,9 +377,11 @@ public class ServerManager {
 
 	/**
 	 * Request turn player.
-	 *
-	 * @param player the player
-	 * @param gameId the game id
+	 * 
+	 * @param player
+	 *            the player
+	 * @param gameId
+	 *            the game id
 	 * @return the player
 	 */
 	public Player requestTurnPlayer(Player player, String gameId) {
@@ -383,9 +409,11 @@ public class ServerManager {
 
 	/**
 	 * Request turn timeout.
-	 *
-	 * @param player the player
-	 * @param gameId the game id
+	 * 
+	 * @param player
+	 *            the player
+	 * @param gameId
+	 *            the game id
 	 */
 	public void requestTurnTimeout(Player player, String gameId) {
 		connect();
@@ -404,9 +432,11 @@ public class ServerManager {
 
 	/**
 	 * Request to leave game.
-	 *
-	 * @param player the player
-	 * @param gameId the game id
+	 * 
+	 * @param player
+	 *            the player
+	 * @param gameId
+	 *            the game id
 	 */
 	public void requestToLeaveGame(Player player, String gameId) {
 		connect();

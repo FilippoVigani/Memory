@@ -28,8 +28,9 @@ public class MessageConsole {
 
 	/**
 	 * Instantiates a new message console.
-	 *
-	 * @param textComponent the text component
+	 * 
+	 * @param textComponent
+	 *            the text component
 	 */
 	public MessageConsole(JTextComponent textComponent) {
 		this(textComponent, true);
@@ -44,9 +45,11 @@ public class MessageConsole {
 	 */
 	/**
 	 * Instantiates a new message console.
-	 *
-	 * @param textComponent the text component
-	 * @param isAppend the is append
+	 * 
+	 * @param textComponent
+	 *            the text component
+	 * @param isAppend
+	 *            the is append
 	 */
 	public MessageConsole(JTextComponent textComponent, boolean isAppend) {
 		this.textComponent = textComponent;
@@ -74,9 +77,11 @@ public class MessageConsole {
 	 */
 	/**
 	 * Redirect out.
-	 *
-	 * @param textColor the text color
-	 * @param printStream the print stream
+	 * 
+	 * @param textColor
+	 *            the text color
+	 * @param printStream
+	 *            the print stream
 	 */
 	public void redirectOut(Color textColor, PrintStream printStream) {
 		ConsoleOutputStream cos = new ConsoleOutputStream(textColor, printStream);
@@ -102,9 +107,11 @@ public class MessageConsole {
 	 */
 	/**
 	 * Redirect err.
-	 *
-	 * @param textColor the text color
-	 * @param printStream the print stream
+	 * 
+	 * @param textColor
+	 *            the text color
+	 * @param printStream
+	 *            the print stream
 	 */
 	public void redirectErr(Color textColor, PrintStream printStream) {
 		ConsoleOutputStream cos = new ConsoleOutputStream(textColor, printStream);
@@ -120,8 +127,9 @@ public class MessageConsole {
 	 */
 	/**
 	 * Sets the message lines.
-	 *
-	 * @param lines the new message lines
+	 * 
+	 * @param lines
+	 *            the new message lines
 	 */
 	public void setMessageLines(int lines) {
 		if (limitLinesListener != null)
@@ -152,9 +160,11 @@ public class MessageConsole {
 		 */
 		/**
 		 * Instantiates a new console output stream.
-		 *
-		 * @param textColor the text color
-		 * @param printStream the print stream
+		 * 
+		 * @param textColor
+		 *            the text color
+		 * @param printStream
+		 *            the print stream
 		 */
 		public ConsoleOutputStream(Color textColor, PrintStream printStream) {
 			if (textColor != null) {
@@ -177,7 +187,9 @@ public class MessageConsole {
 		 * The message will be treated differently depending on whether the line
 		 * will be appended or inserted into the Document
 		 */
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see java.io.OutputStream#flush()
 		 */
 		@Override

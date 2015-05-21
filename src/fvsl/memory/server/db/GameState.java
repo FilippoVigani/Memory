@@ -35,8 +35,9 @@ public class GameState {
 
 	/**
 	 * Instantiates a new game state.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 */
 	public GameState(Lobby lobby) {
 		setPerformingAction(false);
@@ -74,8 +75,9 @@ public class GameState {
 	// returns the card value
 	/**
 	 * Turn card.
-	 *
-	 * @param cardId the card id
+	 * 
+	 * @param cardId
+	 *            the card id
 	 * @return the card
 	 */
 	public Card turnCard(String cardId) {
@@ -97,8 +99,9 @@ public class GameState {
 
 	/**
 	 * Gets the card by id.
-	 *
-	 * @param cardId the card id
+	 * 
+	 * @param cardId
+	 *            the card id
 	 * @return the card by id
 	 */
 	public Card getCardById(String cardId) {
@@ -160,8 +163,9 @@ public class GameState {
 
 	/**
 	 * Gets the player points.
-	 *
-	 * @param player the player
+	 * 
+	 * @param player
+	 *            the player
 	 * @return the player points
 	 */
 	public Integer getPlayerPoints(Player player) {
@@ -179,8 +183,9 @@ public class GameState {
 
 	/**
 	 * Kick player.
-	 *
-	 * @param player the player
+	 * 
+	 * @param player
+	 *            the player
 	 */
 	public void kickPlayer(Player player) {
 		players.remove(getPlayerByName(player.getName()));
@@ -191,7 +196,7 @@ public class GameState {
 
 	/**
 	 * Gets the cards.
-	 *
+	 * 
 	 * @return the cards
 	 */
 	public Vector<Card> getCards() {
@@ -200,7 +205,7 @@ public class GameState {
 
 	/**
 	 * Gets the players.
-	 *
+	 * 
 	 * @return the players
 	 */
 	public Vector<Player> getPlayers() {
@@ -209,7 +214,7 @@ public class GameState {
 
 	/**
 	 * Gets the turn player.
-	 *
+	 * 
 	 * @return the turn player
 	 */
 	public Player getTurnPlayer() {
@@ -218,8 +223,9 @@ public class GameState {
 
 	/**
 	 * Sets the turn player.
-	 *
-	 * @param turnPlayer the new turn player
+	 * 
+	 * @param turnPlayer
+	 *            the new turn player
 	 */
 	public void setTurnPlayer(Player turnPlayer) {
 		this.turnPlayer = turnPlayer;
@@ -227,7 +233,7 @@ public class GameState {
 
 	/**
 	 * Gets the id.
-	 *
+	 * 
 	 * @return the id
 	 */
 	public String getId() {
@@ -236,7 +242,7 @@ public class GameState {
 
 	/**
 	 * Gets the turn number.
-	 *
+	 * 
 	 * @return the turn number
 	 */
 	public synchronized int getTurnNumber() {
@@ -245,7 +251,7 @@ public class GameState {
 
 	/**
 	 * Gets the cards to be folded.
-	 *
+	 * 
 	 * @return the cards to be folded
 	 */
 	public Card[] getCardsToBeFolded() {
@@ -254,8 +260,9 @@ public class GameState {
 
 	/**
 	 * Sets the cards to be folded.
-	 *
-	 * @param cardsToBeFolded the new cards to be folded
+	 * 
+	 * @param cardsToBeFolded
+	 *            the new cards to be folded
 	 */
 	public void setCardsToBeFolded(Card[] cardsToBeFolded) {
 		this.cardsToBeFolded = cardsToBeFolded;
@@ -263,7 +270,7 @@ public class GameState {
 
 	/**
 	 * Checks if is performing action.
-	 *
+	 * 
 	 * @return the boolean
 	 */
 	public synchronized Boolean isPerformingAction() {
@@ -272,8 +279,9 @@ public class GameState {
 
 	/**
 	 * Sets the performing action.
-	 *
-	 * @param isPerformingAction the new performing action
+	 * 
+	 * @param isPerformingAction
+	 *            the new performing action
 	 */
 	public synchronized void setPerformingAction(Boolean isPerformingAction) {
 		this.isPerformingAction = isPerformingAction;
@@ -281,7 +289,7 @@ public class GameState {
 
 	/**
 	 * Checks if is started.
-	 *
+	 * 
 	 * @return the boolean
 	 */
 	public synchronized Boolean isStarted() {
@@ -290,8 +298,9 @@ public class GameState {
 
 	/**
 	 * Sets the started.
-	 *
-	 * @param isStarted the new started
+	 * 
+	 * @param isStarted
+	 *            the new started
 	 */
 	public synchronized void setStarted(Boolean isStarted) {
 		this.isStarted = isStarted;
@@ -299,7 +308,7 @@ public class GameState {
 
 	/**
 	 * Checks if is game over.
-	 *
+	 * 
 	 * @return the boolean
 	 */
 	public synchronized Boolean isGameOver() {
@@ -308,8 +317,9 @@ public class GameState {
 
 	/**
 	 * Sets the game over.
-	 *
-	 * @param isGameOver the new game over
+	 * 
+	 * @param isGameOver
+	 *            the new game over
 	 */
 	public synchronized void setGameOver(Boolean isGameOver) {
 		this.isGameOver = isGameOver;

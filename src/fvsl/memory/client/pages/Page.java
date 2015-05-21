@@ -28,8 +28,9 @@ public abstract class Page extends JPanel {
 
 	/**
 	 * Instantiates a new page.
-	 *
-	 * @param o the o
+	 * 
+	 * @param o
+	 *            the o
 	 */
 	public Page(Object o) {
 		bufferize(o);

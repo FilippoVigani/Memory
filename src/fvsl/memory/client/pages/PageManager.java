@@ -15,9 +15,11 @@ public class PageManager implements ActionListener {
 
 	/**
 	 * Instantiates a new page manager.
-	 *
-	 * @param container the container
-	 * @param rootPage the root page
+	 * 
+	 * @param container
+	 *            the container
+	 * @param rootPage
+	 *            the root page
 	 */
 	public PageManager(JFrame container, Page rootPage) {
 		this.rootPage = rootPage;
@@ -31,8 +33,9 @@ public class PageManager implements ActionListener {
 
 	/**
 	 * Load new page.
-	 *
-	 * @param page the page
+	 * 
+	 * @param page
+	 *            the page
 	 * @return the page
 	 */
 	public Page loadNewPage(Page page) {
@@ -45,8 +48,11 @@ public class PageManager implements ActionListener {
 		return page;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -54,7 +60,7 @@ public class PageManager implements ActionListener {
 
 	/**
 	 * Gets the root page.
-	 *
+	 * 
 	 * @return the root page
 	 */
 	public Page getRootPage() {
@@ -63,8 +69,9 @@ public class PageManager implements ActionListener {
 
 	/**
 	 * Sets the root page.
-	 *
-	 * @param rootPage the new root page
+	 * 
+	 * @param rootPage
+	 *            the new root page
 	 */
 	public void setRootPage(Page rootPage) {
 		this.rootPage = rootPage;
@@ -72,7 +79,7 @@ public class PageManager implements ActionListener {
 
 	/**
 	 * Gets the current page.
-	 *
+	 * 
 	 * @return the current page
 	 */
 	public Page getCurrentPage() {
@@ -81,8 +88,9 @@ public class PageManager implements ActionListener {
 
 	/**
 	 * Sets the current page.
-	 *
-	 * @param currentPage the new current page
+	 * 
+	 * @param currentPage
+	 *            the new current page
 	 */
 	public void setCurrentPage(Page currentPage) {
 		this.currentPage = currentPage;

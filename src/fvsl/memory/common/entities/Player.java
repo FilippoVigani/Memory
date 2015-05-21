@@ -17,8 +17,9 @@ public class Player implements Serializable {
 
 	/**
 	 * Instantiates a new player.
-	 *
-	 * @param name the name
+	 * 
+	 * @param name
+	 *            the name
 	 */
 	public Player(String name) {
 		super();
@@ -29,7 +30,7 @@ public class Player implements Serializable {
 
 	/**
 	 * Gets the name.
-	 *
+	 * 
 	 * @return the name
 	 */
 	public String getName() {
@@ -38,8 +39,9 @@ public class Player implements Serializable {
 
 	/**
 	 * Sets the name.
-	 *
-	 * @param name the new name
+	 * 
+	 * @param name
+	 *            the new name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -47,7 +49,7 @@ public class Player implements Serializable {
 
 	/**
 	 * Checks if is ready.
-	 *
+	 * 
 	 * @return true, if is ready
 	 */
 	public boolean isReady() {
@@ -56,8 +58,9 @@ public class Player implements Serializable {
 
 	/**
 	 * Sets the ready.
-	 *
-	 * @param ready the new ready
+	 * 
+	 * @param ready
+	 *            the new ready
 	 */
 	public void setReady(boolean ready) {
 		this.ready = ready;
@@ -65,7 +68,7 @@ public class Player implements Serializable {
 
 	/**
 	 * Gets the score.
-	 *
+	 * 
 	 * @return the score
 	 */
 	public Integer getScore() {
@@ -74,8 +77,9 @@ public class Player implements Serializable {
 
 	/**
 	 * Sets the score.
-	 *
-	 * @param score the new score
+	 * 
+	 * @param score
+	 *            the new score
 	 */
 	public void setScore(Integer score) {
 		this.score = score;

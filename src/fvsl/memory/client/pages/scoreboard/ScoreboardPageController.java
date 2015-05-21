@@ -7,7 +7,7 @@ import fvsl.memory.client.pages.PageListeners;
  * The Class ScoreboardPageController.
  */
 public class ScoreboardPageController extends PageListeners {
-	
+
 	/**
 	 * Back to main page.
 	 */

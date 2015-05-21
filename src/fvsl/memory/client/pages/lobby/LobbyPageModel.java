@@ -12,7 +12,7 @@ public class LobbyPageModel {
 
 	/**
 	 * Gets the lobby.
-	 *
+	 * 
 	 * @return the lobby
 	 */
 	public Lobby getLobby() {
@@ -21,8 +21,9 @@ public class LobbyPageModel {
 
 	/**
 	 * Sets the lobby.
-	 *
-	 * @param lobby the new lobby
+	 * 
+	 * @param lobby
+	 *            the new lobby
 	 */
 	public void setLobby(Lobby lobby) {
 		this.lobby = lobby;

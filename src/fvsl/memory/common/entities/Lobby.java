@@ -25,12 +25,17 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Instantiates a new lobby.
-	 *
-	 * @param name the name
-	 * @param numberOfPlayers the number of players
-	 * @param numberOfPairs the number of pairs
-	 * @param turnTimer the turn timer
-	 * @param password the password
+	 * 
+	 * @param name
+	 *            the name
+	 * @param numberOfPlayers
+	 *            the number of players
+	 * @param numberOfPairs
+	 *            the number of pairs
+	 * @param turnTimer
+	 *            the turn timer
+	 * @param password
+	 *            the password
 	 */
 	public Lobby(String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
 		super();
@@ -44,13 +49,19 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Instantiates a new lobby.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 * @param numberOfPlayers the number of players
-	 * @param numberOfPairs the number of pairs
-	 * @param turnTimer the turn timer
-	 * @param password the password
+	 * 
+	 * @param id
+	 *            the id
+	 * @param name
+	 *            the name
+	 * @param numberOfPlayers
+	 *            the number of players
+	 * @param numberOfPairs
+	 *            the number of pairs
+	 * @param turnTimer
+	 *            the turn timer
+	 * @param password
+	 *            the password
 	 */
 	public Lobby(String id, String name, int numberOfPlayers, int numberOfPairs, double turnTimer, String password) {
 		super();
@@ -72,7 +83,7 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Gets the name.
-	 *
+	 * 
 	 * @return the name
 	 */
 	public String getName() {
@@ -81,8 +92,9 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Sets the name.
-	 *
-	 * @param name the new name
+	 * 
+	 * @param name
+	 *            the new name
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -90,7 +102,7 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Gets the number of players.
-	 *
+	 * 
 	 * @return the number of players
 	 */
 	public int getNumberOfPlayers() {
@@ -99,8 +111,9 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Sets the number of players.
-	 *
-	 * @param numberOfPlayers the new number of players
+	 * 
+	 * @param numberOfPlayers
+	 *            the new number of players
 	 */
 	public void setNumberOfPlayers(int numberOfPlayers) {
 		this.numberOfPlayers = numberOfPlayers;
@@ -108,7 +121,7 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Gets the number of pairs.
-	 *
+	 * 
 	 * @return the number of pairs
 	 */
 	public int getNumberOfPairs() {
@@ -117,8 +130,9 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Sets the number of pairs.
-	 *
-	 * @param numberOfPairs the new number of pairs
+	 * 
+	 * @param numberOfPairs
+	 *            the new number of pairs
 	 */
 	public void setNumberOfPairs(int numberOfPairs) {
 		this.numberOfPairs = numberOfPairs;
@@ -126,7 +140,7 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Gets the turn timer.
-	 *
+	 * 
 	 * @return the turn timer
 	 */
 	public double getTurnTimer() {
@@ -135,14 +149,17 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Sets the turn timer.
-	 *
-	 * @param turnTimer the new turn timer
+	 * 
+	 * @param turnTimer
+	 *            the new turn timer
 	 */
 	public void setTurnTimer(double turnTimer) {
 		this.turnTimer = turnTimer;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -152,7 +169,7 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Gets the id.
-	 *
+	 * 
 	 * @return the id
 	 */
 	public String getId() {
@@ -161,8 +178,9 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Sets the id.
-	 *
-	 * @param id the new id
+	 * 
+	 * @param id
+	 *            the new id
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -170,8 +188,9 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Check password.
-	 *
-	 * @param password the password
+	 * 
+	 * @param password
+	 *            the password
 	 * @return true, if successful
 	 */
 	public boolean checkPassword(String password) {
@@ -180,8 +199,9 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Sets the password.
-	 *
-	 * @param password the new password
+	 * 
+	 * @param password
+	 *            the new password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -189,7 +209,7 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Gets the connected players.
-	 *
+	 * 
 	 * @return the connected players
 	 */
 	public Vector<Player> getConnectedPlayers() {
@@ -198,8 +218,9 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Sets the connected players.
-	 *
-	 * @param connectedPlayers the new connected players
+	 * 
+	 * @param connectedPlayers
+	 *            the new connected players
 	 */
 	public void setConnectedPlayers(Vector<Player> connectedPlayers) {
 		this.connectedPlayers = connectedPlayers;
@@ -207,8 +228,9 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Gets the connected player by name.
-	 *
-	 * @param name the name
+	 * 
+	 * @param name
+	 *            the name
 	 * @return the connected player by name
 	 */
 	public Player getConnectedPlayerByName(String name) {
@@ -224,7 +246,7 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Gets the owner.
-	 *
+	 * 
 	 * @return the owner
 	 */
 	public Player getOwner() {
@@ -233,8 +255,9 @@ public class Lobby implements Serializable {
 
 	/**
 	 * Sets the owner.
-	 *
-	 * @param owner the new owner
+	 * 
+	 * @param owner
+	 *            the new owner
 	 */
 	public void setOwner(Player owner) {
 		this.owner = owner;

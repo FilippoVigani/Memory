@@ -17,14 +17,14 @@ import javax.swing.text.*;
  *     want to remove lines from the end.
  */
 /**
- * The listener interface for receiving limitLinesDocument events.
- * The class that is interested in processing a limitLinesDocument
- * event implements this interface, and the object created
- * with that class is registered with a component using the
- * component's <code>addLimitLinesDocumentListener<code> method. When
+ * The listener interface for receiving limitLinesDocument events. The class
+ * that is interested in processing a limitLinesDocument event implements this
+ * interface, and the object created with that class is registered with a
+ * component using the component's
+ * <code>addLimitLinesDocumentListener<code> method. When
  * the limitLinesDocument event occurs, that object's appropriate
  * method is invoked.
- *
+ * 
  * @see LimitLinesDocumentEvent
  */
 public class LimitLinesDocumentListener implements DocumentListener {
@@ -37,8 +37,9 @@ public class LimitLinesDocumentListener implements DocumentListener {
 	 */
 	/**
 	 * Instantiates a new limit lines document listener.
-	 *
-	 * @param maximumLines the maximum lines
+	 * 
+	 * @param maximumLines
+	 *            the maximum lines
 	 */
 	public LimitLinesDocumentListener(int maximumLines) {
 		this(maximumLines, true);
@@ -51,9 +52,11 @@ public class LimitLinesDocumentListener implements DocumentListener {
 	 */
 	/**
 	 * Instantiates a new limit lines document listener.
-	 *
-	 * @param maximumLines the maximum lines
-	 * @param isRemoveFromStart the is remove from start
+	 * 
+	 * @param maximumLines
+	 *            the maximum lines
+	 * @param isRemoveFromStart
+	 *            the is remove from start
 	 */
 	public LimitLinesDocumentListener(int maximumLines, boolean isRemoveFromStart) {
 		setLimitLines(maximumLines);
@@ -65,7 +68,7 @@ public class LimitLinesDocumentListener implements DocumentListener {
 	 */
 	/**
 	 * Gets the limit lines.
-	 *
+	 * 
 	 * @return the limit lines
 	 */
 	public int getLimitLines() {
@@ -77,8 +80,9 @@ public class LimitLinesDocumentListener implements DocumentListener {
 	 */
 	/**
 	 * Sets the limit lines.
-	 *
-	 * @param maximumLines the new limit lines
+	 * 
+	 * @param maximumLines
+	 *            the new limit lines
 	 */
 	public void setLimitLines(int maximumLines) {
 		if (maximumLines < 1) {
@@ -91,8 +95,11 @@ public class LimitLinesDocumentListener implements DocumentListener {
 
 	// Handle insertion of new text into the Document
 
-	/* (non-Javadoc)
-	 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.
+	 * DocumentEvent)
 	 */
 	@Override
 	public void insertUpdate(final DocumentEvent e) {
@@ -107,15 +114,21 @@ public class LimitLinesDocumentListener implements DocumentListener {
 		});
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.
+	 * DocumentEvent)
 	 */
 	@Override
 	public void removeUpdate(DocumentEvent e) {
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.
+	 * DocumentEvent)
 	 */
 	@Override
 	public void changedUpdate(DocumentEvent e) {

@@ -20,9 +20,11 @@ public class Card implements Serializable {
 
 	/**
 	 * Instantiates a new card.
-	 *
-	 * @param id the id
-	 * @param value the value
+	 * 
+	 * @param id
+	 *            the id
+	 * @param value
+	 *            the value
 	 */
 	public Card(String id, String value) {
 		super();
@@ -33,7 +35,7 @@ public class Card implements Serializable {
 
 	/**
 	 * Gets the id.
-	 *
+	 * 
 	 * @return the id
 	 */
 	public String getId() {
@@ -42,8 +44,9 @@ public class Card implements Serializable {
 
 	/**
 	 * Sets the id.
-	 *
-	 * @param id the new id
+	 * 
+	 * @param id
+	 *            the new id
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -51,7 +54,7 @@ public class Card implements Serializable {
 
 	/**
 	 * Gets the value.
-	 *
+	 * 
 	 * @return the value
 	 */
 	public String getValue() {
@@ -60,8 +63,9 @@ public class Card implements Serializable {
 
 	/**
 	 * Sets the value.
-	 *
-	 * @param value the new value
+	 * 
+	 * @param value
+	 *            the new value
 	 */
 	public void setValue(String value) {
 		this.value = value;
@@ -69,7 +73,7 @@ public class Card implements Serializable {
 
 	/**
 	 * Checks if is turned.
-	 *
+	 * 
 	 * @return true, if is turned
 	 */
 	public boolean isTurned() {
@@ -78,8 +82,9 @@ public class Card implements Serializable {
 
 	/**
 	 * Sets the turned.
-	 *
-	 * @param isTurned the new turned
+	 * 
+	 * @param isTurned
+	 *            the new turned
 	 */
 	public void setTurned(boolean isTurned) {
 		this.isTurned = isTurned;

@@ -133,7 +133,9 @@ public class MainPageView extends Page {
 		listLobbies.setListData(model.getLobbies().toArray(new Lobby[model.getLobbies().size()]));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fvsl.memory.client.pages.Page#populateViews()
 	 */
 	@Override
@@ -233,7 +235,7 @@ public class MainPageView extends Page {
 
 	/**
 	 * Gets the txt username.
-	 *
+	 * 
 	 * @return the txt username
 	 */
 	public JTextField getTxtUsername() {
@@ -242,7 +244,7 @@ public class MainPageView extends Page {
 
 	/**
 	 * Gets the model.
-	 *
+	 * 
 	 * @return the model
 	 */
 	public MainPageModel getModel() {
@@ -251,7 +253,7 @@ public class MainPageView extends Page {
 
 	/**
 	 * Gets the controller.
-	 *
+	 * 
 	 * @return the controller
 	 */
 	public MainPageController getController() {

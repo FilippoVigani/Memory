@@ -40,7 +40,7 @@ public class CreateLobbyPageView extends Page {
 
 	/** The model. */
 	private CreateLobbyPageModel model;
-	
+
 	/** The controller. */
 	private CreateLobbyPageController controller;
 
@@ -54,26 +54,28 @@ public class CreateLobbyPageView extends Page {
 
 	/** The crea button. */
 	private JButton creaButton;
-	
+
 	/** The back button. */
 	private JButton backButton;
-	
+
 	/** The lobby name field. */
 	private JTextField lobbyNameField;
-	
+
 	/** The password field. */
 	private JTextField passwordField;
-	
+
 	/** The n g combo. */
 	private JComboBox<Integer> nGCombo;
-	
+
 	/** The n coppie combo. */
 	private JComboBox<Integer> nCoppieCombo;
-	
+
 	/** The timer combo. */
 	private JComboBox<Integer> timerCombo;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fvsl.memory.client.pages.Page#loadComponents()
 	 */
 	@Override
@@ -126,7 +128,9 @@ public class CreateLobbyPageView extends Page {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fvsl.memory.client.pages.Page#setUpListeners()
 	 */
 	@Override
@@ -218,7 +222,9 @@ public class CreateLobbyPageView extends Page {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fvsl.memory.client.pages.Page#loadData()
 	 */
 	@Override
@@ -229,7 +235,9 @@ public class CreateLobbyPageView extends Page {
 		// (vanno creati altri campi)
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fvsl.memory.client.pages.Page#populateViews()
 	 */
 	@Override
@@ -244,7 +252,7 @@ public class CreateLobbyPageView extends Page {
 
 	/**
 	 * Gets the controller.
-	 *
+	 * 
 	 * @return the controller
 	 */
 	public CreateLobbyPageController getController() {
@@ -253,14 +261,17 @@ public class CreateLobbyPageView extends Page {
 
 	/**
 	 * Sets the controller.
-	 *
-	 * @param controller the new controller
+	 * 
+	 * @param controller
+	 *            the new controller
 	 */
 	public void setController(CreateLobbyPageController controller) {
 		this.controller = controller;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fvsl.memory.client.pages.Page#bufferize(java.lang.Object)
 	 */
 	@Override
@@ -269,7 +280,9 @@ public class CreateLobbyPageView extends Page {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see fvsl.memory.client.pages.Page#onExit()
 	 */
 	@Override

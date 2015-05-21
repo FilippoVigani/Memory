@@ -16,8 +16,9 @@ public class GamePageController extends PageListeners {
 
 	/**
 	 * Gets the cards from server.
-	 *
-	 * @param gameId the game id
+	 * 
+	 * @param gameId
+	 *            the game id
 	 * @return the cards from server
 	 */
 	public Vector<Card> getCardsFromServer(String gameId) {
@@ -30,9 +31,11 @@ public class GamePageController extends PageListeners {
 
 	/**
 	 * Attempt to turn card.
-	 *
-	 * @param gameId the game id
-	 * @param card the card
+	 * 
+	 * @param gameId
+	 *            the game id
+	 * @param card
+	 *            the card
 	 */
 	public void attemptToTurnCard(String gameId, Card card) {
 		try {
@@ -45,8 +48,9 @@ public class GamePageController extends PageListeners {
 
 	/**
 	 * Gets the turn player from server.
-	 *
-	 * @param gameId the game id
+	 * 
+	 * @param gameId
+	 *            the game id
 	 * @return the turn player from server
 	 */
 	public Player getTurnPlayerFromServer(String gameId) {
@@ -55,8 +59,9 @@ public class GamePageController extends PageListeners {
 
 	/**
 	 * Report turn timeout.
-	 *
-	 * @param gameId the game id
+	 * 
+	 * @param gameId
+	 *            the game id
 	 */
 	public void reportTurnTimeout(String gameId) {
 		Application.getServerManager().requestTurnTimeout(Application.player, gameId);
@@ -64,8 +69,9 @@ public class GamePageController extends PageListeners {
 
 	/**
 	 * Go to scoreboard page.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 */
 	public void goToScoreboardPage(Lobby lobby) {
 		fireGoToScoreboardEvent(lobby);
@@ -73,8 +79,9 @@ public class GamePageController extends PageListeners {
 
 	/**
 	 * Leave game.
-	 *
-	 * @param gameId the game id
+	 * 
+	 * @param gameId
+	 *            the game id
 	 */
 	public void leaveGame(String gameId) {
 		Application.getServerManager().requestToLeaveGame(Application.player, gameId);

@@ -18,7 +18,7 @@ public class GamePageModel {
 
 	/**
 	 * Gets the lobby.
-	 *
+	 * 
 	 * @return the lobby
 	 */
 	public Lobby getLobby() {
@@ -27,8 +27,9 @@ public class GamePageModel {
 
 	/**
 	 * Sets the lobby.
-	 *
-	 * @param lobby the new lobby
+	 * 
+	 * @param lobby
+	 *            the new lobby
 	 */
 	public void setLobby(Lobby lobby) {
 		this.lobby = lobby;
@@ -36,7 +37,7 @@ public class GamePageModel {
 
 	/**
 	 * Gets the turn player.
-	 *
+	 * 
 	 * @return the turn player
 	 */
 	public Player getTurnPlayer() {
@@ -45,8 +46,9 @@ public class GamePageModel {
 
 	/**
 	 * Sets the turn player.
-	 *
-	 * @param turnPlayer the new turn player
+	 * 
+	 * @param turnPlayer
+	 *            the new turn player
 	 */
 	public void setTurnPlayer(Player turnPlayer) {
 		this.turnPlayer = turnPlayer;
@@ -54,7 +56,7 @@ public class GamePageModel {
 
 	/**
 	 * Gets the cards.
-	 *
+	 * 
 	 * @return the cards
 	 */
 	public Vector<Card> getCards() {
@@ -63,8 +65,9 @@ public class GamePageModel {
 
 	/**
 	 * Sets the cards.
-	 *
-	 * @param cards the new cards
+	 * 
+	 * @param cards
+	 *            the new cards
 	 */
 	public void setCards(Vector<Card> cards) {
 		this.cards = cards;
@@ -72,8 +75,9 @@ public class GamePageModel {
 
 	/**
 	 * Gets the card by id.
-	 *
-	 * @param cardId the card id
+	 * 
+	 * @param cardId
+	 *            the card id
 	 * @return the card by id
 	 */
 	public Card getCardById(String cardId) {

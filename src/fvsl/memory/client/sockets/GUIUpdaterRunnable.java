@@ -37,15 +37,18 @@ public class GUIUpdaterRunnable implements Runnable {
 
 	/**
 	 * Instantiates a new GUI updater runnable.
-	 *
-	 * @param page the page
+	 * 
+	 * @param page
+	 *            the page
 	 */
 	public GUIUpdaterRunnable(Page page) {
 		this.page = page;
 		setRunning(true);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
@@ -219,8 +222,9 @@ public class GUIUpdaterRunnable implements Runnable {
 
 	/**
 	 * Close.
-	 *
-	 * @param closeSocket the close socket
+	 * 
+	 * @param closeSocket
+	 *            the close socket
 	 */
 	public void close(boolean closeSocket) {
 		try {
@@ -239,7 +243,7 @@ public class GUIUpdaterRunnable implements Runnable {
 
 	/**
 	 * Gets the page.
-	 *
+	 * 
 	 * @return the page
 	 */
 	public Page getPage() {
@@ -248,8 +252,9 @@ public class GUIUpdaterRunnable implements Runnable {
 
 	/**
 	 * Sets the page.
-	 *
-	 * @param page the new page
+	 * 
+	 * @param page
+	 *            the new page
 	 */
 	public void setPage(Page page) {
 		this.page = page;
@@ -257,7 +262,7 @@ public class GUIUpdaterRunnable implements Runnable {
 
 	/**
 	 * Checks if is running.
-	 *
+	 * 
 	 * @return true, if is running
 	 */
 	public boolean isRunning() {
@@ -266,8 +271,9 @@ public class GUIUpdaterRunnable implements Runnable {
 
 	/**
 	 * Sets the running.
-	 *
-	 * @param isRunning the new running
+	 * 
+	 * @param isRunning
+	 *            the new running
 	 */
 	public void setRunning(boolean isRunning) {
 		this.isRunning = isRunning;

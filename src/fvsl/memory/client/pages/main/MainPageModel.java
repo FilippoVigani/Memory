@@ -18,7 +18,7 @@ public class MainPageModel {
 
 	/**
 	 * Gets the player.
-	 *
+	 * 
 	 * @return the player
 	 */
 	public Player getPlayer() {
@@ -27,8 +27,9 @@ public class MainPageModel {
 
 	/**
 	 * Sets the player.
-	 *
-	 * @param player the new player
+	 * 
+	 * @param player
+	 *            the new player
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
@@ -36,7 +37,7 @@ public class MainPageModel {
 
 	/**
 	 * Gets the lobbies.
-	 *
+	 * 
 	 * @return the lobbies
 	 */
 	public Vector<Lobby> getLobbies() {
@@ -45,8 +46,9 @@ public class MainPageModel {
 
 	/**
 	 * Sets the lobbies.
-	 *
-	 * @param lobbies the new lobbies
+	 * 
+	 * @param lobbies
+	 *            the new lobbies
 	 */
 	public void setLobbies(Vector<Lobby> lobbies) {
 		this.lobbies = lobbies;
@@ -54,7 +56,7 @@ public class MainPageModel {
 
 	/**
 	 * Gets the selected lobby.
-	 *
+	 * 
 	 * @return the selected lobby
 	 */
 	public Lobby getSelectedLobby() {
@@ -63,8 +65,9 @@ public class MainPageModel {
 
 	/**
 	 * Sets the selected lobby.
-	 *
-	 * @param selectedLobby the new selected lobby
+	 * 
+	 * @param selectedLobby
+	 *            the new selected lobby
 	 */
 	public void setSelectedLobby(Lobby selectedLobby) {
 		this.selectedLobby = selectedLobby;
@@ -72,7 +75,7 @@ public class MainPageModel {
 
 	/**
 	 * Gets the password.
-	 *
+	 * 
 	 * @return the password
 	 */
 	public String getPassword() {
@@ -81,8 +84,9 @@ public class MainPageModel {
 
 	/**
 	 * Sets the password.
-	 *
-	 * @param password the new password
+	 * 
+	 * @param password
+	 *            the new password
 	 */
 	public void setPassword(String password) {
 		this.password = password;

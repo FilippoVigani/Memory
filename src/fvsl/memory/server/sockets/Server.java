@@ -38,8 +38,9 @@ public class Server extends JFrame implements Runnable {
 
 	/**
 	 * Instantiates a new server.
-	 *
-	 * @param port the port
+	 * 
+	 * @param port
+	 *            the port
 	 */
 	public Server(int port) {
 		this(port, new ServerData());
@@ -47,9 +48,11 @@ public class Server extends JFrame implements Runnable {
 
 	/**
 	 * Instantiates a new server.
-	 *
-	 * @param port the port
-	 * @param serverData the server data
+	 * 
+	 * @param port
+	 *            the port
+	 * @param serverData
+	 *            the server data
 	 */
 	public Server(int port, ServerData serverData) {
 		super();
@@ -89,7 +92,9 @@ public class Server extends JFrame implements Runnable {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
@@ -160,8 +165,9 @@ public class Server extends JFrame implements Runnable {
 
 	/**
 	 * The main method.
-	 *
-	 * @param args the arguments
+	 * 
+	 * @param args
+	 *            the arguments
 	 */
 	public static void main(String[] args) {
 

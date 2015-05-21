@@ -41,10 +41,13 @@ public class ClientRunnable implements Runnable {
 
 	/**
 	 * Instantiates a new client runnable.
-	 *
-	 * @param clientSocket the client socket
-	 * @param serverText the server text
-	 * @param serverData the server data
+	 * 
+	 * @param clientSocket
+	 *            the client socket
+	 * @param serverText
+	 *            the server text
+	 * @param serverData
+	 *            the server data
 	 */
 	public ClientRunnable(Socket clientSocket, String serverText, ServerData serverData) {
 		this.clientSocket = clientSocket;
@@ -52,7 +55,9 @@ public class ClientRunnable implements Runnable {
 		this.serverData = serverData;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
@@ -499,7 +504,7 @@ public class ClientRunnable implements Runnable {
 
 	/**
 	 * Checks if is stopped.
-	 *
+	 * 
 	 * @return true, if is stopped
 	 */
 	public boolean isStopped() {
@@ -508,8 +513,9 @@ public class ClientRunnable implements Runnable {
 
 	/**
 	 * Sets the stopped.
-	 *
-	 * @param isStopped the new stopped
+	 * 
+	 * @param isStopped
+	 *            the new stopped
 	 */
 	public void setStopped(boolean isStopped) {
 		this.isStopped = isStopped;

@@ -29,10 +29,13 @@ public class ClientUpdaterRunnable implements Runnable {
 
 	/**
 	 * Instantiates a new client updater runnable.
-	 *
-	 * @param clientSocket the client socket
-	 * @param serverText the server text
-	 * @param serverData the server data
+	 * 
+	 * @param clientSocket
+	 *            the client socket
+	 * @param serverText
+	 *            the server text
+	 * @param serverData
+	 *            the server data
 	 */
 	public ClientUpdaterRunnable(Socket clientSocket, String serverText, ServerData serverData) {
 		this.clientSocket = clientSocket;
@@ -41,7 +44,9 @@ public class ClientUpdaterRunnable implements Runnable {
 		requests = new Vector<Request>();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
@@ -94,7 +99,7 @@ public class ClientUpdaterRunnable implements Runnable {
 
 	/**
 	 * Checks if is stopped.
-	 *
+	 * 
 	 * @return true, if is stopped
 	 */
 	public boolean isStopped() {
@@ -103,8 +108,9 @@ public class ClientUpdaterRunnable implements Runnable {
 
 	/**
 	 * Sets the stopped.
-	 *
-	 * @param isStopped the new stopped
+	 * 
+	 * @param isStopped
+	 *            the new stopped
 	 */
 	public void setStopped(boolean isStopped) {
 		this.isStopped = isStopped;
@@ -112,7 +118,7 @@ public class ClientUpdaterRunnable implements Runnable {
 
 	/**
 	 * Gets the requests.
-	 *
+	 * 
 	 * @return the requests
 	 */
 	public Vector<Request> getRequests() {
@@ -121,8 +127,9 @@ public class ClientUpdaterRunnable implements Runnable {
 
 	/**
 	 * Sets the requests.
-	 *
-	 * @param requests the new requests
+	 * 
+	 * @param requests
+	 *            the new requests
 	 */
 	public void setRequests(Vector<Request> requests) {
 		this.requests = requests;

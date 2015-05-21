@@ -17,8 +17,9 @@ public class LobbyPageController extends PageListeners {
 
 	/**
 	 * Gets the players of lobby from server.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 * @return the players of lobby from server
 	 */
 	public Vector<Player> getPlayersOfLobbyFromServer(Lobby lobby) {
@@ -32,8 +33,9 @@ public class LobbyPageController extends PageListeners {
 
 	/**
 	 * Sets the status ready.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 * @return the status change result
 	 */
 	public StatusChangeResult setStatusReady(Lobby lobby) {
@@ -42,8 +44,9 @@ public class LobbyPageController extends PageListeners {
 
 	/**
 	 * Back to main page.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 */
 	public void backToMainPage(Lobby lobby) {
 		if (leaveLobby(lobby) == LobbyLeavingResult.Accepted) {
@@ -53,8 +56,9 @@ public class LobbyPageController extends PageListeners {
 
 	/**
 	 * Go to game page.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 */
 	public void goToGamePage(Lobby lobby) {
 		fireGoToGamePageEvent();
@@ -62,8 +66,9 @@ public class LobbyPageController extends PageListeners {
 
 	/**
 	 * Leave lobby.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 * @return the lobby leaving result
 	 */
 	public LobbyLeavingResult leaveLobby(Lobby lobby) {

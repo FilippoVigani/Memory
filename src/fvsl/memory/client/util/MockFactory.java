@@ -9,10 +9,10 @@ import fvsl.memory.common.entities.Lobby;
  * A factory for creating Mock objects.
  */
 public class MockFactory {
-	
+
 	/**
 	 * Gets the mock lobbies list.
-	 *
+	 * 
 	 * @return the mock lobbies list
 	 */
 	public static ArrayList<Lobby> getMockLobbiesList() {

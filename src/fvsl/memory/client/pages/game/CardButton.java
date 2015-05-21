@@ -54,8 +54,9 @@ public class CardButton extends JButton {
 
 	/**
 	 * Instantiates a new card button.
-	 *
-	 * @param card the card
+	 * 
+	 * @param card
+	 *            the card
 	 */
 	public CardButton(Card card) {
 		setCard(card);
@@ -63,7 +64,7 @@ public class CardButton extends JButton {
 
 	/**
 	 * Gets the card.
-	 *
+	 * 
 	 * @return the card
 	 */
 	public Card getCard() {
@@ -72,8 +73,9 @@ public class CardButton extends JButton {
 
 	/**
 	 * Sets the card.
-	 *
-	 * @param card the new card
+	 * 
+	 * @param card
+	 *            the new card
 	 */
 	public void setCard(Card card) {
 		this.card = card;
@@ -94,7 +96,9 @@ public class CardButton extends JButton {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
 	@Override

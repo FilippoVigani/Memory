@@ -9,15 +9,15 @@ import fvsl.memory.common.entities.Player;
  * The Class Application.
  */
 public final class Application {
-	
+
 	/** The Constant WINDOW_WIDTH. */
 	public static final int WINDOW_WIDTH = 1100;
-	
+
 	/** The Constant WINDOW_HEIGHT. */
 	public static final int WINDOW_HEIGHT = 600;
 
 	private static ServerManager serverManager;
-	
+
 	/** The player. */
 	public static Player player;
 
@@ -26,7 +26,7 @@ public final class Application {
 
 	/**
 	 * Gets the server manager.
-	 *
+	 * 
 	 * @return the server manager
 	 */
 	public static ServerManager getServerManager() {
@@ -38,7 +38,7 @@ public final class Application {
 
 	/**
 	 * Gets the updater.
-	 *
+	 * 
 	 * @return the updater
 	 */
 	public static GUIUpdaterRunnable getUpdater() {
@@ -47,8 +47,9 @@ public final class Application {
 
 	/**
 	 * Sets the updater.
-	 *
-	 * @param updater the new updater
+	 * 
+	 * @param updater
+	 *            the new updater
 	 */
 	public static void setUpdater(GUIUpdaterRunnable updater) {
 		Application.updater = updater;
@@ -56,7 +57,7 @@ public final class Application {
 
 	/**
 	 * Gets the updater thread.
-	 *
+	 * 
 	 * @return the updater thread
 	 */
 	public static Thread getUpdaterThread() {
@@ -65,8 +66,9 @@ public final class Application {
 
 	/**
 	 * Sets the updater thread.
-	 *
-	 * @param updaterThread the new updater thread
+	 * 
+	 * @param updaterThread
+	 *            the new updater thread
 	 */
 	public static void setUpdaterThread(Thread updaterThread) {
 		Application.updaterThread = updaterThread;

@@ -33,7 +33,7 @@ public class LobbyPageView extends Page {
 
 	/**
 	 * Gets the controller.
-	 *
+	 * 
 	 * @return the controller
 	 */
 	public LobbyPageController getController() {
@@ -42,8 +42,9 @@ public class LobbyPageView extends Page {
 
 	/**
 	 * Sets the controller.
-	 *
-	 * @param controller the new controller
+	 * 
+	 * @param controller
+	 *            the new controller
 	 */
 	public void setController(LobbyPageController controller) {
 		this.controller = controller;
@@ -54,8 +55,9 @@ public class LobbyPageView extends Page {
 
 	/**
 	 * Instantiates a new lobby page view.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 */
 	public LobbyPageView(Lobby lobby) {
 		super(lobby);
@@ -192,8 +194,9 @@ public class LobbyPageView extends Page {
 
 	/**
 	 * Respond to deleted lobby.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 */
 	public void respondToDeletedLobby(Lobby lobby) {
 		if (model.getLobby().getId().equals(lobby.getId())) {
@@ -203,8 +206,9 @@ public class LobbyPageView extends Page {
 
 	/**
 	 * Respond to start game.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 */
 	public void respondToStartGame(Lobby lobby) {
 		if (model.getLobby().getId().equals(lobby.getId())) {

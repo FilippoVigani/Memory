@@ -20,8 +20,9 @@ public class MainPageController extends PageListeners {
 
 	/**
 	 * Gets the lobbies from server.
-	 *
-	 * @param player the player
+	 * 
+	 * @param player
+	 *            the player
 	 * @return the lobbies from server
 	 */
 	public Vector<Lobby> getLobbiesFromServer(Player player) {
@@ -35,10 +36,13 @@ public class MainPageController extends PageListeners {
 
 	/**
 	 * Request lobby joining.
-	 *
-	 * @param player the player
-	 * @param selectedLobby the selected lobby
-	 * @param password the password
+	 * 
+	 * @param player
+	 *            the player
+	 * @param selectedLobby
+	 *            the selected lobby
+	 * @param password
+	 *            the password
 	 * @return the lobby joining result
 	 */
 	public LobbyJoiningResult requestLobbyJoining(Player player, Lobby selectedLobby, String password) {

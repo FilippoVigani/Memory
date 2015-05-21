@@ -32,7 +32,7 @@ public class WindowShell extends JFrame {
 
 	/** The mpw. */
 	MainPageView mpw;
-	
+
 	/** The clw. */
 	CreateLobbyPageView clw;
 

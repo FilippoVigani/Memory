@@ -34,7 +34,7 @@ public class Mapper {
 
 	/**
 	 * Gets the mapper.
-	 *
+	 * 
 	 * @return the mapper
 	 */
 	public static Mapper getMapper() {
@@ -46,7 +46,7 @@ public class Mapper {
 
 	/**
 	 * Gets the cards map.
-	 *
+	 * 
 	 * @return the cards map
 	 */
 	public HashMap<String, String> getCardsMap() {
@@ -55,8 +55,9 @@ public class Mapper {
 
 	/**
 	 * Sets the cards map.
-	 *
-	 * @param cardsMap the cards map
+	 * 
+	 * @param cardsMap
+	 *            the cards map
 	 */
 	public void setCardsMap(HashMap<String, String> cardsMap) {
 		this.cardsMap = cardsMap;

@@ -24,26 +24,28 @@ public class GameRequest implements Serializable {
 	 * The Enum GameRequestAction.
 	 */
 	public enum GameRequestAction {
-		
+
 		/** The Turn card. */
-		TurnCard, 
- /** The Lose player turn. */
- LosePlayerTurn, 
- /** The Win player turn. */
- WinPlayerTurn, 
- /** The Fold card. */
- FoldCard, 
- /** The Player turn timeout. */
- PlayerTurnTimeout, 
- /** The Player leave game. */
- PlayerLeaveGame
+		TurnCard,
+		/** The Lose player turn. */
+		LosePlayerTurn,
+		/** The Win player turn. */
+		WinPlayerTurn,
+		/** The Fold card. */
+		FoldCard,
+		/** The Player turn timeout. */
+		PlayerTurnTimeout,
+		/** The Player leave game. */
+		PlayerLeaveGame
 	}
 
 	/**
 	 * Instantiates a new game request.
-	 *
-	 * @param id the id
-	 * @param action the action
+	 * 
+	 * @param id
+	 *            the id
+	 * @param action
+	 *            the action
 	 */
 	public GameRequest(String id, GameRequestAction action) {
 		this.id = id;
@@ -52,7 +54,7 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Gets the player.
-	 *
+	 * 
 	 * @return the player
 	 */
 	public Player getPlayer() {
@@ -61,8 +63,9 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Sets the player.
-	 *
-	 * @param player the new player
+	 * 
+	 * @param player
+	 *            the new player
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
@@ -70,7 +73,7 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Gets the next player.
-	 *
+	 * 
 	 * @return the next player
 	 */
 	public Player getNextPlayer() {
@@ -79,8 +82,9 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Sets the next player.
-	 *
-	 * @param nextPlayer the new next player
+	 * 
+	 * @param nextPlayer
+	 *            the new next player
 	 */
 	public void setNextPlayer(Player nextPlayer) {
 		this.nextPlayer = nextPlayer;
@@ -88,7 +92,7 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Gets the card.
-	 *
+	 * 
 	 * @return the card
 	 */
 	public Card getCard() {
@@ -97,8 +101,9 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Sets the card.
-	 *
-	 * @param card the new card
+	 * 
+	 * @param card
+	 *            the new card
 	 */
 	public void setCard(Card card) {
 		this.card = card;
@@ -106,7 +111,7 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Gets the action.
-	 *
+	 * 
 	 * @return the action
 	 */
 	public GameRequestAction getAction() {
@@ -115,8 +120,9 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Sets the action.
-	 *
-	 * @param action the new action
+	 * 
+	 * @param action
+	 *            the new action
 	 */
 	public void setAction(GameRequestAction action) {
 		this.action = action;
@@ -124,7 +130,7 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Gets the id.
-	 *
+	 * 
 	 * @return the id
 	 */
 	public String getId() {
@@ -133,8 +139,9 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Sets the id.
-	 *
-	 * @param id the new id
+	 * 
+	 * @param id
+	 *            the new id
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -142,7 +149,7 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Gets the player points.
-	 *
+	 * 
 	 * @return the player points
 	 */
 	public Integer getPlayerPoints() {
@@ -151,8 +158,9 @@ public class GameRequest implements Serializable {
 
 	/**
 	 * Sets the player points.
-	 *
-	 * @param playerPoints the new player points
+	 * 
+	 * @param playerPoints
+	 *            the new player points
 	 */
 	public void setPlayerPoints(Integer playerPoints) {
 		this.playerPoints = playerPoints;

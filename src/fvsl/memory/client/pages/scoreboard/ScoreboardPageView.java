@@ -33,8 +33,9 @@ public class ScoreboardPageView extends Page {
 
 	/**
 	 * Instantiates a new scoreboard page view.
-	 *
-	 * @param lobby the lobby
+	 * 
+	 * @param lobby
+	 *            the lobby
 	 */
 	public ScoreboardPageView(Lobby lobby) {
 		super(lobby);
@@ -154,7 +155,7 @@ public class ScoreboardPageView extends Page {
 
 	/**
 	 * Gets the controller.
-	 *
+	 * 
 	 * @return the controller
 	 */
 	public PageListeners getController() {

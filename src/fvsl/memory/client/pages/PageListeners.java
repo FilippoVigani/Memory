@@ -18,8 +18,9 @@ public class PageListeners {
 
 	/**
 	 * Adds the event listener.
-	 *
-	 * @param listener the listener
+	 * 
+	 * @param listener
+	 *            the listener
 	 */
 	public synchronized void addEventListener(ActionListener listener) {
 		listeners.add(listener);
@@ -27,8 +28,9 @@ public class PageListeners {
 
 	/**
 	 * Removes the event listener.
-	 *
-	 * @param listener the listener
+	 * 
+	 * @param listener
+	 *            the listener
 	 */
 	public synchronized void removeEventListener(ActionListener listener) {
 		listeners.remove(listener);
@@ -45,8 +47,9 @@ public class PageListeners {
 
 		/**
 		 * Instantiates a new go to create lobby event.
-		 *
-		 * @param source the source
+		 * 
+		 * @param source
+		 *            the source
 		 */
 		public GoToCreateLobbyEvent(Object source) {
 			super(source, 0, null);
@@ -65,8 +68,9 @@ public class PageListeners {
 
 		/**
 		 * Instantiates a new goto main page event.
-		 *
-		 * @param source the source
+		 * 
+		 * @param source
+		 *            the source
 		 */
 		public GotoMainPageEvent(Object source) {
 			super(source, 0, null);
@@ -85,8 +89,9 @@ public class PageListeners {
 
 		/**
 		 * Instantiates a new go to game page event.
-		 *
-		 * @param source the source
+		 * 
+		 * @param source
+		 *            the source
 		 */
 		public GoToGamePageEvent(Object source) {
 			super(source, 0, null);
@@ -104,8 +109,9 @@ public class PageListeners {
 
 		/**
 		 * Instantiates a new go to lobby event.
-		 *
-		 * @param source the source
+		 * 
+		 * @param source
+		 *            the source
 		 */
 		public GoToLobbyEvent(Object source) {
 			super(source, 0, null);
@@ -123,8 +129,9 @@ public class PageListeners {
 
 		/**
 		 * Instantiates a new go to scoreboard event.
-		 *
-		 * @param source the source
+		 * 
+		 * @param source
+		 *            the source
 		 */
 		public GoToScoreboardEvent(Object source) {
 			super(source, 0, null);
@@ -133,14 +140,14 @@ public class PageListeners {
 
 	// Create lobby
 	/**
-	 * The listener interface for receiving goToCreateLobbyEvent events.
-	 * The class that is interested in processing a goToCreateLobbyEvent
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addGoToCreateLobbyEventListener<code> method. When
+	 * The listener interface for receiving goToCreateLobbyEvent events. The
+	 * class that is interested in processing a goToCreateLobbyEvent event
+	 * implements this interface, and the object created with that class is
+	 * registered with a component using the component's
+	 * <code>addGoToCreateLobbyEventListener<code> method. When
 	 * the goToCreateLobbyEvent event occurs, that object's appropriate
 	 * method is invoked.
-	 *
+	 * 
 	 * @see GoToCreateLobbyEventEvent
 	 */
 	public interface GoToCreateLobbyEventListener extends ActionListener {
@@ -157,14 +164,14 @@ public class PageListeners {
 
 	// Join lobby
 	/**
-	 * The listener interface for receiving goToLobbyEvent events.
-	 * The class that is interested in processing a goToLobbyEvent
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addGoToLobbyEventListener<code> method. When
+	 * The listener interface for receiving goToLobbyEvent events. The class
+	 * that is interested in processing a goToLobbyEvent event implements this
+	 * interface, and the object created with that class is registered with a
+	 * component using the component's
+	 * <code>addGoToLobbyEventListener<code> method. When
 	 * the goToLobbyEvent event occurs, that object's appropriate
 	 * method is invoked.
-	 *
+	 * 
 	 * @see GoToLobbyEventEvent
 	 */
 	public interface GoToLobbyEventListener extends ActionListener {
@@ -181,14 +188,14 @@ public class PageListeners {
 
 	// Scoreboard
 	/**
-	 * The listener interface for receiving goToScoreboardEvent events.
-	 * The class that is interested in processing a goToScoreboardEvent
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addGoToScoreboardEventListener<code> method. When
+	 * The listener interface for receiving goToScoreboardEvent events. The
+	 * class that is interested in processing a goToScoreboardEvent event
+	 * implements this interface, and the object created with that class is
+	 * registered with a component using the component's
+	 * <code>addGoToScoreboardEventListener<code> method. When
 	 * the goToScoreboardEvent event occurs, that object's appropriate
 	 * method is invoked.
-	 *
+	 * 
 	 * @see GoToScoreboardEventEvent
 	 */
 	public interface GoToScoreboardEventListener extends ActionListener {
@@ -205,14 +212,14 @@ public class PageListeners {
 
 	// back to mainpage
 	/**
-	 * The listener interface for receiving goToMainPageEvent events.
-	 * The class that is interested in processing a goToMainPageEvent
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addGoToMainPageEventListener<code> method. When
+	 * The listener interface for receiving goToMainPageEvent events. The class
+	 * that is interested in processing a goToMainPageEvent event implements
+	 * this interface, and the object created with that class is registered with
+	 * a component using the component's
+	 * <code>addGoToMainPageEventListener<code> method. When
 	 * the goToMainPageEvent event occurs, that object's appropriate
 	 * method is invoked.
-	 *
+	 * 
 	 * @see GoToMainPageEventEvent
 	 */
 	public interface GoToMainPageEventListener extends ActionListener {
@@ -229,14 +236,14 @@ public class PageListeners {
 
 	// Go to game page
 	/**
-	 * The listener interface for receiving goToGamePageEvent events.
-	 * The class that is interested in processing a goToGamePageEvent
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addGoToGamePageEventListener<code> method. When
+	 * The listener interface for receiving goToGamePageEvent events. The class
+	 * that is interested in processing a goToGamePageEvent event implements
+	 * this interface, and the object created with that class is registered with
+	 * a component using the component's
+	 * <code>addGoToGamePageEventListener<code> method. When
 	 * the goToGamePageEvent event occurs, that object's appropriate
 	 * method is invoked.
-	 *
+	 * 
 	 * @see GoToGamePageEventEvent
 	 */
 	public interface GoToGamePageEventListener extends ActionListener {
