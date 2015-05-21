@@ -11,6 +11,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 import fvsl.memory.client.pages.Page;
+import fvsl.memory.client.pages.game.GamePageController;
 import fvsl.memory.client.pages.game.GamePageModel;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
@@ -18,6 +19,8 @@ import fvsl.memory.common.util.StringResources;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.Vector;
 
@@ -29,10 +32,11 @@ public class ScoreboardPageView extends Page {
 
 	public ScoreboardPageView(Lobby lobby) {
 		super(lobby);
-		
+		controller = new ScoreboardPageController();
 	}
 	private ScoreboardPageModel model;
 	private Lobby bufferLobby;
+	private ScoreboardPageController controller;
 	@Override
 	protected void bufferize(Object o) {
 		bufferLobby = (Lobby) o;
@@ -44,17 +48,28 @@ public class ScoreboardPageView extends Page {
 		// TODO Auto-generated method stub
 		JPanel panel = new JPanel();
 		add(panel);
+		JPanel Panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
 		scoreTable=new JTable();
 		panel.add(Box.createRigidArea(new Dimension(350,30)));
 		panel.add(new JScrollPane(scoreTable));
 		panel.add(Box.createRigidArea(new Dimension(350,30)));
 		backButton=new JButton("back");
+		panel.add(Box.createVerticalGlue());
+		panel.add(backButton);
 	}
 
 	@Override
 	protected void setUpListeners() {
 		// TODO Auto-generated method stub
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				controller.backToMainPage();
+
+			}
+		});
 
 	}
 
