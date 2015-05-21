@@ -11,6 +11,10 @@ import fvsl.memory.common.entities.Request;
 import fvsl.memory.common.util.StringResources;
 import fvsl.memory.server.db.ServerData;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ClientUpdaterRunnable.
+ */
 public class ClientUpdaterRunnable implements Runnable {
 
 	protected Socket clientSocket = null;
@@ -23,6 +27,13 @@ public class ClientUpdaterRunnable implements Runnable {
 
 	protected volatile Vector<Request> requests;
 
+	/**
+	 * Instantiates a new client updater runnable.
+	 *
+	 * @param clientSocket the client socket
+	 * @param serverText the server text
+	 * @param serverData the server data
+	 */
 	public ClientUpdaterRunnable(Socket clientSocket, String serverText, ServerData serverData) {
 		this.clientSocket = clientSocket;
 		this.serverText = serverText;
@@ -30,6 +41,9 @@ public class ClientUpdaterRunnable implements Runnable {
 		requests = new Vector<Request>();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		try {
@@ -79,21 +93,26 @@ public class ClientUpdaterRunnable implements Runnable {
 	}
 
 	/**
-	 * @return the isStopped
+	 * Checks if is stopped.
+	 *
+	 * @return true, if is stopped
 	 */
 	public boolean isStopped() {
 		return isStopped;
 	}
 
 	/**
-	 * @param isStopped
-	 *            the isStopped to set
+	 * Sets the stopped.
+	 *
+	 * @param isStopped the new stopped
 	 */
 	public void setStopped(boolean isStopped) {
 		this.isStopped = isStopped;
 	}
 
 	/**
+	 * Gets the requests.
+	 *
 	 * @return the requests
 	 */
 	public Vector<Request> getRequests() {
@@ -101,8 +120,9 @@ public class ClientUpdaterRunnable implements Runnable {
 	}
 
 	/**
-	 * @param requests
-	 *            the requests to set
+	 * Sets the requests.
+	 *
+	 * @param requests the new requests
 	 */
 	public void setRequests(Vector<Request> requests) {
 		this.requests = requests;

@@ -16,6 +16,10 @@ import fvsl.memory.common.util.StringResources;
 import fvsl.memory.server.db.ServerData;
 import fvsl.memory.server.util.MessageConsole;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Server.
+ */
 public class Server extends JFrame implements Runnable {
 
 	/**
@@ -32,10 +36,21 @@ public class Server extends JFrame implements Runnable {
 
 	protected volatile ServerData serverData;
 
+	/**
+	 * Instantiates a new server.
+	 *
+	 * @param port the port
+	 */
 	public Server(int port) {
 		this(port, new ServerData());
 	}
 
+	/**
+	 * Instantiates a new server.
+	 *
+	 * @param port the port
+	 * @param serverData the server data
+	 */
 	public Server(int port, ServerData serverData) {
 		super();
 		this.serverPort = port;
@@ -43,6 +58,9 @@ public class Server extends JFrame implements Runnable {
 		pool = Executors.newFixedThreadPool(MAX_CLIENTS);
 	}
 
+	/**
+	 * Inits the view.
+	 */
 	public void initView() {
 		setTitle(StringResources.sConsole.toString());
 		setVisible(true);
@@ -71,6 +89,9 @@ public class Server extends JFrame implements Runnable {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 		synchronized (this) {
@@ -117,6 +138,9 @@ public class Server extends JFrame implements Runnable {
 		return this.isStopped;
 	}
 
+	/**
+	 * Stop.
+	 */
 	public synchronized void stop() {
 		this.isStopped = true;
 		try {
@@ -134,6 +158,11 @@ public class Server extends JFrame implements Runnable {
 		}
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 
 		Server s = new Server(Settings.PORT);

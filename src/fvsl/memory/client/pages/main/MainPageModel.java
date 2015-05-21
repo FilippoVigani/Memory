@@ -5,7 +5,11 @@ import java.util.Vector;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
 
+// TODO: Auto-generated Javadoc
 //In realtà sarebbe MainPageModel, (vedi MVC)
+/**
+ * The Class MainPageModel.
+ */
 public class MainPageModel {
 	private Player player;
 	private Vector<Lobby> lobbies;
@@ -13,6 +17,8 @@ public class MainPageModel {
 	private String password;
 
 	/**
+	 * Gets the player.
+	 *
 	 * @return the player
 	 */
 	public Player getPlayer() {
@@ -20,14 +26,17 @@ public class MainPageModel {
 	}
 
 	/**
-	 * @param player
-	 *            the player to set
+	 * Sets the player.
+	 *
+	 * @param player the new player
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
 	/**
+	 * Gets the lobbies.
+	 *
 	 * @return the lobbies
 	 */
 	public Vector<Lobby> getLobbies() {
@@ -35,29 +44,35 @@ public class MainPageModel {
 	}
 
 	/**
-	 * @param lobbies
-	 *            the lobbies to set
+	 * Sets the lobbies.
+	 *
+	 * @param lobbies the new lobbies
 	 */
 	public void setLobbies(Vector<Lobby> lobbies) {
 		this.lobbies = lobbies;
 	}
 
 	/**
-	 * @return the selectedLobby
+	 * Gets the selected lobby.
+	 *
+	 * @return the selected lobby
 	 */
 	public Lobby getSelectedLobby() {
 		return selectedLobby;
 	}
 
 	/**
-	 * @param selectedLobby
-	 *            the selectedLobby to set
+	 * Sets the selected lobby.
+	 *
+	 * @param selectedLobby the new selected lobby
 	 */
 	public void setSelectedLobby(Lobby selectedLobby) {
 		this.selectedLobby = selectedLobby;
 	}
 
 	/**
+	 * Gets the password.
+	 *
 	 * @return the password
 	 */
 	public String getPassword() {
@@ -65,8 +80,9 @@ public class MainPageModel {
 	}
 
 	/**
-	 * @param password
-	 *            the password to set
+	 * Sets the password.
+	 *
+	 * @param password the new password
 	 */
 	public void setPassword(String password) {
 		this.password = password;

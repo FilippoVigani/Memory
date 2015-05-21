@@ -4,11 +4,18 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.HashMap;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Mapper.
+ */
 public class Mapper {
 	private HashMap<String, String> cardsMap;
 
 	private static Mapper mapper;
 
+	/**
+	 * Instantiates a new mapper.
+	 */
 	public Mapper() {
 		File[] listOfFiles = new File(StringResources.resFig.toString()).listFiles(new FilenameFilter() {
 			@Override
@@ -25,6 +32,11 @@ public class Mapper {
 		}
 	}
 
+	/**
+	 * Gets the mapper.
+	 *
+	 * @return the mapper
+	 */
 	public static Mapper getMapper() {
 		if (mapper == null) {
 			mapper = new Mapper();
@@ -33,15 +45,18 @@ public class Mapper {
 	}
 
 	/**
-	 * @return the cardsMap
+	 * Gets the cards map.
+	 *
+	 * @return the cards map
 	 */
 	public HashMap<String, String> getCardsMap() {
 		return cardsMap;
 	}
 
 	/**
-	 * @param cardsMap
-	 *            the cardsMap to set
+	 * Sets the cards map.
+	 *
+	 * @param cardsMap the cards map
 	 */
 	public void setCardsMap(HashMap<String, String> cardsMap) {
 		this.cardsMap = cardsMap;

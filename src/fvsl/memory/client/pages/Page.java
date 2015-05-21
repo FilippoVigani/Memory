@@ -3,6 +3,10 @@ package fvsl.memory.client.pages;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Page.
+ */
 public abstract class Page extends JPanel {
 	// /Fields
 
@@ -16,12 +20,17 @@ public abstract class Page extends JPanel {
 	// /Constructors
 
 	/**
-	 * Basic constructor for a root Page
+	 * Instantiates a new page.
 	 */
 	public Page() {
 		this(null);
 	}
 
+	/**
+	 * Instantiates a new page.
+	 *
+	 * @param o the o
+	 */
 	public Page(Object o) {
 		bufferize(o);
 		loadComponents();
@@ -45,6 +54,9 @@ public abstract class Page extends JPanel {
 
 	protected abstract void onExit();
 
+	/**
+	 * Initialize.
+	 */
 	public void initialize() {
 		loadData();
 		populateViews();

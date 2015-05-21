@@ -11,6 +11,10 @@ import fvsl.memory.common.entities.Card;
 import fvsl.memory.common.util.Mapper;
 import fvsl.memory.common.util.StringResources;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CardButton.
+ */
 public class CardButton extends JButton {
 
 	private Card card;
@@ -20,6 +24,9 @@ public class CardButton extends JButton {
 	 */
 	private static final long serialVersionUID = -3176672112421455182L;
 
+	/**
+	 * Instantiates a new card button.
+	 */
 	public CardButton() {
 		// setLayout(new BorderLayout());
 
@@ -45,14 +52,29 @@ public class CardButton extends JButton {
 		});
 	}
 
+	/**
+	 * Instantiates a new card button.
+	 *
+	 * @param card the card
+	 */
 	public CardButton(Card card) {
 		setCard(card);
 	}
 
+	/**
+	 * Gets the card.
+	 *
+	 * @return the card
+	 */
 	public Card getCard() {
 		return card;
 	}
 
+	/**
+	 * Sets the card.
+	 *
+	 * @param card the new card
+	 */
 	public void setCard(Card card) {
 		this.card = card;
 		String path = StringResources.foldedCard.toString();
@@ -72,6 +94,9 @@ public class CardButton extends JButton {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

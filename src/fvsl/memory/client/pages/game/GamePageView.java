@@ -31,12 +31,21 @@ import fvsl.memory.common.entities.GameRequest.GameRequestAction;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.util.StringResources;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GamePageView.
+ */
 public class GamePageView extends Page {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2004601937124829532L;
 
+	/**
+	 * Instantiates a new game page view.
+	 *
+	 * @param lobby the lobby
+	 */
 	public GamePageView(Lobby lobby) {
 		super(lobby);
 
@@ -250,6 +259,11 @@ public class GamePageView extends Page {
 		timerPaused = true;
 	}
 
+	/**
+	 * Respond to game request.
+	 *
+	 * @param gameRequest the game request
+	 */
 	public void respondToGameRequest(GameRequest gameRequest) {
 		if (gameRequest.getId().equals(model.getLobby().getId())) {
 			if (gameRequest.getAction() == GameRequestAction.TurnCard) {
@@ -283,12 +297,22 @@ public class GamePageView extends Page {
 		}
 	}
 
+	/**
+	 * Start game.
+	 *
+	 * @param lobby the lobby
+	 */
 	public void startGame(Lobby lobby) {
 		if (lobby.getId().equals(model.getLobby().getId())) {
 			startTimer();
 		}
 	}
 
+	/**
+	 * End game.
+	 *
+	 * @param id the id
+	 */
 	public void endGame(String id) {
 		if (id.equals(model.getLobby().getId())) {
 			stopTimer();
@@ -364,6 +388,8 @@ public class GamePageView extends Page {
 	}
 
 	/**
+	 * Gets the controller.
+	 *
 	 * @return the controller
 	 */
 	public GamePageController getController() {
@@ -371,8 +397,9 @@ public class GamePageView extends Page {
 	}
 
 	/**
-	 * @param controller
-	 *            the controller to set
+	 * Sets the controller.
+	 *
+	 * @param controller the new controller
 	 */
 	public void setController(GamePageController controller) {
 		this.controller = controller;

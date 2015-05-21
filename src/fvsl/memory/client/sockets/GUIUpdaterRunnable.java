@@ -22,6 +22,10 @@ import fvsl.memory.common.entities.Request.RequestType;
 import fvsl.memory.common.settings.Settings;
 import fvsl.memory.common.util.StringResources;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GUIUpdaterRunnable.
+ */
 public class GUIUpdaterRunnable implements Runnable {
 
 	protected ObjectInputStream streamFromServer;
@@ -31,11 +35,19 @@ public class GUIUpdaterRunnable implements Runnable {
 	private volatile Page page;
 	private boolean isRunning;
 
+	/**
+	 * Instantiates a new GUI updater runnable.
+	 *
+	 * @param page the page
+	 */
 	public GUIUpdaterRunnable(Page page) {
 		this.page = page;
 		setRunning(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 
@@ -205,6 +217,11 @@ public class GUIUpdaterRunnable implements Runnable {
 		close(false);
 	}
 
+	/**
+	 * Close.
+	 *
+	 * @param closeSocket the close socket
+	 */
 	public void close(boolean closeSocket) {
 		try {
 			if (streamFromServer != null)
@@ -221,6 +238,8 @@ public class GUIUpdaterRunnable implements Runnable {
 	}
 
 	/**
+	 * Gets the page.
+	 *
 	 * @return the page
 	 */
 	public Page getPage() {
@@ -228,23 +247,27 @@ public class GUIUpdaterRunnable implements Runnable {
 	}
 
 	/**
-	 * @param page
-	 *            the page to set
+	 * Sets the page.
+	 *
+	 * @param page the new page
 	 */
 	public void setPage(Page page) {
 		this.page = page;
 	}
 
 	/**
-	 * @return the isRunning
+	 * Checks if is running.
+	 *
+	 * @return true, if is running
 	 */
 	public boolean isRunning() {
 		return isRunning;
 	}
 
 	/**
-	 * @param isRunning
-	 *            the isRunning to set
+	 * Sets the running.
+	 *
+	 * @param isRunning the new running
 	 */
 	public void setRunning(boolean isRunning) {
 		this.isRunning = isRunning;

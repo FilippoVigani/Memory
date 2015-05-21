@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
 
+// TODO: Auto-generated Javadoc
 /*
  *  Create a simple console to display text messages.
  *
@@ -16,12 +17,20 @@ import javax.swing.text.*;
  *
  *  You can limit the number of lines to hold in the Document.
  */
+/**
+ * The Class MessageConsole.
+ */
 public class MessageConsole {
 	private JTextComponent textComponent;
 	private Document document;
 	private boolean isAppend;
 	private DocumentListener limitLinesListener;
 
+	/**
+	 * Instantiates a new message console.
+	 *
+	 * @param textComponent the text component
+	 */
 	public MessageConsole(JTextComponent textComponent) {
 		this(textComponent, true);
 	}
@@ -32,6 +41,12 @@ public class MessageConsole {
 	 * 
 	 * The messages can either be appended to the end of the console or inserted
 	 * as the first line of the console.
+	 */
+	/**
+	 * Instantiates a new message console.
+	 *
+	 * @param textComponent the text component
+	 * @param isAppend the is append
 	 */
 	public MessageConsole(JTextComponent textComponent, boolean isAppend) {
 		this.textComponent = textComponent;
@@ -44,6 +59,9 @@ public class MessageConsole {
 	 * Redirect the output from the standard output to the console using the
 	 * default text color and null PrintStream
 	 */
+	/**
+	 * Redirect out.
+	 */
 	public void redirectOut() {
 		redirectOut(null, null);
 	}
@@ -54,6 +72,12 @@ public class MessageConsole {
 	 * message will be added to the Document before it is also written to the
 	 * PrintStream.
 	 */
+	/**
+	 * Redirect out.
+	 *
+	 * @param textColor the text color
+	 * @param printStream the print stream
+	 */
 	public void redirectOut(Color textColor, PrintStream printStream) {
 		ConsoleOutputStream cos = new ConsoleOutputStream(textColor, printStream);
 		System.setOut(new PrintStream(cos, true));
@@ -62,6 +86,9 @@ public class MessageConsole {
 	/*
 	 * Redirect the output from the standard error to the console using the
 	 * default text color and null PrintStream
+	 */
+	/**
+	 * Redirect err.
 	 */
 	public void redirectErr() {
 		redirectErr(null, null);
@@ -72,6 +99,12 @@ public class MessageConsole {
 	 * specified color and PrintStream. When a PrintStream is specified the
 	 * message will be added to the Document before it is also written to the
 	 * PrintStream.
+	 */
+	/**
+	 * Redirect err.
+	 *
+	 * @param textColor the text color
+	 * @param printStream the print stream
 	 */
 	public void redirectErr(Color textColor, PrintStream printStream) {
 		ConsoleOutputStream cos = new ConsoleOutputStream(textColor, printStream);
@@ -84,6 +117,11 @@ public class MessageConsole {
 	 * 
 	 * This number can be dynamically changed, but the console will only be
 	 * updated the next time the Document is updated.
+	 */
+	/**
+	 * Sets the message lines.
+	 *
+	 * @param lines the new message lines
 	 */
 	public void setMessageLines(int lines) {
 		if (limitLinesListener != null)
@@ -99,6 +137,9 @@ public class MessageConsole {
 	 * text displayed in the Document can be color coded to indicate the output
 	 * source.
 	 */
+	/**
+	 * The Class ConsoleOutputStream.
+	 */
 	class ConsoleOutputStream extends ByteArrayOutputStream {
 		private final String EOL = System.getProperty("line.separator");
 		private SimpleAttributeSet attributes;
@@ -108,6 +149,12 @@ public class MessageConsole {
 
 		/*
 		 * Specify the option text color and PrintStream
+		 */
+		/**
+		 * Instantiates a new console output stream.
+		 *
+		 * @param textColor the text color
+		 * @param printStream the print stream
 		 */
 		public ConsoleOutputStream(Color textColor, PrintStream printStream) {
 			if (textColor != null) {
@@ -129,6 +176,9 @@ public class MessageConsole {
 		 * 
 		 * The message will be treated differently depending on whether the line
 		 * will be appended or inserted into the Document
+		 */
+		/* (non-Javadoc)
+		 * @see java.io.OutputStream#flush()
 		 */
 		@Override
 		public void flush() {

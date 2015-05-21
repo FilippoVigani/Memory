@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package fvsl.memory.client.pages.createlobby;
 
 import javax.swing.Box;
@@ -26,29 +29,53 @@ import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Request.LobbyCreationResult;
 import fvsl.memory.common.util.StringResources;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CreateLobbyPageView.
+ */
 public class CreateLobbyPageView extends Page {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -2666672662443557135L;
 
+	/** The model. */
 	private CreateLobbyPageModel model;
+	
+	/** The controller. */
 	private CreateLobbyPageController controller;
 
+	/**
+	 * Instantiates a new creates the lobby page view.
+	 */
 	public CreateLobbyPageView() {
 		super();
 		controller = new CreateLobbyPageController();
 	}
 
+	/** The crea button. */
 	private JButton creaButton;
+	
+	/** The back button. */
 	private JButton backButton;
+	
+	/** The lobby name field. */
 	private JTextField lobbyNameField;
+	
+	/** The password field. */
 	private JTextField passwordField;
+	
+	/** The n g combo. */
 	private JComboBox<Integer> nGCombo;
+	
+	/** The n coppie combo. */
 	private JComboBox<Integer> nCoppieCombo;
+	
+	/** The timer combo. */
 	private JComboBox<Integer> timerCombo;
 
+	/* (non-Javadoc)
+	 * @see fvsl.memory.client.pages.Page#loadComponents()
+	 */
 	@Override
 	protected void loadComponents() {
 		JPanel panel = new JPanel();
@@ -99,6 +126,9 @@ public class CreateLobbyPageView extends Page {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see fvsl.memory.client.pages.Page#setUpListeners()
+	 */
 	@Override
 	protected void setUpListeners() {
 
@@ -188,6 +218,9 @@ public class CreateLobbyPageView extends Page {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see fvsl.memory.client.pages.Page#loadData()
+	 */
 	@Override
 	protected void loadData() {
 		model = new CreateLobbyPageModel();
@@ -196,6 +229,9 @@ public class CreateLobbyPageView extends Page {
 		// (vanno creati altri campi)
 	}
 
+	/* (non-Javadoc)
+	 * @see fvsl.memory.client.pages.Page#populateViews()
+	 */
 	@Override
 	protected void populateViews() {
 		// Imposta i valori qui (li prendi dal model e li metti nella view)
@@ -207,6 +243,8 @@ public class CreateLobbyPageView extends Page {
 	}
 
 	/**
+	 * Gets the controller.
+	 *
 	 * @return the controller
 	 */
 	public CreateLobbyPageController getController() {
@@ -214,19 +252,26 @@ public class CreateLobbyPageView extends Page {
 	}
 
 	/**
-	 * @param controller
-	 *            the controller to set
+	 * Sets the controller.
+	 *
+	 * @param controller the new controller
 	 */
 	public void setController(CreateLobbyPageController controller) {
 		this.controller = controller;
 	}
 
+	/* (non-Javadoc)
+	 * @see fvsl.memory.client.pages.Page#bufferize(java.lang.Object)
+	 */
 	@Override
 	protected void bufferize(Object o) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/* (non-Javadoc)
+	 * @see fvsl.memory.client.pages.Page#onExit()
+	 */
 	@Override
 	protected void onExit() {
 		// TODO Auto-generated method stub

@@ -2,6 +2,10 @@ package fvsl.memory.common.entities;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GameRequest.
+ */
 public class GameRequest implements Serializable {
 
 	/**
@@ -16,16 +20,39 @@ public class GameRequest implements Serializable {
 	private Integer playerPoints;
 	private GameRequestAction action;
 
+	/**
+	 * The Enum GameRequestAction.
+	 */
 	public enum GameRequestAction {
-		TurnCard, LosePlayerTurn, WinPlayerTurn, FoldCard, PlayerTurnTimeout, PlayerLeaveGame
+		
+		/** The Turn card. */
+		TurnCard, 
+ /** The Lose player turn. */
+ LosePlayerTurn, 
+ /** The Win player turn. */
+ WinPlayerTurn, 
+ /** The Fold card. */
+ FoldCard, 
+ /** The Player turn timeout. */
+ PlayerTurnTimeout, 
+ /** The Player leave game. */
+ PlayerLeaveGame
 	}
 
+	/**
+	 * Instantiates a new game request.
+	 *
+	 * @param id the id
+	 * @param action the action
+	 */
 	public GameRequest(String id, GameRequestAction action) {
 		this.id = id;
 		this.action = action;
 	}
 
 	/**
+	 * Gets the player.
+	 *
 	 * @return the player
 	 */
 	public Player getPlayer() {
@@ -33,29 +60,35 @@ public class GameRequest implements Serializable {
 	}
 
 	/**
-	 * @param player
-	 *            the player to set
+	 * Sets the player.
+	 *
+	 * @param player the new player
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 
 	/**
-	 * @return the nextPlayer
+	 * Gets the next player.
+	 *
+	 * @return the next player
 	 */
 	public Player getNextPlayer() {
 		return nextPlayer;
 	}
 
 	/**
-	 * @param nextPlayer
-	 *            the nextPlayer to set
+	 * Sets the next player.
+	 *
+	 * @param nextPlayer the new next player
 	 */
 	public void setNextPlayer(Player nextPlayer) {
 		this.nextPlayer = nextPlayer;
 	}
 
 	/**
+	 * Gets the card.
+	 *
 	 * @return the card
 	 */
 	public Card getCard() {
@@ -63,14 +96,17 @@ public class GameRequest implements Serializable {
 	}
 
 	/**
-	 * @param card
-	 *            the card to set
+	 * Sets the card.
+	 *
+	 * @param card the new card
 	 */
 	public void setCard(Card card) {
 		this.card = card;
 	}
 
 	/**
+	 * Gets the action.
+	 *
 	 * @return the action
 	 */
 	public GameRequestAction getAction() {
@@ -78,14 +114,17 @@ public class GameRequest implements Serializable {
 	}
 
 	/**
-	 * @param action
-	 *            the action to set
+	 * Sets the action.
+	 *
+	 * @param action the new action
 	 */
 	public void setAction(GameRequestAction action) {
 		this.action = action;
 	}
 
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public String getId() {
@@ -93,23 +132,27 @@ public class GameRequest implements Serializable {
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
+	 * Sets the id.
+	 *
+	 * @param id the new id
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return the playerPoints
+	 * Gets the player points.
+	 *
+	 * @return the player points
 	 */
 	public Integer getPlayerPoints() {
 		return playerPoints;
 	}
 
 	/**
-	 * @param playerPoints
-	 *            the playerPoints to set
+	 * Sets the player points.
+	 *
+	 * @param playerPoints the new player points
 	 */
 	public void setPlayerPoints(Integer playerPoints) {
 		this.playerPoints = playerPoints;

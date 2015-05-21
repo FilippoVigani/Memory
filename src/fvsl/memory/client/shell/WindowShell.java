@@ -18,9 +18,9 @@ import fvsl.memory.client.sockets.GUIUpdaterRunnable;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.util.StringResources;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Filippo Vigani
- * 
+ * The Class WindowShell.
  */
 public class WindowShell extends JFrame {
 
@@ -30,9 +30,15 @@ public class WindowShell extends JFrame {
 	private static final long serialVersionUID = 1980870011702344758L;
 	private PageManager pageManager;
 
+	/** The mpw. */
 	MainPageView mpw;
+	
+	/** The clw. */
 	CreateLobbyPageView clw;
 
+	/**
+	 * Instantiates a new window shell.
+	 */
 	public WindowShell() {
 		setTitle(StringResources.windowTitle.toString());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

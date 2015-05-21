@@ -19,6 +19,10 @@ import fvsl.memory.common.util.StringResources;
 
 import java.util.Vector;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LobbyPageView.
+ */
 public class LobbyPageView extends Page {
 
 	/**
@@ -27,10 +31,20 @@ public class LobbyPageView extends Page {
 	private static final long serialVersionUID = -8017492250670854298L;
 	private LobbyPageModel model;
 
+	/**
+	 * Gets the controller.
+	 *
+	 * @return the controller
+	 */
 	public LobbyPageController getController() {
 		return controller;
 	}
 
+	/**
+	 * Sets the controller.
+	 *
+	 * @param controller the new controller
+	 */
 	public void setController(LobbyPageController controller) {
 		this.controller = controller;
 	}
@@ -38,6 +52,11 @@ public class LobbyPageView extends Page {
 	private LobbyPageController controller;
 	private Lobby lobbyBuffer;
 
+	/**
+	 * Instantiates a new lobby page view.
+	 *
+	 * @param lobby the lobby
+	 */
 	public LobbyPageView(Lobby lobby) {
 		super(lobby);
 	}
@@ -162,18 +181,31 @@ public class LobbyPageView extends Page {
 		lobbyBuffer = (Lobby) o;
 	}
 
+	/**
+	 * Update players.
+	 */
 	public void updatePlayers() {
 		model.getLobby().setConnectedPlayers(controller.getPlayersOfLobbyFromServer(model.getLobby()));
 		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
 		playersTable.setModel(tableModel);
 	}
 
+	/**
+	 * Respond to deleted lobby.
+	 *
+	 * @param lobby the lobby
+	 */
 	public void respondToDeletedLobby(Lobby lobby) {
 		if (model.getLobby().getId().equals(lobby.getId())) {
 			controller.backToMainPage(model.getLobby());
 		}
 	}
 
+	/**
+	 * Respond to start game.
+	 *
+	 * @param lobby the lobby
+	 */
 	public void respondToStartGame(Lobby lobby) {
 		if (model.getLobby().getId().equals(lobby.getId())) {
 			controller.goToGamePage(model.getLobby());

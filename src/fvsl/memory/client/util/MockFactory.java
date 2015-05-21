@@ -4,7 +4,17 @@ import java.util.ArrayList;
 
 import fvsl.memory.common.entities.Lobby;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating Mock objects.
+ */
 public class MockFactory {
+	
+	/**
+	 * Gets the mock lobbies list.
+	 *
+	 * @return the mock lobbies list
+	 */
 	public static ArrayList<Lobby> getMockLobbiesList() {
 		ArrayList<Lobby> list = new ArrayList<Lobby>();
 		list.add(new Lobby("sadasd", "MockLobby1", 2, 30, 19, null));

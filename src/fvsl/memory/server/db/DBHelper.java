@@ -4,6 +4,10 @@ import java.sql.*;
 
 import fvsl.memory.common.util.StringResources;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DBHelper.
+ */
 public class DBHelper {
 	private static Connection connection = null;
 	// 1.jdbc driver name
@@ -14,6 +18,11 @@ public class DBHelper {
 	private static String USERNAME = "root";// UserName
 	private static String PASSWORD = "";// Password
 
+	/**
+	 * Gets the local connection.
+	 *
+	 * @return the local connection
+	 */
 	public static Connection getLocalConnection() {
 		try {
 			Class.forName(SQL_JDBC_DRIVER);// Register jdbc driver
@@ -32,6 +41,11 @@ public class DBHelper {
 		return connection;
 	}
 
+	/**
+	 * Sets the connection close.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	public static void setConnectionClose() throws SQLException {
 		if (connection != null) {
 			connection.close();
@@ -39,6 +53,13 @@ public class DBHelper {
 		}
 	}
 
+	/**
+	 * View table.
+	 *
+	 * @param con the con
+	 * @param dbName the db name
+	 * @throws SQLException the SQL exception
+	 */
 	public static void viewTable(Connection con, String dbName) throws SQLException {
 
 		Statement stmt = null;

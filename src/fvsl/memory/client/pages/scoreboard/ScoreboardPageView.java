@@ -21,12 +21,21 @@ import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.Vector;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ScoreboardPageView.
+ */
 public class ScoreboardPageView extends Page {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -9192421170975614105L;
 
+	/**
+	 * Instantiates a new scoreboard page view.
+	 *
+	 * @param lobby the lobby
+	 */
 	public ScoreboardPageView(Lobby lobby) {
 		super(lobby);
 		controller = new ScoreboardPageController();
@@ -143,6 +152,11 @@ public class ScoreboardPageView extends Page {
 		}
 	}
 
+	/**
+	 * Gets the controller.
+	 *
+	 * @return the controller
+	 */
 	public PageListeners getController() {
 		// TODO Auto-generated method stub
 		return controller;

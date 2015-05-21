@@ -25,6 +25,10 @@ import fvsl.memory.common.util.StringResources;
 import fvsl.memory.server.db.GameState;
 import fvsl.memory.server.db.ServerData;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ClientRunnable.
+ */
 public class ClientRunnable implements Runnable {
 
 	protected Socket clientSocket = null;
@@ -35,12 +39,22 @@ public class ClientRunnable implements Runnable {
 
 	protected volatile ServerData serverData;
 
+	/**
+	 * Instantiates a new client runnable.
+	 *
+	 * @param clientSocket the client socket
+	 * @param serverText the server text
+	 * @param serverData the server data
+	 */
 	public ClientRunnable(Socket clientSocket, String serverText, ServerData serverData) {
 		this.clientSocket = clientSocket;
 		this.serverText = serverText;
 		this.serverData = serverData;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Runnable#run()
+	 */
 	@Override
 	public void run() {
 
@@ -484,15 +498,18 @@ public class ClientRunnable implements Runnable {
 	}
 
 	/**
-	 * @return the isStopped
+	 * Checks if is stopped.
+	 *
+	 * @return true, if is stopped
 	 */
 	public boolean isStopped() {
 		return isStopped;
 	}
 
 	/**
-	 * @param isStopped
-	 *            the isStopped to set
+	 * Sets the stopped.
+	 *
+	 * @param isStopped the new stopped
 	 */
 	public void setStopped(boolean isStopped) {
 		this.isStopped = isStopped;

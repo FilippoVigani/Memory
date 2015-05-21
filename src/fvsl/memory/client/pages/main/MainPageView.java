@@ -30,6 +30,10 @@ import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.entities.Request.LobbyJoiningResult;
 import fvsl.memory.common.util.StringResources;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MainPageView.
+ */
 public class MainPageView extends Page {
 
 	/**
@@ -48,6 +52,9 @@ public class MainPageView extends Page {
 	private JButton btnJoinLobby;
 	private JList<Lobby> listLobbies;
 
+	/**
+	 * Instantiates a new main page view.
+	 */
 	public MainPageView() {
 		super();
 		controller = new MainPageController();
@@ -117,12 +124,18 @@ public class MainPageView extends Page {
 		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
 	}
 
+	/**
+	 * Update lobbies.
+	 */
 	public void updateLobbies() {
 		System.out.println(StringResources.updateLo.toString());
 		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
 		listLobbies.setListData(model.getLobbies().toArray(new Lobby[model.getLobbies().size()]));
 	}
 
+	/* (non-Javadoc)
+	 * @see fvsl.memory.client.pages.Page#populateViews()
+	 */
 	@Override
 	public void populateViews() {
 		listLobbies.setListData(model.getLobbies().toArray(new Lobby[model.getLobbies().size()]));
@@ -219,13 +232,17 @@ public class MainPageView extends Page {
 	}
 
 	/**
-	 * @return the txtUsername
+	 * Gets the txt username.
+	 *
+	 * @return the txt username
 	 */
 	public JTextField getTxtUsername() {
 		return txtUsername;
 	}
 
 	/**
+	 * Gets the model.
+	 *
 	 * @return the model
 	 */
 	public MainPageModel getModel() {
@@ -233,6 +250,8 @@ public class MainPageView extends Page {
 	}
 
 	/**
+	 * Gets the controller.
+	 *
 	 * @return the controller
 	 */
 	public MainPageController getController() {

@@ -2,6 +2,10 @@ package fvsl.memory.common.entities;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Card.
+ */
 public class Card implements Serializable {
 	/**
 	 * 
@@ -14,6 +18,12 @@ public class Card implements Serializable {
 
 	private boolean isTurned;
 
+	/**
+	 * Instantiates a new card.
+	 *
+	 * @param id the id
+	 * @param value the value
+	 */
 	public Card(String id, String value) {
 		super();
 		this.id = id;
@@ -22,6 +32,8 @@ public class Card implements Serializable {
 	}
 
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public String getId() {
@@ -29,14 +41,17 @@ public class Card implements Serializable {
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
+	 * Sets the id.
+	 *
+	 * @param id the new id
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
 	/**
+	 * Gets the value.
+	 *
 	 * @return the value
 	 */
 	public String getValue() {
@@ -44,23 +59,27 @@ public class Card implements Serializable {
 	}
 
 	/**
-	 * @param value
-	 *            the value to set
+	 * Sets the value.
+	 *
+	 * @param value the new value
 	 */
 	public void setValue(String value) {
 		this.value = value;
 	}
 
 	/**
-	 * @return the isTurned
+	 * Checks if is turned.
+	 *
+	 * @return true, if is turned
 	 */
 	public boolean isTurned() {
 		return isTurned;
 	}
 
 	/**
-	 * @param isTurned
-	 *            the isTurned to set
+	 * Sets the turned.
+	 *
+	 * @param isTurned the new turned
 	 */
 	public void setTurned(boolean isTurned) {
 		this.isTurned = isTurned;
