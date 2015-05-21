@@ -21,7 +21,7 @@ public class CreateLobbyPageModel {
 	private Integer[] possiblePlayers = { 2, 3, 4 };
 
 	/** The possible pairs. */
-	private Integer[] possiblePairs = { 2, 10, 15, 20 };
+	private Integer[] possiblePairs = { 10, 15, 20 };
 
 	/** The possible timers. */
 	private Integer[] possibleTimers = { 5, 10, 15 };
