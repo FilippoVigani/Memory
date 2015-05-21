@@ -126,8 +126,8 @@ public class GamePageView extends Page {
 		scorePanel.add(tablePanel);
 		scorePanel.add(Box.createVerticalGlue());
 		// scorePanel.add(Box.createRigidArea(new Dimension(0,300)));
-
-		int columns = 5;
+		
+		int columns = bufferLobby.getNumberOfPairs()* 2/5;
 		int rows = bufferLobby.getNumberOfPairs() * 2 / columns;
 
 		cardsPanel.setLayout(new GridLayout(rows, columns, 5, 5));
