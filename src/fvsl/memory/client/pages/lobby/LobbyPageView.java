@@ -1,8 +1,6 @@
 package fvsl.memory.client.pages.lobby;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -52,7 +50,7 @@ public class LobbyPageView extends Page {
 	private JTable playersTable;
 	private JPanel tablePanel;
 	private JPanel playersPanel;
-	
+
 	@Override
 	protected void loadComponents() {
 
@@ -78,15 +76,15 @@ public class LobbyPageView extends Page {
 		numberOfPairsLabel.setFont(new Font(StringResources.textStyle.toString(), Font.BOLD, 20));
 		timerLabel = new JLabel();
 		timerLabel.setFont(new Font(StringResources.textStyle.toString(), Font.BOLD, 20));
-		//infoPanel.add(Box.createVerticalGlue());
+		// infoPanel.add(Box.createVerticalGlue());
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.setBorder((new TitledBorder(new EtchedBorder(),StringResources.name.toString())));
+		panel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.name.toString())));
 		panel.add(Box.createHorizontalGlue());
 		panel.add(lobbyNameLabel);
 		panel.add(Box.createHorizontalGlue());
 		infoPanel.add(panel);
-		//infoPanel.add(Box.createVerticalGlue());
+		// infoPanel.add(Box.createVerticalGlue());
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.coupleNum.toString())));
@@ -94,7 +92,7 @@ public class LobbyPageView extends Page {
 		panel.add(numberOfPairsLabel);
 		panel.add(Box.createHorizontalGlue());
 		infoPanel.add(panel);
-		//infoPanel.add(Box.createVerticalGlue());
+		// infoPanel.add(Box.createVerticalGlue());
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.timer.toString())));
@@ -107,18 +105,18 @@ public class LobbyPageView extends Page {
 		infoPanel.add(Box.createVerticalGlue());
 
 		infoPanel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.infoLo.toString())));
-		
+
 		playersTable = new JTable();
 		tablePanel = new JPanel();
-		
-		//playersPanel.add(Box.createRigidArea(new Dimension(55, 100)));
+
+		// playersPanel.add(Box.createRigidArea(new Dimension(55, 100)));
 		tablePanel.setBorder((new TitledBorder(new EtchedBorder(), StringResources.connectedPl.toString())));
 		tablePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		tablePanel.add(new JScrollPane(playersTable));
 		tablePanel.add(readyButton);
 		playersPanel.add(tablePanel);
 		tablePanel.add(Box.createVerticalGlue());
-		//playersPanel.add(Box.createRigidArea(new Dimension(55, 60)));
+		// playersPanel.add(Box.createRigidArea(new Dimension(55, 60)));
 	}
 
 	@Override
@@ -181,7 +179,7 @@ public class LobbyPageView extends Page {
 			controller.goToGamePage(model.getLobby());
 		}
 	}
-	
+
 	@Override
 	protected void onExit() {
 		controller.leaveLobby(model.getLobby());

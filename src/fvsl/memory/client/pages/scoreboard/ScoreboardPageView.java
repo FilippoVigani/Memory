@@ -1,8 +1,6 @@
 package fvsl.memory.client.pages.scoreboard;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -12,15 +10,12 @@ import javax.swing.table.TableModel;
 
 import fvsl.memory.client.pages.Page;
 import fvsl.memory.client.pages.PageListeners;
-import fvsl.memory.client.pages.game.GamePageController;
-import fvsl.memory.client.pages.game.GamePageModel;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.util.StringResources;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Comparator;
@@ -36,29 +31,32 @@ public class ScoreboardPageView extends Page {
 		super(lobby);
 		controller = new ScoreboardPageController();
 	}
+
 	private ScoreboardPageModel model;
 	private Lobby bufferLobby;
 	private ScoreboardPageController controller;
+
 	@Override
 	protected void bufferize(Object o) {
 		bufferLobby = (Lobby) o;
 	}
+
 	private JButton backButton;
 	private JTable scoreTable;
+
 	@Override
 	protected void loadComponents() {
 		// TODO Auto-generated method stub
 		JPanel panel = new JPanel();
 		add(panel);
-		JPanel Panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
-		scoreTable=new JTable();
+		new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		scoreTable = new JTable();
 		panel.add(new JScrollPane(scoreTable));
-		backButton=new JButton("Continue");
+		backButton = new JButton("Continue");
 		panel.add(backButton);
 		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		backButton.setMaximumSize(new Dimension(Short.MAX_VALUE,
-                Short.MAX_VALUE));
+		backButton.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 	}
 
 	@Override
@@ -93,7 +91,7 @@ public class ScoreboardPageView extends Page {
 		private static final long serialVersionUID = 1L;
 
 		private Vector<Player> list = new Vector<Player>();
-		private String[] columnNames = { StringResources.player.toString(), StringResources.score.toString()};
+		private String[] columnNames = { StringResources.player.toString(), StringResources.score.toString() };
 
 		public PlayersTableModel(Vector<Player> list) {
 			this.list = list;
@@ -103,7 +101,7 @@ public class ScoreboardPageView extends Page {
 					return p1.getScore() < p2.getScore() ? 1 : p1.getScore() > p2.getScore() ? -1 : 0;
 				}
 			});
-			
+
 		}
 
 		@Override
@@ -153,8 +151,7 @@ public class ScoreboardPageView extends Page {
 	@Override
 	protected void onExit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }

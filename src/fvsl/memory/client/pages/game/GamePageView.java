@@ -2,13 +2,10 @@ package fvsl.memory.client.pages.game;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -20,8 +17,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +32,11 @@ import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.util.StringResources;
 
 public class GamePageView extends Page {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2004601937124829532L;
+
 	public GamePageView(Lobby lobby) {
 		super(lobby);
 
@@ -90,8 +90,9 @@ public class GamePageView extends Page {
 		timerAndCardsPanel.setLayout(new BoxLayout(timerAndCardsPanel, BoxLayout.Y_AXIS));
 		JPanel cardsPanelContainer = new JPanel(new FlowLayout());
 
-		JPanel timerPanel = new JPanel();;
-		//timerPanel.setLayout();
+		JPanel timerPanel = new JPanel();
+		;
+		// timerPanel.setLayout();
 		timerLabel = new JLabel();
 		timerLabel.setFont(new Font(StringResources.textStyle.toString(), Font.BOLD, 40));
 		timerLabel.setText(StringResources.timerStart.toString());
@@ -158,8 +159,8 @@ public class GamePageView extends Page {
 			controller.attemptToTurnCard(model.getLobby().getId(), card);
 		}
 	}
-	
-	private void turnTimeout(){
+
+	private void turnTimeout() {
 		controller.reportTurnTimeout(model.getLobby().getId());
 	}
 
@@ -184,8 +185,8 @@ public class GamePageView extends Page {
 		playersTable.setModel(tableModel);
 	}
 
-	private void startTimer(){
-		long duration = (long)(model.getLobby().getTurnTimer() * 1000);
+	private void startTimer() {
+		long duration = (long) (model.getLobby().getTurnTimer() * 1000);
 		synchronized (remaining) {
 			remaining = duration;
 		}
@@ -194,11 +195,11 @@ public class GamePageView extends Page {
 
 			@Override
 			public void run() {
-				while (timerRunning){
-					if (!timerPaused){
+				while (timerRunning) {
+					if (!timerPaused) {
 						synchronized (remaining) {
 
-							remaining -= interval; 
+							remaining -= interval;
 							if (remaining < 0) {
 								remaining = 0L;
 								pauseTimer();
@@ -211,10 +212,10 @@ public class GamePageView extends Page {
 								});
 							}
 
-							//int minutes = (int)(remaining/60000);
+							// int minutes = (int)(remaining/60000);
 						}
-						final int seconds = (int)((remaining)/1000);
-						final int decimal = (int)(((remaining)%1000)/10);
+						final int seconds = (int) ((remaining) / 1000);
+						final int decimal = (int) (((remaining) % 1000) / 10);
 						SwingUtilities.invokeLater(new Runnable() {
 
 							@Override
@@ -222,7 +223,6 @@ public class GamePageView extends Page {
 								timerLabel.setText(String.format("%02d", seconds) + ":" + String.format("%02d", decimal));
 							}
 						});
-
 
 						try {
 							Thread.sleep(interval);
@@ -235,17 +235,18 @@ public class GamePageView extends Page {
 		}).start();
 	}
 
-	private void refreshTimer(){
+	private void refreshTimer() {
 		timerPaused = false;
 		synchronized (remaining) {
-			remaining = (long)(model.getLobby().getTurnTimer() * 1000);
+			remaining = (long) (model.getLobby().getTurnTimer() * 1000);
 		}
 	}
-	private void stopTimer(){
+
+	private void stopTimer() {
 		timerRunning = false;
 	}
 
-	private void pauseTimer(){
+	private void pauseTimer() {
 		timerPaused = true;
 	}
 
@@ -255,7 +256,7 @@ public class GamePageView extends Page {
 				Card card = gameRequest.getCard();
 				getCardButtonByCardId(card.getId()).setCard(card);
 				numberOfCardsTurnedInThisRound++;
-				if (numberOfCardsTurnedInThisRound >= 2){
+				if (numberOfCardsTurnedInThisRound >= 2) {
 					pauseTimer();
 				}
 			} else if (gameRequest.getAction() == GameRequestAction.FoldCard) {
@@ -275,23 +276,21 @@ public class GamePageView extends Page {
 				model.getLobby().getConnectedPlayerByName(gameRequest.getPlayer().getName()).setScore(playerPoints);
 				refreshTable();
 				refreshTimer();
-			} else if (gameRequest.getAction() == GameRequestAction.PlayerLeaveGame){
-				model.getLobby().getConnectedPlayers().remove(
-						model.getLobby().getConnectedPlayerByName(gameRequest.getPlayer().getName()));
+			} else if (gameRequest.getAction() == GameRequestAction.PlayerLeaveGame) {
+				model.getLobby().getConnectedPlayers().remove(model.getLobby().getConnectedPlayerByName(gameRequest.getPlayer().getName()));
 				refreshTable();
 			}
 		}
 	}
 
-	public void startGame(Lobby lobby){
-		if (lobby.getId().equals(model.getLobby().getId())){
+	public void startGame(Lobby lobby) {
+		if (lobby.getId().equals(model.getLobby().getId())) {
 			startTimer();
 		}
 	}
-	
 
 	public void endGame(String id) {
-		if (id.equals(model.getLobby().getId())){
+		if (id.equals(model.getLobby().getId())) {
 			stopTimer();
 			controller.goToScoreboardPage(model.getLobby());
 		}
@@ -372,7 +371,8 @@ public class GamePageView extends Page {
 	}
 
 	/**
-	 * @param controller the controller to set
+	 * @param controller
+	 *            the controller to set
 	 */
 	public void setController(GamePageController controller) {
 		this.controller = controller;
@@ -380,11 +380,10 @@ public class GamePageView extends Page {
 
 	@Override
 	protected void onExit() {
-		if (model.getTurnPlayer().getName().equals(Application.player.getName())){
+		if (model.getTurnPlayer().getName().equals(Application.player.getName())) {
 			controller.reportTurnTimeout(model.getLobby().getId());
 		}
 		controller.leaveGame(model.getLobby().getId());
 	}
-	
-	
+
 }

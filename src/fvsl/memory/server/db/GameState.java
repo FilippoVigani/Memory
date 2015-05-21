@@ -5,8 +5,6 @@ import java.util.Hashtable;
 import java.util.Random;
 import java.util.UUID;
 import java.util.Vector;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import fvsl.memory.common.entities.*;
 import fvsl.memory.common.util.Mapper;
 
@@ -69,9 +67,9 @@ public class GameState {
 		Card card = getCardById(cardId);
 		card.setTurned(true);
 		totalCardsTurned++;
-		
+
 		System.out.println("GAME " + getId() + " - " + turnPlayer.getName() + " turned card " + cardId + "(" + card.getValue() + ")");
-		
+
 		if (turnedCards[0] == null) {
 			turnedCards[0] = card;
 		} else {
@@ -122,13 +120,13 @@ public class GameState {
 		synchronized (turnNumber) {
 			turnNumber = turnNumber + 1;
 		}
-		
-		if (totalCardsTurned == cards.size()){
+
+		if (totalCardsTurned == cards.size()) {
 			endGame();
 		}
 	}
-	
-	public void endGame(){
+
+	public void endGame() {
 		setGameOver(true);
 		System.out.println("GAME " + getId() + " is over!");
 	}
@@ -145,11 +143,10 @@ public class GameState {
 		}
 		return null;
 	}
-	
 
 	public void kickPlayer(Player player) {
 		players.remove(getPlayerByName(player.getName()));
-		if (players.size() <= 1){
+		if (players.size() <= 1) {
 			endGame();
 		}
 	}
@@ -235,7 +232,8 @@ public class GameState {
 	}
 
 	/**
-	 * @param isStarted the isStarted to set
+	 * @param isStarted
+	 *            the isStarted to set
 	 */
 	public synchronized void setStarted(Boolean isStarted) {
 		this.isStarted = isStarted;
@@ -249,7 +247,8 @@ public class GameState {
 	}
 
 	/**
-	 * @param isGameOver the isGameOver to set
+	 * @param isGameOver
+	 *            the isGameOver to set
 	 */
 	public synchronized void setGameOver(Boolean isGameOver) {
 		this.isGameOver = isGameOver;

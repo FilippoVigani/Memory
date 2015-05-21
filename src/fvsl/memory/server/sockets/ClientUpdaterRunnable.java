@@ -30,6 +30,7 @@ public class ClientUpdaterRunnable implements Runnable {
 		requests = new Vector<Request>();
 	}
 
+	@Override
 	public void run() {
 		try {
 			streamToClient = new ObjectOutputStream(clientSocket.getOutputStream());

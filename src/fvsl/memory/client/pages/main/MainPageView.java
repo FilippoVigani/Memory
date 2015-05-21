@@ -10,7 +10,6 @@ import javax.swing.JList;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -85,11 +84,11 @@ public class MainPageView extends Page {
 		// "Lobbies" ));
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55, 25)));
 		listLobbies = new JList<Lobby>();
-		listLobbies.setBorder((new TitledBorder(new EtchedBorder(),StringResources.lobbies.toString())));
+		listLobbies.setBorder((new TitledBorder(new EtchedBorder(), StringResources.lobbies.toString())));
 		joinLobbyPanel.add(listLobbies);
 		listLobbies.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		txtPassword = new JTextField();
-		txtPassword.setBorder((new TitledBorder(new EtchedBorder(),StringResources.psw.toString())));
+		txtPassword.setBorder((new TitledBorder(new EtchedBorder(), StringResources.psw.toString())));
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55, 5)));
 		joinLobbyPanel.add(txtPassword);
 		joinLobbyPanel.add(Box.createRigidArea(new Dimension(55, 50)));
@@ -111,8 +110,9 @@ public class MainPageView extends Page {
 		model = new MainPageModel();
 		model.setPlayer(Application.player);
 		if (model.getPlayer() == null) {
-			model.setPlayer(new Player(StringResources.anonymousPl.toString())); // Default user
-																// name
+			model.setPlayer(new Player(StringResources.anonymousPl.toString())); // Default
+																					// user
+			// name
 		}
 		model.setLobbies(controller.getLobbiesFromServer(model.getPlayer()));
 	}
@@ -134,14 +134,17 @@ public class MainPageView extends Page {
 	@Override
 	protected void setUpListeners() {
 		txtUsername.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
 			public void changedUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
 
+			@Override
 			public void removeUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
 
+			@Override
 			public void insertUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
@@ -153,14 +156,17 @@ public class MainPageView extends Page {
 		});
 
 		txtPassword.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
 			public void changedUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
 
+			@Override
 			public void removeUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
 
+			@Override
 			public void insertUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
@@ -181,6 +187,7 @@ public class MainPageView extends Page {
 		});
 
 		btnJoinLobby.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (model.getSelectedLobby() != null) {
 					attemptToJoinLobby();
@@ -189,6 +196,7 @@ public class MainPageView extends Page {
 		});
 
 		btnCreateLobby.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				loadCreateLobbyPage();
 			}
@@ -202,11 +210,11 @@ public class MainPageView extends Page {
 	protected void attemptToJoinLobby() {
 		LobbyJoiningResult result = controller.requestLobbyJoining(model.getPlayer(), model.getSelectedLobby(), model.getPassword());
 		if (result == LobbyJoiningResult.Accepted) {
-			log.log(Level.INFO, model.getPlayer().getName() +StringResources.succjoinLo.toString() + model.getSelectedLobby(), model.getSelectedLobby());
+			log.log(Level.INFO, model.getPlayer().getName() + StringResources.succjoinLo.toString() + model.getSelectedLobby(), model.getSelectedLobby());
 			controller.loadLobbyPage(model.getSelectedLobby());
 		} else {
 			log.log(Level.WARNING, model.getPlayer().getName() + StringResources.unJoinLo.toString() + model.getSelectedLobby() + ": " + result.toString(), result);
-			JOptionPane.showMessageDialog(container,StringResources.unJoinLo.toString() + result.toString());
+			JOptionPane.showMessageDialog(container, StringResources.unJoinLo.toString() + result.toString());
 		}
 	}
 
@@ -240,7 +248,7 @@ public class MainPageView extends Page {
 	@Override
 	protected void onExit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

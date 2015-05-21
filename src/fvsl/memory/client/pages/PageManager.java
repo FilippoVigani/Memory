@@ -62,8 +62,8 @@ public class PageManager implements ActionListener {
 	public void setCurrentPage(Page currentPage) {
 		this.currentPage = currentPage;
 	}
-	
-	public void onExit(){
+
+	public void onExit() {
 		Application.getUpdater().setRunning(false);
 		currentPage.onExit();
 	}

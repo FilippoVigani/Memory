@@ -76,16 +76,16 @@ public class WindowShell extends JFrame {
 
 				final GamePageView gpw = new GamePageView((Lobby) e.getSource());
 
-				gpw.getController().addEventListener(new GoToScoreboardEventListener(){
+				gpw.getController().addEventListener(new GoToScoreboardEventListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						ScoreboardPageView scw = new ScoreboardPageView((Lobby) e.getSource());
 						pageManager.loadNewPage(scw);
-				scw.getController().addEventListener(new GoToMainPageEventListener(){
+						scw.getController().addEventListener(new GoToMainPageEventListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
-							pageManager.loadNewPage(mpw);
-						}
+								pageManager.loadNewPage(mpw);
+							}
 						});
 					}
 				});
@@ -114,16 +114,16 @@ public class WindowShell extends JFrame {
 
 				final GamePageView gpw = new GamePageView((Lobby) e.getSource());
 
-				gpw.getController().addEventListener(new GoToScoreboardEventListener(){
+				gpw.getController().addEventListener(new GoToScoreboardEventListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						ScoreboardPageView scw = new ScoreboardPageView((Lobby) e.getSource());
 						pageManager.loadNewPage(scw);
-				scw.getController().addEventListener(new GoToMainPageEventListener(){
+						scw.getController().addEventListener(new GoToMainPageEventListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
-							pageManager.loadNewPage(mpw);
-						}
+								pageManager.loadNewPage(mpw);
+							}
 						});
 					}
 				});

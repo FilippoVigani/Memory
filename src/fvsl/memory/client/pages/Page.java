@@ -44,7 +44,7 @@ public abstract class Page extends JPanel {
 	protected abstract void populateViews();
 
 	protected abstract void onExit();
-	
+
 	public void initialize() {
 		loadData();
 		populateViews();

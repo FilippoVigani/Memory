@@ -130,6 +130,7 @@ public class MessageConsole {
 		 * The message will be treated differently depending on whether the line
 		 * will be appended or inserted into the Document
 		 */
+		@Override
 		public void flush() {
 			String message = toString();
 
@@ -209,7 +210,7 @@ public class MessageConsole {
 				}
 			} catch (BadLocationException e) {
 				e.printStackTrace();
-			} catch (Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 

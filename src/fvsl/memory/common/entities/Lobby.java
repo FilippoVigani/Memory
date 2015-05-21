@@ -104,6 +104,7 @@ public class Lobby implements Serializable {
 		this.turnTimer = turnTimer;
 	}
 
+	@Override
 	public String toString() {
 		return name;
 	}

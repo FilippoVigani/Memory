@@ -283,7 +283,6 @@ public class ServerManager {
 			e1.printStackTrace();
 		}
 		System.out.println(StringResources.reqSent);
-		Player turnPlayer = null;
 		try {
 			Request obj = (Request) streamFromServer.readObject();
 			player = obj.getCastedContent();

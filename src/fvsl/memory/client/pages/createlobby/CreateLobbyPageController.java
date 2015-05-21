@@ -17,7 +17,7 @@ public class CreateLobbyPageController extends PageListeners {
 			e.printStackTrace();
 		}
 
-		System.out.println(result.toString() +StringResources.createdLo + lobby.getId());
+		System.out.println(result.toString() + StringResources.createdLo + lobby.getId());
 
 		if (result == LobbyCreationResult.Accepted) {
 			LobbyJoiningResult joiningResult = LobbyJoiningResult.Failed;

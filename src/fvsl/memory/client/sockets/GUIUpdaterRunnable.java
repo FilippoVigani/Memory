@@ -8,8 +8,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.net.Authenticator.RequestorType;
-
 import javax.swing.SwingUtilities;
 
 import fvsl.memory.client.pages.Page;
@@ -245,7 +243,8 @@ public class GUIUpdaterRunnable implements Runnable {
 	}
 
 	/**
-	 * @param isRunning the isRunning to set
+	 * @param isRunning
+	 *            the isRunning to set
 	 */
 	public void setRunning(boolean isRunning) {
 		this.isRunning = isRunning;

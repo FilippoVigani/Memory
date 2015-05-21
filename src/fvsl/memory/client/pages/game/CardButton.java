@@ -1,18 +1,12 @@
 package fvsl.memory.client.pages.game;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-
 import fvsl.memory.common.entities.Card;
 import fvsl.memory.common.util.Mapper;
 import fvsl.memory.common.util.StringResources;
@@ -78,15 +72,14 @@ public class CardButton extends JButton {
 		}
 	}
 
-	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Dimension size = this.getSize();
-		if (size.width != size.height){
+		if (size.width != size.height) {
 			int d = Math.min(size.width, size.height);
 			setSize(d, d);
-			setPreferredSize(new Dimension(d,d));
+			setPreferredSize(new Dimension(d, d));
 		}
 	}
 }

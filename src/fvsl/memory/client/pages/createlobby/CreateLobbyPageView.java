@@ -1,26 +1,21 @@
 package fvsl.memory.client.pages.createlobby;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
-import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
@@ -60,17 +55,17 @@ public class CreateLobbyPageView extends Page {
 		panel.setLayout(new BorderLayout());
 		add(panel);
 		JPanel settingPanel = new JPanel();
-		JPanel titlePanel=new JPanel();
-		panel.add(titlePanel,BorderLayout.NORTH);
-		panel.add(settingPanel,BorderLayout.CENTER);
-		
-		settingPanel.setLayout(new BoxLayout(settingPanel,BoxLayout.PAGE_AXIS));
-		
+		JPanel titlePanel = new JPanel();
+		panel.add(titlePanel, BorderLayout.NORTH);
+		panel.add(settingPanel, BorderLayout.CENTER);
+
+		settingPanel.setLayout(new BoxLayout(settingPanel, BoxLayout.PAGE_AXIS));
+
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(settingPanel,BoxLayout.LINE_AXIS));
-		panel.add(buttonPanel,BorderLayout.SOUTH);
-		buttonPanel.setLayout(new GridLayout(1,2));
-		
+		buttonPanel.setLayout(new BoxLayout(settingPanel, BoxLayout.LINE_AXIS));
+		panel.add(buttonPanel, BorderLayout.SOUTH);
+		buttonPanel.setLayout(new GridLayout(1, 2));
+
 		lobbyNameField = new JTextField();
 		lobbyNameField.setBorder((new TitledBorder(new EtchedBorder(), StringResources.loName.toString())));
 		lobbyNameField.setColumns(10);
@@ -83,27 +78,24 @@ public class CreateLobbyPageView extends Page {
 		nCoppieCombo = new JComboBox<Integer>();
 		nCoppieCombo.setBorder((new TitledBorder(new EtchedBorder(), StringResources.coupleNum.toString())));
 		timerCombo = new JComboBox<Integer>();
-		timerCombo.setBorder((new TitledBorder(new EtchedBorder(),StringResources.timer.toString())));
+		timerCombo.setBorder((new TitledBorder(new EtchedBorder(), StringResources.timer.toString())));
 		creaButton = new JButton(StringResources.createLo.toString());
 		backButton = new JButton(StringResources.back.toString());
-		
-	
-		titlePanel.add(Box.createRigidArea(new Dimension(350,30)));
+
+		titlePanel.add(Box.createRigidArea(new Dimension(350, 30)));
 		settingPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		settingPanel.add(lobbyNameField);
-		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
+		settingPanel.add(Box.createRigidArea(new Dimension(35, 30)));
 		settingPanel.add(nGCombo);
-		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
+		settingPanel.add(Box.createRigidArea(new Dimension(35, 30)));
 		settingPanel.add(nCoppieCombo);
-		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
+		settingPanel.add(Box.createRigidArea(new Dimension(35, 30)));
 		settingPanel.add(timerCombo);
-		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
+		settingPanel.add(Box.createRigidArea(new Dimension(35, 30)));
 		settingPanel.add(passwordField);
-		settingPanel.add(Box.createRigidArea(new Dimension(35,30)));
+		settingPanel.add(Box.createRigidArea(new Dimension(35, 30)));
 		buttonPanel.add(backButton);
 		buttonPanel.add(creaButton);
-		
-		
 
 	}
 
@@ -111,14 +103,17 @@ public class CreateLobbyPageView extends Page {
 	protected void setUpListeners() {
 
 		lobbyNameField.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
 			public void changedUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
 
+			@Override
 			public void removeUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
 
+			@Override
 			public void insertUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
@@ -129,14 +124,17 @@ public class CreateLobbyPageView extends Page {
 		});
 
 		passwordField.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
 			public void changedUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
 
+			@Override
 			public void removeUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
 
+			@Override
 			public void insertUpdate(DocumentEvent e) {
 				notifyProperty();
 			}
@@ -147,18 +145,21 @@ public class CreateLobbyPageView extends Page {
 		});
 
 		nGCombo.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				model.getLobby().setNumberOfPlayers((Integer) nGCombo.getSelectedItem());
 			}
 		});
 
 		nCoppieCombo.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				model.getLobby().setNumberOfPairs((Integer) nCoppieCombo.getSelectedItem());
 			}
 		});
 
 		timerCombo.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				model.getLobby().setTurnTimer((Integer) timerCombo.getSelectedItem());
 			}
@@ -229,7 +230,7 @@ public class CreateLobbyPageView extends Page {
 	@Override
 	protected void onExit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

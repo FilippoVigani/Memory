@@ -6,7 +6,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
-import java.net.Authenticator.RequestorType;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.Vector;
@@ -215,9 +214,9 @@ public class ClientRunnable implements Runnable {
 				synchronized (game.getId()) {
 					game.setPerformingAction(true);
 					Player player = request.getPlayer();
-					if (game.getTurnPlayer().getName().equals(player.getName())){
+					if (game.getTurnPlayer().getName().equals(player.getName())) {
 						game.endTurn();
-						
+
 						if (game.getCardsToBeFolded()[0] != null) {
 							GameRequest foldCard1 = new GameRequest(game.getId(), GameRequestAction.FoldCard);
 							foldCard1.setPlayer(player);
@@ -230,7 +229,7 @@ public class ClientRunnable implements Runnable {
 								notifyUpdate(RequestType.GameRequest, foldCard2);
 							}
 						}
-						
+
 						GameRequest playerLostTurnRequest = new GameRequest(game.getId(), GameRequestAction.LosePlayerTurn);
 						playerLostTurnRequest.setPlayer(player);
 						playerLostTurnRequest.setNextPlayer(game.getTurnPlayer());
@@ -249,7 +248,7 @@ public class ClientRunnable implements Runnable {
 					game.setPerformingAction(false);
 				}
 			}
-			if (game.isGameOver()){
+			if (game.isGameOver()) {
 				notifyUpdate(RequestType.EndGame, game.getId());
 			}
 		}
@@ -381,25 +380,25 @@ public class ClientRunnable implements Runnable {
 		}
 		notifyUpdate(RequestType.SetupGame, lobby);
 		System.out.println(StringResources.setUpGame);
-		
+
 		final Lobby l = lobby;
-		
-		new Thread(){
+
+		new Thread() {
 			@Override
-			public void run(){
+			public void run() {
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				System.out.println(StringResources.startGame);
-				synchronized (serverData.getGameById(l.getId()).getId()){
+				synchronized (serverData.getGameById(l.getId()).getId()) {
 					serverData.getGameById(l.getId()).setStarted(true);
 				}
 				notifyUpdate(RequestType.StartGame, l);
 			}
 		}.start();
-		
+
 	}
 
 	private boolean checkIfAllAreReady(Lobby lobby) {

@@ -1,13 +1,10 @@
 package fvsl.memory.server.sockets;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.*;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -67,13 +64,14 @@ public class Server extends JFrame implements Runnable {
 		scroll.setBounds(0, 0, 595, 372);
 		// scroll.setBorder(new TitledBorder ( new EtchedBorder (),
 		// "Server console" ));
-		
+
 		MessageConsole mc = new MessageConsole(tArea);
 		mc.redirectOut(null, System.out);
 		mc.redirectErr(Color.RED, System.out);
 
 	}
 
+	@Override
 	public void run() {
 		synchronized (this) {
 			this.runningThread = Thread.currentThread();
