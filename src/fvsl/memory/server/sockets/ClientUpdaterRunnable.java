@@ -9,7 +9,6 @@ import java.util.Vector;
 
 import fvsl.memory.common.entities.Request;
 import fvsl.memory.common.util.StringResources;
-import fvsl.memory.server.db.ServerData;
 
 // TODO: Auto-generated Javadoc
 /**
