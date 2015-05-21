@@ -145,6 +145,14 @@ public class GameState {
 		}
 		return null;
 	}
+	
+
+	public void kickPlayer(Player player) {
+		players.remove(getPlayerByName(player.getName()));
+		if (players.size() <= 1){
+			endGame();
+		}
+	}
 
 	/**
 	 * @return the cards
@@ -245,9 +253,5 @@ public class GameState {
 	 */
 	public synchronized void setGameOver(Boolean isGameOver) {
 		this.isGameOver = isGameOver;
-	}
-
-	public void kickPlayer(Player player) {
-		players.remove(getPlayerByName(player.getName()));
 	}
 }

@@ -239,7 +239,7 @@ public class ClientRunnable implements Runnable {
 					}
 					game.setPerformingAction(false);
 				}
-			} else if (request.getAction() == GameRequestAction.PlayerTurnTimeout) {
+			} else if (request.getAction() == GameRequestAction.PlayerLeaveGame) {
 				synchronized (game.getId()) {
 					game.setPerformingAction(true);
 					game.kickPlayer(request.getPlayer());
