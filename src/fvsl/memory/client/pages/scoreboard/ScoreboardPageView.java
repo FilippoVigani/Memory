@@ -18,6 +18,7 @@ import fvsl.memory.common.util.StringResources;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.Comparator;
 import java.util.Vector;
 
 public class ScoreboardPageView extends Page {
@@ -79,6 +80,13 @@ public class ScoreboardPageView extends Page {
 
 		public PlayersTableModel(Vector<Player> list) {
 			this.list = list;
+			this.list.sort(new Comparator<Player>() {
+				@Override
+				public int compare(Player p1, Player p2) {
+					return p1.getScore() < p2.getScore() ? 1 : p1.getScore() > p2.getScore() ? -1 : 0;
+				}
+			});
+			
 		}
 
 		@Override
