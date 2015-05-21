@@ -181,6 +181,11 @@ public class LobbyPageView extends Page {
 			controller.goToGamePage(model.getLobby());
 		}
 	}
+	
+	@Override
+	protected void onExit() {
+		controller.leaveLobby(model.getLobby());
+	}
 
 	protected class PlayersTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;

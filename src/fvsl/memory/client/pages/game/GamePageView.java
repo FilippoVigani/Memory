@@ -275,6 +275,10 @@ public class GamePageView extends Page {
 				model.getTurnPlayer().setScore(playerPoints);
 				refreshTable();
 				refreshTimer();
+			} else if (gameRequest.getAction() == GameRequestAction.PlayerLeaveGame){
+				model.getLobby().getConnectedPlayers().remove(
+						model.getLobby().getConnectedPlayerByName(gameRequest.getPlayer().getName()));
+				refreshTable();
 			}
 		}
 	}
@@ -373,4 +377,14 @@ public class GamePageView extends Page {
 	public void setController(GamePageController controller) {
 		this.controller = controller;
 	}
+
+	@Override
+	protected void onExit() {
+		if (model.getTurnPlayer().getName().equals(Application.player.getName())){
+			controller.reportTurnTimeout(model.getLobby().getId());
+		}
+		controller.leaveGame(model.getLobby().getId());
+	}
+	
+	
 }

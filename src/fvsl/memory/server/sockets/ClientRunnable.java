@@ -138,6 +138,7 @@ public class ClientRunnable implements Runnable {
 		GameState game = serverData.getGameById(request.getId());
 		System.out.println(StringResources.gamePerf.toString() + game.isPerformingAction());
 		if (!game.isPerformingAction() && game.isStarted()) {
+			System.out.println("Game request: " + request.getAction());
 			if (request.getAction() == GameRequestAction.TurnCard) {
 				synchronized (game.getId()) {
 					game.setPerformingAction(true);
@@ -180,6 +181,7 @@ public class ClientRunnable implements Runnable {
 									GameRequest playerWonTurnRequest = new GameRequest(game.getId(), GameRequestAction.WinPlayerTurn);
 									playerWonTurnRequest.setPlayer(player);
 									playerWonTurnRequest.setNextPlayer(game.getTurnPlayer());
+									System.out.println("punt " + game.getPlayerPoints(player));
 									playerWonTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
 									notifyUpdate(RequestType.GameRequest, playerWonTurnRequest);
 								} else { // Player lost turn
@@ -199,6 +201,8 @@ public class ClientRunnable implements Runnable {
 									GameRequest playerLostTurnRequest = new GameRequest(game.getId(), GameRequestAction.LosePlayerTurn);
 									playerLostTurnRequest.setPlayer(player);
 									playerLostTurnRequest.setNextPlayer(game.getTurnPlayer());
+
+									System.out.println("punt " + game.getPlayerPoints(player));
 									playerLostTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
 									notifyUpdate(RequestType.GameRequest, playerLostTurnRequest);
 								}
@@ -233,6 +237,15 @@ public class ClientRunnable implements Runnable {
 						playerLostTurnRequest.setPlayerPoints(game.getPlayerPoints(player));
 						notifyUpdate(RequestType.GameRequest, playerLostTurnRequest);
 					}
+					game.setPerformingAction(false);
+				}
+			} else if (request.getAction() == GameRequestAction.PlayerTurnTimeout) {
+				synchronized (game.getId()) {
+					game.setPerformingAction(true);
+					game.kickPlayer(request.getPlayer());
+					GameRequest playerKicked = new GameRequest(game.getId(), GameRequestAction.PlayerLeaveGame);
+					playerKicked.setPlayer(request.getPlayer());
+					notifyUpdate(RequestType.GameRequest, playerKicked);
 					game.setPerformingAction(false);
 				}
 			}

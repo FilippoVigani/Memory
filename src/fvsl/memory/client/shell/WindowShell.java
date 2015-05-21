@@ -139,6 +139,7 @@ public class WindowShell extends JFrame {
 				if (Application.getUpdater() != null) {
 					Application.getUpdater().close(true);
 				}
+				pageManager.onExit();
 				System.exit(1);
 			}
 		});

@@ -237,4 +237,10 @@ public class MainPageView extends Page {
 
 	}
 
+	@Override
+	protected void onExit() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

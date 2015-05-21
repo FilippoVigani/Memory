@@ -226,4 +226,10 @@ public class CreateLobbyPageView extends Page {
 
 	}
 
+	@Override
+	protected void onExit() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -31,9 +31,11 @@ public class GUIUpdaterRunnable implements Runnable {
 
 	protected Socket serverSocket;
 	private volatile Page page;
+	private boolean isRunning;
 
 	public GUIUpdaterRunnable(Page page) {
 		this.page = page;
+		setRunning(true);
 	}
 
 	@Override
@@ -57,7 +59,7 @@ public class GUIUpdaterRunnable implements Runnable {
 			e.printStackTrace();
 		}
 
-		while (!Thread.currentThread().isInterrupted() && !serverSocket.isClosed()) {
+		while (isRunning()) {
 
 			try {
 
@@ -233,6 +235,20 @@ public class GUIUpdaterRunnable implements Runnable {
 	 */
 	public void setPage(Page page) {
 		this.page = page;
+	}
+
+	/**
+	 * @return the isRunning
+	 */
+	public boolean isRunning() {
+		return isRunning;
+	}
+
+	/**
+	 * @param isRunning the isRunning to set
+	 */
+	public void setRunning(boolean isRunning) {
+		this.isRunning = isRunning;
 	}
 
 }

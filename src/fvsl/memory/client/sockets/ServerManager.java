@@ -311,4 +311,19 @@ public class ServerManager {
 		System.out.println(StringResources.reqSent);
 		closeConnection();
 	}
+
+	public void requestToLeaveGame(Player player, String gameId) {
+		connect();
+		GameRequest gameRequest = new GameRequest(gameId, GameRequestAction.PlayerLeaveGame);
+		gameRequest.setPlayer(player);
+		try {
+			streamToServer.reset();
+			streamToServer.writeObject(new Request(player, RequestAction.Ask, RequestType.GameRequest, gameRequest));
+			streamToServer.flush();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		System.out.println(StringResources.reqSent);
+		closeConnection();
+	}
 }

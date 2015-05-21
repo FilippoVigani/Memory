@@ -142,4 +142,10 @@ public class ScoreboardPageView extends Page {
 			return null;
 		}
 	}
+
+	@Override
+	protected void onExit() {
+		// TODO Auto-generated method stub
+		
+	}
 }

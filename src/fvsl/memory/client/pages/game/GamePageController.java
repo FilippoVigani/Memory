@@ -38,4 +38,8 @@ public class GamePageController extends PageListeners {
 	public void goToScoreboardPage(Lobby lobby) {
 		fireGoToScoreboardEvent(lobby);
 	}
+
+	public void leaveGame(String gameId) {
+		Application.getServerManager().requestToLeaveGame(Application.player, gameId);
+	}
 }
