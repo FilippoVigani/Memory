@@ -76,11 +76,10 @@ public class WindowShell extends JFrame {
 
 				final GamePageView gpw = new GamePageView((Lobby) e.getSource());
 
-				final ScoreboardPageView scw = new ScoreboardPageView((Lobby) e.getSource());
-
 				gpw.getController().addEventListener(new GoToScoreboardEventListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						ScoreboardPageView scw = new ScoreboardPageView((Lobby) e.getSource());
 						pageManager.loadNewPage(scw);
 					}
 				});
@@ -108,11 +107,11 @@ public class WindowShell extends JFrame {
 				});
 
 				final GamePageView gpw = new GamePageView((Lobby) e.getSource());
-				final ScoreboardPageView scw = new ScoreboardPageView((Lobby) e.getSource());
 
 				gpw.getController().addEventListener(new GoToScoreboardEventListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						ScoreboardPageView scw = new ScoreboardPageView((Lobby) e.getSource());
 						pageManager.loadNewPage(scw);
 					}
 				});

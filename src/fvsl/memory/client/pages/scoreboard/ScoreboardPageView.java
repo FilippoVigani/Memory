@@ -27,7 +27,7 @@ public class ScoreboardPageView extends Page {
 	private static final long serialVersionUID = -9192421170975614105L;
 
 	public ScoreboardPageView(Lobby lobby) {
-		super();
+		super(lobby);
 		
 	}
 	private ScoreboardPageModel model;
@@ -62,12 +62,10 @@ public class ScoreboardPageView extends Page {
 		// TODO Auto-generated method stub
 		model = new ScoreboardPageModel();
 		model.setLobby(bufferLobby);
-
 	}
 
 	@Override
 	protected void populateViews() {
-		// TODO Auto-generated method stub
 		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
 		scoreTable.setModel(tableModel);
 
