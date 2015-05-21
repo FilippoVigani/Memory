@@ -11,12 +11,14 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 import fvsl.memory.client.pages.Page;
+import fvsl.memory.client.pages.PageListeners;
 import fvsl.memory.client.pages.game.GamePageController;
 import fvsl.memory.client.pages.game.GamePageModel;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.util.StringResources;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -51,12 +53,12 @@ public class ScoreboardPageView extends Page {
 		JPanel Panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
 		scoreTable=new JTable();
-		panel.add(Box.createRigidArea(new Dimension(350,30)));
 		panel.add(new JScrollPane(scoreTable));
-		panel.add(Box.createRigidArea(new Dimension(350,30)));
-		backButton=new JButton("back");
-		panel.add(Box.createVerticalGlue());
+		backButton=new JButton("Continue");
 		panel.add(backButton);
+		backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		backButton.setMaximumSize(new Dimension(Short.MAX_VALUE,
+                Short.MAX_VALUE));
 	}
 
 	@Override
@@ -143,9 +145,16 @@ public class ScoreboardPageView extends Page {
 		}
 	}
 
+	public PageListeners getController() {
+		// TODO Auto-generated method stub
+		return controller;
+	}
+
 	@Override
 	protected void onExit() {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 }

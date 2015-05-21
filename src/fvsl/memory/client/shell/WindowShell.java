@@ -81,6 +81,12 @@ public class WindowShell extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						ScoreboardPageView scw = new ScoreboardPageView((Lobby) e.getSource());
 						pageManager.loadNewPage(scw);
+				scw.getController().addEventListener(new GoToMainPageEventListener(){
+							@Override
+							public void actionPerformed(ActionEvent e) {
+							pageManager.loadNewPage(mpw);
+						}
+						});
 					}
 				});
 
@@ -113,6 +119,12 @@ public class WindowShell extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						ScoreboardPageView scw = new ScoreboardPageView((Lobby) e.getSource());
 						pageManager.loadNewPage(scw);
+				scw.getController().addEventListener(new GoToMainPageEventListener(){
+							@Override
+							public void actionPerformed(ActionEvent e) {
+							pageManager.loadNewPage(mpw);
+						}
+						});
 					}
 				});
 
