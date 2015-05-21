@@ -1,5 +1,6 @@
 package fvsl.memory.client.pages.scoreboard;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -7,12 +8,15 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import fvsl.memory.client.pages.Page;
+import fvsl.memory.client.pages.game.GamePageModel;
 import fvsl.memory.common.entities.Lobby;
 import fvsl.memory.common.entities.Player;
 import fvsl.memory.common.util.StringResources;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Vector;
 
@@ -26,7 +30,7 @@ public class ScoreboardPageView extends Page {
 		super();
 		
 	}
-	
+	private ScoreboardPageModel model;
 	private Lobby bufferLobby;
 	@Override
 	protected void bufferize(Object o) {
@@ -41,9 +45,10 @@ public class ScoreboardPageView extends Page {
 		add(panel);
 		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
 		scoreTable=new JTable();
+		panel.add(Box.createRigidArea(new Dimension(350,30)));
 		panel.add(new JScrollPane(scoreTable));
-		
-	
+		panel.add(Box.createRigidArea(new Dimension(350,30)));
+		backButton=new JButton("back");
 	}
 
 	@Override
@@ -55,12 +60,16 @@ public class ScoreboardPageView extends Page {
 	@Override
 	protected void loadData() {
 		// TODO Auto-generated method stub
+		model = new ScoreboardPageModel();
+		model.setLobby(bufferLobby);
 
 	}
 
 	@Override
 	protected void populateViews() {
 		// TODO Auto-generated method stub
+		TableModel tableModel = new PlayersTableModel(model.getLobby().getConnectedPlayers());
+		scoreTable.setModel(tableModel);
 
 	}
 
@@ -68,7 +77,7 @@ public class ScoreboardPageView extends Page {
 		private static final long serialVersionUID = 1L;
 
 		private Vector<Player> list = new Vector<Player>();
-		private String[] columnNames = { StringResources.player.toString(), StringResources.score.toString(), StringResources.turn.toString() };
+		private String[] columnNames = { StringResources.player.toString(), StringResources.score.toString()};
 
 		public PlayersTableModel(Vector<Player> list) {
 			this.list = list;
