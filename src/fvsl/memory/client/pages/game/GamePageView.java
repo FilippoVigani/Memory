@@ -39,6 +39,8 @@ import fvsl.memory.common.util.StringResources;
 public class GamePageView extends Page {
 	public GamePageView(Lobby lobby) {
 		super(lobby);
+
+		controller = new GamePageController();
 	}
 
 	private JTable playersTable;
@@ -165,7 +167,6 @@ public class GamePageView extends Page {
 	protected void loadData() {
 		model = new GamePageModel();
 		model.setLobby(bufferLobby);
-		controller = new GamePageController();
 		model.setCards(controller.getCardsFromServer(model.getLobby().getId()));
 		model.setTurnPlayer(controller.getTurnPlayerFromServer(model.getLobby().getId()));
 		remaining = 0L;
@@ -288,6 +289,7 @@ public class GamePageView extends Page {
 	public void endGame(String id) {
 		if (id.equals(model.getLobby().getId())){
 			stopTimer();
+			controller.goToScoreboardPage(model.getLobby());
 		}
 	}
 
